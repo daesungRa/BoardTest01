@@ -6,6 +6,7 @@ public class MemberVo {
 	private String userPwd;
 	private String userName;
 	private String email;
+	private String phone;
 	private String postal;
 	private String address;
 	private String photo;
@@ -35,6 +36,12 @@ public class MemberVo {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getPostal() {
 		return postal;

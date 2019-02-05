@@ -38,21 +38,23 @@
 		<script>alert('${sessionScope.msg}');</script>
 	</c:if>
 
-	<div class='navbar navbar-expand-sm justify-content-start bg-dark navbar-dark sticky-top'>
-		<div class='navbar-header'>
-			<a class='navbar-brand' href='#'>
-				<img src='/controller/resources/imgs/deer.jpg' alt='brand logo' style='width: 50px; height: 44px'/>
-			</a>
-		</div>
-	</div>
+	<!-- include navBar -->
+	<jsp:include page="/WEB-INF/views/component/navBar.jsp"></jsp:include>
 	
+	<!-- middle component -->
 	<div class='container'>
+		<p/>
+		<h1>로그인 페이지</h1>
 		<form class='form-group' name='frm' action='login' method='post'>
 			<input class='form-control' type='text' name='userId' placeholder='아이디 입력' />
 			<input class='form-control' type='password' name='userPwd' placeholder='비밀번호 입력' />
 			<input class='btn btn-primary' type='button' id='btnSubmit' value='제 출' />
 		</form>
+		<p/>
 	</div>
+	
+	<!-- include footer -->
+	<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
 	
 	<script>mainLoginForm();</script>
 

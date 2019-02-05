@@ -49,6 +49,7 @@ public class MemberDao {
 				vo.setUserId(rs.getString("userId"));
 				vo.setUserName(rs.getString("userName"));
 				vo.setEmail(rs.getString("email"));
+				vo.setPhone(rs.getString("phone"));
 				vo.setPostal(rs.getString("postal"));
 				vo.setAddress(rs.getString("address"));
 				if (rs.getString("photo") != null) {
