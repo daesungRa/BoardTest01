@@ -74,4 +74,28 @@ public class MemberController {
 		
 		return "/member/joinForm";
 	}
+	
+	@RequestMapping(value="join", method=RequestMethod.POST)
+	public String join (@RequestParam(value="userId") String userId, @RequestParam(value="userPwd") String userPwd, HttpSession session) {
+		String result = "";
+		MemberVo vo = null;
+		logger.info("join 시작");
+		vo = service.memberLogin(userId, userPwd);
+		
+		// 성공시 세션 세팅 후 인덱스로 이동, 실패시 실패 이유 알려주지 않음 (실패이유는 로그에 저장됨)
+		if (vo != null) {
+			session.setAttribute("userId", vo.getUserId());
+			session.setAttribute("userName", vo.getUserName());
+			session.setAttribute("msg", "로그인에 성공했습니다");
+			logger.info("join 성공");
+			
+			result = "redirect:/";
+		} else {
+			session.setAttribute("msg", "로그인에 실패했습니다");
+			logger.info("join 실패");
+			result = "redirect:joinForm";
+		}
+		
+		return result;
+	}
 }

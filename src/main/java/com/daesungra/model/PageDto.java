@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import org.springframework.stereotype.Repository;
-
-@Repository
 public class PageDto {
 	Connection conn = null;
 	PreparedStatement ps = null;
