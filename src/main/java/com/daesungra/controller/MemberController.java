@@ -8,14 +8,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.daesungra.model.MemberVo;
 import com.daesungra.service.MemberService;
 
 @Controller
-@RequestMapping(value="member")
+@RequestMapping(value="/member")
 public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -23,16 +27,24 @@ public class MemberController {
 	MemberService service;
 	
 	/*
+	 * get ContextPath
+	 */
+	@ModelAttribute("cp")
+	public String getContextPath(HttpServletRequest request) {
+		return request.getContextPath();
+	}
+	
+	/*
 	 * login, logout
 	 */
-	@RequestMapping(value="loginForm", method=RequestMethod.GET)
-	public String getLoginForm (Model model) {
+	@RequestMapping(value="/loginForm", method=RequestMethod.GET)
+	public String getLoginForm (Model model, HttpServletRequest request) {
 		logger.info("call loginForm");
+		model.addAttribute("cp", request.getContextPath());
 		
 		return "/member/loginForm";
 	}
-	
-	@RequestMapping(value="login", method=RequestMethod.POST)
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login (@RequestParam(value="userId") String userId, @RequestParam(value="userPwd") String userPwd, HttpSession session) {
 		String result = "";
 		MemberVo vo = null;
@@ -55,12 +67,12 @@ public class MemberController {
 		
 		return result;
 	}
-	
-	@RequestMapping(value="logout", method=RequestMethod.GET)
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout (HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.removeAttribute("userId");
 		session.removeAttribute("userName");
+		session.invalidate();
 		
 		return "redirect:/";
 	}
@@ -68,14 +80,13 @@ public class MemberController {
 	/*
 	 * join
 	 */
-	@RequestMapping(value="joinForm", method=RequestMethod.GET)
+	@RequestMapping(value="/joinForm", method=RequestMethod.GET)
 	public String getJoinForm (Model model) {
 		logger.info("call joinForm");
 		
 		return "/member/joinForm";
 	}
-	
-	@RequestMapping(value="join", method=RequestMethod.POST)
+	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join (@RequestParam(value="userId") String userId, @RequestParam(value="userPwd") String userPwd, HttpSession session) {
 		String result = "";
 		MemberVo vo = null;
@@ -95,6 +106,16 @@ public class MemberController {
 			logger.info("join 실패");
 			result = "redirect:joinForm";
 		}
+		
+		return result;
+	}
+	// ViewResolver 를 거치지 않고 응답객체 자체를 반환
+	@ResponseBody
+	@RequestMapping(value="/idChk", method=RequestMethod.POST)
+	public String idChk (@RequestParam(value="userId") String userId) {
+		logger.info("get user id: " + userId);
+		String result = "0";
+		result = service.idCheck(userId);
 		
 		return result;
 	}

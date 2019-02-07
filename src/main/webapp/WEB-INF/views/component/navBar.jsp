@@ -6,31 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>navBar page</title>
-<style>
-	#title {
-		color: #fff;
-		font-size: 14pt;
-		font-weight: bolder;
-		padding: 0 15px 0 6px;
-	}
-	#title:hover {
-		cursor: pointer;
-		text-decoration: none;
-	}
-	.dropdown-toggle {
-		color: #bbb;
-	}
-	.dropdown-toggle:hover {
-		color: #eee;
-		text-decoration: none;
-	}
-	.dropdown-menu {
-		background-color: #eee;
-	}
-	.dropdown-item {
-		color: #000;
-	}
-</style>
 </head>
 <body>
 
@@ -66,8 +41,8 @@
 						</a>
 						<ul class='dropdown-menu'
 							style='text-align: right; padding-right: 10px;'>
-							<li><a class='dropdown-item' href='member/logout'>로그아웃</a></li>
-							<li><a class='dropdown-item' href='#'>회원정보</a></li>
+							<li><a class='dropdown-item' href='/controller/member/logout'>로그아웃</a></li>
+							<li><a class='dropdown-item' href='/controller/member/viewMember'>회원정보</a></li>
 						</ul>
 					</div>
 				</div>
@@ -82,9 +57,9 @@
 						</a>
 						<ul class='dropdown-menu'
 							style='text-align: right; padding-right: 10px;'>
-							<li><a class='dropdown-item' href='member/loginForm'>로그인</a>
+							<li><a class='dropdown-item' href='/controller/member/loginForm'>로그인</a>
 							</li>
-							<li><a class='dropdown-item' href='member/joinForm'>회원가입</a>
+							<li><a class='dropdown-item' href='/controller/member/joinForm'>회원가입</a>
 							</li>
 						</ul>
 					</div>

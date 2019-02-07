@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+/*
+ * header.jsp
+ */
+#header {
+	background: url("/controller/resources/imgs/book-back03-opa.jpg")
+		no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 500px;
+}
+
+/*
+ * navBar.jsp
+ */
+#title {
+	color: #fff;
+	font-size: 14pt;
+	font-weight: bolder;
+	padding: 0 15px 0 6px;
+}
+#title:hover {
+	cursor: pointer;
+	text-decoration: none;
+}
+.dropdown-toggle {
+	color: #bbb;
+}
+.dropdown-toggle:hover {
+	color: #eee;
+	text-decoration: none;
+}
+.dropdown-menu {
+	background-color: #eee;
+}
+.dropdown-item {
+	color: #000;
+}
+
+/*
+ * footer.jsp
+ */
+#container-footer {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+/*
+ * index.jsp
+ */
+
+/*
+ * loginForm.jsp
+ */
+
+/*
+ * joinForm.jsp
+ */
+ #joinForm {
+ 	width: 62%;
+	margin-top: 20px;
+	padding: 10px 30px 10px 70px;
+ 	float: left;
+ 	/* border: 1px solid black; */
+ }
+ #memberImg {
+ 	float: left;
+ 	width: 38%;
+ 	height: 500px;
+ 	margin-top: 20px;
+ 	padding-top: 82px;
+ 	text-align: center;
+ }

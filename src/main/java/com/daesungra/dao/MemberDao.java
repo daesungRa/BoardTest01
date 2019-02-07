@@ -11,6 +11,11 @@ import com.daesungra.model.MemberVo;
 
 public class MemberDao {
 	
+	/*
+	 * 커넥션은 매 메서드 실행 시마다 새로 만들었다가 해제함
+	 * dao 를 호출하는 service 객체가 controller 에서 항시 객체로 주입되기 때문(?)
+	 * 	- 그렇다면 controller 는 항시 운용중이고, service 객체는 항시 살아있다는 의미일까??
+	 */
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
@@ -35,13 +40,22 @@ public class MemberDao {
 	 */
 	public MemberVo memberSelect (String userId, String userPwd) {
 		MemberVo vo = null;
+		String sql = null;
 		this.conn = new DBConn().getConn();
 		
 		try {
-			String sql = " select * from member where userId = ? and userPwd = ? ";
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, userId);
-			ps.setString(2, userPwd);
+			// pwd 가 -1 이라면 아이디체크, 아니라면 로그인 및 회원조회
+			if (userPwd.equals("-1")) {
+				sql = " select * from member where userId = ? ";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, userId);
+			} else {
+				sql = " select * from member where userId = ? and userPwd = ? ";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, userId);
+				ps.setString(2, userPwd);
+			}
+			
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {

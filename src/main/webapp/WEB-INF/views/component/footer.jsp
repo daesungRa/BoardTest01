@@ -6,11 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>footer page</title>
-<style>
-	#container-footer {
-		background-color: rgba(0, 0, 0, 0.6);
-	}
-</style>
 </head>
 <body>
 

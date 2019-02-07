@@ -5,20 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>header page</title>
-<style>
-	header {
-		background: url("/controller/resources/imgs/book-back03-opa.jpg") no-repeat center center fixed;
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
-		background-size: cover;
-		height: 500px;
-	}
-</style>
 </head>
 <body>
 
-	<header class='container-fluid'>
+	<header class='container-fluid' id='header'>
 	
 		<jsp:include page="/WEB-INF/views/component/navBar.jsp"></jsp:include>
 		
