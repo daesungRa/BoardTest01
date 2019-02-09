@@ -62,14 +62,13 @@ function funcJoinForm () {
     }
 	// photo file
 	frm.photo.onchange = imagePreView;
-	
-	// cancel
-	frm.btnCancel.onclick = function () {
-		window.location.reload();
-	}
 	// btn submit
 	frm.btnSubmit.onclick = function () {
 		funcSubmit(frm);
+	}
+	// cancel
+	frm.btnCancel.onclick = function () {
+		window.location.reload();
 	}
 }
 	// 아이디 체크 함수
@@ -78,6 +77,12 @@ function funcIdChk (xhr) {
 	var btnIdChk = document.getElementById('btnIdChk');
 	var userIdChk = document.getElementById('userIdChk');
 	var userIdChkResult = document.getElementById('userIdChkResult');
+	
+	if (userId.value == '') {
+		alert('아이디를 입력하세요');
+		userId.focus();
+		return;
+	}
 
 	if (btnIdChk.value == '중복확인') {
 		xhr.open('post', '/controller/member/idChk');
@@ -115,10 +120,10 @@ function funcPwdChk (userPwd01, userPwd02) {
 	var userPwdChk = document.getElementById('userPwdChk');
 	var userPwdChkResult = document.getElementById('userPwdChkResult');
 	
-	if (userPwd01.value != userPwd02.value) {
+	if (userPwd01.value != userPwd02.value || userPwd01.value == '') {
 		userPwdChk.value = 'unChecked';
 		userPwdChkResult.innerHTML = '비밀번호가 일치하지 않습니다';
-	} else if (userPwd01.value == userPwd02.value || userPwd01.value == '') {
+	} else if (userPwd01.value == userPwd02.value || userPwd01.value != '') {
 		userPwdChk.value = 'checked';
 		userPwdChkResult.innerHTML = '';
 	}
@@ -193,11 +198,43 @@ function imagePreView (e) {
 }
 	// 최종 제출 함수
 function funcSubmit (frm) {
+	// 폼 내부 모든 input 중 타입이 hidden 인 태그만 검증
 	var inputs = frm.getElementsByTagName('input');
 	for (var i = 0; i < inputs.length; i++) {
-		if (inputs[i].type.toLowerCase() == 'hidden') {
-			var chkState = inputs[i].value;
-			alert(inputs[i].id + ' - ' + chkState);
+		var tag = inputs[i];
+		if (tag.type.toLowerCase() == 'hidden') {
+			var chkState = tag.value;
+			// 현재 태그가 unChecked 상태라면 메시지 발생 후 포커싱
+			if (chkState == 'unChecked') {
+				if (tag.id == 'userIdChk') {
+					alert('아이디 중복확인이 필요합니다');
+					frm.userId.focus();
+					frm.userId.select();
+					return;
+				} else if (tag.id == 'userPwdChk') {
+					alert('비밀번호는 영문, 숫자, 특수문자 조합만 가능합니다');
+					frm.userPwd.focus();
+					frm.userPwd.select();
+					return;
+				} else if (tag.id == 'userNameChk') {
+					alert('이름은 한글 혹은 영문으로만 입력하십시오');
+					frm.userName.focus();
+					frm.userName.select();
+					return;
+				} else if (tag.id == 'emailChk') {
+					alert('이메일 형식에 맞게 입력하십시오');
+					frm.email.focus();
+					frm.email.select();
+					return;
+				} else if (tag.id == 'phoneChk') {
+					alert("연락처 형식에 맞게 입력하십시오 ( '-' 포함)");
+					frm.phone.focus();
+					frm.phone.select();
+					return;
+				}
+			}
 		}
-	}
+	} // 입력 데이터 검증 로직 끝
+	
+	frm.submit();
 } // end of joinForm method

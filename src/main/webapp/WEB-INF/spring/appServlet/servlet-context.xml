@@ -21,6 +21,13 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- Resolves upload files -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxSize = 10mb -->
+		<beans:property name="maxUploadSize" value="100000000"></beans:property>
+		<beans:property name="defaultEncoding" value="utf-8"></beans:property>
+	</beans:bean>
+	
 	<context:component-scan base-package="com.daesungra.controller" />
 	<context:component-scan base-package="com.daesungra.service" />
 	<context:component-scan base-package="com.daesungra.dao" />

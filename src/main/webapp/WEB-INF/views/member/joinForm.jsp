@@ -16,6 +16,12 @@
 	<script src='/controller/resources/js/custom.js'></script>
 </head>
 <body>
+	<c:if test="${not empty requestScope.msg }">
+		<c:set var="msg" value="${requestScope.msg }" scope="session"/>
+		<script>alert('${msg}');</script>
+		<c:remove var="msg" scope="session"/>
+	</c:if>
+
 	<!-- include navBar -->
 	<jsp:include page="/WEB-INF/views/component/navBar.jsp"></jsp:include>
 
@@ -56,14 +62,14 @@
 				</div>
 				<div class='form-group'>
 					<div class='form-inline'>
-						<input class='form-control' type='text' id='postal' name='postal' placeholder='우편번호 입력' style='width: 30%; margin-right: 10px;' readonly/>
+						<input class='form-control' type='text' id='postal' name='postal' placeholder='우편번호' style='width: 30%; margin-right: 10px;' readonly/>
 						<input class='btn btn-primary' type='button' id='btnPostal' name='btnPostal' value='주소 찾기'></input>
 					</div>
 						<input class='form-control' type='text' id='address' name='address' placeholder='주소 입력' readonly/>
 						<input class='form-control' type='text' id='addressAdd' name='addressAdd' value='' placeholder='추가 주소 입력' />
 				</div>
 				<div class='form-group'>
-					<input type='file' id='photo' name='photo' value='photo' required="required"/><br/>
+					<input type='file' id='photo' name='photo' value='photo' multiple="multiple" required="required"/><br/>
 				</div>
 				<div class='form-group'>
 					<input class='btn btn-primary' type='button' id='btnSubmit' name='btnSubmit' value='제 출' />
@@ -73,7 +79,8 @@
 			<p/>
 		</div>
 		<div class='container' id='memberImg'>
-			<img id='image' src='https://via.placeholder.com/150x200?text=Your Imgs here' width='150px' height='200px' />
+			<img id='image' src='https://via.placeholder.com/150x200?text=Your Imgs here' width='150px' height='200px' /><br/>
+			<p>이미지 미리보기</p>
 		</div>
 	</div>
 

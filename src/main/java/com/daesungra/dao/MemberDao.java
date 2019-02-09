@@ -37,6 +37,7 @@ public class MemberDao {
 	 * - memberSelect
 	 * 로그인, 회원조회에 사용됨 (login, memberView)
 	 * 패스워드는 받아오지 않음 (별도 로직)
+	 * 만약 입력된 패스워드가 '-1' 이라면, 단순 아이디 조회임
 	 */
 	public MemberVo memberSelect (String userId, String userPwd) {
 		MemberVo vo = null;
@@ -100,6 +101,39 @@ public class MemberDao {
 	 */
 	public boolean memberInsert (MemberVo vo) {
 		boolean result = false;
+		String sql = null;
+		this.conn = new DBConn().getConn();
+		
+		try {
+			conn.setAutoCommit(false);
+			sql = " insert into member (userId, userPwd, userName, email, phone, postal, address, photo, photoOri, mDate) "
+				    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate) ";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, vo.getUserId());
+			ps.setString(2, vo.getUserPwd());
+			ps.setString(3, vo.getUserName());
+			ps.setString(4, vo.getEmail());
+			ps.setString(5, vo.getPhone());
+			ps.setString(6, vo.getPostal());
+			ps.setString(7, vo.getAddress());
+			ps.setString(8,  vo.getPhoto());
+			ps.setString(9, vo.getPhotoOri());
+			int insertResult = ps.executeUpdate();
+			
+			if (insertResult > 0) {
+				conn.commit();
+				result = true;
+			}
+		} catch (Exception ex) {
+			try {
+				conn.rollback();
+			} catch (Exception ex2) { ex2.printStackTrace(); }
+			ex.printStackTrace();
+		} finally {
+			try {
+				closeSet();
+			} catch (Exception ex) { }
+		}
 		
 		return result;
 	}

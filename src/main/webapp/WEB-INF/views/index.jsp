@@ -18,8 +18,8 @@
 <body>
 
 	<c:if test="${not empty sessionScope.msg }">
-		<script>alert('${sessionScope.msg}');</script>
-		<c:set var="msg" value="msg" scope="session"/>
+		<c:set var="msg" value="${sessionScope.msg }" scope="session"/>
+		<script>alert('${msg}');</script>
 		<c:remove var="msg" scope="session"/>
 	</c:if>
 

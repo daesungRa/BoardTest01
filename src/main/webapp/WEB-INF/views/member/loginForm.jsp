@@ -16,13 +16,13 @@
 	<script src='/controller/resources/js/custom.js'></script>
 </head>
 <body>
+	<c:set var='cp' value="${pageContext.request.contextPath }" scope="session" />
 
 	<!-- 세션 스코프에서 삭제했는데 왜 새로고침하면 남아있는지? -->
 	<c:if test="${not empty sessionScope.msg }">
-		<script>alert('${sessionScope.msg}');</script>
-		<c:set var="msg" value="msg" scope="session"/>
+		<c:set var="msg" value="${sessionScope.msg }" scope="session"/>
+		<script>alert('${msg}');</script>
 		<c:remove var="msg" scope="session"/>
-		<script>alert('${sessionScope.msg}');</script>
 	</c:if>
 	
 	<!-- include navBar -->
@@ -32,7 +32,7 @@
 	<div class='container'>
 		<p/>
 		<h1>로그인 페이지</h1>
-		<form class='form-group' name='loginFrm' action='/controller/member/login' method='post'>
+		<form class='form-group' name='loginFrm' action='${cp }/member/login' method='post'>
 			<input class='form-control' type='text' name='userId' placeholder='아이디 입력' />
 			<input class='form-control' type='password' name='userPwd' placeholder='비밀번호 입력' />
 			<input class='btn btn-primary' type='button' id='btnSubmit' value='제 출' />
