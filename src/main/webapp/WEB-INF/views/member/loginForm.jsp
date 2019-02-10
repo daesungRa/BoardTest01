@@ -8,12 +8,12 @@
 	<title>Login Page</title>
 
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
-	<link rel='stylesheet' href='/controller/resources/css/custom.css' />
+	<link rel='stylesheet' href='/controller/resources/css/main.css' />
 	
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
-	<script src='/controller/resources/js/custom.js'></script>
+	<script src='/controller/resources/js/main.js'></script>
 </head>
 <body>
 	<c:set var='cp' value="${pageContext.request.contextPath }" scope="session" />
@@ -29,15 +29,20 @@
 	<jsp:include page="/WEB-INF/views/component/navBar.jsp"></jsp:include>
 	
 	<!-- middle component -->
-	<div class='container'>
-		<p/>
-		<h1>로그인 페이지</h1>
-		<form class='form-group' name='loginFrm' action='${cp }/member/login' method='post'>
-			<input class='form-control' type='text' name='userId' placeholder='아이디 입력' />
-			<input class='form-control' type='password' name='userPwd' placeholder='비밀번호 입력' />
-			<input class='btn btn-primary' type='button' id='btnSubmit' value='제 출' />
-		</form>
-		<p/>
+	<div class='container' id='loginForm'>
+		<div class='container' id='innerLoginForm'>
+			<p/>
+			<h1>로그인 페이지</h1>
+			<form class='form-group' name='loginFrm' action='${cp }/member/login' method='post'>
+				<input class='form-control' type='text' name='userId' placeholder='아이디 입력' /><br/>
+				<input class='form-control' type='password' name='userPwd' placeholder='비밀번호 입력' /><br/>
+				<input class='btn btn-primary' type='button' id='btnSubmit' value='제 출' style='margin-top: 20px;'/><br/>
+			</form>
+			<a href='#'>아이디 찾기</a>&nbsp;&nbsp;
+			<a href='#'>비밀번호 찾기</a>&nbsp;&nbsp;
+			<a href='/controller/member/joinForm'>회원가입</a>
+			<p/>
+		</div>
 	</div>
 	
 	<!-- include footer -->

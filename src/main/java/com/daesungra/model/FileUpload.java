@@ -68,29 +68,43 @@ public class FileUpload {
 					System.out.println("================================");
 					System.out.println("[result] ori : " + oriFileName);
 					System.out.println("[result] sys : " + sysFileName);
+					
+					// 파일 저장까지 완료했다면, 반환할 vo 객체를 생성한다
+					// 여기에 ori, sys 파일을 구분해서 세팅한다
+					this.mvo = new MemberVo();
+					
+					mvo.setUserId(multi.getParameter("userId"));
+					mvo.setUserPwd(multi.getParameter("userPwd"));
+					mvo.setUserName(multi.getParameter("userName"));
+					mvo.setEmail(multi.getParameter("email"));
+					mvo.setPhone(multi.getParameter("phone"));
+					mvo.setPostal(multi.getParameter("postal"));
+					// 추가주소가 있다면,
+					if (!multi.getParameter("addressAdd").equals("")) {
+						mvo.setAddress(multi.getParameter("address") + " " + multi.getParameter("addressAdd"));
+					} else {
+						mvo.setAddress(multi.getParameter("address"));
+					}
+					mvo.setPhoto(saveDir + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 전체 경로 입력
+					mvo.setPhotoOri(oriFileName); // 사용자에게 보여질 오리지널 파일명
 				} else {
-					// 저장할 파일이 존재하지 않는다면 다음 반복 실행
-					continue;
+					// 저장에 성공한 파일이 존재하지 않거나
+					// 애초에 요청받은 파일 정보가 없는 경우 파일을 제외한 정보만 저장됨
+					this.mvo = new MemberVo();
+					
+					mvo.setUserId(multi.getParameter("userId"));
+					mvo.setUserPwd(multi.getParameter("userPwd"));
+					mvo.setUserName(multi.getParameter("userName"));
+					mvo.setEmail(multi.getParameter("email"));
+					mvo.setPhone(multi.getParameter("phone"));
+					mvo.setPostal(multi.getParameter("postal"));
+					// 추가주소가 있다면,
+					if (!multi.getParameter("addressAdd").equals("")) {
+						mvo.setAddress(multi.getParameter("address") + " " + multi.getParameter("addressAdd"));
+					} else {
+						mvo.setAddress(multi.getParameter("address"));
+					}
 				}
-				
-				// 파일 저장까지 완료했다면, 반환할 vo 객체를 생성한다
-				// 여기에 ori, sys 파일을 구분해서 세팅한다
-				this.mvo = new MemberVo();
-				
-				mvo.setUserId(multi.getParameter("userId"));
-				mvo.setUserPwd(multi.getParameter("userPwd"));
-				mvo.setUserName(multi.getParameter("userName"));
-				mvo.setEmail(multi.getParameter("email"));
-				mvo.setPhone(multi.getParameter("phone"));
-				mvo.setPostal(multi.getParameter("postal"));
-				// 추가주소가 있다면,
-				if (!multi.getParameter("addressAdd").equals("")) {
-					mvo.setAddress(multi.getParameter("address") + " " + multi.getParameter("addressAdd"));
-				} else {
-					mvo.setAddress(multi.getParameter("address"));
-				}
-				mvo.setPhoto(saveDir + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 전체 경로 입력
-				mvo.setPhotoOri(oriFileName); // 사용자에게 보여질 오리지널 파일명
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Join Page</title>
+<title>View Member Info</title>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
 	<link rel='stylesheet' href='/controller/resources/css/main.css' />
 	

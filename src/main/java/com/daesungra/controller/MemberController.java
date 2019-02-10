@@ -69,7 +69,7 @@ public class MemberController {
 	}
 	
 	/*
-	 * join
+	 * join 및 회원관리
 	 */
 	@RequestMapping(value="/joinForm", method=RequestMethod.GET)
 	public String getJoinForm (Model model) {

@@ -24,10 +24,18 @@
 		</button>
 		<div class='collapse navbar-collapse' id='collapsibleNavbar'>
 			<ul class='navbar-nav'>
-				<li class='nav-item'><a class='nav-link' href='#'>나의 책상</a></li>
-				<li class='nav-item'><a class='nav-link' href='#'>방명록</a></li>
-				<li class='nav-item'><a class='nav-link' href='#'>카테고리</a></li>
-				<li class='nav-item'><a class='nav-link' href='#'>오늘의 책</a></li>
+				<c:choose>
+					<c:when test="${not empty requestScope.memberInfo and requestScope.memberInfo eq true }">
+						<li class='nav-item'><a class='nav-link' href='#'>프로필 관리</a></li>
+						<li class='nav-item'><a class='nav-link' href='#'>회원정보 관리</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class='nav-item'><a class='nav-link' href='#'>방명록</a></li>
+						<li class='nav-item'><a class='nav-link' href='#'>카테고리</a></li>
+						<li class='nav-item'><a class='nav-link' href='#'>오늘의 책</a></li>
+						<li class='nav-item'><a class='nav-link' href='#'>나의 책상</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 

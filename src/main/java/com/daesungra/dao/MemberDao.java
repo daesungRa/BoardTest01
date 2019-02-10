@@ -114,10 +114,20 @@ public class MemberDao {
 			ps.setString(3, vo.getUserName());
 			ps.setString(4, vo.getEmail());
 			ps.setString(5, vo.getPhone());
-			ps.setString(6, vo.getPostal());
-			ps.setString(7, vo.getAddress());
-			ps.setString(8,  vo.getPhoto());
-			ps.setString(9, vo.getPhotoOri());
+			if (vo.getPostal() == null) { // 입력된 주소정보가 없다면 공백 투입
+				ps.setString(6, "");
+				ps.setString(7, "");
+			} else {				
+				ps.setString(6, vo.getPostal());
+				ps.setString(7, vo.getAddress());
+			}
+			if (vo.getPostal() == null) { // 입력된 파일정보가 없다면 공백 투입
+				ps.setString(8, "");
+				ps.setString(9, "");
+			} else {				
+				ps.setString(8,  vo.getPhoto());
+				ps.setString(9, vo.getPhotoOri());
+			}
 			int insertResult = ps.executeUpdate();
 			
 			if (insertResult > 0) {
