@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,6 +55,7 @@ public class MemberController {
 		} else {
 			session.setAttribute("msg", "로그인에 실패했습니다");
 			logger.info("login 실패");
+			
 			result = "redirect:loginForm";
 		}
 		
@@ -92,7 +92,7 @@ public class MemberController {
 			insertResult = service.memberRegister(vo);
 			
 			if (insertResult) {
-				session.setAttribute("msg", "회원가입 완료");
+				session.setAttribute("msg", "회원가입에 성공했습니다");
 				logger.info("join 성공");
 				
 				result = "redirect:loginForm";
@@ -109,8 +109,7 @@ public class MemberController {
 		
 		return result;
 	}
-	// ViewResolver 를 거치지 않고 응답객체 자체를 반환
-	@ResponseBody
+	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
 	@RequestMapping(value="/idChk", method=RequestMethod.POST)
 	public String idChk (@RequestParam(value="userId") String userId) {
 		logger.info("[idChk] get user id: " + userId);
@@ -118,5 +117,28 @@ public class MemberController {
 		result = service.idCheck(userId);
 		
 		return result;
+	}
+	@RequestMapping(value={"/memberProfileForm", "/memberInfoForm"}, method=RequestMethod.GET)
+	public String getMemberInfo (HttpServletRequest request) {
+		String requestUri = request.getRequestURI();
+		String requestPage = requestUri.substring(requestUri.lastIndexOf("/") + 1, requestUri.length());
+		MemberVo vo = null;
+		request.setAttribute("memberInfo", true);
+		
+		// 인터셉터 통과했다면, 세션에 저장된 아이디로 회원정보를 검색해 뷰에 반환한다
+		if (requestPage.equals("memberProfileForm")) {
+			logger.info("call " + requestPage + " page");
+			// 임시
+			vo = service.memberView((String)request.getSession().getAttribute("userId"));
+			
+			request.setAttribute("memberVo", vo);
+		} else if (requestPage.equals("memberInfoForm")) {
+			logger.info("call " + requestPage + " page");
+			vo = service.memberView((String)request.getSession().getAttribute("userId"));
+			
+			request.setAttribute("memberVo", vo);
+		}
+		
+		return "/member/myPage";
 	}
 }

@@ -6,14 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Join Page</title>
-	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
+	<!-- <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
 	<link rel='stylesheet' href='/controller/resources/css/main.css' />
 	
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script src='/controller/resources/js/main.js'></script>
+	<script src='/controller/resources/js/main.js'></script> -->
 </head>
 <body>
 	<c:if test="${not empty requestScope.msg }">
@@ -23,13 +23,13 @@
 	</c:if>
 
 	<!-- include navBar -->
-	<jsp:include page="/WEB-INF/views/component/navBar.jsp"></jsp:include>
+	<%-- <jsp:include page="/WEB-INF/views/component/navBar.jsp"></jsp:include> --%>
 
 	<!-- middle component -->
 	<div class='container' style='height: 720px;'>
 		<div class='container' id='joinForm'>
 			<p/>
-			<h2>회원가입 페이지</h2><br/>
+			<h3>회원가입 페이지</h3><br/>
 			<form class='form' name='joinFrm' action='/controller/member/join' method='post' enctype='multipart/form-data'>
 				<div class='form-group'>
 					<div class='form-inline'>
@@ -85,8 +85,7 @@
 	</div>
 
 	<!-- include footer -->
-	<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
+	<%-- <jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include> --%>
 	
-	<script>funcJoinForm();</script>
 </body>
 </html>

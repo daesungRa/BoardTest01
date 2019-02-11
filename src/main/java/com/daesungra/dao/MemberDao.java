@@ -65,8 +65,13 @@ public class MemberDao {
 				vo.setUserName(rs.getString("userName"));
 				vo.setEmail(rs.getString("email"));
 				vo.setPhone(rs.getString("phone"));
-				vo.setPostal(rs.getString("postal"));
-				vo.setAddress(rs.getString("address"));
+				if (rs.getString("postal") != null) {
+					vo.setPostal(rs.getString("postal"));
+					vo.setAddress(rs.getString("address"));
+				}
+				if (rs.getString("addressAdd") != null) {
+					vo.setAddressAdd(rs.getString("addressAdd"));
+				}
 				if (rs.getString("photo") != null) {
 					vo.setPhoto(rs.getString("photo"));
 					vo.setPhotoOri(rs.getString("photoOri"));
@@ -80,6 +85,16 @@ public class MemberDao {
 				closeSet();
 			} catch (Exception ex) { }
 		}
+		
+		return vo;
+	}
+	
+	/*
+	 * - profileSelect
+	 * 프로필 조회
+	 */
+	public MemberVo profileSelect (String userId) {
+		MemberVo vo = null;
 		
 		return vo;
 	}
@@ -106,28 +121,37 @@ public class MemberDao {
 		
 		try {
 			conn.setAutoCommit(false);
-			sql = " insert into member (userId, userPwd, userName, email, phone, postal, address, photo, photoOri, mDate) "
-				    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate) ";
+			sql = " insert into member (userId, userPwd, userName, email, phone, postal, address, photo, photoOri, mDate, addressAdd) "
+				    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?) ";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, vo.getUserId());
 			ps.setString(2, vo.getUserPwd());
 			ps.setString(3, vo.getUserName());
 			ps.setString(4, vo.getEmail());
 			ps.setString(5, vo.getPhone());
+			
 			if (vo.getPostal() == null) { // 입력된 주소정보가 없다면 공백 투입
 				ps.setString(6, "");
 				ps.setString(7, "");
-			} else {				
+				ps.setString(10, "");
+			} else if (vo.getAddressAdd() != null) {
 				ps.setString(6, vo.getPostal());
 				ps.setString(7, vo.getAddress());
+				ps.setString(10, vo.getAddressAdd());
+			} else {
+				ps.setString(6, vo.getPostal());
+				ps.setString(7, vo.getAddress());
+				ps.setString(10, "");
 			}
+			
 			if (vo.getPostal() == null) { // 입력된 파일정보가 없다면 공백 투입
 				ps.setString(8, "");
 				ps.setString(9, "");
 			} else {				
-				ps.setString(8,  vo.getPhoto());
+				ps.setString(8, vo.getPhoto());
 				ps.setString(9, vo.getPhotoOri());
 			}
+			
 			int insertResult = ps.executeUpdate();
 			
 			if (insertResult > 0) {

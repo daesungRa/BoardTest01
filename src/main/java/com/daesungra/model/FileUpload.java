@@ -73,16 +73,21 @@ public class FileUpload {
 					// 여기에 ori, sys 파일을 구분해서 세팅한다
 					this.mvo = new MemberVo();
 					
+					// id, pwd, name, email, phone 은 필수입력사항
 					mvo.setUserId(multi.getParameter("userId"));
 					mvo.setUserPwd(multi.getParameter("userPwd"));
 					mvo.setUserName(multi.getParameter("userName"));
 					mvo.setEmail(multi.getParameter("email"));
 					mvo.setPhone(multi.getParameter("phone"));
-					mvo.setPostal(multi.getParameter("postal"));
+					// 넘어온 postal 이 존재한다면
+					if (!multi.getParameter("postal").equals("")) {
+						mvo.setPostal(multi.getParameter("postal"));
+					}
 					// 추가주소가 있다면,
-					if (!multi.getParameter("addressAdd").equals("")) {
-						mvo.setAddress(multi.getParameter("address") + " " + multi.getParameter("addressAdd"));
-					} else {
+					if (!multi.getParameter("address").equals("") && !multi.getParameter("addressAdd").equals("")) {
+						mvo.setAddress(multi.getParameter("address"));
+						mvo.setAddressAdd(multi.getParameter("addressAdd"));
+					} else if (!multi.getParameter("address").equals("")) {
 						mvo.setAddress(multi.getParameter("address"));
 					}
 					mvo.setPhoto(saveDir + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 전체 경로 입력
@@ -97,11 +102,15 @@ public class FileUpload {
 					mvo.setUserName(multi.getParameter("userName"));
 					mvo.setEmail(multi.getParameter("email"));
 					mvo.setPhone(multi.getParameter("phone"));
-					mvo.setPostal(multi.getParameter("postal"));
+					// 넘어온 postal 이 존재한다면
+					if (!multi.getParameter("postal").equals("")) {
+						mvo.setPostal(multi.getParameter("postal"));
+					}
 					// 추가주소가 있다면,
-					if (!multi.getParameter("addressAdd").equals("")) {
-						mvo.setAddress(multi.getParameter("address") + " " + multi.getParameter("addressAdd"));
-					} else {
+					if (!multi.getParameter("address").equals("") && !multi.getParameter("addressAdd").equals("")) {
+						mvo.setAddress(multi.getParameter("address"));
+						mvo.setAddressAdd(multi.getParameter("addressAdd"));
+					} else if (!multi.getParameter("address").equals("")) {
 						mvo.setAddress(multi.getParameter("address"));
 					}
 				}

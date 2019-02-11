@@ -12,6 +12,7 @@ public class MemberVo {
 	private String photo;
 	private String photoOri;
 	private String mDate;
+	private String addressAdd;
 	
 	public String getUserId() {
 		return userId;
@@ -73,11 +74,17 @@ public class MemberVo {
 	public void setmDate(String mDate) {
 		this.mDate = mDate;
 	}
+	public String getAddressAdd() {
+		return addressAdd;
+	}
+	public void setAddressAdd(String addressAdd) {
+		this.addressAdd = addressAdd;
+	}
 	
 	public String toJson() {
 		return "{\"userId\":\"" + userId + "\", \"userPwd\":\"" + userPwd + "\", \"userName\":\"" + userName + "\", \"email\":\"" + email
 				+ "\", \"postal\":\"" + postal + "\", \"address\":\"" + address + "\", \"photo\":\"" + photo + "\", \"photoOri\":\"" + photoOri
-				+ "\", \"mDate\":\"" + mDate + "\"}";
+				+ "\", \"mDate\":\"" + mDate + "\", \"addressAdd:\"" + addressAdd + "\"}";
 	}
 	
 	

@@ -1,76 +1,159 @@
 /*
- * index.jsp
+ * 작성자: 라대성
+ * 작성일: 190209
+ * 기능: index 페이지, member 정보와 관련된 모든 스크립트 모음
  */
 
-/*
- * loginForm.jsp
- */
-function mainLoginForm () {
-	var frm = document.loginFrm;
-	var btn = frm.btnSubmit;
-	btn.onclick = function () {
-		if (frm.userId.value == '') {
-			alert('아이디를 입력하세요');
-			frm.userId.focus();
-		} else if (frm.userPwd.value == '') {
-			alert('비밀번호를 입력하세요');
-			frm.userPwd.focus();
-		} else {
-			frm.submit();
+window.onload = function () {
+	var xhr = new XMLHttpRequest();
+	
+	/*
+	 * index page
+	 */
+		// Get the modal
+    var modal = document.getElementById('mainModal');
+    var btnModal = document.getElementById("modalBtn");
+    var modalClose = document.getElementsByClassName("close")[0];                                          
+
+    btnModal.onclick = function() {
+        modal.style.display = "block";
+    }
+    modalClose.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(ev) {
+        if (ev.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    
+    /*
+     * loginForm page
+     */
+	
+	/*
+	 * joinForm page
+	 * 각 항목 입력 시 자동 무결성체크
+	 */
+	
+	/*
+	 * navBar
+	 */
+	var memberProfileForm = document.getElementById('memberProfileForm');
+	var memberInfoForm = document.getElementById('memberInfoForm');
+	var guestboardForm = document.getElementById('guestboardForm');
+	var categoriForm = document.getElementById('categoriForm');
+	var todayForm = document.getElementById('todayForm');
+	var myDeskTopForm = document.getElementById('myDeskTopForm');
+	var logoutfrm = document.getElementById('logoutfrm');
+	var myPage = document.getElementById('myPage');
+	var loginfrm = document.getElementById('loginfrm');
+	var joinfrm = document.getElementById('joinfrm');
+	
+	loginfrm.onclick = function () {
+		var mainModal = document.getElementById('mainModal'); // 모달 화면
+		var modalContent = document.getElementById('innerContent'); // 모달 내용
+		xhr.open('get', '/controller/member/loginForm');
+		xhr.send();
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				document.getElementsByClassName('modal-content')[0].setAttribute('style', 'height: 45%; margin: 14% auto;');
+				modalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -70px;');
+				modalContent.innerHTML = xhr.responseText;
+				$("#modalBtn").trigger("click");
+				
+				loginlogin();
+			}
+		}
+	}
+	
+	joinfrm.onclick = function () {
+		var mainModal = document.getElementById('mainModal'); // 모달 화면
+		var modalContent = document.getElementById('innerContent'); // 모달 내용
+		xhr.open('get', '/controller/member/joinForm');
+		xhr.send();
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				document.getElementsByClassName('modal-content')[0].setAttribute('style', 'height: 78%; margin: 7% auto;');
+				modalContent.setAttribute('style', 'position: absolute; width: 97%; height: 90%; top: 0;');
+				modalContent.innerHTML = xhr.responseText;
+				$("#modalBtn").trigger("click");
+				
+				joinjoin(xhr);
+			}
 		}
 	}
 }
 
-/*
- * joinForm.jsp
- * 각 항목 입력 시 자동 무결성체크
- */
-	// 메인 함수 (페이지 로드 시 항상 돈다)
-function funcJoinForm () {
-	var frm = document.joinFrm;
-	var xhr = new XMLHttpRequest();
+function loginlogin () {
+	var loginFrm = document.loginFrm;
+	var btnLogin = loginFrm.btnSubmit;
+	
+	loginFrm.userId.focus();
+	loginFrm.userPwd.onkeyup = function (ev) {
+		if (ev.keyCode == 13) {
+			$('#btnSubmit').trigger('click');
+		}
+	}
+	
+	btnLogin.onclick = function () {
+		if (loginFrm.userId.value == '') {
+			alert('아이디를 입력하세요');
+			loginFrm.userId.focus();
+		} else if (loginFrm.userPwd.value == '') {
+			alert('비밀번호를 입력하세요');
+			loginFrm.userPwd.focus();
+		} else {
+			loginFrm.submit();
+		}
+	}
+}
 
-	frm.userId.focus();
-	frm.userId.select();
+function joinjoin (xhr) {
+	var joinFrm = document.joinFrm;
+	
+	joinFrm.userId.focus();
+	joinFrm.userId.select();
 	
 	// userId
-	frm.btnIdChk.onclick = function () {
+	joinFrm.btnIdChk.onclick = function () {
 		funcIdChk(xhr);
 	}
 	// userPwd
-	frm.userPwd01.onkeyup = function () {
+	joinFrm.userPwd01.onkeyup = function () {
 		funcPwdChk(userPwd01, userPwd02);
 	}
-	frm.userPwd02.onkeyup = function () {
+	joinFrm.userPwd02.onkeyup = function () {
 		funcPwdChk(userPwd01, userPwd02);
 	}
 	// userName
-	frm.userName.onkeyup = function () {
+	joinFrm.userName.onkeyup = function () {
 		funcNameChk();
 	}
 	// email
-	frm.email.onkeyup = function () {
+	joinFrm.email.onkeyup = function () {
 		funcEmailChk();
 	}
 	// phone
-	frm.phone.onkeyup = function () {
+	joinFrm.phone.onkeyup = function () {
 		funcPhoneChk();
 	}
 	// postal, address
-	frm.btnPostal.onclick = function () {
+	joinFrm.btnPostal.onclick = function () {
         searchPostal();
     }
 	// photo file
-	frm.photo.onchange = imagePreView;
+	joinFrm.photo.onchange = imagePreView;
 	// btn submit
-	frm.btnSubmit.onclick = function () {
-		funcSubmit(frm);
+	joinFrm.btnSubmit.onclick = function () {
+		funcSubmit(joinFrm);
 	}
 	// cancel
-	frm.btnCancel.onclick = function () {
+	joinFrm.btnCancel.onclick = function () {
 		window.location.reload();
 	}
 }
+
 	// 아이디 체크 함수
 function funcIdChk (xhr) {
 	var userId = document.getElementById('userId');
@@ -237,4 +320,10 @@ function funcSubmit (frm) {
 	} // 입력 데이터 검증 로직 끝
 	
 	frm.submit();
-} // end of joinForm method
+} // end of joinForm function
+
+/*
+ * memberInfo.jsp (프로필 관리 페이지 혹은 회원정보 조회 페이지로 분기, 전자가 디폴트)
+ * 각 분기는 ajax 로 비동기 로드
+ * 각 분기에 따라 navbar 스크립트를 다르게 해야 한다 (해당 항목에 하이라이트 속성 추가)
+ */

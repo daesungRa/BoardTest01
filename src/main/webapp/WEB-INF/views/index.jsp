@@ -13,7 +13,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src='/controller/resources/js/main.js'></script>
+	<script src='/controller/resources/js/navBar.js'></script>
 </head>
 <body>
 
@@ -50,6 +52,18 @@
 	
 	<!-- include footer -->
 	<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
+	
+	<!-- Trigger/Open The Modal -->
+    <button id="modalBtn" style='display: none;'>Open Modal</button>
+ 
+    <!-- The Modal -->
+    <div id="mainModal" class="modal">
+	    <!-- Modal content -->
+	    <div class="modal-content">
+		    <div id='innerContent'></div>
+		    <span class="close">닫기</span>
+	    </div>
+    </div>
 	
 </body>
 </html>

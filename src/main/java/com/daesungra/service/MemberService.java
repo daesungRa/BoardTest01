@@ -23,13 +23,22 @@ public class MemberService {
 	}
 	
 	// 로그인 성공하면 vo 그대로 반환, 실패면 null 반환
-		public MemberVo memberView (String userId) {
-			MemberVo vo = null;
-			MemberDao dao = new MemberDao();
-			vo = dao.memberSelect(userId, "-1");
-			
-			return vo;
-		}
+	public MemberVo memberView (String userId) {
+		MemberVo vo = null;
+		MemberDao dao = new MemberDao();
+		vo = dao.memberSelect(userId, "-1");
+		
+		return vo;
+	}
+	
+	// 등록된 프로필 조회
+	public MemberVo profileView (String userId) {
+		MemberVo vo = null;
+		MemberDao dao = new MemberDao();
+		vo = dao.memberSelect(userId, "-1");
+		
+		return vo;
+	}
 	
 	// result 1 이면 중복 아이디가 존재하는 것, 0 이면 없는 것
 	// 컨트롤러에서 ResponseBody 로 결과 그대로 전송하기 위함(boolean 은 불가)
@@ -48,6 +57,30 @@ public class MemberService {
 		boolean result = false;
 		MemberDao dao = new MemberDao();
 		result = dao.memberInsert(vo);
+		
+		return result;
+	}
+	
+	// 프로필 등록 / 수정 (비공개는 isPublic = '0')
+	// 회원정보 삭제 시 cascade
+	public boolean profileRegister (MemberVo vo) {
+		boolean result = false;
+		MemberDao dao = new MemberDao();
+		
+		return result;
+	}
+	
+	// 회원정보 수정
+	public boolean memberModify () {
+		boolean result = false;
+		
+		return result;
+	}
+	
+	// 회원정보 삭제
+	// 게시글이 존재하면 실패할 수 있음
+	public boolean memberDelete () {
+		boolean result = false;
 		
 		return result;
 	}
