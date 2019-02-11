@@ -95,6 +95,38 @@ public class MemberDao {
 	 */
 	public MemberVo profileSelect (String userId) {
 		MemberVo vo = null;
+		String sql = null;
+		this.conn = new DBConn().getConn();
+		
+		try {
+			sql = " select m.userId userId, m.userName userName, m.photo photo, m.photoOri photoOri, p.introduce introduce, p.interest interest, p.isPublic isPublic "
+					+ "	from member m join member_profile p "
+					+ "	on m.userId = p.userId "
+					+ "	where p.userId = ? ";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, userId);
+			
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				vo = new MemberVo();
+				vo.setUserId(rs.getString("userId"));
+				vo.setUserName(rs.getString("userName"));
+				if (rs.getString("photo") != null) {
+					vo.setPhoto(rs.getString("photo"));
+					vo.setPhotoOri(rs.getString("photoOri"));
+				}
+				vo.setIntroduce(rs.getString("introduce"));
+				vo.setInterest(rs.getString("interest"));
+				vo.setIsPublic(rs.getString("isPublic"));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				closeSet();
+			} catch (Exception ex) { }
+		}
 		
 		return vo;
 	}

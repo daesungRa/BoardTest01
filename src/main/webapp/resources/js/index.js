@@ -39,18 +39,18 @@ window.onload = function () {
 	/*
 	 * navBar
 	 */
-	var memberProfileForm = document.getElementById('memberProfileForm');
-	var memberInfoForm = document.getElementById('memberInfoForm');
-	var guestboardForm = document.getElementById('guestboardForm');
-	var categoriForm = document.getElementById('categoriForm');
-	var todayForm = document.getElementById('todayForm');
-	var myDeskTopForm = document.getElementById('myDeskTopForm');
-	var logoutfrm = document.getElementById('logoutfrm');
+	var memberProfileAnc = document.getElementById('memberProfileAnc');
+	var memberInfoAnc = document.getElementById('memberInfoAnc');
+	var guestbookAnc = document.getElementById('guestbookAnc');
+	var categoryAnc = document.getElementById('categoryAnc');
+	var todayAnc = document.getElementById('todayAnc');
+	var myDeskTopAnc = document.getElementById('myDeskTopAnc');
+	var logoutAnc = document.getElementById('logoutAnc');
 	var myPage = document.getElementById('myPage');
-	var loginfrm = document.getElementById('loginfrm');
-	var joinfrm = document.getElementById('joinfrm');
+	var loginAnc = document.getElementById('loginAnc');
+	var joinAnc = document.getElementById('joinAnc');
 	
-	loginfrm.onclick = function () {
+	loginAnc.onclick = function () {
 		var mainModal = document.getElementById('mainModal'); // 모달 화면
 		var modalContent = document.getElementById('innerContent'); // 모달 내용
 		xhr.open('get', '/controller/member/loginForm');
@@ -67,7 +67,7 @@ window.onload = function () {
 		}
 	}
 	
-	joinfrm.onclick = function () {
+	joinAnc.onclick = function () {
 		var mainModal = document.getElementById('mainModal'); // 모달 화면
 		var modalContent = document.getElementById('innerContent'); // 모달 내용
 		xhr.open('get', '/controller/member/joinForm');

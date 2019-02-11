@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>Member Info Page</title>
 </head>
 <body>
@@ -22,7 +23,48 @@
 	</c:choose>
 	
 	<div class='container'>
-		
+		<div class='container my-container'>
+			<div class='row my-row'>
+				<div class='col-3 my-col'>
+					아이디
+				</div>
+				<div class='col-9 my-col'>
+					${vo.userId }
+				</div>
+			</div>
+			<div class='row my-row'>
+				<div class='col-3 my-col'>
+					이름
+				</div>
+				<div class='col-9 my-col'>
+					${vo.userName }
+				</div>
+			</div>
+			<div class='row my-row'>
+				<div class='col-3 my-col'>
+					이메일
+				</div>
+				<div class='col-9 my-col'>
+					${vo.email }
+				</div>
+			</div>
+			<div class='row my-row'>
+				<div class='col-3 my-col'>
+					연락처
+				</div>
+				<div class='col-9 my-col'>
+					${vo.phone }
+				</div>
+			</div>
+			<div class='row my-row'>
+				<div class='col-3 my-col'>
+					주소
+				</div>
+				<div class='col-9 my-col'>
+					${vo.address }
+				</div>
+			</div>
+		</div>
 	</div>
 
 </body>

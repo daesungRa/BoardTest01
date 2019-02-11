@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>navBar page</title>
 </head>
 <body>
@@ -26,14 +27,14 @@
 			<ul class='navbar-nav'>
 				<c:choose>
 					<c:when test="${not empty requestScope.memberInfo and requestScope.memberInfo eq true }">
-						<li class='nav-item'><a class='nav-link' id='memberProfileForm' href='/controller/member/memberProfileForm'>프로필 관리</a></li>
-						<li class='nav-item'><a class='nav-link' id='memberInfoForm' href='/controller/member/memberInfoForm'>회원정보 관리</a></li>
+						<li class='nav-item'><a class='nav-link' id='memberProfileAnc' href='#'>프로필 관리</a></li>
+						<li class='nav-item'><a class='nav-link' id='memberInfoAnc' href='#'>회원정보 관리</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class='nav-item'><a class='nav-link' id='guestboardForm' href='#'>방명록</a></li>
-						<li class='nav-item'><a class='nav-link' id='categoriForm' href='#'>카테고리</a></li>
-						<li class='nav-item'><a class='nav-link' id='todayForm' href='#'>오늘의 책</a></li>
-						<li class='nav-item'><a class='nav-link' id='myDeskTopForm' href='#'>나의 책상</a></li>
+						<li class='nav-item'><a class='nav-link' id='guestbookAnc' href='#123'>방명록</a></li>
+						<li class='nav-item'><a class='nav-link' id='categoryAnc' href='#'>카테고리</a></li>
+						<li class='nav-item'><a class='nav-link' id='todayAnc' href='#'>오늘의 책</a></li>
+						<li class='nav-item'><a class='nav-link' id='myDeskTopAnc' href='#'>나의 책상</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
@@ -49,8 +50,8 @@
 						</a>
 						<ul class='dropdown-menu'
 							style='text-align: right; padding-right: 10px;'>
-							<li><a class='dropdown-item' id='logoutfrm' href='/controller/member/logout'>로그아웃</a></li>
-							<li><a class='dropdown-item' id='myPage' href='/controller/member/memberProfileForm'>마이페이지</a></li>
+							<li><a class='dropdown-item' id='logoutAnc' href='/controller/member/logout'>로그아웃</a></li>
+							<li><a class='dropdown-item' id='myPage' href='/controller/member/myPage'>마이페이지</a></li>
 						</ul>
 					</div>
 				</div>
@@ -65,9 +66,9 @@
 						</a>
 						<ul class='dropdown-menu'
 							style='text-align: right; padding-right: 10px;'>
-							<li><a class='dropdown-item' id='loginfrm' href='#'>로그인</a>
+							<li><a class='dropdown-item' id='loginAnc' href='#'>로그인</a>
 							</li>
-							<li><a class='dropdown-item' id='joinfrm' href='#'>회원가입</a>
+							<li><a class='dropdown-item' id='joinAnc' href='#'>회원가입</a>
 							</li>
 						</ul>
 					</div>

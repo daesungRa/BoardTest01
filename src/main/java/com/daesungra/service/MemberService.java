@@ -22,7 +22,6 @@ public class MemberService {
 		return vo;
 	}
 	
-	// 로그인 성공하면 vo 그대로 반환, 실패면 null 반환
 	public MemberVo memberView (String userId) {
 		MemberVo vo = null;
 		MemberDao dao = new MemberDao();
@@ -35,7 +34,7 @@ public class MemberService {
 	public MemberVo profileView (String userId) {
 		MemberVo vo = null;
 		MemberDao dao = new MemberDao();
-		vo = dao.memberSelect(userId, "-1");
+		vo = dao.profileSelect(userId);
 		
 		return vo;
 	}

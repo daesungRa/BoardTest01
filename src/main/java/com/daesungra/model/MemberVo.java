@@ -2,6 +2,7 @@ package com.daesungra.model;
 
 public class MemberVo {
 
+	// 기본 회원 정보
 	private String userId;
 	private String userPwd;
 	private String userName;
@@ -14,6 +15,13 @@ public class MemberVo {
 	private String mDate;
 	private String addressAdd;
 	
+	// 프로필 정보
+	private String introduce;
+	private String interest;
+	private String isPublic;
+	
+	
+	// info
 	public String getUserId() {
 		return userId;
 	}
@@ -81,10 +89,37 @@ public class MemberVo {
 		this.addressAdd = addressAdd;
 	}
 	
-	public String toJson() {
+	// profile
+	public String getIntroduce() {
+		return introduce;
+	}
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+	public String getInterest() {
+		return interest;
+	}
+	public void setInterest(String interest) {
+		this.interest = interest;
+	}
+	public String getIsPublic() {
+		return isPublic;
+	}
+	public void setIsPublic(String isPublic) {
+		this.isPublic = isPublic;
+	}
+	
+	// info json
+	public String toJsonInfo() {
 		return "{\"userId\":\"" + userId + "\", \"userPwd\":\"" + userPwd + "\", \"userName\":\"" + userName + "\", \"email\":\"" + email
 				+ "\", \"postal\":\"" + postal + "\", \"address\":\"" + address + "\", \"photo\":\"" + photo + "\", \"photoOri\":\"" + photoOri
-				+ "\", \"mDate\":\"" + mDate + "\", \"addressAdd:\"" + addressAdd + "\"}";
+				+ "\", \"mDate\":\"" + mDate + "\", \"addressAdd:\":\"" + addressAdd + "\"}";
+	}
+	
+	// profile json
+	public String toJsonProfile() {
+		return "{\"userId\":\"" + userId + "\", \"userName\":\"" + userName + "\", \"photo\":\"" + photo + "\", \"photoOri\":\"" + photoOri
+					+ "\", \"introduce:\":\"" + introduce + "\", \"interest:\":\"" + interest + "\", \"isPublic\":\"" + isPublic + "\"}";
 	}
 	
 	

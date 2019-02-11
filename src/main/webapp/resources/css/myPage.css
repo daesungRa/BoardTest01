@@ -1,0 +1,22 @@
+/*
+ * 작성자: 라대성
+ * 작성일: 190211
+ * 기능: 회원정보 관리를 위한 myPage, memberProfilePage, memberInfoPage 관련 기본 스타일 포함
+ */
+
+@charset "UTF-8";
+
+/*
+ * myPage
+ */
+.my-container {
+	border: 1px solid black;
+}
+
+.my-row {
+	height: 60px;
+}
+.my-col {
+	border-right: 1px dotted #aaa;
+	border-bottom: 1px dotted #aaa;
+}

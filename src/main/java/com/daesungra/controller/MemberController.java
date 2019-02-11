@@ -69,7 +69,7 @@ public class MemberController {
 	}
 	
 	/*
-	 * join 및 회원관리
+	 * join
 	 */
 	@RequestMapping(value="/joinForm", method=RequestMethod.GET)
 	public String getJoinForm (Model model) {
@@ -118,27 +118,42 @@ public class MemberController {
 		
 		return result;
 	}
-	@RequestMapping(value={"/memberProfileForm", "/memberInfoForm"}, method=RequestMethod.GET)
+	
+	/*
+	 * 회원관리
+	 */
+	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	public String getMyPage (HttpServletRequest request) {
+		logger.info("call myPage");
+		request.setAttribute("memberInfo", true); // navBar 분기를 위함
+		
+		return "/member/myPage";
+	}
+	@RequestMapping(value={"/memberProfilePage", "/memberInfoPage"}, method=RequestMethod.GET)
 	public String getMemberInfo (HttpServletRequest request) {
+		String result = "redirect:/";
 		String requestUri = request.getRequestURI();
 		String requestPage = requestUri.substring(requestUri.lastIndexOf("/") + 1, requestUri.length());
 		MemberVo vo = null;
-		request.setAttribute("memberInfo", true);
+		request.setAttribute("memberInfo", true); // navBar 분기를 위함
 		
 		// 인터셉터 통과했다면, 세션에 저장된 아이디로 회원정보를 검색해 뷰에 반환한다
-		if (requestPage.equals("memberProfileForm")) {
+		if (requestPage.equals("memberProfilePage")) {
 			logger.info("call " + requestPage + " page");
-			// 임시
+			// profile
+			vo = service.profileView((String)request.getSession().getAttribute("userId"));
+			
+			request.setAttribute("memberVo", vo);
+			result = "/member/memberProfilePage";
+		} else if (requestPage.equals("memberInfoPage")) {
+			logger.info("call " + requestPage + " page");
+			// info
 			vo = service.memberView((String)request.getSession().getAttribute("userId"));
 			
 			request.setAttribute("memberVo", vo);
-		} else if (requestPage.equals("memberInfoForm")) {
-			logger.info("call " + requestPage + " page");
-			vo = service.memberView((String)request.getSession().getAttribute("userId"));
-			
-			request.setAttribute("memberVo", vo);
+			result = "/member/memberInfoPage";
 		}
 		
-		return "/member/myPage";
+		return result;
 	}
 }
