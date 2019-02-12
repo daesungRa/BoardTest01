@@ -9,14 +9,31 @@
 /*
  * myPage
  */
+.my-btn01 {
+	position: absolute;
+	top: 0;
+	right: 130px;
+}
+.my-btn03 {
+	position: absolute;
+	top: 0;
+	right: 110px;
+}
+.my-btn02 {
+	position: absolute;
+	top: 0;
+	right: 30px;
+}
 .my-container {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 .my-row {
 	height: 60px;
+	padding: 10px 5px 0 0;
+	margin-top: 5px;
 }
 .my-col {
-	border-right: 1px dotted #aaa;
-	border-bottom: 1px dotted #aaa;
+	border-right: 2px dotted #aaa;
+	border-bottom: 2px dotted #aaa;
 }

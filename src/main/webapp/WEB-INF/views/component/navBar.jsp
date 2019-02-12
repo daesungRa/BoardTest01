@@ -10,11 +10,10 @@
 </head>
 <body>
 
-	<div class='navbar navbar-expand-md bg-dark navbar-dark sticky-top'>
+	<div class='navbar navbar-expand-md bg-dark navbar-dark sticky-top my-nav'>
 		<div class='navbar-header'>
-			<a class='navbar-brand' href='#'> <img
-				src='/controller/resources/imgs/book_logo01.svg' alt='brand logo'
-				style='width: 50px; height: 44px' />
+			<a class='navbar-brand' href='#'>
+				<img src='/controller/resources/imgs/book_logo01.svg' id='navLogo' alt='brand logo' />
 			</a>
 		</div>
 		<a id='title' href='/controller/'>책 상</a>
@@ -31,10 +30,23 @@
 						<li class='nav-item'><a class='nav-link' id='memberInfoAnc' href='#'>회원정보 관리</a></li>
 					</c:when>
 					<c:otherwise>
+						<li class='nav-item dropdown'>
+							<a class='nav-link dropdown-toggle' data-toggle='dropdown' role='button' id='categoryAnc' href='#'>리뷰 카테고리</a>
+							<ul class='dropdown-menu' style='text-align: left;'>
+								<li><a class='dropdown-item' id='' href='#'>오늘의 리뷰</a></li>
+								<li><a class='dropdown-item' id='' href='#'>베스트셀러/신간</a></li>
+								<li class="dropdown-divider"></li>
+								<li><a class='dropdown-item' id='' href='#'>인문/사회/정치</a></li>
+								<li><a class='dropdown-item' id='' href='#'>경제/경영</a></li>
+								<li><a class='dropdown-item' id='' href='/controller/board/categoryFour'>문학/시/소설</a></li>
+								<li><a class='dropdown-item' id='' href='#'>과학/공학/수학/컴퓨터</a></li>
+								<li><a class='dropdown-item' id='' href='#'>교육/수험서/자격증</a></li>
+								<li><a class='dropdown-item' id='' href='#'>예술/문화/자기계발/라이프</a></li>
+							</ul>
+						</li>
 						<li class='nav-item'><a class='nav-link' id='guestbookAnc' href='#123'>방명록</a></li>
-						<li class='nav-item'><a class='nav-link' id='categoryAnc' href='#'>카테고리</a></li>
-						<li class='nav-item'><a class='nav-link' id='todayAnc' href='#'>오늘의 책</a></li>
 						<li class='nav-item'><a class='nav-link' id='myDeskTopAnc' href='#'>나의 책상</a></li>
+						<li class='nav-item'><a class='nav-link' id='myDeskTopAnc' href='#'>중고책</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
@@ -48,8 +60,7 @@
 							href='#'> 환영해요, ${sessionScope.userName } 님 <span
 							class='caret'></span>
 						</a>
-						<ul class='dropdown-menu'
-							style='text-align: right; padding-right: 10px;'>
+						<ul class='dropdown-menu dropdown-menu-right animate slideIn'>
 							<li><a class='dropdown-item' id='logoutAnc' href='/controller/member/logout'>로그아웃</a></li>
 							<li><a class='dropdown-item' id='myPage' href='/controller/member/myPage'>마이페이지</a></li>
 						</ul>
@@ -64,8 +75,7 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;접
 							속 <span class='caret'></span>
 						</a>
-						<ul class='dropdown-menu'
-							style='text-align: right; padding-right: 10px;'>
+						<ul class='dropdown-menu'>
 							<li><a class='dropdown-item' id='loginAnc' href='#'>로그인</a>
 							</li>
 							<li><a class='dropdown-item' id='joinAnc' href='#'>회원가입</a>

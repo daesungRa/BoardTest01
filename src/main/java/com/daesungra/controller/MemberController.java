@@ -129,7 +129,7 @@ public class MemberController {
 		
 		return "/member/myPage";
 	}
-	@RequestMapping(value={"/memberProfilePage", "/memberInfoPage"}, method=RequestMethod.GET)
+	@RequestMapping(value={"/memberProfilePage", "/memberInfoPage", "/memberModifyPage"}, method=RequestMethod.GET)
 	public String getMemberInfo (HttpServletRequest request) {
 		String result = "redirect:/";
 		String requestUri = request.getRequestURI();
@@ -152,6 +152,13 @@ public class MemberController {
 			
 			request.setAttribute("memberVo", vo);
 			result = "/member/memberInfoPage";
+		} else if (requestPage.equals("memberModifyPage")) {
+			logger.info("call " + requestPage + " page");
+			// info
+			vo = service.memberView((String)request.getSession().getAttribute("userId"));
+			
+			request.setAttribute("memberVo", vo);
+			result = "/member/memberModifyPage";
 		}
 		
 		return result;

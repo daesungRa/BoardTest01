@@ -34,7 +34,7 @@
 			</div>
 			<div class='row my-row'>
 				<div class='col-3 my-col'>
-					이름
+					별명
 				</div>
 				<div class='col-9 my-col'>
 					${vo.userName }
@@ -76,6 +76,8 @@
 			</div>
 		</div>
 	</div>
+	
+	<br/><br/><br/><br/>
 
 </body>
 </html>

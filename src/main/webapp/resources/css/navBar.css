@@ -5,3 +5,25 @@
  */
 
 @charset "UTF-8";
+
+.my-nav {
+	
+}
+#navLogo {
+	width: 50px;
+	height: 44px;
+}
+.dropdown-menu {
+	text-align: right;
+	padding-right: 10px;
+}
+.my-footer {
+	
+}
+
+.my-con {
+	position: relative;
+	margin: 40px auto;
+	padding-top: 20px;
+	/* border: 1px solid black; */
+}
