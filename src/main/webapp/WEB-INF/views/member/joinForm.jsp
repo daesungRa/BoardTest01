@@ -7,13 +7,13 @@
 <meta charset="UTF-8">
 <title>Join Page</title>
 	<!-- <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
-	<link rel='stylesheet' href='/controller/resources/css/main.css' />
+	<link rel='stylesheet' href='/desktop/resources/css/main.css' />
 	
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script src='/controller/resources/js/main.js'></script> -->
+	<script src='/desktop/resources/js/main.js'></script> -->
 </head>
 <body>
 	<c:if test="${not empty requestScope.msg }">
@@ -30,7 +30,7 @@
 		<div class='container' id='joinForm'>
 			<p/>
 			<h3>회원가입 페이지</h3><br/>
-			<form class='form' name='joinFrm' action='/controller/member/join' method='post' enctype='multipart/form-data'>
+			<form class='form' name='joinFrm' action='/desktop/member/join' method='post' enctype='multipart/form-data'>
 				<div class='form-group'>
 					<div class='form-inline'>
 						<input class='form-control' type='text' id='userId' name='userId' maxlength='30' placeholder='아이디 입력 (필수)' style='width: 48%; margin-right: 10px;'/>

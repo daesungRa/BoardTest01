@@ -39,7 +39,7 @@ function getProfilePage (xhr, infoContent) {
 	document.getElementById('btn01').innerHTML = '프로필 수정/삭제';
 	document.getElementById('btn02').innerHTML = '홈으로';
 	document.getElementById('btn01').setAttribute('style', 'right: 110px;');
-	xhr.open('get', '/controller/member/memberProfilePage');
+	xhr.open('get', '/desktop/member/memberProfilePage');
 	xhr.send();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status == 200) {
@@ -52,7 +52,7 @@ function getInfoPage (xhr, infoContent) {
 	document.getElementById('btn01').innerHTML = '회원정보 수정/탈퇴';
 	document.getElementById('btn02').innerHTML = '홈으로';
 	document.getElementById('btn01').setAttribute('style', 'right: 110px;');
-	xhr.open('get', '/controller/member/memberInfoPage');
+	xhr.open('get', '/desktop/member/memberInfoPage');
 	xhr.send();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status == 200) {
@@ -66,7 +66,7 @@ function getModifyPage (xhr, infoContent) {
 	document.getElementById('btn03').removeAttribute('style');
 	document.getElementById('btn03').innerHTML = '취소'
 	document.getElementById('btn02').innerHTML = '홈으로';
-	xhr.open('get', '/controller/member/memberModifyPage');
+	xhr.open('get', '/desktop/member/memberModifyPage');
 	xhr.send();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status == 200) {

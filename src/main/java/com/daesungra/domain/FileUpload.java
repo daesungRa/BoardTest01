@@ -1,4 +1,4 @@
-package com.daesungra.model;
+package com.daesungra.domain;
 
 import java.io.File;
 import java.util.Iterator;

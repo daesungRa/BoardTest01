@@ -8,12 +8,12 @@
 	<title>Login Page</title>
 
 	<!-- <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
-	<link rel='stylesheet' href='/controller/resources/css/main.css' />
+	<link rel='stylesheet' href='/desktop/resources/css/main.css' />
 	
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
-	<script src='/controller/resources/js/main.js'></script> -->
+	<script src='/desktop/resources/js/main.js'></script> -->
 </head>
 <body>
 
@@ -32,14 +32,14 @@
 		<div class='container' id='innerLoginForm'>
 			<p/>
 			<h3>로그인 페이지</h3>
-			<form class='form-group' name='loginFrm' action='/controller/member/login' method='post'>
+			<form class='form-group' name='loginFrm' action='/desktop/member/login' method='post'>
 				<input class='form-control' type='text' name='userId' placeholder='아이디 입력' /><br/>
 				<input class='form-control' type='password' name='userPwd' placeholder='비밀번호 입력' /><br/>
 				<input class='btn btn-primary' type='button' id='btnSubmit' value='제 출' style='margin-top: 20px;'/><br/>
 			</form>
 			<a href='#'>아이디 찾기</a>&nbsp;&nbsp;
 			<a href='#'>비밀번호 찾기</a>&nbsp;&nbsp;
-			<a href='/controller/member/joinForm'>회원가입</a>
+			<a href='/desktop/member/joinForm'>회원가입</a>
 			<p/>
 		</div>
 	</div>

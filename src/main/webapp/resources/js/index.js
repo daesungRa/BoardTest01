@@ -53,7 +53,7 @@ window.onload = function () {
 	loginAnc.onclick = function () {
 		var mainModal = document.getElementById('mainModal'); // 모달 화면
 		var modalContent = document.getElementById('innerContent'); // 모달 내용
-		xhr.open('get', '/controller/member/loginForm');
+		xhr.open('get', '/desktop/member/loginForm');
 		xhr.send();
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4 && xhr.status == 200) {
@@ -70,7 +70,7 @@ window.onload = function () {
 	joinAnc.onclick = function () {
 		var mainModal = document.getElementById('mainModal'); // 모달 화면
 		var modalContent = document.getElementById('innerContent'); // 모달 내용
-		xhr.open('get', '/controller/member/joinForm');
+		xhr.open('get', '/desktop/member/joinForm');
 		xhr.send();
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4 && xhr.status == 200) {
@@ -168,7 +168,7 @@ function funcIdChk (xhr) {
 	}
 
 	if (btnIdChk.value == '중복확인') {
-		xhr.open('post', '/controller/member/idChk');
+		xhr.open('post', '/desktop/member/idChk');
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('userId=' + userId.value);
 		xhr.onreadystatechange = function () {

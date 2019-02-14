@@ -13,10 +13,10 @@
 	<div class='navbar navbar-expand-md bg-dark navbar-dark sticky-top my-nav'>
 		<div class='navbar-header'>
 			<a class='navbar-brand' href='#'>
-				<img src='/controller/resources/imgs/book_logo01.svg' id='navLogo' alt='brand logo' />
+				<img src='/desktop/resources/imgs/book_logo01.svg' id='navLogo' alt='brand logo' />
 			</a>
 		</div>
-		<a id='title' href='/controller/'>책 상</a>
+		<a id='title' href='/desktop/'>책 상</a>
 
 		<button class='navbar-toggler collapsed' type='button'
 			data-toggle='collapse' data-target='#collapsibleNavbar'>
@@ -38,7 +38,7 @@
 								<li class="dropdown-divider"></li>
 								<li><a class='dropdown-item' id='' href='#'>인문/사회/정치</a></li>
 								<li><a class='dropdown-item' id='' href='#'>경제/경영</a></li>
-								<li><a class='dropdown-item' id='' href='/controller/board/categoryFour'>문학/시/소설</a></li>
+								<li><a class='dropdown-item' id='' href='/desktop/board/categoryFour'>문학/시/소설</a></li>
 								<li><a class='dropdown-item' id='' href='#'>과학/공학/수학/컴퓨터</a></li>
 								<li><a class='dropdown-item' id='' href='#'>교육/수험서/자격증</a></li>
 								<li><a class='dropdown-item' id='' href='#'>예술/문화/자기계발/라이프</a></li>
@@ -61,8 +61,8 @@
 							class='caret'></span>
 						</a>
 						<ul class='dropdown-menu dropdown-menu-right animate slideIn'>
-							<li><a class='dropdown-item' id='logoutAnc' href='/controller/member/logout'>로그아웃</a></li>
-							<li><a class='dropdown-item' id='myPage' href='/controller/member/myPage'>마이페이지</a></li>
+							<li><a class='dropdown-item' id='logoutAnc' href='/desktop/member/logout'>로그아웃</a></li>
+							<li><a class='dropdown-item' id='myPage' href='/desktop/member/myPage'>마이페이지</a></li>
 						</ul>
 					</div>
 				</div>

@@ -62,7 +62,7 @@
 				</div>
 				<div class='col-9 my-col'>
 					<!-- 서버 to 로컬접근 : 보안 이슈에 걸림 / damuni 파일로 그냥 조치해 놓음 -->
-					<img src='/controller/resources/imgs/damuni.jpg' alt="${vo.photo }" width="60px;" />
+					<img src='/desktop/resources/imgs/damuni.jpg' alt="${vo.photo }" width="60px;" />
 					${vo.photoOri }
 				</div>
 			</div>

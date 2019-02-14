@@ -1,3 +1,5 @@
+<%@page import="com.daesungra.domain.BoardVo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
@@ -8,8 +10,8 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>Board List</title>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
-	<link rel='stylesheet' href='/controller/resources/css/index.css' />
-	<link rel='stylesheet' href='/controller/resources/css/navBar.css' />
+	<link rel='stylesheet' href='/desktop/resources/css/index.css' />
+	<link rel='stylesheet' href='/desktop/resources/css/navBar.css' />
 	
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
@@ -29,8 +31,15 @@
 	<div class='container my-con'>
 		<div class='container'>
 			<p/>
-			<h2></h2><br/>
-			<div id=''></div>
+			<h2>게시판 리스트</h2><br/>
+			<div id=''>
+				<c:set var="boardList" value="${requestScope.boardList }"></c:set>
+				<input type='text' value='${boardList[0].serial }' /><br/>
+				<input type='text' value='${boardList[0].title }' /><br/>
+				<input type='text' value='${boardList[0].content }' /><br/>
+				<input type='text' value='${boardList[0].category }' /><br/>
+				<input type='text' value='${boardList[0].userId }' />
+			</div>
 			
 			<p/>
 		</div>

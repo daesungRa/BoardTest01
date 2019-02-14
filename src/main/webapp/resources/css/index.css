@@ -54,7 +54,7 @@
  * header style
  */
 #header {
-	background: url("/controller/resources/imgs/book-back03-opa.jpg")
+	background: url("/desktop/resources/imgs/book-back03-opa.jpg")
 		no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;

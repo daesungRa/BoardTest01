@@ -6,8 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.daesungra.model.DBConn;
-import com.daesungra.model.MemberVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.daesungra.domain.DBConn;
+import com.daesungra.domain.MemberVo;
 
 public class MemberDao {
 	
@@ -16,6 +20,10 @@ public class MemberDao {
 	 * dao 를 호출하는 service 객체가 controller 에서 항시 객체로 주입되기 때문(?)
 	 * 	- 그렇다면 controller 는 항시 운용중이고, service 객체는 항시 살아있다는 의미일까??
 	 */
+	@Autowired
+	private DBConn dbConn;
+	private static final Logger logger = LoggerFactory.getLogger(DBConn.class);
+	
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
@@ -42,7 +50,14 @@ public class MemberDao {
 	public MemberVo memberSelect (String userId, String userPwd) {
 		MemberVo vo = null;
 		String sql = null;
+		/*this.conn = dbConn.getConn();*/
 		this.conn = new DBConn().getConn();
+		if (this.conn != null) {
+			logger.info("this.conn != null");
+		} else {
+			logger.info("this.conn == null");
+		}
+		
 		
 		try {
 			// pwd 가 -1 이라면 아이디체크, 아니라면 로그인 및 회원조회
@@ -96,7 +111,7 @@ public class MemberDao {
 	public MemberVo profileSelect (String userId) {
 		MemberVo vo = null;
 		String sql = null;
-		this.conn = new DBConn().getConn();
+		this.conn = dbConn.getConn();
 		
 		try {
 			sql = " select m.userId userId, m.userName userName, m.photo photo, m.photoOri photoOri, p.introduce introduce, p.interest interest, p.isPublic isPublic "
@@ -149,7 +164,7 @@ public class MemberDao {
 	public boolean memberInsert (MemberVo vo) {
 		boolean result = false;
 		String sql = null;
-		this.conn = new DBConn().getConn();
+		this.conn =dbConn.getConn();
 		
 		try {
 			conn.setAutoCommit(false);

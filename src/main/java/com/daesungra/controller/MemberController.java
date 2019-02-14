@@ -1,11 +1,11 @@
 package com.daesungra.controller;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.daesungra.model.FileUpload;
-import com.daesungra.model.MemberVo;
+import com.daesungra.domain.FileUpload;
+import com.daesungra.domain.MemberVo;
 import com.daesungra.service.MemberService;
 
 @Controller
@@ -22,9 +22,9 @@ import com.daesungra.service.MemberService;
 public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-	@Inject
+	@Autowired
 	MemberService service;
-	@Inject
+	@Autowired
 	FileUpload fileUpload;
 	
 	/*

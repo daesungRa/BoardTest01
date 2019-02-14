@@ -1,4 +1,4 @@
-package com.daesungra.model;
+package com.daesungra.domain;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

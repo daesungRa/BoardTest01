@@ -3,7 +3,7 @@ package com.daesungra.service;
 import org.springframework.stereotype.Service;
 
 import com.daesungra.dao.MemberDao;
-import com.daesungra.model.MemberVo;
+import com.daesungra.domain.MemberVo;
 
 @Service
 public class MemberService {

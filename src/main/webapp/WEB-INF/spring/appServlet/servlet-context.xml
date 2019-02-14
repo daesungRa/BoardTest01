@@ -31,7 +31,7 @@
 	<context:component-scan base-package="com.daesungra.controller" />
 	<context:component-scan base-package="com.daesungra.service" />
 	<context:component-scan base-package="com.daesungra.dao" />
-	<context:component-scan base-package="com.daesungra.model" />
+	<context:component-scan base-package="com.daesungra.domain" />
 	
 	
 	
