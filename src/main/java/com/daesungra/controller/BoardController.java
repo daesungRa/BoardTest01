@@ -20,8 +20,6 @@ import com.daesungra.service.BoardService;
 public class BoardController {
 	
 	@Autowired
-	private SqlSession sqlSession;
-	@Autowired
 	private BoardService boardService;
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
@@ -29,7 +27,7 @@ public class BoardController {
 	public String getBoardPage (HttpServletRequest request) {
 		logger.info("call boardPage");
 		
-		List<BoardVo> list = sqlSession.selectList("board.selectTest"); // boardService.selectTest();
+		List<BoardVo> list = boardService.selectTest();
 		request.setAttribute("boardList", list);
 		
 		return "/board/boardPage";

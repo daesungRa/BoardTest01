@@ -84,6 +84,10 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		logger.info("join 시작");
 		
+		if (fileUpload == null) {
+			logger.info("fileupload is null");
+		}
+		
 		MemberVo vo = fileUpload.getMemberVo(request);
 		
 		if (vo != null) {

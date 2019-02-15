@@ -14,6 +14,7 @@ public class BoardVo {
 	private int depth;
 	private int indent;
 	private String bDate;
+	
 	public int getSerial() {
 		return serial;
 	}

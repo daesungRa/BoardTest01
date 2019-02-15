@@ -15,7 +15,7 @@ public class BoardDaoImpl implements BoardDao {
 	private SqlSession sqlSession;
 	
 	public List<BoardVo> selectTest () {
-		List<BoardVo> list = null; // sqlSession.selectList("board.selectTest");
+		List<BoardVo> list = sqlSession.selectList("board.selectTest");
 		
 		return list;
 	}

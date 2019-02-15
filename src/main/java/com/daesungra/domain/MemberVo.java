@@ -1,8 +1,5 @@
 package com.daesungra.domain;
 
-import org.springframework.stereotype.Repository;
-
-@Repository
 public class MemberVo {
 
 	// 기본 회원 정보

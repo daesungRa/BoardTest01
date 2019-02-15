@@ -15,7 +15,7 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao boardDao;
 	
 	public List<BoardVo> selectTest () {
-		List<BoardVo> list = null;
+		List<BoardVo> list = boardDao.selectTest();
 		
 		return list;
 	}
