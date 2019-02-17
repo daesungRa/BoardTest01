@@ -9,7 +9,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.daesungra.domain.DBConn;
+import com.daesungra.conponent.DBConn;
 import com.daesungra.domain.MemberVo;
 
 public class MemberDao {

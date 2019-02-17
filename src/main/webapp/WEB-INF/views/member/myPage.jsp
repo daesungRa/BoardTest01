@@ -9,7 +9,7 @@
 <title>View Member Info</title>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
 	<link rel='stylesheet' href='/desktop/resources/css/index.css' />
-	<link rel='stylesheet' href='/desktop/resources/css/navBar.css' />
+	<link rel='stylesheet' href='/desktop/resources/css/component.css' />
 	<link rel='stylesheet' href='/desktop/resources/css/myPage.css' />
 	
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>

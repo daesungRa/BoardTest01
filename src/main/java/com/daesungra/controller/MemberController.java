@@ -99,12 +99,12 @@ public class MemberController {
 				session.setAttribute("msg", "회원가입에 성공했습니다");
 				logger.info("join 성공");
 				
-				result = "redirect:loginForm";
+				result = "redirect:/";
 			} else {
 				session.setAttribute("msg", "회원가입에 실패했습니다");
 				logger.info("join 실패");
 				
-				result = "redirect:joinForm";
+				result = "redirect:/";
 			}
 		} else {
 			session.setAttribute("msg", "회원가입에 실패했습니다");

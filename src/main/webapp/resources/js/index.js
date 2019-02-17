@@ -4,12 +4,21 @@
  * 기능: index 페이지, member 정보와 관련된 모든 스크립트 모음
  */
 
-window.onload = function () {
+$(function () {
 	var xhr = new XMLHttpRequest();
 	
 	/*
 	 * index page
 	 */
+		// fade in
+	$('.my-jumbo > h1').fadeOut(0);
+	$('.my-jumbo > p').fadeOut(0);
+	$('.my-jumbo > a').fadeOut(0);
+	
+	$('.my-jumbo > h1').fadeIn(1000);
+	$('.my-jumbo > p').delay('slow').fadeIn(1000);
+	$('.my-jumbo > a').delay('slow').fadeIn(1000);
+	
 		// Get the modal
     var modal = document.getElementById('mainModal');
     var btnModal = document.getElementById("modalBtn");
@@ -57,8 +66,8 @@ window.onload = function () {
 		xhr.send();
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4 && xhr.status == 200) {
-				document.getElementsByClassName('modal-content')[0].setAttribute('style', 'height: 45%; margin: 14% auto;');
-				modalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -70px;');
+				document.getElementsByClassName('modal-content')[0].setAttribute('style', 'height: 60%; margin: 12% auto;');
+				modalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -10px;');
 				modalContent.innerHTML = xhr.responseText;
 				$("#modalBtn").trigger("click");
 				
@@ -83,8 +92,40 @@ window.onload = function () {
 			}
 		}
 	}
-}
+});
 
+//페이지 내 링크 이동
+function funcMovePage (page) {
+	var offset = $("#" + page).offset();
+    $('html, body').animate({scrollTop : offset.top}, 400);
+    
+    switch (page) {
+    case 'indexTop':
+    	$('.my-jumbo > h1').fadeOut(0);
+    	$('.my-jumbo > p').fadeOut(0);
+    	$('.my-jumbo > a').fadeOut(0);
+    	
+    	$('.my-jumbo > h1').fadeIn(1000);
+    	$('.my-jumbo > p').delay('slow').fadeIn(1000);
+    	$('.my-jumbo > a').delay('slow').fadeIn(1000);
+    	break;
+    case 'indexHeader':
+    	
+    	break;
+    case 'indexContent':
+    	
+    	break;
+    case 'indexFooter':
+    	
+    	break;
+    }
+}
+//브라우저 사이즈 표시
+function getWindowSize () {
+	var width = window.outerWidth;
+	$('#windowSize').text('window size : ' + width);
+}
+// 로그인 실행
 function loginlogin () {
 	var loginFrm = document.loginFrm;
 	var btnLogin = loginFrm.btnSubmit;
@@ -108,7 +149,7 @@ function loginlogin () {
 		}
 	}
 }
-
+// 조인 실행
 function joinjoin (xhr) {
 	var joinFrm = document.joinFrm;
 	

@@ -25,11 +25,11 @@ public class BoardController {
 
 	@RequestMapping(value="/categoryFour", method=RequestMethod.GET)
 	public String getBoardPage (HttpServletRequest request) {
-		logger.info("call boardPage");
+		logger.info("call boardListPage");
 		
 		List<BoardVo> list = boardService.selectTest();
 		request.setAttribute("boardList", list);
 		
-		return "/board/boardPage";
+		return "/board/boardListPage";
 	}
 }

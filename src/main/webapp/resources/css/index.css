@@ -1,10 +1,118 @@
 /*
  * 작성자: 라대성
  * 작성일: 190209
- * 기능: index 페이지, member 정보와 관련된 모든 페이지 스타일 모음
+ * 기능: index 페이지에 대한 스타일 모음
  */
 
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic|Nanum+Myeongjo');
+
+/* font */
+* {
+	font-family: 'Nanum Gothic', sans-serif;
+	font-family: 'Nanum Myeongjo', serif;
+	font-weight: bolder;
+}
+
+/*
+ * top style
+ */
+.my-top {
+	height: 100px;
+	background-color: #343d46;
+}
+.my-top-container {
+	height: 100px;
+	/* border: 1px solid white; */
+}
+.my-top-content {
+	float: left;
+	width: 147px;
+	height: 60px;
+	margin: 20px 0 0 40px;
+	color: white;
+	/* border: 1px solid white; */
+}
+.my-top-content h3 {
+	font-weight: bolder;
+}
+.my-top-content p {
+	font-size: 10pt;
+}
+.searchForm {
+	float: right;
+	width: 160px;
+	height: 30px;
+	margin: 49px 40px 0 0;
+	vertical-align: middle;
+	white-space: nowrap;
+	position: relative;
+	/* border: 1px solid white; */
+}
+.searchForm .icon {
+	position: absolute;
+	top: 50%;
+	margin-left: 6px;
+	margin-top: -8px;
+	z-index: 1;
+	color: #4f5b66;
+}
+.searchForm #search {
+	width: 150px;
+	height: 30px;
+	border: none;
+	font-size: 8pt;
+	float: left;
+	color: #63717f;
+	padding-left: 35px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+.searchForm input#search::-webkit-input-placeholder {
+	font-size: 8pt;
+	color: #65737e;
+}
+.searchForm input#search::-moz-placeholder {
+	font-size: 8pt;
+	color: #65737e;
+}
+.searchForm input#search:-moz-placeholder {
+	font-size: 8pt;
+	color: #65737e;
+}
+.searchForm input#search:-ms-input-placeholder {
+	font-size: 8pt;
+	color: #65737e;
+}
+.searchForm input#search:hover, .container-1 input#search:focus, .container-1 input#search:active {
+	outline: none;
+	background-color: #bcbcbc;
+	transition: 1s;
+}
+
+/*
+ * article style
+ */
+.my-article {
+	height: 500px;
+	border: 1px solid black;
+}
+.my-article-col {
+	margin: 5px 0 5px 0;
+	border: 1px solid black;
+}
+
+/*
+ * to top
+ */
+.my-btn-toTop {
+	position: fixed;
+	right: 30px;
+	bottom: 60px;
+}
+
 /*
  * modal style
  */
@@ -29,6 +137,7 @@
     width: 70%; /* Could be more or less, depending on screen size */
     text-align: center;
     border-radius: 10px;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 .close {
 	position: absolute;
@@ -49,107 +158,3 @@
     text-decoration: none;
     cursor: pointer;
 }
-
-/*
- * header style
- */
-#header {
-	background: url("/desktop/resources/imgs/book-back03-opa.jpg")
-		no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	height: 500px;
-}
-
-/*
- * navBar style
- */
-#title {
-	color: #fff;
-	font-size: 14pt;
-	font-weight: bolder;
-	padding: 0 15px 0 6px;
-}
-#title:hover {
-	cursor: pointer;
-	text-decoration: none;
-}
-.dropdown-toggle {
-	color: #bbb;
-}
-.dropdown-toggle:hover {
-	color: #eee;
-	text-decoration: none;
-}
-.dropdown-menu {
-	background-color: #eee;
-}
-.dropdown-item {
-	color: #000;
-}
-
-/*
- * footer style
- */
-#container-footer {
-	background-color: rgba(0, 0, 0, 0.6);
-}
-
-/*
- * index style
- */
-
-/*
- * loginForm style
- */
-#loginForm {
-	height: 500px;
-	/* border: 1px solid black; */
-}
-#innerLoginForm {
-	width: 60%;
-	margin-top: 120px;
-	text-align: center;
-	/* border: 1px solid black; */
-}
-#innerLoginForm * {
-	margin-bottom: 10px;
-}
-#innerLoginForm .form-group {
-	text-align: center;
-	margin-top: 60px;
-}
-
-#innerLoginForm .form-control {
-	width: 65%;
-	display: inline-block;
-	border: 1px solid #999;
-}
-
-
-/*
- * joinForm style
- */
- #joinForm {
- 	width: 62%;
-	margin-top: 20px;
-	padding: 10px 30px 10px 70px;
- 	float: left;
- 	/* border: 1px solid black; */
- }
- #joinForm .form-control {
- 	border: 1px solid #999;
- 	margin-bottom: 5px;
- }
- #memberImg {
- 	float: left;
- 	width: 38%;
- 	height: 500px;
- 	margin-top: 20px;
- 	padding-top: 82px;
- 	text-align: center;
- 	color: #bbb;
- 	text-size: 8pt;
- }

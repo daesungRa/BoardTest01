@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+/*
+ * 게시판 콘텐트
+ */
+.my-board-row {
+	border-bottom: 1px solid black;
+	padding: 5px 0 5px 0;
+}

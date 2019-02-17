@@ -19,4 +19,28 @@ public class BoardServiceImpl implements BoardService {
 		
 		return list;
 	}
+
+	@Override
+	public BoardVo view() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean write() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean modify() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

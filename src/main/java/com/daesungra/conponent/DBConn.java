@@ -1,4 +1,4 @@
-package com.daesungra.domain;
+package com.daesungra.conponent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
