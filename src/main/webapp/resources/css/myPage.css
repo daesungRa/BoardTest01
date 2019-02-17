@@ -9,17 +9,17 @@
 /*
  * myPage
  */
-.my-btn01 {
+.my-mypage-btn01 {
 	position: absolute;
 	top: 0;
 	right: 130px;
 }
-.my-btn03 {
+.my-mypage-btn03 {
 	position: absolute;
 	top: 0;
 	right: 110px;
 }
-.my-btn02 {
+.my-mypage-btn02 {
 	position: absolute;
 	top: 0;
 	right: 30px;

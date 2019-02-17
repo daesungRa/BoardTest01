@@ -6,13 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<title>navBar page</title>
+<title>navBar page(aside)</title>
 </head>
 <body>
 
 	<div class='navbar navbar-expand-md bg-light navbar-light sticky-top my-nav'>
 		<div class='navbar-header text-light'>
-			<a class='navbar-brand' href='#' onclick='funcMovePage("indexTop");'>
+			<a class='navbar-brand' href='/desktop/'>
 				<img src='/desktop/resources/imgs/book_logo01.svg' id='navLogo' alt='brand logo' />
 			</a>
 			<!-- <a id='title' href='/desktop/'>책 상</a> -->

@@ -11,13 +11,13 @@
 	<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'/>
 	<link rel='stylesheet' href='/desktop/resources/css/index.css' />
 	<link rel='stylesheet' href='/desktop/resources/css/component.css' />
-	<link rel='stylesheet' href='/desktop/resources/css/myPage.css' />
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src='/desktop/resources/js/index.js'></script>
+	<script src='/desktop/resources/js/component.js'></script>
 </head>
 <body>
 
@@ -27,24 +27,16 @@
 		<c:remove var="msg" scope="session"/>
 	</c:if>
 	
-	<!-- top -->
-	<div class='container-fluid my-top' id='indexTop'>
-		<div class='container my-top-container'>
-			<div class='container my-top-content'>
-				<h3 style='cursor: pointer;' onclick='funcMovePage("indexTop")'>책 상</h3>
-				<p>세상의 모든 책 리뷰</p>
-			</div>
-			<div class='searchForm'>
-				<form name='searchForm' action=''>
-					<span class='icon'><i class='fa fa-search'></i></span>
-					<input type='search' id='search' placeholder='Search...' />
-				</form>
-			</div>
-		</div>
+	<!-- 브라우저 크기 확인 (임시) -->
+	<div id='windowSize' style='width: 180px; border: 1px solid black;'>
+		window size : 
 	</div>
 	
-	<!-- include navbar -->
-	<jsp:include page="/WEB-INF/views/component/navBar.jsp"></jsp:include>
+	<!-- top -->
+	<jsp:include page="/WEB-INF/views/component/top.jsp"></jsp:include>
+	
+	<!-- include navbar(top) -->
+	<jsp:include page="/WEB-INF/views/component/navBar_top.jsp"></jsp:include>
 	
 	<!-- include header -->
 	<header id='indexHeader'>
@@ -68,6 +60,7 @@
 		</div>
 	</article>
 	
+	<!-- button for to-top -->
 	<a class='btn btn-secondary my-btn-toTop' href='#' onclick='funcMovePage("indexTop");'>top</a>
 	
 	<!-- include footer -->
@@ -76,7 +69,7 @@
 	</footer>
 	
     <!-- Modal -->
-    <button id="modalBtn" style='display: none;'>Open Modal</button>
+    <button id="modalBtn" style='display: none;'></button>
     <div id="mainModal" class="modal">
     	
 	    <!-- Modal content -->

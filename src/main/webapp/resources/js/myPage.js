@@ -1,76 +1,84 @@
-/**
- * myPage
+/*
+ * 작성자: 라대성
+ * 작성일: 190216
+ * 기능: mypage
  */
-function funcMyPage () {
+
+$(function () {
+	// get window size
+	$(window).resize(function () {
+		getWindowSize();
+	});
+	
 	// xhr, 페이지 로드 영역
 	var xhr = new XMLHttpRequest();
-	var infoContent = document.getElementById('infoContent');
+	var mypageInfoContent = document.getElementById('mypageInfoContent');
 	// 프로필 앵커, 회원정보 앵커
 	var memberProfileAnc = document.getElementById('memberProfileAnc');
 	var memberInfoAnc = document.getElementById('memberInfoAnc');
 	// 수정/삭제 버튼
-	var btn01 = document.getElementById('btn01');
-	var btn03 = document.getElementById('btn03');
+	var mypageBtn01 = document.getElementById('mypageBtn01');
+	var mypageBtn03 = document.getElementById('mypageBtn03');
 	
 	// 최초 페이지 로드 시 프로필 페이지 로드 실행
-	getProfilePage(xhr, infoContent);
+	getProfilePage(xhr, mypageInfoContent);
 	
 	// 각 앵커 태그 클릭시 실행
 	memberProfileAnc.onclick = function () {
-		getProfilePage(xhr, infoContent);
+		getProfilePage(xhr, mypageInfoContent);
 	}
 	memberInfoAnc.onclick = function () {
-		btn03.style.display = 'none';
-		getInfoPage(xhr, infoContent);
+		mypageBtn03.style.display = 'none';
+		getInfoPage(xhr, mypageInfoContent);
 	}
 	
 	// 수정/삭제 실행
-	btn01.onclick = function () {
-		getModifyPage(xhr, infoContent);
+	mypageBtn01.onclick = function () {
+		getModifyPage(xhr, mypageInfoContent);
 	}
-	btn03.onclick = function () {
-		btn03.style.display = 'none';
-		getInfoPage(xhr, infoContent);
+	mypageBtn03.onclick = function () {
+		mypageBtn03.style.display = 'none';
+		getInfoPage(xhr, mypageInfoContent);
 	}
-}
+});
 
-function getProfilePage (xhr, infoContent) {
+function getProfilePage (xhr, mypageInfoContent) {
 	document.getElementsByTagName('h2')[0].innerHTML = '프로필';
-	document.getElementById('btn01').innerHTML = '프로필 수정/삭제';
-	document.getElementById('btn02').innerHTML = '홈으로';
-	document.getElementById('btn01').setAttribute('style', 'right: 110px;');
+	document.getElementById('mypageBtn01').innerHTML = '프로필 수정/삭제';
+	document.getElementById('mypageBtn02').innerHTML = '홈으로';
+	document.getElementById('mypageBtn01').setAttribute('style', 'right: 110px;');
 	xhr.open('get', '/desktop/member/memberProfilePage');
 	xhr.send();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			infoContent.innerHTML = xhr.responseText;
+			mypageInfoContent.innerHTML = xhr.responseText;
 		}
 	}
 }
-function getInfoPage (xhr, infoContent) {
+function getInfoPage (xhr, mypageInfoContent) {
 	document.getElementsByTagName('h2')[0].innerHTML = '회원정보';
-	document.getElementById('btn01').innerHTML = '회원정보 수정/탈퇴';
-	document.getElementById('btn02').innerHTML = '홈으로';
-	document.getElementById('btn01').setAttribute('style', 'right: 110px;');
+	document.getElementById('mypageBtn01').innerHTML = '회원정보 수정/탈퇴';
+	document.getElementById('mypageBtn02').innerHTML = '홈으로';
+	document.getElementById('mypageBtn01').setAttribute('style', 'right: 110px;');
 	xhr.open('get', '/desktop/member/memberInfoPage');
 	xhr.send();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			infoContent.innerHTML = xhr.responseText;
+			mypageInfoContent.innerHTML = xhr.responseText;
 		}
 	}
 }
-function getModifyPage (xhr, infoContent) {
+function getModifyPage (xhr, mypageInfoContent) {
 	document.getElementsByTagName('h2')[0].innerHTML = '회원정보 수정';
-	document.getElementById('btn01').style.display = 'none';
-	document.getElementById('btn03').removeAttribute('style');
-	document.getElementById('btn03').innerHTML = '취소'
-	document.getElementById('btn02').innerHTML = '홈으로';
+	document.getElementById('mypageBtn01').style.display = 'none';
+	document.getElementById('mypageBtn03').removeAttribute('style');
+	document.getElementById('mypageBtn03').innerHTML = '취소'
+	document.getElementById('mypageBtn02').innerHTML = '홈으로';
 	xhr.open('get', '/desktop/member/memberModifyPage');
 	xhr.send();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			infoContent.innerHTML = xhr.responseText;
+			mypageInfoContent.innerHTML = xhr.responseText;
 		}
 	}
 }
