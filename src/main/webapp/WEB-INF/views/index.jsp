@@ -28,9 +28,9 @@
 	</c:if>
 	
 	<!-- 브라우저 크기 확인 (임시) -->
-	<div id='windowSize' style='width: 180px; border: 1px solid black;'>
+	<!-- <div id='windowSize' style='width: 180px; border: 1px solid black;'>
 		window size : 
-	</div>
+	</div> -->
 	
 	<!-- top -->
 	<jsp:include page="/WEB-INF/views/component/top.jsp"></jsp:include>

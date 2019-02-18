@@ -40,6 +40,11 @@ $(function () {
             modal.style.display = "none";
         }
     }
+    $(window).keydown(function (ev) {
+    	if (ev.keyCode == '27') {
+    		modal.style.display = 'none';
+    	}
+    });
     
     /*
      * loginForm page
