@@ -1,4 +1,4 @@
-package com.daesungra.domain;
+package com.daesungra.component;
 
 import java.io.File;
 import java.util.Iterator;
@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.daesungra.domain.MemberVo;
 
 /*
  * 파일 업로드를 위한 멀티파트 객체 활용

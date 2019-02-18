@@ -1,4 +1,13 @@
+
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic|Nanum+Myeongjo');
+
+/* font */
+* {
+	font-family: 'Nanum Gothic', sans-serif;
+	font-family: 'Nanum Myeongjo', serif;
+	font-weight: bolder;
+}
 
 /*
  * top
@@ -10,7 +19,20 @@
 .my-board-row {
 	border-bottom: 1px solid black;
 }
-
-/*
- * aricle style
- */
+.my-board-grid {
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bolder;
+	font-size: 10pt;
+	height: 25px;
+	overflow: hidden;
+}
+.my-board-row:hover, .my-board-row:focus {
+	background-color: #efefef;
+}
+.my-board-grid-title:hover, .my-board-grid-title:focus {
+	cursor: pointer;
+}
+#boardList {
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bolder;
+}

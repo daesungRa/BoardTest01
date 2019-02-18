@@ -5,6 +5,6 @@
 
 <mapper namespace="board">
 	<select id="selectTest" resultType="com.daesungra.domain.BoardVo">
-		SELECT * FROM BOARD
+		SELECT serial, title, content, category, userId, gSerial, pSerial, depth, indent, to_char(bDate, 'YY/MM/DD HH24:MI:SS') bDate FROM BOARD
 	</select>
 </mapper>

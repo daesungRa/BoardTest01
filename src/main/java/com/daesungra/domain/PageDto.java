@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.daesungra.conponent.DBConn;
+import com.daesungra.component.DBConn;
 
 public class PageDto {
 	Connection conn = null;

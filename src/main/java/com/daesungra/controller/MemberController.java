@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.daesungra.domain.FileUpload;
+import com.daesungra.component.FileUpload;
 import com.daesungra.domain.MemberVo;
 import com.daesungra.service.MemberService;
 

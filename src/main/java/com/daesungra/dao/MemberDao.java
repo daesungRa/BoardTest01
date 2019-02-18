@@ -8,8 +8,9 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.daesungra.conponent.DBConn;
+import com.daesungra.component.DBConn;
 import com.daesungra.domain.MemberVo;
 
 public class MemberDao {
@@ -20,6 +21,9 @@ public class MemberDao {
 	 * 	- 그렇다면 controller 는 항시 운용중이고, service 객체는 항시 살아있다는 의미일까??
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(MemberDao.class);
+	
+	@Autowired
+	private DBConn dbConn;
 	
 	Connection conn = null;
 	PreparedStatement ps = null;
@@ -48,7 +52,7 @@ public class MemberDao {
 		MemberVo vo = null;
 		String sql = null;
 		/*this.conn = dbConn.getConn();*/
-		this.conn = new DBConn().getConn();
+		this.conn = dbConn.getConn();
 		if (this.conn != null) {
 			logger.info("this.conn != null");
 		} else {
@@ -108,7 +112,7 @@ public class MemberDao {
 	public MemberVo profileSelect (String userId) {
 		MemberVo vo = null;
 		String sql = null;
-		this.conn = new DBConn().getConn();
+		this.conn = dbConn.getConn();
 		
 		try {
 			sql = " select m.userId userId, m.userName userName, m.photo photo, m.photoOri photoOri, p.introduce introduce, p.interest interest, p.isPublic isPublic "
@@ -161,7 +165,7 @@ public class MemberDao {
 	public boolean memberInsert (MemberVo vo) {
 		boolean result = false;
 		String sql = null;
-		this.conn = new DBConn().getConn();
+		this.conn = dbConn.getConn();
 		
 		try {
 			conn.setAutoCommit(false);
