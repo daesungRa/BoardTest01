@@ -143,9 +143,12 @@
 				
 				<div style='height: 600px; background-color: #efefef; border-radius: 10px; /* border: 1px solid black; */'>
 					<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
+						<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
+							<img src='/desktop/resources/imgs/boardAttFiles/unbearable01.jpg' alt="unbearable img" style='width: 90px; height: 150px;' />
+						</div>
 						<div style='display: inline-block; width: 200px; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title }</div><br/>
-						<div style='display: inline-block; width: 150px; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].bDate }</div>
-						<div style='display: inline-block; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
+						<div style='display: inline-block; float: left; width: 150px; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].bDate }</div>
+						<div style='display: inline-block; float: left; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
 					</div>
 					<div class='container' style='height: 400px; text-align: center; padding: 10px 20px 30px 20px;'>
 						<p>${boardList[0].content }</p>
@@ -156,9 +159,12 @@
 				
 				<div style='height: 600px; background-color: #efefef; border-radius: 10px; /* border: 1px solid black; */'>
 					<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
+						<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
+							<img src='/desktop/resources/imgs/boardAttFiles/unbearable01.jpg' alt="unbearable img" style='width: 90px; height: 150px;' />
+						</div>
 						<div style='display: inline-block; width: 200px; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title }</div><br/>
-						<div style='display: inline-block; width: 150px; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].bDate }</div>
-						<div style='display: inline-block; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
+						<div style='display: inline-block; float: left; width: 150px; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].bDate }</div>
+						<div style='display: inline-block; float: left; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
 					</div>
 					<div class='container' style='height: 400px; text-align: center; padding: 10px 20px 30px 20px;'>
 						<p>${boardList[0].content }</p>
@@ -169,9 +175,12 @@
 				
 				<div style='height: 600px; background-color: #efefef; border-radius: 10px; /* border: 1px solid black; */'>
 					<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
+						<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
+							<img src='/desktop/resources/imgs/boardAttFiles/unbearable01.jpg' alt="unbearable img" style='width: 90px; height: 150px;' />
+						</div>
 						<div style='display: inline-block; width: 200px; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title }</div><br/>
-						<div style='display: inline-block; width: 150px; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].bDate }</div>
-						<div style='display: inline-block; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
+						<div style='display: inline-block; float: left; width: 150px; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].bDate }</div>
+						<div style='display: inline-block; float: left; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
 					</div>
 					<div class='container' style='height: 400px; text-align: center; padding: 10px 20px 30px 20px;'>
 						<p>${boardList[0].content }</p>
@@ -187,6 +196,9 @@
 			<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
 		</footer>
 	</div>
+	
+	<!-- button for to-top -->
+	<a class='btn btn-secondary my-btn-toTop' href='#' onclick='funcMovePage("indexTop");'>top</a>
 	
 	<!-- Modal -->
     <button id="modalBtn" style='display: none;'>Open Modal</button>

@@ -52,7 +52,7 @@ public class MemberDao {
 		MemberVo vo = null;
 		String sql = null;
 		/*this.conn = dbConn.getConn();*/
-		this.conn = dbConn.getConn();
+		this.conn = new DBConn().getConn();
 		if (this.conn != null) {
 			logger.info("this.conn != null");
 		} else {
@@ -63,11 +63,11 @@ public class MemberDao {
 		try {
 			// pwd 가 -1 이라면 아이디체크, 아니라면 로그인 및 회원조회
 			if (userPwd.equals("-1")) {
-				sql = " select * from member where userId = ? ";
+				sql = " select * from dmember where userId = ? ";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, userId);
 			} else {
-				sql = " select * from member where userId = ? and userPwd = ? ";
+				sql = " select * from dmember where userId = ? and userPwd = ? ";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, userId);
 				ps.setString(2, userPwd);
@@ -112,11 +112,11 @@ public class MemberDao {
 	public MemberVo profileSelect (String userId) {
 		MemberVo vo = null;
 		String sql = null;
-		this.conn = dbConn.getConn();
+		this.conn = new DBConn().getConn();
 		
 		try {
 			sql = " select m.userId userId, m.userName userName, m.photo photo, m.photoOri photoOri, p.introduce introduce, p.interest interest, p.isPublic isPublic "
-					+ "	from member m join member_profile p "
+					+ "	from dmember m join dmember_profile p "
 					+ "	on m.userId = p.userId "
 					+ "	where p.userId = ? ";
 			ps = conn.prepareStatement(sql);
@@ -165,12 +165,12 @@ public class MemberDao {
 	public boolean memberInsert (MemberVo vo) {
 		boolean result = false;
 		String sql = null;
-		this.conn = dbConn.getConn();
+		this.conn = new DBConn().getConn();
 		
 		try {
 			conn.setAutoCommit(false);
-			sql = " insert into member (userId, userPwd, userName, email, phone, postal, address, photo, photoOri, mDate, addressAdd) "
-				    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?) ";
+			sql = " insert into dmember (userId, userPwd, userName, email, phone, postal, address, photo, photoOri, mDate, addressAdd, isDelete) "
+				    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?, 0) ";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, vo.getUserId());
 			ps.setString(2, vo.getUserPwd());
