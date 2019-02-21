@@ -69,16 +69,17 @@
 	</footer>
 	
     <!-- Modal -->
-    <button id="modalBtn" style='display: none;'></button>
+    <jsp:include page="/WEB-INF/views/component/modal.jsp"></jsp:include>
+    <!-- <button id="modalBtn" style='display: none;'></button>
     <div id="mainModal" class="modal">
     	
-	    <!-- Modal content -->
+	    Modal content
 	    <div class="modal-content">
 	   		<div id='innerContent'></div>
 	   		<span class="close">닫기</span>
 	    </div>
 	    
-    </div>
+    </div> -->
 	
 </body>
 </html>

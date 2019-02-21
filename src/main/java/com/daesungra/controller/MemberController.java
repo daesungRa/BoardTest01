@@ -88,6 +88,8 @@ public class MemberController {
 			logger.info("fileupload is null");
 		}
 		
+		// 파일 업로드 수행
+		// vo 객체가 반환된다
 		MemberVo vo = fileUpload.getMemberVo(request);
 		
 		if (vo != null) {

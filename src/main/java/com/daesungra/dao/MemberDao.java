@@ -195,8 +195,8 @@ public class MemberDao {
 			if (vo.getPostal() == null) { // 입력된 파일정보가 없다면 공백 투입
 				ps.setString(8, "");
 				ps.setString(9, "");
-			} else {				
-				ps.setString(8, vo.getPhoto());
+			} else {
+				ps.setString(8, "/desktop/resources/imgs/memberImg/" + vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
 				ps.setString(9, vo.getPhotoOri());
 			}
 			
