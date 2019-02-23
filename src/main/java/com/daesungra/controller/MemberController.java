@@ -144,42 +144,59 @@ public class MemberController {
 	@RequestMapping(value="/myPage", method=RequestMethod.GET)
 	public String getMyPage (HttpServletRequest request) {
 		logger.info("call myPage");
-		request.setAttribute("memberInfo", true); // navBar 분기를 위함
 		
 		return "/member/myPage";
 	}
-	@RequestMapping(value={"/memberProfilePage", "/memberInfoPage", "/memberModifyPage"}, method=RequestMethod.GET)
+	@RequestMapping(value={"/memberProfileForm", "/memberInfoForm"}, method=RequestMethod.GET)
 	public String getMemberInfo (HttpServletRequest request) {
-		String result = "redirect:/";
+		String result = "";
 		String requestUri = request.getRequestURI();
 		String requestPage = requestUri.substring(requestUri.lastIndexOf("/") + 1, requestUri.length());
-		MemberVo vo = null;
-		request.setAttribute("memberInfo", true); // navBar 분기를 위함
+		MemberVo vo = new MemberVo(); // 공갈 페이지라도 넘어가서 페이지 그림
 		
 		// 인터셉터 통과했다면, 세션에 저장된 아이디로 회원정보를 검색해 뷰에 반환한다
-		if (requestPage.equals("memberProfilePage")) {
+		if (requestPage.equals("memberProfileForm")) {
 			logger.info("call " + requestPage + " page");
 			// profile
-			vo = service.profileView((String)request.getSession().getAttribute("userId"));
+			// 응답 flag 가 0 이면 세션정보 없음, 1 이면 조회결과 없음, 2 면 조회성공
+			if (request.getSession().getAttribute("userId") != null) { // 로그인 정보가 있다면 vo 초기화
+				vo = service.profileView((String)request.getSession().getAttribute("userId"));
+				if (vo == null) {
+					request.setAttribute("flag", "1");
+				} else {
+					request.setAttribute("flag", "2");
+				}
+			} else {
+				request.setAttribute("flag", "0");
+			}
 			
 			request.setAttribute("memberVo", vo);
-			result = "/member/memberProfilePage";
-		} else if (requestPage.equals("memberInfoPage")) {
+			result = "/member/memberProfileForm";
+		} else if (requestPage.equals("memberInfoForm")) {
 			logger.info("call " + requestPage + " page");
 			// info
-			vo = service.memberView((String)request.getSession().getAttribute("userId"));
+			// 응답 flag 가 0 이면 세션정보 없음, 1 이면 조회결과 없음, 2 면 조회성공
+			if (request.getSession().getAttribute("userId") != null) { // 로그인 정보가 있다면 vo 초기화
+				vo = service.memberView((String)request.getSession().getAttribute("userId"));
+				if (vo == null) {
+					request.setAttribute("flag", "1");
+				} else {
+					request.setAttribute("flag", "2");
+				}
+			} else {
+				request.setAttribute("flag", "0");
+			}
 			
 			request.setAttribute("memberVo", vo);
-			result = "/member/memberInfoPage";
-		} else if (requestPage.equals("memberModifyPage")) {
-			logger.info("call " + requestPage + " page");
-			// info
-			vo = service.memberView((String)request.getSession().getAttribute("userId"));
-			
-			request.setAttribute("memberVo", vo);
-			result = "/member/memberModifyPage";
-		}
+			result = "/member/memberInfoForm";
+		} 
 		
 		return result;
+	}
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public String modify (HttpServletRequest request) {
+		logger.info("modify 시작");
+		
+		return "";
 	}
 }

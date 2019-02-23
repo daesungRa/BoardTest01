@@ -98,10 +98,53 @@ $(function () {
 		alert("로그아웃되었습니다.");
 	});
 	
-		// 마이페이지 로드
-	/*myPage.click(function () {
-		
-	});*/
+	// 회원정보 조회
+	$('#loadMemberInfo').click(function(){
+		$.ajax({
+			type: 'get',
+			url: '/desktop/member/memberInfoForm',
+			dataType: 'html',
+			success: function (html, status) {
+				modalContent.setAttribute('style', 'height: 82%; margin: 7% auto;');
+				innerModalContent.setAttribute('style', 'position: absolute; width: 97%; height: 94%; top: 0;');
+				
+				innerModalContent.innerHTML = html;
+				alert('조회 결과 플래그: ' + $('#flag').text());
+				
+				// 에러코드 0 이면 세션아이디 없음, 에러코드 1 이면 조회된 결과 없음
+				if ($('#flag').text() == "0") { // 세션아이디 없음
+					alert('접속 정보가 존재하지 않습니다. 로그인 후 이용하세요.');
+					innerModalContent.innerHTML = "";
+					$.ajax({
+						type: 'get',
+						url: '/desktop/member/loginForm',
+						dataType: 'html',
+						success: function (html, status) {
+							modalContent.setAttribute('style', 'height: 60%; margin: 12% auto;');
+							innerModalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -10px;');
+							
+							innerModalContent.innerHTML = html;
+							modalWindow.style.display = 'block';
+							
+							funcLoginAction();
+						}
+					});
+				} else if ($('#flag').text() == "1") { // 조회결과 없음 (vo == null)
+					alert('현재 접속정보로 조회된 회원정보가 존재하지 않습니다. 확인 후 이용해주세요.');
+					innerModalContent.innerHTML = "";
+					location.href = '/desktop';
+				} else if ($('#flag').text() == "2"){
+					modalWindow.style.display = 'block';
+					
+					funcMemberInfo();
+				} else {
+					alert('예상치 못한 에러 발생. 관리자에게 문의하십시오.');
+					innerModalContent.innerHTML = "";
+					location.href = '/desktop';
+				}
+			}
+		});
+	});
 });
 
 /*

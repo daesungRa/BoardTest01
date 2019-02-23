@@ -61,7 +61,7 @@
 						</a>
 						<ul class='dropdown-menu dropdown-menu-right animate slideIn'>
 							<li><a class='dropdown-item my-nav' id='logoutAnc' href='#logout'>로그아웃</a></li>
-							<li><a class='dropdown-item my-nav' id='myPage' href='#myPage'>마이페이지</a></li>
+							<li><a class='dropdown-item my-nav' id='loadMemberInfo' href='#loadMemberInfo'>마이페이지</a></li>
 						</ul>
 					</div>
 			</c:when>

@@ -72,8 +72,8 @@
 					<input type='file' id='photo' name='photo' value='photo' multiple="multiple" required="required"/><br/>
 				</div>
 				<div class='form-group'>
-					<input class='btn btn-primary' type='button' id='btnSubmit' name='btnSubmit' value='제 출' />
-					<input class='btn btn-primary' type='button' id='btnCancel' name='btnCancel' value='초기화' />
+					<input class='btn btn-primary' type='button' id='btnJoinSubmit' name='btnJoinSubmit' value='제 출' />
+					<input class='btn btn-primary' type='button' id='btnJoinCancel' name='btnJoinCancel' value='초기화' />
 				</div>
 			</form>
 			<p/>
