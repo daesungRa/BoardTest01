@@ -24,12 +24,12 @@
 		</button>
 		<div class='collapse navbar-collapse' id='collapsibleNavbar'>
 			<ul class='navbar-nav'>
-				<c:choose>
+				<%-- <c:choose>
 					<c:when test="${not empty requestScope.memberInfo and requestScope.memberInfo eq true }">
 						<li class='nav-item'><a class='nav-link my-nav' id='memberProfileAnc' href='#'>프로필 관리</a></li>
 						<li class='nav-item'><a class='nav-link my-nav' id='memberInfoAnc' href='#'>회원정보 관리</a></li>
 					</c:when>
-					<c:otherwise>
+					<c:otherwise> --%>
 						<li class='nav-item dropdown'>
 							<a class='nav-link dropdown-toggle my-nav' data-toggle='dropdown' role='button' id='categoryAnc' href='#'>리뷰 카테고리</a>
 							<ul class='dropdown-menu my-nav' style='text-align: left;'>
@@ -44,11 +44,11 @@
 								<li><a class='dropdown-item my-nav' id='' href='#'>예술/문화/자기계발/라이프</a></li>
 							</ul>
 						</li>
-						<li class='nav-item'><a class='nav-link my-nav' id='guestbookAnc' href='#123'>방명록</a></li>
-						<li class='nav-item'><a class='nav-link my-nav' id='myDeskTopAnc' href='#'>나의 책상</a></li>
-						<li class='nav-item'><a class='nav-link my-nav' id='myDeskTopAnc' href='#'>중고책</a></li>
-					</c:otherwise>
-				</c:choose>
+						<li class='nav-item'><a class='nav-link my-nav' id='writerListAnc' href='#writerList'>작가별</a></li>
+						<li class='nav-item'><a class='nav-link my-nav' id='guestbookAnc' href='#guestbook'>방명록</a></li>
+						<li class='nav-item'><a class='nav-link my-nav' id='myDeskTopAnc' href='#myDeskTop'>나의 책상</a></li>
+					<%-- </c:otherwise>
+				</c:choose> --%>
 			</ul>
 		</div>
 
@@ -60,8 +60,8 @@
 							class='caret'></span>
 						</a>
 						<ul class='dropdown-menu dropdown-menu-right animate slideIn'>
-							<li><a class='dropdown-item my-nav' id='logoutAnc' href='/desktop/member/logout'>로그아웃</a></li>
-							<li><a class='dropdown-item my-nav' id='myPage' href='/desktop/member/myPage'>마이페이지</a></li>
+							<li><a class='dropdown-item my-nav' id='logoutAnc' href='#logout'>로그아웃</a></li>
+							<li><a class='dropdown-item my-nav' id='myPage' href='#myPage'>마이페이지</a></li>
 						</ul>
 					</div>
 			</c:when>
@@ -74,9 +74,9 @@
 							속 <span class='caret'></span>
 						</a>
 						<ul class='dropdown-menu'>
-							<li><a class='dropdown-item' id='loginAnc' href='#'>로그인</a>
+							<li><a class='dropdown-item' id='loginAnc' href='#login'>로그인</a>
 							</li>
-							<li><a class='dropdown-item' id='joinAnc' href='#'>회원가입</a>
+							<li><a class='dropdown-item' id='joinAnc' href='#join'>회원가입</a>
 							</li>
 						</ul>
 					</div>

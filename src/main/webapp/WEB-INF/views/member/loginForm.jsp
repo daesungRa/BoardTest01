@@ -32,14 +32,14 @@
 		<div class='container' id='innerLoginForm'>
 			<p/>
 			<h3>로그인 페이지</h3>
-			<form class='form-group' name='loginFrm' action='/desktop/member/login' method='post'>
-				<input class='form-control' type='text' name='userId' placeholder='아이디 입력' /><br/>
-				<input class='form-control' type='password' name='userPwd' placeholder='비밀번호 입력' /><br/>
-				<input class='btn btn-primary' type='button' id='btnSubmit' value='제 출' style='margin-top: 20px;'/><br/>
+			<form class='form-group' name='loginFrm' id='loginFrm' action='#loginAction' method='post'>
+				<input class='form-control' type='text' name='userId' id='userId' placeholder='아이디 입력' /><br/>
+				<input class='form-control' type='password' name='userPwd' id='userPwd' placeholder='비밀번호 입력' /><br/>
+				<input class='btn btn-primary' type='button' id='btnLoginSubmit' value='제 출' style='margin-top: 20px;'/><br/>
 			</form>
-			<a href='#'>아이디 찾기</a>&nbsp;&nbsp;
-			<a href='#'>비밀번호 찾기</a>&nbsp;&nbsp;
-			<a href='/desktop/member/joinForm'>회원가입</a>
+			<a id='finduserIdAnc' href='#findId'>아이디 찾기</a>&nbsp;&nbsp;
+			<a id='finduserPwdAnc' href='#findPwd'>비밀번호 찾기</a>&nbsp;&nbsp;
+			<a id='logintojoinAnc' href='#join'>회원가입</a>
 			<p/>
 		</div>
 	</div>

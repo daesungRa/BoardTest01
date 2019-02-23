@@ -11,6 +11,7 @@
 	<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'/>
 	<link rel='stylesheet' href='/desktop/resources/css/index.css' />
 	<link rel='stylesheet' href='/desktop/resources/css/component.css' />
+	<link rel='stylesheet' href='/desktop/resources/css/member.css' />
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -18,14 +19,21 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src='/desktop/resources/js/index.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
+	<script src='/desktop/resources/js/member.js'></script>
 </head>
 <body>
 
-	<c:if test="${not empty sessionScope.msg }">
+	<!-- 세션 메시지는 스크립트로 일괄 처리할 것! -->
+	
+	<%-- <c:if test="${not empty sessionScope.msg }">
 		<c:set var="msg" value="${sessionScope.msg }" scope="session"/>
 		<script>alert('${msg}');</script>
 		<c:remove var="msg" scope="session"/>
-	</c:if>
+		<%
+			// 세션 내 메시지 삭제
+			session.removeAttribute("msg");
+		%>
+	</c:if> --%>
 	
 	<!-- 브라우저 크기 확인 (임시) -->
 	<!-- <div id='windowSize' style='width: 180px; border: 1px solid black;'>
@@ -47,6 +55,9 @@
 	<article id='article'>
 		<div class='container my-article'>
 			<div class='row my-article-row'>
+				
+			
+			
 				<div class='col-lg-4 my-article-col'>
 					<h4>컨텐트 1</h4>
 				</div>
@@ -70,16 +81,6 @@
 	
     <!-- Modal -->
     <jsp:include page="/WEB-INF/views/component/modal.jsp"></jsp:include>
-    <!-- <button id="modalBtn" style='display: none;'></button>
-    <div id="mainModal" class="modal">
-    	
-	    Modal content
-	    <div class="modal-content">
-	   		<div id='innerContent'></div>
-	   		<span class="close">닫기</span>
-	    </div>
-	    
-    </div> -->
 	
 </body>
 </html>

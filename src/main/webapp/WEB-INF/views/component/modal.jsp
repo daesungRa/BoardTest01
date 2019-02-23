@@ -8,14 +8,13 @@
 </head>
 <body>
 
-	<button id="modalBtn" style='display: none;'></button>
-    <div id="mainModal" class="modal">
+    <div id="modalWindow" class="modal" style='display: none;'>
     	
 	    <!-- Modal content -->
-	    <div class="modal-content">
-	   		<div id='innerContent'></div>
-	   		<span class="close">닫기</span>
-	    </div>
+	    <div class='modal-content' id='modalContent'>
+			<div id='innerModalContent'></div>
+			<span class='close' id='closeModal'>닫기</span>
+		</div>
 	    
     </div>
 

@@ -5,60 +5,14 @@
  */
 
 $(function () {
-	var xhr = new XMLHttpRequest();
+	// modal
+	var modalWindow = document.getElementById('modalWindow');
+	var modalContent = document.getElementById('modalContent');
+	var innerModalContent = document.getElementById('innerModalContent');
 	
-	/*
-	 * index page
-	 */
-		// get window size
-	$(window).resize(function () {
-		getWindowSize();
-	});
 	
-		// fade in
-	$('.my-jumbo > h1').fadeOut(0);
-	$('.my-jumbo > p').fadeOut(0);
-	$('.my-jumbo > a').fadeOut(0);
-	
-	$('.my-jumbo > h1').fadeIn(1000);
-	$('.my-jumbo > p').delay('slow').fadeIn(1000);
-	$('.my-jumbo > a').delay('slow').fadeIn(1000);
-	
-		// Get the modal
-    var modal = document.getElementById('mainModal');
-    var btnModal = document.getElementById("modalBtn");
-    var modalClose = document.getElementsByClassName("close")[0];                                          
-
-    btnModal.onclick = function() {
-        modal.style.display = "block";
-    }
-    modalClose.onclick = function() {
-        modal.style.display = "none";
-    }
-    window.onclick = function(ev) {
-        if (ev.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-    $(window).keydown(function (ev) {
-    	if (ev.keyCode == '27') {
-    		modal.style.display = 'none';
-    	}
-    });
-    
-    /*
-     * loginForm page
-     */
-	
-	/*
-	 * joinForm page
-	 * 각 항목 입력 시 자동 무결성체크
-	 */
-	
-	/*
-	 * navBar
-	 */
-	var memberProfileAnc = document.getElementById('memberProfileAnc');
+    // navbar
+    var memberProfileAnc = document.getElementById('memberProfileAnc');
 	var memberInfoAnc = document.getElementById('memberInfoAnc');
 	var guestbookAnc = document.getElementById('guestbookAnc');
 	var categoryAnc = document.getElementById('categoryAnc');
@@ -69,40 +23,85 @@ $(function () {
 	var loginAnc = document.getElementById('loginAnc');
 	var joinAnc = document.getElementById('joinAnc');
 	
-	/* 로그인, 조인 */
-	loginAnc.onclick = function () {
-		var mainModal = document.getElementById('mainModal'); // 모달 화면
-		var modalContent = document.getElementById('innerContent'); // 모달 내용
-		xhr.open('get', '/desktop/member/loginForm');
-		xhr.send();
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				document.getElementsByClassName('modal-content')[0].setAttribute('style', 'height: 60%; margin: 12% auto;');
-				modalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -10px;');
-				modalContent.innerHTML = xhr.responseText;
-				$("#modalBtn").trigger("click");
-				
-				loginlogin();
-			}
-		}
-	}
+	/*
+	 * index page
+	 */
+		// get window size
+	$(window).resize(function () {
+		getWindowSize();
+	});
+		// fade in
+	$('.my-jumbo > h1').fadeOut(0);
+	$('.my-jumbo > p').fadeOut(0);
+	$('.my-jumbo > a').fadeOut(0);
 	
-	joinAnc.onclick = function () {
-		var mainModal = document.getElementById('mainModal'); // 모달 화면
-		var modalContent = document.getElementById('innerContent'); // 모달 내용
-		xhr.open('get', '/desktop/member/joinForm');
-		xhr.send();
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				document.getElementsByClassName('modal-content')[0].setAttribute('style', 'height: 78%; margin: 7% auto;');
-				modalContent.setAttribute('style', 'position: absolute; width: 97%; height: 90%; top: 0;');
-				modalContent.innerHTML = xhr.responseText;
-				$("#modalBtn").trigger("click");
-				
-				joinjoin(xhr);
-			}
+	$('.my-jumbo > h1').fadeIn(1000);
+	$('.my-jumbo > p').delay('slow').fadeIn(1000);
+	$('.my-jumbo > a').delay('slow').fadeIn(1000);
+		// modal action
+	$(window).click(function (ev) { // 모달 외 화면 클릭 시
+		if (ev.target == modalWindow) {
+			modalWindow.style.display = 'none';
 		}
-	}
+	});
+	$(window).keydown(function (ev) { // esc 버튼 입력 시
+		if (ev.keyCode == '27') {
+			modalWindow.style.display = 'none';
+		}
+	});
+	$('#closeModal').click(function () {
+		modalWindow.style.display = 'none';
+	});
+	
+	/*
+	 * navBar
+	 */	
+		// 모달에 로그인 폼 로드
+		// 이후 funcLoginAction 함수 실행
+	$('#loginAnc').click(function () {
+		$.ajax({
+			type: 'get',
+			url: '/desktop/member/loginForm',
+			dataType: 'html',
+			success: function (html, status) {
+				modalContent.setAttribute('style', 'height: 60%; margin: 12% auto;');
+				innerModalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -10px;');
+				
+				innerModalContent.innerHTML = html;
+				modalWindow.style.display = 'block';
+				
+				funcLoginAction();
+			}
+		});
+	})
+		// 조인 모달 창 불러오기
+		// 이후 funcJoinAction 함수 실행
+	$('#joinAnc').click(function () {
+		$.ajax({
+			type: 'get',
+			url: '/desktop/member/joinForm',
+			dataType: 'html',
+			success: function (html, status) {
+				modalContent.setAttribute('style', 'height: 78%; margin: 7% auto;');
+				innerModalContent.setAttribute('style', 'position: absolute; width: 97%; height: 90%; top: 0;');
+				
+				innerModalContent.innerHTML = html;
+				modalWindow.style.display = 'block';
+				
+				funcJoinAction();
+			}
+		})
+	});
+		// 로그아웃
+	$('#logoutAnc').click(function(){
+		location.href ='/desktop/member/logout';
+		alert("로그아웃되었습니다.");
+	});
+	
+		// 마이페이지 로드
+	/*myPage.click(function () {
+		
+	});*/
 });
 
 /*

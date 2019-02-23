@@ -36,6 +36,7 @@ public class MemberController {
 		
 		return "/member/loginForm";
 	}
+	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login (@RequestParam(value="userId") String userId, @RequestParam(value="userPwd") String userPwd, HttpServletRequest request) {
 		String result = "";
@@ -51,12 +52,12 @@ public class MemberController {
 			session.setAttribute("msg", "로그인에 성공했습니다");
 			logger.info("login 성공");
 			
-			result = "redirect:/";
+			result = "1"; // 성공 플래그
 		} else {
 			session.setAttribute("msg", "로그인에 실패했습니다");
 			logger.info("login 실패");
 			
-			result = "redirect:loginForm";
+			result = "0"; // 실패 플래그
 		}
 		
 		return result;
@@ -66,6 +67,18 @@ public class MemberController {
 		session.invalidate();
 		
 		return "redirect:/";
+	}
+	@RequestMapping(value="/findIdForm", method=RequestMethod.GET)
+	public String getfindIdForm () {
+		logger.info("call findIdForm");
+		
+		return "/member/findIdForm";
+	}
+	@RequestMapping(value="/findPwdForm", method=RequestMethod.GET)
+	public String getfindPwdForm () {
+		logger.info("call findPwdForm");
+		
+		return "/member/findPwdForm";
 	}
 	
 	/*
