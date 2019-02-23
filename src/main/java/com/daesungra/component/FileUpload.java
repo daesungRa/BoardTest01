@@ -61,12 +61,13 @@ public class FileUpload {
 					if (new File(saveDir + sysFileName).exists()) {
 						String preName = sysFileName.substring(0, sysFileName.lastIndexOf("."));
 						String postName = sysFileName.substring(sysFileName.lastIndexOf("."), sysFileName.length());
-						sysFileName = preName + "_" + System.currentTimeMillis() + postName;
+						System.out.println("preName: " + preName + ", postName: " + postName);
+						sysFileName = preName + "_" + System.currentTimeMillis() + postName; // 같은 파일명이 존재하므로 저장파일명 변경
 					}
 					
 					// 컨테이너에 임시 파일로 저장되어 있으므로, 실제 지정 경로로 transfer 해야 한다
 					// InputStream 사용해도 됨
-					mFile.transferTo(new File(saveDir + sysFileName));
+					mFile.transferTo(new File(saveDir + sysFileName)); // 최종 조립된 이름으로 지정 경로로 전송(저장)
 					System.out.println("================================");
 					System.out.println("[result] ori : " + oriFileName);
 					System.out.println("[result] sys : " + sysFileName);
@@ -86,11 +87,15 @@ public class FileUpload {
 						mvo.setPostal(multi.getParameter("postal"));
 					}
 					// 추가주소가 있다면,
-					if (!multi.getParameter("address").equals("") && !multi.getParameter("addressAdd").equals("")) {
+					if (multi.getParameter("address") != null && !multi.getParameter("address").equals("") && !multi.getParameter("addressAdd").equals("")) {
 						mvo.setAddress(multi.getParameter("address"));
 						mvo.setAddressAdd(multi.getParameter("addressAdd"));
-					} else if (!multi.getParameter("address").equals("")) {
+					} else if (multi.getParameter("address") != null && !multi.getParameter("address").equals("")) {
 						mvo.setAddress(multi.getParameter("address"));
+						mvo.setAddressAdd("");
+					} else {
+						mvo.setAddress("");
+						mvo.setAddressAdd("");
 					}
 					mvo.setPhoto(saveDir + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 전체 경로 입력
 					mvo.setPhotoOri(oriFileName); // 사용자에게 보여질 오리지널 파일명
@@ -109,12 +114,18 @@ public class FileUpload {
 						mvo.setPostal(multi.getParameter("postal"));
 					}
 					// 추가주소가 있다면,
-					if (!multi.getParameter("address").equals("") && !multi.getParameter("addressAdd").equals("")) {
+					if (multi.getParameter("address") != null && !multi.getParameter("address").equals("") && !multi.getParameter("addressAdd").equals("")) {
 						mvo.setAddress(multi.getParameter("address"));
 						mvo.setAddressAdd(multi.getParameter("addressAdd"));
-					} else if (!multi.getParameter("address").equals("")) {
+					} else if (multi.getParameter("address") != null && !multi.getParameter("address").equals("")) {
 						mvo.setAddress(multi.getParameter("address"));
+						mvo.setAddressAdd("");
+					} else {
+						mvo.setAddress("");
+						mvo.setAddressAdd("");
 					}
+					mvo.setPhoto("");
+					mvo.setPhotoOri("");
 				}
 			}
 		} catch (Exception ex) {

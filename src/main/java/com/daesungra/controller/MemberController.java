@@ -187,15 +187,17 @@ public class MemberController {
 	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
 	@RequestMapping(value="/memberModify", method=RequestMethod.POST)
 	public String memberModify (HttpServletRequest request) {
+		String result = "0";
 		logger.info("modify 시작");
 		
-		return "";
+		return result;
 	}
 	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
 	@RequestMapping(value="/memberLeave", method=RequestMethod.POST)
 	public String memberLeave (HttpServletRequest request) {
+		String result = "0";
 		logger.info("memberLeave 시작");
 		
-		return "";
+		return result;
 	}
 }

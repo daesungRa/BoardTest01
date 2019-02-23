@@ -169,8 +169,8 @@ public class MemberDao {
 		
 		try {
 			conn.setAutoCommit(false);
-			sql = " insert into dmember (userId, userPwd, userName, email, phone, postal, address, photo, photoOri, mDate, addressAdd, isDelete) "
-				    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?, 0) ";
+			sql = " insert into dmember (userId, userPwd, userName, email, phone, postal, address, addressAdd, photo, photoOri, mDate, isDelete) "
+				    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, 0) ";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, vo.getUserId());
 			ps.setString(2, vo.getUserPwd());
@@ -185,19 +185,19 @@ public class MemberDao {
 			} else if (vo.getAddressAdd() != null) {
 				ps.setString(6, vo.getPostal());
 				ps.setString(7, vo.getAddress());
-				ps.setString(10, vo.getAddressAdd());
+				ps.setString(8, vo.getAddressAdd());
 			} else {
 				ps.setString(6, vo.getPostal());
 				ps.setString(7, vo.getAddress());
-				ps.setString(10, "");
+				ps.setString(8, "");
 			}
 			
 			if (vo.getPostal() == null) { // 입력된 파일정보가 없다면 공백 투입
-				ps.setString(8, "");
 				ps.setString(9, "");
+				ps.setString(10, "");
 			} else {
-				ps.setString(8, "/desktop/resources/imgs/memberImg/" + vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
-				ps.setString(9, vo.getPhotoOri());
+				ps.setString(9, "/desktop/resources/imgs/memberImg/" + vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
+				ps.setString(10, vo.getPhotoOri());
 			}
 			
 			int insertResult = ps.executeUpdate();

@@ -474,13 +474,7 @@ function funcModifyAction () {
 	joinFrm.photo.onchange = imagePreView;
 	// btn submit
 	joinFrm.btnModifySubmit.onclick = function () {
-		var inputPwd = prompt('회원정보 수정을 위해 가입 시 등록한 비밀번호를 입력하십시오.');
-		if (inputPwd != null && inputPwd != '') {
-			$('#userPwd01').val(inputPwd); // 입력받은 비밀번호를 폼 태그 내에 세팅
-			funcModifySubmit(joinFrm);
-		} else {
-			alert('회원정보 수정 취소');
-		}
+		funcModifySubmit(joinFrm);
 	}
 	// cancel
 	joinFrm.btnModifyCancel.onclick = function () {
@@ -498,15 +492,10 @@ function funcModifySubmit (frm) {
 			var chkState = tag.value;
 			// 현재 태그가 unChecked 상태라면 메시지 발생 후 포커싱
 			if (chkState == 'unChecked') {
-				if (tag.id == 'midChk') {
-					alert('아이디 중복확인이 필요합니다');
-					frm.mid.focus();
-					frm.mid.select();
-					return;
-				} else if (tag.id == 'pwdChk') {
+				if (tag.id == 'userPwdChk') {
 					alert('비밀번호는 영문, 숫자, 특수문자 조합만 가능합니다');
-					frm.pwd.focus();
-					frm.pwd.select();
+					frm.userPwd.focus();
+					frm.userPwd.select();
 					return;
 				} else if (tag.id == 'userNameChk') {
 					alert('이름은 한글 혹은 영문으로만 입력하십시오');
@@ -528,9 +517,21 @@ function funcModifySubmit (frm) {
 		}
 	} // 입력 데이터 검증 로직 끝
 	
+	// 비밀번호 입력 및 수정 최종 확인 메시지
+	var inputPwd = prompt('회원정보 수정을 위해 가입 시 등록한 비밀번호를 입력하십시오.');
+	if (inputPwd != null && inputPwd != '') {
+		$('#userPwd01').val(inputPwd); // 입력받은 비밀번호를 폼 태그 내에 세팅
+	} else {
+		alert('회원정보 수정 취소');
+		frm.userName.focus();
+		frm.userName.select();
+		return;
+	}
+	
 	// 제출
 	// frm.submit();
 	var formData = new FormData(frm);
+	alert('회원정보 수정 시작');
 	$.ajax({
 		url: '/desktop/member/memberModify',
 		data: formData,
@@ -538,46 +539,24 @@ function funcModifySubmit (frm) {
 		processData: false,
 		type: 'post',
 		success: function (data) {
-			var result = data;
-			alert("회원정보 수정 결과: " + result);
-			if (result == '1') { // 회원정보 수정 성공, 뷰 페이지로 이동
-				alert('회원정보 수정에 성공했습니다.');
-				
-				// view 모달 열기
-				var modalWindow = document.getElementById('modalWindow');
-				var modalContent = document.getElementById('modalContent');
-				var innerModalContent = document.getElementById('innerModalContent');
-				
-				$.ajax({
-					type: 'get',
-					url: 'view.mb',
-					dataType: 'html',
-					success: function (html, status) {
-						// 에러코드 0 이면 세션아이디 없음, 에러코드 1 이면 조회된 결과 없음
-						if (html == "0") { // 세션아이디 없음
-							alert('접속 정보가 존재하지 않습니다. 로그인 후 이용해주세요.');
-							location.href = '/junggo/index.jsp';
-						} else if (html == "1") { // 조회결과 없음 (vo == null)
-							alert('현재 접속정보로 조회된 회원정보가 존재하지 않습니다. 확인 후 이용해주세요.');
-							location.href = '/junggo/index.jsp';
-						} else {
-							modalContent.setAttribute('style', 'height: 82%; margin: 7% auto;');
-							innerModalContent.setAttribute('style', 'position: absolute; width: 97%; height: 94%; top: 0;');
-							
-							innerModalContent.innerHTML = html;
-							modalWindow.style.display = 'block';
-							
-							funcMemberView();
-						}
+					var result = data;
+					alert("회원정보 수정 결과: " + result);
+					if (result == '1') { // 회원정보 수정 성공, 뷰 페이지로 이동
+						alert('회원정보 수정에 성공했습니다.');
+						
+						// view 모달 열기
+						$('#loadMemberInfo').trigger('click');
+					} else if (data == '0') { // 회원정보 수정 실패, 페이지 이동 없음
+						alert('회원정보 수정에 실패했습니다. 입력 정보를 다시 확인하세요. 혹은 비밀번호가 일치하지 않았을 수 있습니다.');
+						frm.userName.focus();
+						frm.userName.select();
+					} else {
+						alert('회원정보 수정에 실패했습니다. 관리자에게 문의하십시오.');
+						frm.userName.focus();
+						frm.userName.select();
 					}
-				});
-			} else if (data == '0') { // 회원정보 수정 실패, 페이지 이동 없음
-				alert('회원정보 수정에 실패했습니다. 입력 정보를 다시 확인하세요. 혹은 비밀번호가 일치하지 않았을 수 있습니다.');
-				frm.userName.focus();
-				frm.userName.select();
-			}
-		}
-	})
+				}
+	});
 } // end of modify function
 
 /*
