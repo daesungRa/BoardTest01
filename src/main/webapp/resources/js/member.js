@@ -532,7 +532,7 @@ function funcModifySubmit (frm) {
 	// frm.submit();
 	var formData = new FormData(frm);
 	$.ajax({
-		url: 'modify.mb',
+		url: '/desktop/member/memberModify',
 		data: formData,
 		contentType: false,
 		processData: false,

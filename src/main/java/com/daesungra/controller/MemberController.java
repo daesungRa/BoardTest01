@@ -49,12 +49,10 @@ public class MemberController {
 		if (vo != null) {
 			session.setAttribute("userId", vo.getUserId());
 			session.setAttribute("userName", vo.getUserName());
-			session.setAttribute("msg", "로그인에 성공했습니다");
 			logger.info("login 성공");
 			
 			result = "1"; // 성공 플래그
 		} else {
-			session.setAttribute("msg", "로그인에 실패했습니다");
 			logger.info("login 실패");
 			
 			result = "0"; // 실패 플래그
@@ -66,15 +64,16 @@ public class MemberController {
 	public String logout (HttpSession session) {
 		session.invalidate();
 		
-		return "redirect:/";
+		return "redirect:/"; // 로그아웃 후 메인으로 보냄
 	}
-	@RequestMapping(value="/findIdForm", method=RequestMethod.GET)
+	// 해야함
+	@RequestMapping(value="/findIdForm", method=RequestMethod.POST)
 	public String getfindIdForm () {
 		logger.info("call findIdForm");
 		
 		return "/member/findIdForm";
 	}
-	@RequestMapping(value="/findPwdForm", method=RequestMethod.GET)
+	@RequestMapping(value="/findPwdForm", method=RequestMethod.POST)
 	public String getfindPwdForm () {
 		logger.info("call findPwdForm");
 		
@@ -90,15 +89,15 @@ public class MemberController {
 		
 		return "/member/joinForm";
 	}
+	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join (HttpServletRequest request) {
-		String result = "";
+		String result = "0";
 		boolean insertResult = false;
-		HttpSession session = request.getSession();
 		logger.info("join 시작");
 		
 		if (fileUpload == null) {
-			logger.info("fileupload is null");
+			logger.info("fileupload object is null");
 		}
 		
 		// 파일 업로드 수행
@@ -111,19 +110,15 @@ public class MemberController {
 			insertResult = service.memberRegister(vo);
 			
 			if (insertResult) {
-				session.setAttribute("msg", "회원가입에 성공했습니다");
 				logger.info("join 성공");
-				
-				result = "redirect:/";
+				result = "1";
 			} else {
-				session.setAttribute("msg", "회원가입에 실패했습니다");
 				logger.info("join 실패");
-				
-				result = "redirect:/";
+				result = "0";
 			}
 		} else {
-			session.setAttribute("msg", "회원가입에 실패했습니다");
 			logger.info("vo 생성실패");
+			result = "0";
 		}
 		
 		return result;
@@ -141,12 +136,7 @@ public class MemberController {
 	/*
 	 * 회원관리
 	 */
-	@RequestMapping(value="/myPage", method=RequestMethod.GET)
-	public String getMyPage (HttpServletRequest request) {
-		logger.info("call myPage");
-		
-		return "/member/myPage";
-	}
+	// profile 해야함
 	@RequestMapping(value={"/memberProfileForm", "/memberInfoForm"}, method=RequestMethod.GET)
 	public String getMemberInfo (HttpServletRequest request) {
 		String result = "";
@@ -193,9 +183,18 @@ public class MemberController {
 		
 		return result;
 	}
-	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public String modify (HttpServletRequest request) {
+	// 해야함
+	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
+	@RequestMapping(value="/memberModify", method=RequestMethod.POST)
+	public String memberModify (HttpServletRequest request) {
 		logger.info("modify 시작");
+		
+		return "";
+	}
+	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
+	@RequestMapping(value="/memberLeave", method=RequestMethod.POST)
+	public String memberLeave (HttpServletRequest request) {
+		logger.info("memberLeave 시작");
 		
 		return "";
 	}
