@@ -10,10 +10,11 @@ public class MemberVo {
 	private String phone;
 	private String postal;
 	private String address;
+	private String addressAdd;
 	private String photo;
 	private String photoOri;
 	private String mDate;
-	private String addressAdd;
+	private int isDelete;
 	
 	// 프로필 정보
 	private String introduce;
@@ -64,6 +65,12 @@ public class MemberVo {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getAddressAdd() {
+		return addressAdd;
+	}
+	public void setAddressAdd(String addressAdd) {
+		this.addressAdd = addressAdd;
+	}
 	public String getPhoto() {
 		return photo;
 	}
@@ -82,11 +89,11 @@ public class MemberVo {
 	public void setmDate(String mDate) {
 		this.mDate = mDate;
 	}
-	public String getAddressAdd() {
-		return addressAdd;
+	public int getIsDelete() {
+		return isDelete;
 	}
-	public void setAddressAdd(String addressAdd) {
-		this.addressAdd = addressAdd;
+	public void setIsDelete(int isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 	// profile
@@ -109,7 +116,7 @@ public class MemberVo {
 		this.isPublic = isPublic;
 	}
 	
-	// info json
+	// info json > 수정요망
 	public String toJsonInfo() {
 		return "{\"userId\":\"" + userId + "\", \"userPwd\":\"" + userPwd + "\", \"userName\":\"" + userName + "\", \"email\":\"" + email
 				+ "\", \"postal\":\"" + postal + "\", \"address\":\"" + address + "\", \"photo\":\"" + photo + "\", \"photoOri\":\"" + photoOri

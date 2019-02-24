@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	<insert id="memberInsert" parameterType="com.daesungra.domain.MemberVo">
+		INSERT INTO DMEMBER (userId, userPwd, userName, email, phone, postal, address, addressAdd, photo, photoOri, mDate, isDelete)
+			VALUES (#{userId}, #{userPwd}, #{userName}, #{email}, #{phone}, #{postal}, #{address}, #{addressAdd}, #{photo}, #{photoOri}, SYSDATE, 0)
+	</insert>
+	<insert id="saltInsert" parameterType="com.daesungra.domain.MemberSaltVo">
+		INSERT INTO DMEMBER_SALT VALUES (#{userId}, #{saltData})
+	</insert>
+</mapper>

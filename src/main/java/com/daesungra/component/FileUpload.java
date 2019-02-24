@@ -83,8 +83,10 @@ public class FileUpload {
 					mvo.setEmail(multi.getParameter("email"));
 					mvo.setPhone(multi.getParameter("phone"));
 					// 넘어온 postal 이 존재한다면
-					if (!multi.getParameter("postal").equals("")) {
+					if (multi.getParameter("postal") != null && !multi.getParameter("postal").equals("")) {
 						mvo.setPostal(multi.getParameter("postal"));
+					} else {
+						mvo.setPostal("");
 					}
 					// 추가주소가 있다면,
 					if (multi.getParameter("address") != null && !multi.getParameter("address").equals("") && !multi.getParameter("addressAdd").equals("")) {
@@ -97,7 +99,7 @@ public class FileUpload {
 						mvo.setAddress("");
 						mvo.setAddressAdd("");
 					}
-					mvo.setPhoto(saveDir + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 전체 경로 입력
+					mvo.setPhoto("/desktop/resources/imgs/memberImg/" + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
 					mvo.setPhotoOri(oriFileName); // 사용자에게 보여질 오리지널 파일명
 				} else {
 					// 저장에 성공한 파일이 존재하지 않거나
@@ -110,8 +112,10 @@ public class FileUpload {
 					mvo.setEmail(multi.getParameter("email"));
 					mvo.setPhone(multi.getParameter("phone"));
 					// 넘어온 postal 이 존재한다면
-					if (!multi.getParameter("postal").equals("")) {
+					if (multi.getParameter("postal") != null && !multi.getParameter("postal").equals("")) {
 						mvo.setPostal(multi.getParameter("postal"));
+					} else {
+						mvo.setPostal("");
 					}
 					// 추가주소가 있다면,
 					if (multi.getParameter("address") != null && !multi.getParameter("address").equals("") && !multi.getParameter("addressAdd").equals("")) {

@@ -6,13 +6,17 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.daesungra.component.DBConn;
+import com.daesungra.controller.MemberController;
 import com.daesungra.domain.MemberVo;
 
+@Repository
 public class MemberDao {
 	
 	/*
@@ -20,10 +24,10 @@ public class MemberDao {
 	 * dao 를 호출하는 service 객체가 controller 에서 항시 객체로 주입되기 때문(?)
 	 * 	- 그렇다면 controller 는 항시 운용중이고, service 객체는 항시 살아있다는 의미일까??
 	 */
-	private static final Logger logger = LoggerFactory.getLogger(MemberDao.class);
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	@Autowired
-	private DBConn dbConn;
+	private SqlSession sqlSession;
 	
 	Connection conn = null;
 	PreparedStatement ps = null;
@@ -164,7 +168,16 @@ public class MemberDao {
 	 */
 	public boolean memberInsert (MemberVo vo) {
 		boolean result = false;
-		String sql = null;
+		int r = sqlSession.insert("member.memberInsert", vo);
+		
+		if (r > 0) {
+			result = true;
+			// sqlSession.commit(); // sqlSessionTemplate 사용 시, 프로그램 단위에서 트랜잭션 제어는 불가능함!!
+			// 일단은 걍 믿고 쓸것
+			// 추후 프로그램 단위에서 트랜잭션 제어하는 방법을 찾아볼 것
+		}
+		
+		/*String sql = null;
 		this.conn = new DBConn().getConn();
 		
 		try {
@@ -215,7 +228,7 @@ public class MemberDao {
 			try {
 				closeSet();
 			} catch (Exception ex) { }
-		}
+		}*/
 		
 		return result;
 	}
