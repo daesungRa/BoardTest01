@@ -166,6 +166,14 @@ public class MemberDaoImpl implements MemberDao{
 		// 업데이트가 성공하면 실제 경로에서 파일을 삭제하기 위함 (새로운 파일은 이미 업로드됨)
 		delFileName = sqlSession.selectOne("member.getPhoto", userId);
 		
+		// 정보 수정 시 입력받은 파일정보가 없고, 기존 디비 테이블에 파일정보가 있다면
+		// 새롭게 투입할 vo 객체게 기존 디비 테이블의 파일정보를 넣어서
+		// 결과적으로 동일한 파일정보가 존재하도록 조치한다 (실제경로에 저장된 파일은 애초에 입력정보가 없으므로 변화없음)
+		if (vo.getPhoto().equals("") && !delFileName.equals("")) {
+			vo.setPhoto(delFileName); // vo 에 기존 파일 세팅 후
+			delFileName = ""; // 해당 파일을 삭제하면 안되므로 빈 문자열로 초기화 > 해당 로직 마지막에 삭제되지 않게 됨
+		}
+		
 		// 소금코드 구하기
 		String saltData = sqlSession.selectOne("member.selectSalt", userId);
 		// 해싱된 비번 생성
@@ -179,14 +187,14 @@ public class MemberDaoImpl implements MemberDao{
 		if (updateResult > 0) { // 업데이트 성공시
 			result = true;
 			
-			if (delFileName != null && !delFileName.equals("")) { // 삭제할 파일명이 있고
+			if (delFileName != null && !delFileName.equals("")) { // 삭제할 기존 파일명이 있고
 				File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
 										+ delFileName.substring(delFileName.lastIndexOf("/") + 1, delFileName.length()));
 				if (file.exists()) { // 실제 경로에도 존재한다면 삭제
 					file.delete();
 				}
 			}
-		} else { // 업데이트 실패시
+		} else { // 업데이트 실패시 업로드 하려던 파일 삭제
 			File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
 										+ vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
 			if (file.exists()) { // 새롭게 업로드되었던 파일 삭제

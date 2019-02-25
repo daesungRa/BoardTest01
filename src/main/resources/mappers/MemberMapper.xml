@@ -4,8 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="member">
-
-	<!-- login -->
+	<!--
+		login
+	-->
 	<select id="selectMemberLogin" parameterType="com.daesungra.domain.MemberVo" resultType="com.daesungra.domain.MemberVo">
 		SELECT userId, userName from DMEMBER WHERE userId = #{userId} and userPwd = #{userPwd} and isDelete = 0
 	</select>
@@ -13,7 +14,9 @@
 		SELECT saltData from DMEMBER_SALT WHERE userId = #{userId}
 	</select>
 	
-	<!-- join -->
+	<!--
+		join
+	-->
 	<select id="idCheck" parameterType="String" resultType="String">
 		SELECT userId FROM DMEMBER WHERE userId = #{userId}
 	</select>
@@ -29,7 +32,9 @@
 		INSERT INTO DMEMBER_SALT VALUES (#{userId}, #{saltData})
 	</insert>
 	
-	<!-- member view (info, profile) -->
+	<!--
+		member view (info, profile)
+	-->
 	<select id="selectMemberView" parameterType="String" resultType="com.daesungra.domain.MemberVo">
 		SELECT userId, userName, email, phone, postal, address, addressAdd, photo, photoOri, to_char(mDate, 'YY-MM-DD HH24:MI:SS') mDate
 			FROM DMEMBER
@@ -41,7 +46,9 @@
 			WHERE isDelete = 0
 	</select>
 	
-	<!-- update -->
+	<!--
+		update
+	-->
 	<select id="getPhoto" parameterType="String" resultType="String">
 		SELECT photo FROM DMEMBER WHERE userId = #{_parameter}
 	</select>
@@ -51,7 +58,9 @@
 			WHERE userId = #{userId} and userPwd = #{userPwd} and isDelete = 0
 	</update>
 	
-	<!-- delete -->
+	<!--
+		delete
+	-->
 	<update id="memberDelete" parameterType="com.daesungra.domain.MemberVo">
 		UPDATE DMEMBER SET isDelete = 1 WHERE userId = #{userId} and userPwd = #{userPwd}
 	</update>
