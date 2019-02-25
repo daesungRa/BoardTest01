@@ -247,6 +247,9 @@ public class MemberController {
 		leaveResult = service.memberDelete(request);
 		if (leaveResult) {
 			logger.info("[memberLeave] 회원탈퇴 성공");
+			if (!request.getSession().getAttribute("userId").equals("")) {
+				request.getSession().invalidate(); // 세션이 존재한다면 해제
+			}
 			result = "1";
 		} else {
 			logger.info("[memberLeave] 회원탈퇴 실패");

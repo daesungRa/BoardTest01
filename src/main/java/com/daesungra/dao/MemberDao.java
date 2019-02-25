@@ -19,10 +19,10 @@ public interface MemberDao {
 	// join
 	public boolean idCheck (String userId);
 	public boolean memberInsert (MemberVo vo);
-	public boolean profileInsert (MemberVo vo);
 	
 	// update
 	public boolean memberUpdate (MemberVo vo);
+	public boolean profileUpdate (HttpServletRequest request);
 	
 	// delete
 	public boolean memberDelete (HttpServletRequest request);

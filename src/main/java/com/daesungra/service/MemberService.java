@@ -19,10 +19,10 @@ public interface MemberService {
 	// join
 	public boolean idCheck (String userId); // ok
 	public boolean memberRegister (MemberVo vo); // ok
-	public boolean profileRegister (HttpServletRequest request);
 	
 	// update
 	public boolean memberModify (MemberVo vo); // ok
+	public boolean profileModify (HttpServletRequest request);
 	
 	// delete
 	public boolean memberDelete (HttpServletRequest request); // ok

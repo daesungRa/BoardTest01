@@ -117,7 +117,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 프로필 등록 / 수정 (비공개는 isPublic = '0')
 	// 회원정보 삭제 시 cascade
-	public boolean profileRegister (HttpServletRequest request) {
+	public boolean profileModify (HttpServletRequest request) {
 		boolean result = false;
 		
 		return result;

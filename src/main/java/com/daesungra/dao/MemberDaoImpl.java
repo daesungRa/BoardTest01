@@ -51,6 +51,7 @@ public class MemberDaoImpl implements MemberDao{
 	// 회원정보 조회
 	public MemberVo memberSelect (String userId) {
 		MemberVo vo = null;
+		logger.info("[memberSelect] 요청 아이디 : " + userId);
 		vo = sqlSession.selectOne("member.selectMemberView", userId);
 		
 		return vo;
@@ -136,20 +137,22 @@ public class MemberDaoImpl implements MemberDao{
 		// insert 성공 시 반환값은 true
 		if (r > 0) {
 			result = true;
-			// sqlSession.commit(); // sqlSessionTemplate 사용 시, 프로그램 단위에서 트랜잭션 제어는 불가능함!!
-			// 일단은 걍 믿고 쓸것
-			// 추후 프로그램 단위에서 트랜잭션 제어하는 방법을 찾아볼 것
+			
+			// 프로필 생성
+			r = sqlSession.insert("member.profileInsert", vo.getUserId());
+			if (r > 0) {
+				logger.info("프로필 생성완료");
+			}
 		}
 		
 		return result;
 	}
 	
-	public boolean profileInsert (MemberVo vo) {
+	public boolean profileUpdate (HttpServletRequest request) {
 		boolean result = false;
 		
 		return result;
 	}
-	
 
 	// - memberUpdate -
 	// 회원정보 수정에 사용된 (memberModify)
