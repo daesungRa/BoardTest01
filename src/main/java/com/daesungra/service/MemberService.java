@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.daesungra.component.GetHashedData;
 import com.daesungra.controller.MemberController;
-import com.daesungra.dao.MemberDao;
+import com.daesungra.dao.MemberDaoImpl;
 import com.daesungra.domain.MemberSaltVo;
 import com.daesungra.domain.MemberVo;
 
@@ -16,29 +16,27 @@ import com.daesungra.domain.MemberVo;
 public class MemberService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
 	@Autowired
-	private MemberDao dao;
+	private MemberDaoImpl dao;
 	@Autowired
 	private SqlSession sqlSession;
-
-	public int test () {
-		return 0;
-	}
 	
 	// 로그인 성공하면 vo 그대로 반환, 실패면 null 반환
 	// vo 를 반환하는 이유는, 로그인 성공 시 세션 세팅을 위해서
 	public MemberVo memberLogin (String userId, String userPwd) {
 		MemberVo vo = null;
-		MemberDao dao = new MemberDao();
-		vo = dao.memberSelect(userId, userPwd);
+		logger.info("[MemberService] login 시작");
+		
+		vo = dao.login(userId, userPwd);
 		
 		return vo;
 	}
 	
 	public MemberVo memberView (String userId) {
 		MemberVo vo = null;
-		MemberDao dao = new MemberDao();
-		vo = dao.memberSelect(userId, "-1");
+		MemberDaoImpl dao = new MemberDaoImpl();
+		//vo = dao.memberSelect(userId, "-1");
 		
 		return vo;
 	}
@@ -46,7 +44,7 @@ public class MemberService {
 	// 등록된 프로필 조회
 	public MemberVo profileView (String userId) {
 		MemberVo vo = null;
-		MemberDao dao = new MemberDao();
+		MemberDaoImpl dao = new MemberDaoImpl();
 		vo = dao.profileSelect(userId);
 		
 		return vo;
@@ -56,8 +54,9 @@ public class MemberService {
 	// 컨트롤러에서 ResponseBody 로 결과 그대로 전송하기 위함(boolean 은 불가)
 	public String idCheck (String userId) {
 		String result = "0";
-		MemberDao dao = new MemberDao();
-		if (dao.memberSelect(userId, "-1") != null) {
+		boolean checkResult= dao.idChk(userId);
+		
+		if (checkResult) {
 			result = "1";
 		}
 		
@@ -67,7 +66,7 @@ public class MemberService {
 	// 파일 업로드 결과정보까지 포함된 vo 객체를 받아서 dao 로 db 에 투입함
 	public boolean memberRegister (MemberVo vo) {
 		boolean result = false;
-		// MemberDao dao = new MemberDao();
+		// MemberDao dao = new MemberDao(); // 매핑된 sqlSession 을 사용하기 위해 주입된 dao 객체를 사용해야 함. 즉 스프링에 의해 세팅된 객체들을 사용해야 함
 		logger.info("[MemberService] register 시작");
 		
 		/*
@@ -77,7 +76,7 @@ public class MemberService {
 		// 소금 + 비밀번호 결과를 해싱
 		String saltData = GetHashedData.generateRandomString();
 		String userPwd = GetHashedData.generateHashedString(saltData + vo.getUserPwd());
-		logger.info("비밀번호 해싱 결과 (saltData, userPwd) : " + saltData + ", " + userPwd);
+		logger.info("[join] 비밀번호 해싱 결과 (saltData, userPwd) : " + saltData + ", " + userPwd);
 		
 		// 해싱 결과가 있다면 vo 에 생성된 비밀번호 해시코드 세팅
 		if (userPwd != null && !userPwd.equals("")) {
@@ -113,7 +112,7 @@ public class MemberService {
 	// 회원정보 삭제 시 cascade
 	public boolean profileRegister (MemberVo vo) {
 		boolean result = false;
-		MemberDao dao = new MemberDao();
+		MemberDaoImpl dao = new MemberDaoImpl();
 		
 		return result;
 	}

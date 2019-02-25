@@ -67,13 +67,13 @@ public class MemberController {
 		return "redirect:/"; // 로그아웃 후 메인으로 보냄
 	}
 	// 해야함
-	@RequestMapping(value="/findIdForm", method=RequestMethod.POST)
+	@RequestMapping(value="/findIdForm", method=RequestMethod.GET)
 	public String getfindIdForm () {
 		logger.info("call findIdForm");
 		
 		return "/member/findIdForm";
 	}
-	@RequestMapping(value="/findPwdForm", method=RequestMethod.POST)
+	@RequestMapping(value="/findPwdForm", method=RequestMethod.GET)
 	public String getfindPwdForm () {
 		logger.info("call findPwdForm");
 		
@@ -126,8 +126,9 @@ public class MemberController {
 	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
 	@RequestMapping(value="/idChk", method=RequestMethod.POST)
 	public String idChk (@RequestParam(value="userId") String userId) {
-		logger.info("[idChk] get user id: " + userId);
 		String result = "0";
+		logger.info("[idChk] get user id: " + userId);
+		
 		result = service.idCheck(userId);
 		
 		return result;
