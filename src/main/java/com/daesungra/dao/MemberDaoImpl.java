@@ -157,6 +157,12 @@ public class MemberDaoImpl implements MemberDao{
 		return result;
 	}
 	
+	public boolean profileInsert (MemberVo vo) {
+		boolean result = false;
+		
+		return result;
+	}
+	
 
 	// - memberUpdate -
 	// 회원정보 수정에 사용된 (memberModify)

@@ -17,6 +17,7 @@ public interface MemberDao {
 	// join
 	public boolean idChk (String userId);
 	public boolean memberInsert (MemberVo vo);
+	public boolean profileInsert (MemberVo vo);
 	
 	// update
 	public boolean memberUpdate (MemberVo vo);
