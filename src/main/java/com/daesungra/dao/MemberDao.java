@@ -2,6 +2,8 @@ package com.daesungra.dao;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.daesungra.domain.MemberVo;
 
 public interface MemberDao {
@@ -15,7 +17,7 @@ public interface MemberDao {
 	public List<MemberVo> memberList ();
 	
 	// join
-	public boolean idChk (String userId);
+	public boolean idCheck (String userId);
 	public boolean memberInsert (MemberVo vo);
 	public boolean profileInsert (MemberVo vo);
 	
@@ -23,6 +25,7 @@ public interface MemberDao {
 	public boolean memberUpdate (MemberVo vo);
 	
 	// delete
-	public boolean memberDelete (String userId, String userPwd);
+	public boolean memberDelete (HttpServletRequest request);
+	// public boolean memberDeleteConfirm (); // 보류
 
 }

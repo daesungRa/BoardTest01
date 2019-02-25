@@ -4,15 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="member">
+
 	<!-- login -->
 	<select id="selectMemberLogin" parameterType="com.daesungra.domain.MemberVo" resultType="com.daesungra.domain.MemberVo">
-		SELECT userId, userName from DMEMBER WHERE userId = #{userId} and userPwd = #{userPwd}
+		SELECT userId, userName from DMEMBER WHERE userId = #{userId} and userPwd = #{userPwd} and isDelete = 0
 	</select>
 	<select id="selectSalt" parameterType="String" resultType="String">
 		SELECT saltData from DMEMBER_SALT WHERE userId = #{userId}
 	</select>
+	
 	<!-- join -->
-	<select id="idChk" parameterType="String" resultType="String">
+	<select id="idCheck" parameterType="String" resultType="String">
 		SELECT userId FROM DMEMBER WHERE userId = #{userId}
 	</select>
 	<insert id="memberInsert" parameterType="com.daesungra.domain.MemberVo">
@@ -22,10 +24,34 @@
 	<insert id="saltInsert" parameterType="com.daesungra.domain.MemberSaltVo">
 		INSERT INTO DMEMBER_SALT VALUES (#{userId}, #{saltData})
 	</insert>
+	
 	<!-- member view (info, profile) -->
 	<select id="selectMemberView" parameterType="String" resultType="com.daesungra.domain.MemberVo">
-		SELECT userId, userName, email, phone, postal, address, addressAdd, photo, photoOri, mDate
+		SELECT userId, userName, email, phone, postal, address, addressAdd, photo, photoOri, to_char(mDate, 'YY-MM-DD HH24:MI:SS) mDate
 			FROM DMEMBER
 			WHERE userId = #{userId} and isDelete = 0
 	</select>
+	<select id="selectExistingMemberList">
+		SELECT userId, userName, email, phone, postal, address, addressAdd, photo, photoOri, to_char(mDate, 'YY-MM-DD HH24:MI:SS) mDate
+			FROM DMEMBER
+			WHERE isDelete = 0
+	</select>
+	
+	<!-- update -->
+	<select id="getPhoto" parameterType="String" resultType="String">
+		SELECT photo FROM DMEMBER WHERE userId = #{_parameter}
+	</select>
+	<update id="memberUpdate" parameterType="com.daesungra.domain.MemberVo">
+		UPDATE DMEMBER SET userName = #{userName}, email = #{email}, phone = #{phone}, postal = #{postal}, address = #{address}, addressAdd = #{addressAdd},
+			photo = #{photo}, photoOri = #{photoOri}
+			WHERE userId = #{userId} and userPwd = #{userPwd} and isDelete = 0
+	</update>
+	
+	<!-- delete -->
+	<update id="memberDelete" parameterType="com.daesungra.domain.MemberVo">
+		UPDATE DMEMBER SET isDelete = 1 WHERE userId = #{userId} and userPwd = #{userPwd}
+	</update>
+	<delete id="memberDeleteConfirm" parameterType="com.daesungra.domain.MemberVo">
+		DELETE FROM DMEMBER WHERE userId = #{userId} and userPwd = #{userPwd}
+	</delete>
 </mapper>

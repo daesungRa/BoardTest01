@@ -1,5 +1,7 @@
 package com.daesungra.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -43,7 +45,7 @@ public class MemberController {
 		MemberVo vo = null;
 		HttpSession session = request.getSession();
 		logger.info("login 시작");
-		vo = service.memberLogin(userId, userPwd);
+		vo = service.login(userId, userPwd);
 		
 		// 성공시 세션 세팅 후 인덱스로 이동, 실패시 실패 이유 알려주지 않음 (실패이유는 로그에 저장됨)
 		if (vo != null) {
@@ -96,6 +98,7 @@ public class MemberController {
 		boolean insertResult = false;
 		logger.info("join 시작");
 		
+		// 파일업로드 객체확인
 		if (fileUpload == null) {
 			logger.info("fileupload object is null");
 		}
@@ -114,11 +117,9 @@ public class MemberController {
 				result = "1";
 			} else {
 				logger.info("join 실패");
-				result = "0";
 			}
 		} else {
 			logger.info("vo 생성실패");
-			result = "0";
 		}
 		
 		return result;
@@ -129,7 +130,11 @@ public class MemberController {
 		String result = "0";
 		logger.info("[idChk] get user id: " + userId);
 		
-		result = service.idCheck(userId);
+		boolean checkResult = service.idCheck(userId);
+		
+		if (checkResult == true) {
+			result = "1";
+		}
 		
 		return result;
 	}
@@ -150,8 +155,9 @@ public class MemberController {
 			logger.info("call " + requestPage + " page");
 			// profile
 			// 응답 flag 가 0 이면 세션정보 없음, 1 이면 조회결과 없음, 2 면 조회성공
-			if (request.getSession().getAttribute("userId") != null) { // 로그인 정보가 있다면 vo 초기화
+			if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) { // 로그인 정보가 있다면 vo 초기화
 				vo = service.profileView((String)request.getSession().getAttribute("userId"));
+				
 				if (vo == null) {
 					request.setAttribute("flag", "1");
 				} else {
@@ -167,8 +173,9 @@ public class MemberController {
 			logger.info("call " + requestPage + " page");
 			// info
 			// 응답 flag 가 0 이면 세션정보 없음, 1 이면 조회결과 없음, 2 면 조회성공
-			if (request.getSession().getAttribute("userId") != null) { // 로그인 정보가 있다면 vo 초기화
+			if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) { // 로그인 정보가 있다면 vo 초기화
 				vo = service.memberView((String)request.getSession().getAttribute("userId"));
+				
 				if (vo == null) {
 					request.setAttribute("flag", "1");
 				} else {
@@ -184,12 +191,49 @@ public class MemberController {
 		
 		return result;
 	}
-	// 해야함
+	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
+	@RequestMapping(value="/memberList", method=RequestMethod.GET)
+	public String memberList (HttpServletRequest request) {
+		String result = "0";
+		List<MemberVo> memberList = null;
+		logger.info("call memberList");
+		
+		memberList = service.memberList();
+		if (memberList != null) { // 회원리스트 조회결과가 있다면 세션에 세팅 후 result 에 "1" 세팅
+			request.setAttribute("memberList", memberList);
+			result = "1";
+		}
+		
+		return result;
+	}
 	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
 	@RequestMapping(value="/memberModify", method=RequestMethod.POST)
 	public String memberModify (HttpServletRequest request) {
 		String result = "0";
+		boolean modifyResult = false;
 		logger.info("modify 시작");
+		
+		// 파일업로드 객체확인
+		if (fileUpload == null) {
+			logger.info("fileupload object is null");
+		}
+		
+		// 파일 업로드 수행
+		// vo 객체가 반환된다
+		MemberVo vo = fileUpload.getMemberVo(request);
+		
+		if (vo != null) {
+			modifyResult = service.memberModify(vo);
+			
+			if (modifyResult) { // 성공했다면 result 를 "1" 로 초기화
+				logger.info("modify 성공");
+				result = "1";
+			} else {
+				logger.info("modify 실패");
+			}
+		} else {
+			logger.info("[modify] vo 생성 실패");
+		}
 		
 		return result;
 	}
@@ -197,7 +241,16 @@ public class MemberController {
 	@RequestMapping(value="/memberLeave", method=RequestMethod.POST)
 	public String memberLeave (HttpServletRequest request) {
 		String result = "0";
+		boolean leaveResult = false;
 		logger.info("memberLeave 시작");
+		
+		leaveResult = service.memberDelete(request);
+		if (leaveResult) {
+			logger.info("[memberLeave] 회원탈퇴 성공");
+			result = "1";
+		} else {
+			logger.info("[memberLeave] 회원탈퇴 실패");
+		}
 		
 		return result;
 	}
