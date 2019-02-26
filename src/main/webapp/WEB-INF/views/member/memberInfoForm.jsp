@@ -26,15 +26,12 @@
 		</c:otherwise>
 	</c:choose>
 
-	<div class='container' style='height: 720px;'>
-		<div class='container' id='joinForm' style='background-color: #cdcdcd; border-radius: 10px; padding-right: 70px; margin-top: 50px;'>
-			<div style='margin: 20px 0 10px 0;'>
-				<img class="profile-img" src='' alt="">&nbsp;&nbsp;책상<br/>
-			</div>
-			<h3 id='infoTitle'>회원정보 조회</h3><br/>
+	<div class='container'>
+		<div class='container' id='memberModifyForm'>
 			<form class='form' name='joinFrm' id='joinFrm' action='#joinAction' method='post' enctype='multipart/form-data'>
 				<div class='form-group'>
 					<div class='form-inline'>
+						<label for="userId">아이디</label><br/>
 						<input class='form-control' type='text' id='userId' name='userId' maxlength='30' value='${vo.userId }' placeholder='아이디 입력 (필수)' readonly="readonly" style='width: 48%; margin-right: 10px;'/>
 						<input class='btn btn-primary' type='button' id='btnIdChk' name='btnIdChk' value='중복확인' style='margin-right: 10px; display: none;'></input>
 						<input type='hidden' id='userIdChk' value='unChecked' readonly/>
@@ -42,6 +39,7 @@
 					</div>
 				</div>
 				<div class='form-group'>
+					<label for="userPwd01">비밀번호</label>
 					<input class='form-control' type='password' id='userPwd01' name='userPwd' maxlength='30' value='' placeholder='비밀번호 입력 (필수)' style='display: none; width: 60%;' />
 					<input class='form-control' type='password' id='userPwd02' name='userPwdChk' maxlength='30' placeholder='비밀번호 확인 (필수)' style='display: none; width: 60%;' />
 					<input type='hidden' id='userPwdChk' value='unChecked' readonly/>
@@ -80,7 +78,7 @@
 							fileName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.length()); // 파일명만 따오기
 						}
 					%>
-					<script>alert('<%=dir + fileName %>');</script>
+					<%-- <script>alert('<%=dir + fileName %>');</script> --%>
 					<input type='file' id='photo' name='photo' value='<%=dir + fileName %>' required="required" style='display: none;' /><br/>
 				</div>	
 				<div class='form-group'>

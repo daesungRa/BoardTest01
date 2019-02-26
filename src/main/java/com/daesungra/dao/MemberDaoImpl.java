@@ -48,7 +48,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	// - memberSelect -
-	// 회원정보 조회
+	// 회원정보 조회. 프로필정보까지 조회됨
 	public MemberVo memberSelect (String userId) {
 		MemberVo vo = null;
 		logger.info("[memberSelect] 요청 아이디 : " + userId);

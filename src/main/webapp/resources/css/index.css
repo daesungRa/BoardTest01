@@ -17,11 +17,13 @@
 /*
  * article style
  */
-.my-article {
-	height: 500px;
+.my-index-article {
 	border: 1px solid black;
 }
-.my-article-col {
+.my-index-article-row {
+	
+}
+.my-index-article-col {
 	margin: 5px 0 5px 0;
 	border: 1px solid black;
 }

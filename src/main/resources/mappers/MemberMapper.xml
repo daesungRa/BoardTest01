@@ -25,8 +25,8 @@
 			VALUES (#{userId}, #{userPwd}, #{userName}, #{email}, #{phone}, #{postal}, #{address}, #{addressAdd}, #{photo}, #{photoOri}, SYSDATE, 0)
 	</insert>
 	<insert id="profileInsert" parameterType="String">
-		INSERT INTO DMEMBER_PROFILE (userId, introduce, interest, isPublic, follower)
-			VALUES (#{userId}, '', '', 0, 0)
+		INSERT INTO DMEMBER_PROFILE (userId, introduce, interest, isPublic, nickName)
+			VALUES (#{userId}, '', '', 0, '')
 	</insert>
 	<insert id="saltInsert" parameterType="com.daesungra.domain.MemberSaltVo">
 		INSERT INTO DMEMBER_SALT VALUES (#{userId}, #{saltData})
@@ -36,9 +36,11 @@
 		member view (info, profile)
 	-->
 	<select id="selectMemberView" parameterType="String" resultType="com.daesungra.domain.MemberVo">
-		SELECT userId, userName, email, phone, postal, address, addressAdd, photo, photoOri, to_char(mDate, 'YY-MM-DD HH24:MI:SS') mDate
-			FROM DMEMBER
-			WHERE userId = #{userId} and isDelete = 0
+		SELECT m.userId userId, m.userName userName, m.email email, m.phone phone, m.postal postal, m.address address, m.addressAdd addressAdd, m.photo photo, m.photoOri photoOri,
+				to_char(m.mDate, 'YY-MM-DD HH24:MI:SS') mDate, p.nickName nickName, p.introduce introduce, p.interest interest, p.isPublic isPublic
+			FROM DMEMBER m JOIN DMEMBER_PROFILE p
+			ON m.userId = p.userId
+			WHERE m.userId = #{userId} and m.isDelete = 0
 	</select>
 	<select id="selectExistingMemberList">
 		SELECT userId, userName, email, phone, postal, address, addressAdd, photo, photoOri, to_char(mDate, 'YY-MM-DD HH24:MI:SS') mDate

@@ -46,7 +46,7 @@
 						</li>
 						<li class='nav-item'><a class='nav-link my-nav' id='writerListAnc' href='#writerList'>작가별</a></li>
 						<li class='nav-item'><a class='nav-link my-nav' id='guestbookAnc' href='#guestbook'>방명록</a></li>
-						<li class='nav-item'><a class='nav-link my-nav' id='myDeskTopAnc' href='#myDeskTop'>나의 책상</a></li>
+						<li class='nav-item'><a class='nav-link my-nav .myPageAnc' id='' href='/desktop/member/myPage'>나의 책상</a></li>
 					<%-- </c:otherwise>
 				</c:choose> --%>
 			</ul>
@@ -61,7 +61,7 @@
 						</a>
 						<ul class='dropdown-menu dropdown-menu-right animate slideIn'>
 							<li><a class='dropdown-item my-nav' id='logoutAnc' href='#logout'>로그아웃</a></li>
-							<li><a class='dropdown-item my-nav' id='loadMemberInfo' href='#loadMemberInfo'>마이페이지</a></li>
+							<li><a class='dropdown-item my-nav .myPageAnc' id='' href='/desktop/member/myPage'>마이페이지</a></li>
 						</ul>
 					</div>
 			</c:when>

@@ -142,53 +142,51 @@ public class MemberController {
 	/*
 	 * 회원관리
 	 */
+	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	public String getMyPage (HttpServletRequest request) {
+		MemberVo vo = null;
+		logger.info("call myPage");
+		
+		/*vo = service.memberView((String) request.getSession().getAttribute("userId"));
+		if (vo != null) {
+			request.setAttribute("vo", vo);
+		}*/
+		
+		return "/member/myPage";
+	}
 	// profile 해야함
 	@RequestMapping(value={"/memberProfileForm", "/memberInfoForm"}, method=RequestMethod.GET)
 	public String getMemberInfo (HttpServletRequest request) {
 		String result = "";
 		String requestUri = request.getRequestURI();
 		String requestPage = requestUri.substring(requestUri.lastIndexOf("/") + 1, requestUri.length());
-		MemberVo vo = new MemberVo(); // 공갈 페이지라도 넘어가서 페이지 그림
+		MemberVo vo = null; // 공갈 페이지라도 넘어가서 페이지 그림
 		
 		// 인터셉터 통과했다면, 세션에 저장된 아이디로 회원정보를 검색해 뷰에 반환한다
 		if (requestPage.equals("memberProfileForm")) {
 			logger.info("call " + requestPage + " page");
-			// profile
-			// 응답 flag 가 0 이면 세션정보 없음, 1 이면 조회결과 없음, 2 면 조회성공
-			if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) { // 로그인 정보가 있다면 vo 초기화
-				vo = service.profileView((String)request.getSession().getAttribute("userId"));
-				
-				if (vo == null) {
-					request.setAttribute("flag", "1");
-				} else {
-					request.setAttribute("flag", "2");
-				}
-			} else {
-				request.setAttribute("flag", "0");
-			}
-			
-			request.setAttribute("memberVo", vo);
+
 			result = "/member/memberProfileForm";
 		} else if (requestPage.equals("memberInfoForm")) {
 			logger.info("call " + requestPage + " page");
-			// info
-			// 응답 flag 가 0 이면 세션정보 없음, 1 이면 조회결과 없음, 2 면 조회성공
-			if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) { // 로그인 정보가 있다면 vo 초기화
-				vo = service.memberView((String)request.getSession().getAttribute("userId"));
-				
-				if (vo == null) {
-					request.setAttribute("flag", "1");
-				} else {
-					request.setAttribute("flag", "2");
-				}
-			} else {
-				request.setAttribute("flag", "0");
-			}
 			
-			request.setAttribute("memberVo", vo);
 			result = "/member/memberInfoForm";
-		} 
+		}
 		
+		// 응답 flag 가 0 이면 세션정보 없음, 1 이면 조회결과 없음, 2 면 조회성공
+		if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) { // 로그인 정보가 있다면 vo 초기화
+			vo = service.memberView((String)request.getSession().getAttribute("userId"));
+			
+			if (vo == null) {
+				request.setAttribute("flag", "1");
+			} else {
+				request.setAttribute("flag", "2");
+			}
+		} else {
+			request.setAttribute("flag", "0");
+		}
+
+		request.setAttribute("memberVo", vo);
 		return result;
 	}
 	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)

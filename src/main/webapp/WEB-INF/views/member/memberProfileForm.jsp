@@ -7,61 +7,60 @@
 <meta charset="UTF-8">
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>Member Profile Page</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+	<c:choose>
+		<c:when test='${requestScope.flag == "2" }'>
+			<c:set var="vo" value="${requestScope.memberVo }" scope='page'></c:set>
+			<div id='flag' hidden="">2</div>
+		</c:when>
+		<c:when test='${requestScope.flag == "1" }'>
+			<c:set var="vo" value="${requestScope.memberVo }" scope='page'></c:set>
+			<div id='flag' hidden="">1</div>
+		</c:when>
+		<c:otherwise>
+			<c:set var="vo" value="${requestScope.memberVo }" scope='page'></c:set>
+			<div id='flag' hidden="">0</div>
+		</c:otherwise>
+	</c:choose>
 	
 	<div class='container'>
-		<div class='container my-container'>
-			<div class='row my-row'>
-				<div class='col-3 my-col'>
-					아이디
+		<div class='container'>
+			<form class='form' name='profileForm' method='post' action='#profileModifyAction'>
+				<div class="form-group">
+					<label for="nickName">이름</label>
+					<input class="form-control" type="text" name='userName' id="userName" value='${vo.userName }' readonly style='width: 50%;'>
 				</div>
-				<div class='col-9 my-col'>
-					${vo.userId }
+				<div class="form-group">
+					<label for="nickName">별명</label>
+					<c:choose>
+						<c:when test='${not empty vo.nickName }'>
+							<input class="form-control" type="text" name='nickName' id="nickName" value='${vo.nickName }' placeholder='별명이 없습니다. 새로 등록해주세요.' readonly style='width: 50%;'>
+						</c:when>
+						<c:otherwise>
+							<input class="form-control" type="text" name='nickName' id="nickName" value='' placeholder='별명이 없습니다. 새로 등록해주세요.' readonly style='width: 50%;'>
+						</c:otherwise>
+					</c:choose>
 				</div>
-			</div>
-			<div class='row my-row'>
-				<div class='col-3 my-col'>
-					별명
+				<div class="form-group">
+					<label for="nickName">관심사</label>
+					<input class="form-control" type="text" name='interest' id="interest" value='${vo.interest }' placeholder='관심사 내용이 없습니다. 새로 등록해주세요.' readonly style='width: 50%;'>
 				</div>
-				<div class='col-9 my-col'>
-					${vo.userName }
+				<div class="form-group shadow-textarea">
+					<label for="introduce">소개</label>
+					<textarea class="form-control z-depth-1" name='introduce' id="introduce" rows="3" placeholder="소개 글이 없습니다. 새로 등록해주세요." readonly>${vo.introduce }</textarea>
 				</div>
-			</div>
-			<div class='row my-row'>
-				<div class='col-3 my-col'>
-					관심사
+				<div class='form-group'>
+					<input class='btn btn-primary' type='button' id='btnModifyProfileSubmit' name='btnModifyProfileSubmit' value='제 출' style='display: none;' />
+					<input class='btn btn-primary' type='button' id='btnModifyProfileCancel' name='btnModifyProfileCancel' value='취 소' style='display: none;' />
 				</div>
-				<div class='col-9 my-col'>
-					${vo.interest }
+				<div class='form-group'>
+					<input class='btn btn-primary' type='button' id='btnModifyProfile' name='btnModifyProfile' value='프로필 수정하기' />
 				</div>
-			</div>
-			<div class='row my-row'>
-				<div class='col-3 my-col'>
-					소개
-				</div>
-				<div class='col-9 my-col'>
-					${vo.introduce }
-				</div>
-			</div>
-			<div class='row my-row'>
-				<div class='col-3 my-col'>
-					사진
-				</div>
-				<div class='col-9 my-col'>
-					<!-- 서버 to 로컬접근 : 보안 이슈에 걸림 / damuni 파일로 그냥 조치해 놓음 -->
-					<img src='${vo.photo }' alt="사용자 프로필 사진" width="60px;" />
-					${vo.photoOri }
-				</div>
-			</div>
-			<div class='row my-row'>
-				<div class='col-3 my-col'>
-					공개유무
-				</div>
-				<div class='col-9 my-col'>
-					${vo.isPublic }
-				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 	

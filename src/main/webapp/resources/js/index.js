@@ -17,9 +17,7 @@ $(function () {
 	var guestbookAnc = document.getElementById('guestbookAnc');
 	var categoryAnc = document.getElementById('categoryAnc');
 	var todayAnc = document.getElementById('todayAnc');
-	var myDeskTopAnc = document.getElementById('myDeskTopAnc');
 	var logoutAnc = document.getElementById('logoutAnc');
-	var myPage = document.getElementById('myPage');
 	var loginAnc = document.getElementById('loginAnc');
 	var joinAnc = document.getElementById('joinAnc');
 	

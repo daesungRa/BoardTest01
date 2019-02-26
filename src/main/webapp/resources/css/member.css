@@ -9,30 +9,59 @@
 /*
  * myPage
  */
-.my-mypage-btn01 {
-	position: absolute;
-	top: 0;
-	right: 130px;
-}
-.my-mypage-btn03 {
-	position: absolute;
-	top: 0;
-	right: 110px;
-}
-.my-mypage-btn02 {
-	position: absolute;
-	top: 0;
-	right: 30px;
-}
-.my-container {
+ 
+ /*
+ * loginForm style
+ */
+#loginForm {
+	height: 500px;
 	/* border: 1px solid black; */
 }
-.my-row {
-	height: 60px;
-	padding: 10px 5px 0 0;
-	margin-top: 5px;
+#innerLoginForm {
+	width: 60%;
+	margin-top: 120px;
+	text-align: center;
+	/* border: 1px solid black; */
 }
-.my-col {
-	border-right: 2px dotted #aaa;
-	border-bottom: 2px dotted #aaa;
+#innerLoginForm * {
+	margin-bottom: 10px;
 }
+#innerLoginForm .form-group {
+	text-align: center;
+	margin-top: 60px;
+}
+
+#innerLoginForm .form-control {
+	width: 65%;
+	display: inline-block;
+	border: 1px solid #999;
+}
+
+/*
+ * joinForm style
+ */
+ #joinForm {
+ 	width: 62%;
+	margin-top: 20px;
+	padding: 10px 30px 10px 70px;
+ 	float: left;
+ 	/* border: 1px solid black; */
+ }
+ #joinForm .form-control {
+ 	border: 1px solid #999;
+ 	margin-bottom: 5px;
+ }
+ #memberImg {
+ 	float: left;
+ 	width: 38%;
+ 	height: 500px;
+ 	margin-top: 20px;
+ 	padding-top: 82px;
+ 	text-align: center;
+ 	color: #bbb;
+ 	text-size: 8pt;
+ }
+ 
+/*
+ * modifyForm style
+ */

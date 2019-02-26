@@ -17,6 +17,7 @@ public class MemberVo {
 	private int isDelete;
 	
 	// 프로필 정보
+	private String nickName;
 	private String introduce;
 	private String interest;
 	private String isPublic;
@@ -97,6 +98,12 @@ public class MemberVo {
 	}
 	
 	// profile
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	public String getIntroduce() {
 		return introduce;
 	}
