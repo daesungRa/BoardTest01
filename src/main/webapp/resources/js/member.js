@@ -382,15 +382,16 @@ function funcMemberInfo () {
 	var modalContent = document.getElementById('modalContent');
 	var innerModalContent = document.getElementById('innerModalContent');
 	
-	$('#profileForm #descIsDelete').tooltip();
+	$('#profileForm #descIsPublic').tooltip();
 	
 	$('#btnModifyProfile').click(function () {
+		$('#profileForm #alertUserName').css({"display":"block"});
 		$('#profileForm #nickName').removeAttr('readonly');
 		$('#profileForm #interest').removeAttr('readonly');
 		$('#profileForm #introduce').removeAttr('readonly');
 
-		$('#profileForm #isDelete').removeAttr('disabled');
-		$('#profileForm #descIsDelete').css({"display":"none"});
+		$('#profileForm #isPublic').removeAttr('disabled');
+		$('#profileForm #descIsPublic').css({"display":"none"});
 		$('#profileForm #btnModifyProfile').css({"display":"none"});
 		$('#profileForm #btnModifyProfileSubmit').css({"display":"inline-block"});
 		$('#profileForm #btnModifyProfileCancel').css({"display":"inline-block"});
@@ -609,14 +610,63 @@ function funcNameCheck () {
 		userNameChkResult.innerHTML = '한글 혹은 영문으로만 입력하십시오';
 	}*/
 }
+	// 프로필 수정 페이지에서 실행됨
 function funcModifyProfileAction () {
 	var profileForm = document.profileForm;
+	profileForm.photo.onchange = imagePreView; // 사진이 변경되면 이미지 프리뷰
 	
-	$('#profileForm #shiftPhoto').css({"display":"block"});
+	profileForm.nickName.focus();
+	profileForm.nickName.select();
 	
-	profileForm.photo.onchange = imagePreView;
-	
-	$('#profileForm #btnModifyProfileCancel').click(function () {
+	$('#profileForm #shiftPhoto').css({"display":"block"}); // 블럭, 프로필 사진 변경
+	$('#isPublic').change(function () { // 공개유무 설정. 0 은 비공개, 1 은 공개
+		var isPublic = $('#profileForm #isPublic');
+
+		if ($('#profileForm #isPublic').attr('checked') == 'checked') {
+			$('#profileForm #isPublic').val('0');
+			$('#profileForm #isPublic').attr('checked', false);
+		} else if ($('#profileForm #isPublic').attr('checked') == null) {
+			$('#profileForm #isPublic').val('1');
+			$('#profileForm #isPublic').attr('checked', true);
+		}
+		alert($('#profileForm #isPublic').attr('checked') + ' >> ' + $('#profileForm #isPublic').val());
+	});
+	$('#profileForm #btnModifyProfileCancel').click(function () { // 프로필 업데이트 취소
 		$('#navtab-profile-tag').trigger('click');
 	});
+	
+	$('#btnModifyProfileSubmit').click(function () {
+		funcModifyProfileSubmit(profileForm);
+	});
 }
+	// 프로필은 접속정보만 확인되면 별도 제약없이 바로 변경됨
+function funcModifyProfileSubmit (frm) {
+	// 제출
+	// frm.submit();
+	var formData = new FormData(frm);
+	alert('프로필 수정 시작');
+	$.ajax({
+		url: '/desktop/member/profileModify',
+		data: formData,
+		contentType: false,
+		processData: false,
+		type: 'post',
+		success: function (data) {
+					var result = data;
+					alert("프로필 수정 결과: " + result);
+					if (result == '1') { // 회원정보 수정 성공, 뷰 페이지로 이동
+						alert('프로필 수정에 성공했습니다.');
+						
+						$('#navtab-profile-tag').trigger('click');
+					} else if (data == '0') { // 회원정보 수정 실패, 페이지 이동 없음
+						alert('프로필 수정에 실패했습니다. 입력 정보를 다시 확인하세요.');
+						frm.nickName.focus();
+						frm.nickName.select();
+					} else {
+						alert('프로필 수정에 실패했습니다. 관리자에게 문의하십시오.');
+						frm.nickName.focus();
+						frm.nickName.select();
+					}
+				}
+	});
+} // end of modify profile function

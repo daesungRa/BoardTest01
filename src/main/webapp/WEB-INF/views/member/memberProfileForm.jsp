@@ -32,7 +32,10 @@
 			<form class='form' name='profileForm' id='profileForm' method='post' action='#profileModifyAction' enctype='multipart/form-data'>
 				<div class="form-group">
 					<label for="nickName">이름</label>
-					<input class="form-control" type="text" name='userName' id="userName" value='${vo.userName }' readonly style='width: 50%;'>
+					<div class='form-inline'>
+						<input class="form-control" type="text" name='userName' id="userName" value='${vo.userName }' readonly style='width: 50%;'>&nbsp;&nbsp;&nbsp;&nbsp;
+						<div id='alertUserName' style='color: #0000ff; display: none;'>이름을 변경하려면 회원정보 수정을 이용하십시오.</div>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="nickName">별명</label>
@@ -61,11 +64,18 @@
 				<div class='form-group'>
 					<label for='isDelete'>프로필 공개유무</label><br/>
 					<label class="switch">
-						<input type="checkbox" id='isDelete' name='isDelete' disabled />
+						<c:choose>
+							<c:when test='${vo.isPublic == 0  }'>
+								<input type="checkbox" id='isPublic' name='isPublic' value='0' disabled />
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" id='isPublic' name='isPublic' value='1' checked disabled />
+							</c:otherwise>
+						</c:choose>
 						<span class="slider round"></span>
 					</label>
 					<span style='position: relative;'>
-						<span id='descIsDelete' data-toggle="tooltip" data-placement="right" title="변경하려면 '프로필 수정하기' 를 클릭하십시오." >?</span>
+						<span id='descIsPublic' data-toggle="tooltip" data-placement="right" title="변경하려면 '프로필 수정하기' 를 클릭하십시오." >?</span>
 					</span>
 				</div>
 				<div class='form-group'>

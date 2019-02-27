@@ -10,7 +10,7 @@
 
 	<div class='container-fluid my-top' id='indexTop'>
 		<div class='container my-top-container'>
-			<div class='container my-top-content'>
+			<div class='container my-top-content' id='myTopContent'>
 				<h3 style='cursor: pointer;' onclick='funcMovePage("main")'>책 상</h3>
 				<p>세상의 모든 책 리뷰</p>
 			</div>

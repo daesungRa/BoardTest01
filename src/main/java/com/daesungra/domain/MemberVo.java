@@ -16,13 +16,13 @@ public class MemberVo {
 	private String photo;
 	private String photoOri;
 	private String mDate;
-	private int isDelete;
+	private int isDelete; // 디폴트 0, 삭제되지 않음
 	
 	// 프로필 정보
 	private String nickName;
 	private String introduce;
 	private String interest;
-	private String isPublic;
+	private int isPublic; // 디폴트 0, 공개되지 않음
 	
 	// 팔로우
 	private int fNum;
@@ -122,10 +122,10 @@ public class MemberVo {
 	public void setInterest(String interest) {
 		this.interest = interest;
 	}
-	public String getIsPublic() {
+	public int getIsPublic() {
 		return isPublic;
 	}
-	public void setIsPublic(String isPublic) {
+	public void setIsPublic(int isPublic) {
 		this.isPublic = isPublic;
 	}
 	

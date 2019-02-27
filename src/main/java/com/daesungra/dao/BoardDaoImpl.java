@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.daesungra.domain.BoardVo;
+import com.daesungra.domain.MemberVo;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -14,32 +15,33 @@ public class BoardDaoImpl implements BoardDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<BoardVo> selectTest () {
-		List<BoardVo> list = sqlSession.selectList("board.selectTest");
+	public List<BoardVo> getBoardList (int category) {
+		List<BoardVo> list = null;
+		list = sqlSession.selectList("board.selectTest", category);
 		
 		return list;
 	}
 
 	@Override
-	public BoardVo select() {
+	public BoardVo boardSelect(String serial) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean insert() {
+	public boolean boardInsert(MemberVo vo) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update() {
+	public boolean boardUpdate(MemberVo vo) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete() {
+	public boolean boardDelete(String serial) {
 		// TODO Auto-generated method stub
 		return false;
 	}

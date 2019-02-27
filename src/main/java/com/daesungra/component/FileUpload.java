@@ -219,12 +219,12 @@ public class FileUpload {
 							// 여기에 ori, sys 파일을 구분해서 세팅한다
 							this.mvo = new MemberVo();
 							
-							// profile 이므로 nickName, interest, introduce, isDelete, photo 입력
+							// profile 이므로 nickName, interest, introduce, isPublic, photo 입력
 							mvo.setNickName(multi.getParameter("nickName"));
 							mvo.setInterest(multi.getParameter("interest"));
 							mvo.setIntroduce(multi.getParameter("introduce"));
 							try {
-								mvo.setIsDelete(Integer.parseInt(multi.getParameter("isDelete"))); // 토글로 무조건 입력됨
+								mvo.setIsPublic(Integer.parseInt(multi.getParameter("isPublic"))); // 토글로 무조건 입력됨
 							} catch (Exception ex) { ex.printStackTrace(); }
 							
 							mvo.setPhoto("/desktop/resources/imgs/memberImg/" + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
@@ -234,12 +234,12 @@ public class FileUpload {
 							// 애초에 요청받은 파일 정보가 없는 경우 파일을 제외한 정보만 저장됨
 							this.mvo = new MemberVo();
 							
-							// profile 이므로 nickName, interest, introduce, isDelete, photo 입력
+							// profile 이므로 nickName, interest, introduce, isPublic, photo 입력
 							mvo.setNickName(multi.getParameter("nickName"));
 							mvo.setInterest(multi.getParameter("interest"));
 							mvo.setIntroduce(multi.getParameter("introduce"));
 							try {
-								mvo.setIsDelete(Integer.parseInt(multi.getParameter("isDelete"))); // 토글로 무조건 입력됨
+								mvo.setIsPublic(Integer.parseInt(multi.getParameter("isPublic"))); // 토글로 무조건 입력됨
 							} catch (Exception ex) { ex.printStackTrace(); }
 							
 							mvo.setPhoto("");
@@ -248,12 +248,12 @@ public class FileUpload {
 					} else if (multi.getParameter("photo") == null || multi.getParameter("photo").equals("")) {
 						this.mvo = new MemberVo();
 						
-						// profile 이므로 nickName, interest, introduce, isDelete, photo 입력
+						// profile 이므로 nickName, interest, introduce, isPublic, photo 입력
 						mvo.setNickName(multi.getParameter("nickName"));
 						mvo.setInterest(multi.getParameter("interest"));
 						mvo.setIntroduce(multi.getParameter("introduce"));
 						try {
-							mvo.setIsDelete(Integer.parseInt(multi.getParameter("isDelete"))); // 토글로 무조건 입력됨
+							mvo.setIsPublic(Integer.parseInt(multi.getParameter("isPublic"))); // 토글로 무조건 입력됨
 						} catch (Exception ex) { ex.printStackTrace(); }
 						
 						mvo.setPhoto("");

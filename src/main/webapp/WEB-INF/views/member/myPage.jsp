@@ -28,6 +28,15 @@
 			height: 108px;
 			border-radius: 40px;
 		}
+		#inputFNum {
+			width: 56px;
+			height: 29px;
+			text-align: center;
+			padding-top: 3px;
+			color: #666;
+			background-color: #eee;
+			border-radius: 20px;
+		}
 		.my-tabs li {
 			margin-right: 3px;
 			padding: 0 5px 0 5px;
@@ -107,12 +116,12 @@
 		  border-radius: 50%;
 		}
 		
-		#descIsDelete {
+		#descIsPublic {
 			position: absolute;
 			left: 10px;
 			top: 3px;
 		}
-		#descIsDelete:hover {
+		#descIsPublic:hover {
 			color: #777;
 			cursor: pointer;
 		}
@@ -183,17 +192,17 @@
 	
 		<!-- middle component -->
 		<div class='container'>
-			<div class='container' style='margin: 50px auto;'>
+			<div class='container' style='width: 80%; margin: 50px auto;'>
 				<h2>마이 페이지</h2>
-				<p>나만의 개성있는 프로필을 만드세요!</p>
+				<p>나만의 매력적인 프로필을 만드세요!</p>
 				
 				<div class='row my-myPage-memberinfo'>
 					<div class='col-sm-2 my-col2'>
 						<img src='/desktop/resources/imgs/blank_profile01.png' id='image' alt='profile image'/><br/><br/>
 						구독자 수<br/>
-						<div id='inputFNum'><a href='#'>보기</a></div><br/>
+						<div id='inputFNum'></div><br/>
 						구독중인 작가<br/>
-						<div id='inputFollowee'></div><br/>
+						<div id='inputFollowee'><a href='#'>보기 &gt;</a></div><br/>
 						웹페이지<br/>
 						<div id='inputWebPage'></div><br/>
 						활동<br/>
@@ -249,6 +258,27 @@
     
     <script>
     	$(function () {
+    		/*
+    		 * navbar aside
+    		 */   			
+   			$('#btnShowNavbar').click(function () {
+   				$('#navbarAside').animate({width:'toggle'}, 350);
+   				if ($('#btnShowNavbar').text() == '<<') {
+   					$('#btnShowNavbar').text('>>');
+   					$('#btnShowNavbar').animate({left:'-=17%'}, 350);
+   					$('#boardContent').animate({margin: '0 0 0 0'}, 350);
+   					/*$('#navbarAside').css({"display":"none"});*/
+   				} else if ($('#btnShowNavbar').text() == '>>') {
+   					$('#btnShowNavbar').text('<<');
+   					$('#btnShowNavbar').animate({left: '+=17%'}, 350);
+   					$('#boardContent').animate({margin: '0 0 0 17%'}, 350);
+   					/*$('#navbarAside').css({"display":"block"});*/
+   				}
+   			});
+    		 
+    		/*
+    		 * 프로필, 회원정보
+    		 */
     		$('#navtab-profile-tag').click(function () {
 				$('#navtab-info-tag-li').css({'border':'none'});
 				$('#navtab-profile-tag-li').css({'border':'1px solid #bbb', 'border-bottom':'none'});
@@ -261,7 +291,7 @@
 						
 						$('#memberProfileContent').html(html);
 						$('.my-myPage-memberinfo #image').attr('src', $('#profileForm #photoPath').val());
-						$('.my-myPage-memberinfo #inputFNum').text($('#profileForm #fNum').val());
+						$('.my-myPage-memberinfo #inputFNum').text($('#profileForm #fNum').val() + ' 명');
 						$('.my-myPage-memberinfo #inputMDate').text($('#profileForm #mDate').val());
 						
 						// 에러코드 0 이면 세션아이디 없음, 에러코드 1 이면 조회된 결과 없음

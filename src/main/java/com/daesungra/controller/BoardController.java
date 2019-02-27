@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +22,24 @@ public class BoardController {
 	private BoardService boardService;
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
+	// get board list
 	@RequestMapping(value="/categoryFour", method=RequestMethod.GET)
 	public String getBoardPage (HttpServletRequest request) {
+		int category = -1;
 		logger.info("call boardListPage");
 		
-		List<BoardVo> list = boardService.selectTest();
+		try {
+			category = Integer.parseInt(request.getParameter("category"));
+		} catch (Exception ex) { ex.printStackTrace(); }
+		
+		List<BoardVo> list = boardService.getBoardList(category);
 		request.setAttribute("boardList", list);
 		
 		return "/board/boardListPage";
 	}
+	
+	// write
+	// view
+	// modify
+	// remove
 }

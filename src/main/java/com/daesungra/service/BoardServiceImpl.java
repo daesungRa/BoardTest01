@@ -2,6 +2,8 @@ package com.daesungra.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,32 +16,32 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
-	public List<BoardVo> selectTest () {
-		List<BoardVo> list = boardDao.selectTest();
+	public List<BoardVo> getBoardList (int category) {
+		List<BoardVo> list = boardDao.getBoardList (category);
 		
 		return list;
 	}
 
 	@Override
-	public BoardVo view() {
+	public BoardVo boardView(String serial) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean write() {
+	public boolean boardWrite(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean modify() {
+	public boolean boardModify(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete() {
+	public boolean boardDelete(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		return false;
 	}

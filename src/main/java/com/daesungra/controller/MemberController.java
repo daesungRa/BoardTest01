@@ -227,7 +227,7 @@ public class MemberController {
 			
 			if (modifyResult) { // 성공했다면 result 를 "1" 로 초기화
 				logger.info("modify 성공");
-				request.getSession().setAttribute("userId", request.getParameter("userId"));
+				request.getSession().setAttribute("userName", request.getParameter("userName"));
 				result = "1";
 			} else {
 				logger.info("modify 실패");
@@ -260,7 +260,6 @@ public class MemberController {
 			
 			if (modifyResult) { // 성공했다면 result 를 "1" 로 초기화
 				logger.info("profile modify 성공");
-				request.getSession().setAttribute("userId", request.getParameter("userId"));
 				result = "1";
 			} else {
 				logger.info("profile modify 실패");
