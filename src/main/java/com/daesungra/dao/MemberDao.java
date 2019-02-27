@@ -22,7 +22,7 @@ public interface MemberDao {
 	
 	// update
 	public boolean memberUpdate (MemberVo vo);
-	public boolean profileUpdate (HttpServletRequest request);
+	public boolean profileUpdate (MemberVo vo);
 	
 	// delete
 	public boolean memberDelete (HttpServletRequest request);

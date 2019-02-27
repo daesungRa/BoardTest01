@@ -115,18 +115,19 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 	
-	// 프로필 등록 / 수정 (비공개는 isPublic = '0')
-	// 회원정보 삭제 시 cascade
-	public boolean profileModify (HttpServletRequest request) {
-		boolean result = false;
-		
-		return result;
-	}
-	
 	// 회원정보 수정
 	public boolean memberModify (MemberVo vo) {
 		boolean result = false;
 		result = dao.memberUpdate(vo);
+		
+		return result;
+	}
+	
+	// 프로필 수정 (비공개는 isPublic = '0')
+	// 회원정보 삭제 시 cascade
+	public boolean profileModify (MemberVo vo) {
+		boolean result = false;
+		result = dao.profileUpdate(vo);
 		
 		return result;
 	}

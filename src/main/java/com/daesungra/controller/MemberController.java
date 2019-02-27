@@ -30,7 +30,7 @@ public class MemberController {
 	FileUpload fileUpload;
 	
 	/*
-	 * login, logout
+	 * login, logout, findId, findPwd
 	 */
 	@RequestMapping(value="/loginForm", method=RequestMethod.GET)
 	public String getLoginForm () {
@@ -83,7 +83,7 @@ public class MemberController {
 	}
 	
 	/*
-	 * join
+	 * join (create member, profile), id check
 	 */
 	@RequestMapping(value="/joinForm", method=RequestMethod.GET)
 	public String getJoinForm (Model model) {
@@ -140,7 +140,9 @@ public class MemberController {
 	}
 	
 	/*
-	 * 회원관리
+	 * - 회원관리 -
+	 * get mypage, get member info, get member profile, member modify, profile modify, member leave,
+	 * get member list
 	 */
 	@RequestMapping(value="/myPage", method=RequestMethod.GET)
 	public String getMyPage (HttpServletRequest request) {
@@ -225,12 +227,46 @@ public class MemberController {
 			
 			if (modifyResult) { // 성공했다면 result 를 "1" 로 초기화
 				logger.info("modify 성공");
+				request.getSession().setAttribute("userId", request.getParameter("userId"));
 				result = "1";
 			} else {
 				logger.info("modify 실패");
 			}
 		} else {
 			logger.info("[modify] vo 생성 실패");
+		}
+		
+		return result;
+	}
+	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
+	@RequestMapping(value="/profileModify", method=RequestMethod.POST)
+	public String profileModify (HttpServletRequest request) {
+		String result = "0";
+		boolean modifyResult = false;
+		logger.info("profile modify 시작");
+		
+		// 파일업로드 객체확인
+		if (fileUpload == null) {
+			logger.info("fileupload object is null");
+		}
+		
+		// 파일 업로드 수행
+		// vo 객체가 반환된다
+		MemberVo vo = fileUpload.getProfileVo(request);
+		
+		if (vo != null) {
+			vo.setUserId((String) request.getSession().getAttribute("userId"));
+			modifyResult = service.profileModify(vo);
+			
+			if (modifyResult) { // 성공했다면 result 를 "1" 로 초기화
+				logger.info("profile modify 성공");
+				request.getSession().setAttribute("userId", request.getParameter("userId"));
+				result = "1";
+			} else {
+				logger.info("profile modify 실패");
+			}
+		} else {
+			logger.info("[profile modify] vo 생성 실패");
 		}
 		
 		return result;

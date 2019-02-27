@@ -22,7 +22,7 @@ public interface MemberService {
 	
 	// update
 	public boolean memberModify (MemberVo vo); // ok
-	public boolean profileModify (HttpServletRequest request);
+	public boolean profileModify (MemberVo vo);
 	
 	// delete
 	public boolean memberDelete (HttpServletRequest request); // ok

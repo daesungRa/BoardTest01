@@ -382,11 +382,15 @@ function funcMemberInfo () {
 	var modalContent = document.getElementById('modalContent');
 	var innerModalContent = document.getElementById('innerModalContent');
 	
+	$('#profileForm #descIsDelete').tooltip();
+	
 	$('#btnModifyProfile').click(function () {
 		$('#profileForm #nickName').removeAttr('readonly');
 		$('#profileForm #interest').removeAttr('readonly');
 		$('#profileForm #introduce').removeAttr('readonly');
 
+		$('#profileForm #isDelete').removeAttr('disabled');
+		$('#profileForm #descIsDelete').css({"display":"none"});
 		$('#profileForm #btnModifyProfile').css({"display":"none"});
 		$('#profileForm #btnModifyProfileSubmit').css({"display":"inline-block"});
 		$('#profileForm #btnModifyProfileCancel').css({"display":"inline-block"});
@@ -476,7 +480,7 @@ function funcModifyAction () {
 	}
 	// userName
 	joinFrm.userName.onkeyup = function () {
-		funcNameChk();
+		funcNameCheck();
 	}
 	// email
 	joinFrm.email.onkeyup = function () {
@@ -590,6 +594,21 @@ function funcModifySubmit (frm) {
 				}
 	});
 } // end of modify info function
+	// [modify] 이름 체크 함수
+function funcNameCheck () {
+	/*var userNameExp = /^[가-힣a-zA-Z]+$/;
+	var userName = document.getElementById('userName');
+	var userNameChk = document.getElementById('userNameChk');
+	var userNameChkResult = document.getElementById('userNameChkResult');
+	
+	if (userNameExp.test(userName.value)) {
+		userNameChk.value = 'checked';
+		userNameChkResult.innerHTML = '';
+	} else {
+		userNameChk.value = 'unChecked';
+		userNameChkResult.innerHTML = '한글 혹은 영문으로만 입력하십시오';
+	}*/
+}
 function funcModifyProfileAction () {
 	var profileForm = document.profileForm;
 	

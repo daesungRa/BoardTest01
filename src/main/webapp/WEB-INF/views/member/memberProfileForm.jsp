@@ -59,6 +59,16 @@
 					<input type='hidden' id='photoPath' value='${vo.photo }' />
 				</div>
 				<div class='form-group'>
+					<label for='isDelete'>프로필 공개유무</label><br/>
+					<label class="switch">
+						<input type="checkbox" id='isDelete' name='isDelete' disabled />
+						<span class="slider round"></span>
+					</label>
+					<span style='position: relative;'>
+						<span id='descIsDelete' data-toggle="tooltip" data-placement="right" title="변경하려면 '프로필 수정하기' 를 클릭하십시오." >?</span>
+					</span>
+				</div>
+				<div class='form-group'>
 					<input class='btn btn-primary' type='button' id='btnModifyProfileSubmit' name='btnModifyProfileSubmit' value='제 출' style='display: none;' />
 					<input class='btn btn-primary' type='button' id='btnModifyProfileCancel' name='btnModifyProfileCancel' value='취 소' style='display: none;' />
 				</div>

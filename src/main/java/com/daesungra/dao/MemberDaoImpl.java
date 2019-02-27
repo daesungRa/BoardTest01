@@ -147,15 +147,9 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return result;
 	}
-	
-	public boolean profileUpdate (HttpServletRequest request) {
-		boolean result = false;
-		
-		return result;
-	}
 
 	// - memberUpdate -
-	// 회원정보 수정에 사용된 (memberModify)
+	// 회원정보 수정에 사용됨 (memberModify)
 	public boolean memberUpdate (MemberVo vo) {
 		boolean result = false;
 		String userId = vo.getUserId();
@@ -167,7 +161,7 @@ public class MemberDaoImpl implements MemberDao{
 		delFileName = sqlSession.selectOne("member.getPhoto", userId);
 		
 		// 정보 수정 시 입력받은 파일정보가 없고, 기존 디비 테이블에 파일정보가 있다면
-		// 새롭게 투입할 vo 객체게 기존 디비 테이블의 파일정보를 넣어서
+		// 새롭게 투입할 vo 객체에 기존 디비 테이블의 파일정보를 넣어서
 		// 결과적으로 동일한 파일정보가 존재하도록 조치한다 (실제경로에 저장된 파일은 애초에 입력정보가 없으므로 변화없음)
 		if (vo.getPhoto().equals("") && !delFileName.equals("")) {
 			vo.setPhoto(delFileName); // vo 에 기존 파일 세팅 후
@@ -179,12 +173,14 @@ public class MemberDaoImpl implements MemberDao{
 		// 해싱된 비번 생성
 		hashedPwd = GetHashedData.generateHashedString(saltData + vo.getUserPwd());
 		if (!hashedPwd.equals("")) { // 해싱된 결과가 있다면 그것으로 세팅
+			logger.info("[member update] 비밀번호 해싱 결과 (salt, pwd) : " + saltData + ", " + hashedPwd);
 			vo.setUserPwd(hashedPwd);
 		}
 		
 		// 업데이트 실행
 		int updateResult = sqlSession.update("member.memberUpdate", vo);
 		if (updateResult > 0) { // 업데이트 성공시
+			logger.info("[member update] 회원정보 업데이트 성공");
 			result = true;
 			
 			if (delFileName != null && !delFileName.equals("")) { // 삭제할 기존 파일명이 있고
@@ -192,13 +188,67 @@ public class MemberDaoImpl implements MemberDao{
 										+ delFileName.substring(delFileName.lastIndexOf("/") + 1, delFileName.length()));
 				if (file.exists()) { // 실제 경로에도 존재한다면 삭제
 					file.delete();
+					logger.info("[member update] 기존 파일 삭제");
 				}
 			}
-		} else { // 업데이트 실패시 업로드 하려던 파일 삭제
+		} else if (!vo.getPhoto().equals(sqlSession.selectOne("member.getPhoto", userId))) { // 업데이트 실패시 업로드 하려던 파일 삭제
+			logger.info("[member update] 회원정보 업데이트 실패");
 			File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
 										+ vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
-			if (file.exists()) { // 새롭게 업로드되었던 파일 삭제
+			if (file.exists()) { // 경로에 새롭게 업로드되었던 파일 삭제
 				file.delete();
+				logger.info("[member update] 업로드 하려던 파일 삭제");
+			}
+		}
+		
+		return result;
+	}
+	
+	// 회원 프로필 수정 (최초생성은 join 시 이루어짐)
+	public boolean profileUpdate (MemberVo vo) {
+		boolean result = false;
+		String userId = vo.getUserId();
+		String delFileName = "";
+		
+		if (vo.getPhoto() == null || vo.getPhoto().equals("")) { // 업데이트할 파일이 없다면 profile 테이블에 대해서만 실행
+			// 업데이트 실행
+			int updateProfileResult = sqlSession.update("member.profileUpdate", vo);
+			
+			if (updateProfileResult > 0) {
+				result = true;
+			}
+		} else { // 업데이트할 파일이 있다면 기존 파일 삭제 후 새로운 파일 저장
+			// 삭제할 기존 파일명 가져오기
+			// 업데이트가 성공하면 실제 경로에서 파일을 삭제하기 위함 (새로운 파일은 이미 업로드됨)
+			delFileName = sqlSession.selectOne("member.getPhoto", userId);
+			
+			// 업데이트 실행
+			int updateProfileResult = sqlSession.update("member.profileUpdate", vo);
+			if (updateProfileResult > 0) { // 프로필 업데이트 성공시 새로운 파일 업로드 진행
+				logger.info("[profile update] 프로필 업데이트 성공");
+				int updatePhotoResult = sqlSession.update("member.updatePhoto", vo);
+				
+				if (updatePhotoResult > 0) { // 파일 업로드 성공시
+					logger.info("[profile update] 파일 업로드 성공");
+					result = true; // 리턴값 세팅
+					
+					if (delFileName != null && !delFileName.equals("")) { // 삭제할 기존 파일명이 있고
+						File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
+												+ delFileName.substring(delFileName.lastIndexOf("/") + 1, delFileName.length()));
+						if (file.exists()) { // 실제 경로에도 존재한다면 삭제
+							file.delete();
+							logger.info("[profile update] 기존 파일 삭제 성공");
+						}
+					}
+				}
+			} else { // 업데이트 실패시 업로드 하려던 파일 삭제
+				logger.info("[profile update] 프로필 업데이트 실패");
+				File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
+											+ vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
+				if (file.exists()) { // 경로에 새롭게 업로드되었던 파일 삭제
+					file.delete();
+					logger.info("[profile update] 업로드 하려던 파일 삭제");
+				}
 			}
 		}
 		
