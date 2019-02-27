@@ -219,6 +219,7 @@ function funcPwdChk (userPwd01, userPwd02) {
 }
 	// 이름 체크 함수
 function funcNameChk () {
+	var joinFrm = document.joinFrm;
 	var userNameExp = /^[가-힣a-zA-Z]+$/;
 	var userName = document.getElementById('userName');
 	var userNameChk = document.getElementById('userNameChk');
@@ -382,13 +383,19 @@ function funcMemberInfo () {
 	var innerModalContent = document.getElementById('innerModalContent');
 	
 	$('#btnModifyProfile').click(function () {
-		$('#nickName').removeAttr('readonly');
-		$('#interest').removeAttr('readonly');
-		$('#introduce').removeAttr('readonly');
+		$('#profileForm #nickName').removeAttr('readonly');
+		$('#profileForm #interest').removeAttr('readonly');
+		$('#profileForm #introduce').removeAttr('readonly');
+
+		$('#profileForm #btnModifyProfile').css({"display":"none"});
+		$('#profileForm #btnModifyProfileSubmit').css({"display":"inline-block"});
+		$('#profileForm #btnModifyProfileCancel').css({"display":"inline-block"});
+		
+		funcModifyProfileAction();
 	});
 	
 	$('#showModifyPage').click(function () { // 회원정보 수정 페이지 로드
-		alert('회원정보 수정 페이지입니다.');
+		// alert('회원정보 수정 페이지입니다.');
 		/*swal({
 		  title: "회원정보 수정",
 		  text: "회원정보 수정 페이지입니다",
@@ -396,16 +403,19 @@ function funcMemberInfo () {
 		});*/
 		$('#infoTitle').text('회원정보 수정');
 		// $('#userId').removeAttr('readonly');
-		$('#userIdChkResult').text('아이디는 수정 불가합니다.');
+		$('#joinFrm #userIdChkResult').text('아이디는 수정 불가합니다.');
 		// $('#btnIdChk').css('display', 'block');
 		$('#userIdChk').val('checked'); // 아이디는 세션 아이디 사용
 		$('#userPwdChk').val('checked'); // 비번은 사용자 입력 비번 사용
-		$('#userName').removeAttr('readonly');
-		$('#email').removeAttr('readonly');
-		$('#phone').removeAttr('readonly');
+		$('#joinFrm #userName').removeAttr('readonly');
+		$('#joinFrm #userNameChk').val('checked');
+		$('#joinFrm #email').removeAttr('readonly');
+		$('#joinFrm #emailChk').val('checked');
+		$('#joinFrm #phone').removeAttr('readonly');
+		$('#joinFrm #phoneChk').val('checked');
 		$('#btnPostal').css('display', 'block');
 		$('#addressAdd').removeAttr('readonly');
-		$('#photo').css('display', 'block');
+		$('#joinFrm #shiftPhoto').css('display', 'block');
 		$('#btnModifySubmit').css('display', 'inline-block');
 		$('#btnModifyCancel').css('display', 'inline-block');
 		$('#showModifyPage').css('display', 'none');
@@ -489,7 +499,7 @@ function funcModifyAction () {
 	// cancel
 	joinFrm.btnModifyCancel.onclick = function () {
 		// window.location.reload(); // 수정 요망
-		$('#loadMemberInfo').trigger('click');
+		$('#navtab-info-tag').trigger('click');
 	}
 }
 //회원정보 수정 최종 제출 함수
@@ -525,6 +535,18 @@ function funcModifySubmit (frm) {
 				}
 			}
 		}
+	}
+	if ($('#joinFrm #userName').val() == '') {
+		alert('이름을 입력하십시오');
+		return;
+	}
+	if ($('#joinFrm #email').val() == '') {
+		alert('이메일을 입력하십시오');
+		return;
+	}
+	if ($('#joinFrm #phone').val() == '') {
+		alert('연락처를 입력하십시오');
+		return;
 	} // 입력 데이터 검증 로직 끝
 	
 	// 비밀번호 입력 및 수정 최종 확인 메시지
@@ -555,7 +577,7 @@ function funcModifySubmit (frm) {
 						alert('회원정보 수정에 성공했습니다.');
 						
 						// view 모달 열기
-						$('#loadMemberInfo').trigger('click');
+						$('#navtab-info-tag').trigger('click');
 					} else if (data == '0') { // 회원정보 수정 실패, 페이지 이동 없음
 						alert('회원정보 수정에 실패했습니다. 입력 정보를 다시 확인하세요. 혹은 비밀번호가 일치하지 않았을 수 있습니다.');
 						frm.userName.focus();
@@ -567,4 +589,15 @@ function funcModifySubmit (frm) {
 					}
 				}
 	});
-} // end of modify function
+} // end of modify info function
+function funcModifyProfileAction () {
+	var profileForm = document.profileForm;
+	
+	$('#profileForm #shiftPhoto').css({"display":"block"});
+	
+	profileForm.photo.onchange = imagePreView;
+	
+	$('#profileForm #btnModifyProfileCancel').click(function () {
+		$('#navtab-profile-tag').trigger('click');
+	});
+}

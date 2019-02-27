@@ -23,9 +23,9 @@
 		.my-col2 {
 			border-right: 1px solid #bbb;
 		}
-		#profile-image {
+		#image {
 			width: 102px;
-			height: 96px;
+			height: 108px;
 			border-radius: 40px;
 		}
 		.my-tabs li {
@@ -35,7 +35,7 @@
 			border-bottom: none;
 			border-radius: 5px;
 		}
-		#navtab-info-tag {
+		#navtab-info-tag-li {
 			border: none;
 		}
 		.my-tabs li:hover {
@@ -121,16 +121,23 @@
 				
 				<div class='row my-myPage-memberinfo'>
 					<div class='col-sm-2 my-col2'>
-						<img src='/desktop/resources/imgs/damuni.jpg' id='profile-image'alt='profile image'/><br/><br/>
-						구독자 수<br/><br/>
-						웹페이지<br/><br/>
-						활동
+						<img src='/desktop/resources/imgs/blank_profile01.png' id='image' alt='profile image'/><br/><br/>
+						구독자 수<br/>
+						<div id='inputFNum'><a href='#'>보기</a></div><br/>
+						구독중인 작가<br/>
+						<div id='inputFollowee'></div><br/>
+						웹페이지<br/>
+						<div id='inputWebPage'></div><br/>
+						활동<br/>
+						<div id='inputActivity'></div><br/>
+						계정 생성일<br/>
+						<div id='inputMDate'></div>
 					</div>
 					<hr/>
 					<div class='col-sm-10'>
 						<ul class='nav nav-tabs my-tabs'>
-							<li class='active' id='navtab-profile-tag'><a data-toggle='tab' href='#profile-tag'>프로필</a></li>
-							<li id='navtab-info-tag'><a data-toggle='tab' href='#info-tag'>회원정보</a></li>
+							<li class='active' id='navtab-profile-tag-li'><a data-toggle='tab' id='navtab-profile-tag' href='#profile-tag'>프로필</a></li>
+							<li id='navtab-info-tag-li'><a data-toggle='tab' id='navtab-info-tag' href='#info-tag'>회원정보</a></li>
 						</ul>
 						<hr/>
 						
@@ -175,8 +182,8 @@
     <script>
     	$(function () {
     		$('#navtab-profile-tag').click(function () {
-				$('#navtab-info-tag').css({'border':'none'});
-				$('#navtab-profile-tag').css({'border':'1px solid #bbb', 'border-bottom':'none'});
+				$('#navtab-info-tag-li').css({'border':'none'});
+				$('#navtab-profile-tag-li').css({'border':'1px solid #bbb', 'border-bottom':'none'});
 				
 				$.ajax({
 					type: 'get',
@@ -185,6 +192,9 @@
 					success: function (html, status) {
 						
 						$('#memberProfileContent').html(html);
+						$('.my-myPage-memberinfo #image').attr('src', $('#profileForm #photoPath').val());
+						$('.my-myPage-memberinfo #inputFNum').text($('#profileForm #fNum').val());
+						$('.my-myPage-memberinfo #inputMDate').text($('#profileForm #mDate').val());
 						
 						// 에러코드 0 이면 세션아이디 없음, 에러코드 1 이면 조회된 결과 없음
 						if ($('#flag').text() == "0") { // 세션아이디 없음
@@ -216,8 +226,8 @@
 			});
     		
 			$('#navtab-info-tag').click(function () {
-				$('#navtab-profile-tag').css({'border':'none'});
-				$('#navtab-info-tag').css({'border':'1px solid #bbb', 'border-bottom':'none'});
+				$('#navtab-profile-tag-li').css({'border':'none'});
+				$('#navtab-info-tag-li').css({'border':'1px solid #bbb', 'border-bottom':'none'});
 				
 				$.ajax({
 					type: 'get',
@@ -227,6 +237,9 @@
 						
 						$('#memberInfoContent').html(html);
 						$('#memberImg').css({'display':'none'});
+						$('.my-myPage-memberinfo #image').attr('src', $('#memberImg #image').attr('src'));
+						$('.my-myPage-memberinfo #inputFNum').text($('#joinFrm #fNum').val());
+						$('.my-myPage-memberinfo #inputMDate').text($('#joinFrm #mDate').val());
 						
 						// 에러코드 0 이면 세션아이디 없음, 에러코드 1 이면 조회된 결과 없음
 						if ($('#flag').text() == "0") { // 세션아이디 없음
@@ -256,6 +269,7 @@
 					}
 				});
 			});
+			$('#navtab-profile-tag').trigger('click');
     	});
     </script>
 

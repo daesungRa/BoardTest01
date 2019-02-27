@@ -1,5 +1,7 @@
 package com.daesungra.domain;
 
+import java.util.List;
+
 public class MemberVo {
 
 	// 기본 회원 정보
@@ -21,6 +23,10 @@ public class MemberVo {
 	private String introduce;
 	private String interest;
 	private String isPublic;
+	
+	// 팔로우
+	private int fNum;
+	private List<String> followees;
 	
 	
 	// info
@@ -121,6 +127,20 @@ public class MemberVo {
 	}
 	public void setIsPublic(String isPublic) {
 		this.isPublic = isPublic;
+	}
+	
+	// follow
+	public int getfNum() {
+		return fNum;
+	}
+	public void setfNum(int fNum) {
+		this.fNum = fNum;
+	}
+	public List<String> getFollowees() {
+		return followees;
+	}
+	public void setFollowees(List<String> followees) {
+		this.followees = followees;
 	}
 	
 	// info json > 수정요망

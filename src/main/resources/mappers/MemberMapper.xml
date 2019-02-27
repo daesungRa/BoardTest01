@@ -37,10 +37,13 @@
 	-->
 	<select id="selectMemberView" parameterType="String" resultType="com.daesungra.domain.MemberVo">
 		SELECT m.userId userId, m.userName userName, m.email email, m.phone phone, m.postal postal, m.address address, m.addressAdd addressAdd, m.photo photo, m.photoOri photoOri,
-				to_char(m.mDate, 'YY-MM-DD HH24:MI:SS') mDate, p.nickName nickName, p.introduce introduce, p.interest interest, p.isPublic isPublic
+				to_char(m.mDate, 'YYMMDD<!--  HH24:MI:SS -->') mDate, p.nickName nickName, p.introduce introduce, p.interest interest, p.isPublic isPublic, (select count(*) from DMEMBER_FOLLOWER where followee = #{userId}) fNum
 			FROM DMEMBER m JOIN DMEMBER_PROFILE p
-			ON m.userId = p.userId
+				ON m.userId = p.userId
 			WHERE m.userId = #{userId} and m.isDelete = 0
+	</select>
+	<select id="selectFollowees" parameterType="String" resultType="java.util.ArrayList">
+		SELECT followee FROM DMEMBER_FOLLOWER WHERE userId = #{userId}
 	</select>
 	<select id="selectExistingMemberList">
 		SELECT userId, userName, email, phone, postal, address, addressAdd, photo, photoOri, to_char(mDate, 'YY-MM-DD HH24:MI:SS') mDate

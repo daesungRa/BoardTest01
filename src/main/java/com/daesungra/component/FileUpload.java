@@ -39,7 +39,7 @@ public class FileUpload {
 			// 같은 계열 request 객체를 캐스팅해 활용 가능하다
 			MultipartHttpServletRequest multi = (MultipartHttpServletRequest) request;
 			Iterator<String> ite = multi.getFileNames();
-			while (ite.hasNext()) {
+			if (ite.hasNext()) { // 어차피 업로드 파일은 한개이므로
 				String tagName = ite.next();
 				MultipartFile mFile = multi.getFile(tagName);
 				
@@ -131,6 +131,33 @@ public class FileUpload {
 					mvo.setPhoto("");
 					mvo.setPhotoOri("");
 				}
+			} else if (multi.getParameter("photo") == null || multi.getParameter("photo").equals("")) {
+				this.mvo = new MemberVo();
+				
+				mvo.setUserId(multi.getParameter("userId"));
+				mvo.setUserPwd(multi.getParameter("userPwd"));
+				mvo.setUserName(multi.getParameter("userName"));
+				mvo.setEmail(multi.getParameter("email"));
+				mvo.setPhone(multi.getParameter("phone"));
+				// 넘어온 postal 이 존재한다면
+				if (multi.getParameter("postal") != null && !multi.getParameter("postal").equals("")) {
+					mvo.setPostal(multi.getParameter("postal"));
+				} else {
+					mvo.setPostal("");
+				}
+				// 추가주소가 있다면,
+				if (multi.getParameter("address") != null && !multi.getParameter("address").equals("") && !multi.getParameter("addressAdd").equals("")) {
+					mvo.setAddress(multi.getParameter("address"));
+					mvo.setAddressAdd(multi.getParameter("addressAdd"));
+				} else if (multi.getParameter("address") != null && !multi.getParameter("address").equals("")) {
+					mvo.setAddress(multi.getParameter("address"));
+					mvo.setAddressAdd("");
+				} else {
+					mvo.setAddress("");
+					mvo.setAddressAdd("");
+				}
+				mvo.setPhoto("");
+				mvo.setPhotoOri("");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

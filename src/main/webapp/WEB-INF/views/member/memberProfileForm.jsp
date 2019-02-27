@@ -29,7 +29,7 @@
 	
 	<div class='container'>
 		<div class='container'>
-			<form class='form' name='profileForm' method='post' action='#profileModifyAction'>
+			<form class='form' name='profileForm' id='profileForm' method='post' action='#profileModifyAction' enctype='multipart/form-data'>
 				<div class="form-group">
 					<label for="nickName">이름</label>
 					<input class="form-control" type="text" name='userName' id="userName" value='${vo.userName }' readonly style='width: 50%;'>
@@ -53,12 +53,21 @@
 					<label for="introduce">소개</label>
 					<textarea class="form-control z-depth-1" name='introduce' id="introduce" rows="3" placeholder="소개 글이 없습니다. 새로 등록해주세요." readonly>${vo.introduce }</textarea>
 				</div>
+				<div class='form-group' id='shiftPhoto' style='display: none;'>
+					<label for="photo">프로필 사진 변경</label><br/>
+					<input type='file' id='photo' name='photo' style='padding: 3px 0 3px 3px; border: 1px solid #cdcdcd; border-radius: 5px;' />
+					<input type='hidden' id='photoPath' value='${vo.photo }' />
+				</div>
 				<div class='form-group'>
 					<input class='btn btn-primary' type='button' id='btnModifyProfileSubmit' name='btnModifyProfileSubmit' value='제 출' style='display: none;' />
 					<input class='btn btn-primary' type='button' id='btnModifyProfileCancel' name='btnModifyProfileCancel' value='취 소' style='display: none;' />
 				</div>
 				<div class='form-group'>
 					<input class='btn btn-primary' type='button' id='btnModifyProfile' name='btnModifyProfile' value='프로필 수정하기' />
+				</div>
+				<div class='form-group' id='hiddenVal'>
+					<input class='form-control' type='hidden' id='mDate' name='mDate' value='${vo.mDate }' />
+					<input class='form-control' type='hidden' id='fNum' name='fNum' value='${vo.fNum }' />
 				</div>
 			</form>
 		</div>
