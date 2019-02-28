@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,10 +23,9 @@
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
 <body>
-	<c:if test="${not empty requestScope.msg }">
-		<c:set var="msg" value="${requestScope.msg }" scope="request"/>
-		<script>alert('${msg}');</script>
-		<c:remove var="msg" scope="request"/>
+	
+	<c:if test="${not empty requestScope.boardList }">
+		<c:set var="boardList" value="${requestScope.boardList }"></c:set>
 	</c:if>
 	
 	<!-- 브라우저 크기 확인 (임시) -->
@@ -34,46 +34,7 @@
 	</div> -->
 	
 	<!-- include navBar(aside) -->
-	<div id='navbarAside' style='position: fixed; display: none; width: 17%; height: 100%; border-right: 1px solid #aaa; z-index: 1;'>
-		<div style='width:100%;height:20%;background-color: #fff;border-bottom:1px solid #aaa;'>
-			<div class='' style='height: 20px; margin: 30px auto; text-align: center; border: 1px solid black;'>
-				<a href='/desktop/'>
-					<img src='/desktop/resources/imgs/book_logo01.svg' id='navLogo' alt='brand logo' />
-				</a>
-				<a id='title' href='/desktop/'>DESK TOP</a>
-			</div>
-			<div class='container' style='width: 90%; height: 110px; border: 1px solid black;'>
-				<c:choose>
-					<c:when test="${not empty sessionScope.userId }">
-						<div class='dropdown'>
-							<a class='dropdown-toggle' data-toggle='dropdown' role='button'
-								href='#'> 환영해요, ${sessionScope.userName } 님 <span
-								class='caret'></span>
-							</a>
-							<ul class='dropdown-menu dropdown-menu-right animate slideIn'>
-								<li><a class='dropdown-item my-nav' id='logoutAnc' href='/desktop/member/logout'>로그아웃</a></li>
-								<li><a class='dropdown-item my-nav' id='myPage' href='/desktop/member/myPage'>마이페이지</a></li>
-							</ul>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class='dropdown'>
-							<a class='dropdown-toggle' data-toggle='dropdown' role='button'
-								href='#'>접속 <span class='caret'></span>
-							</a>
-							<ul class='dropdown-menu' style='list-style: none;'>
-								<li><a class='dropdown-item' id='loginAnc' href='#'>로그인</a>
-								</li>
-								<li><a class='dropdown-item' id='joinAnc' href='#'>회원가입</a>
-								</li>
-							</ul>
-						</div>
-					</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-		<jsp:include page="/WEB-INF/views/component/navBar_aside.jsp"></jsp:include>
-	</div>
+	<jsp:include page="/WEB-INF/views/component/navBar_aside.jsp"></jsp:include>
 	
 	<!-- include content -->
 	<div id='boardContent' style='z-index: 0;'>
@@ -83,111 +44,79 @@
 	
 		<!-- middle component -->
 		<div class='container'>
-			<div class='container' id='boardList' style='width: 90%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 80px 20px 80px;'>
-				<c:set var="boardList" value="${requestScope.boardList }"></c:set>
+			<div class='container' id='boardList' style='width: 90%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 60px 80px 20px 80px;'>
 				<p/>
-				<h2>게시판 리스트</h2><br/>
+				<h2>게시판 리스트</h2><br/><br/>
 				<div class='row my-board-row' style='border-top: 2px solid black;'>
-					<div class='col-md-1 my-board-grid'>serial</div>
-					<div class='col-md-5 my-board-grid-title'>title</div>
-					<div class='col-md-2 my-board-grid'>userId</div>
-					<div class='col-md-2 my-board-grid'>category</div>
-					<div class='col-md-2 my-board-grid'>date</div>
+					<div class='col-md-1 my-board-grid' style='text-align: center;'>글 번호</div>
+					<div class='col-md-6 my-board-grid-title'>제목</div>
+					<div class='col-md-1 my-board-grid'>작성자</div>
+					<div class='col-md-1 my-board-grid'>카테고리</div>
+					<div class='col-md-1 my-board-grid'>조회수</div>
+					<div class='col-md-2 my-board-grid'>등록일</div>
 				</div>
-				<div class='row my-board-row'>
-					<div class='col-md-1 my-board-grid'>${boardList[0].serial }</div>
-					<div class='col-md-5 my-board-grid-title'>${boardList[0].title }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].userId }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].category }</div>
-					<div class='col-md-2 my-board-grid'></div>
-				</div>
-				<div class='row my-board-row'>
-					<div class='col-md-1 my-board-grid'>${boardList[0].serial }</div>
-					<div class='col-md-5 my-board-grid-title'>${boardList[0].title }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].userId }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].category }</div>
-					<div class='col-md-2 my-board-grid'></div>
-				</div>
-				<div class='row my-board-row'>
-					<div class='col-md-1 my-board-grid'>${boardList[0].serial }</div>
-					<div class='col-md-5 my-board-grid-title'>${boardList[0].title }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].userId }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].category }</div>
-					<div class='col-md-2 my-board-grid'></div>
-				</div>
-				<div class='row my-board-row'>
-					<div class='col-md-1 my-board-grid'>${boardList[0].serial }</div>
-					<div class='col-md-5 my-board-grid-title'>${boardList[0].title }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].userId }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].category }</div>
-					<div class='col-md-2 my-board-grid'></div>
-				</div>
-				<div class='row my-board-row'>
-					<div class='col-md-1 my-board-grid'>${boardList[0].serial }</div>
-					<div class='col-md-5 my-board-grid-title'>${boardList[0].title }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].userId }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].category }</div>
-					<div class='col-md-2 my-board-grid'></div>
-				</div>
-				<div class='row my-board-row' style='border-bottom: 2px solid black;'>
-					<div class='col-md-1 my-board-grid'>${boardList[0].serial }</div>
-					<div class='col-md-5 my-board-grid-title'>${boardList[0].title }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].userId }</div>
-					<div class='col-md-2 my-board-grid'>${boardList[0].category }</div>
-					<div class='col-md-2 my-board-grid'></div>
-				</div>
+				<c:forEach var="bvo" items="${boardList }" >
+					<div class='row my-board-row'>
+						<div class='col-md-1 my-board-grid'>${bvo.serial }</div>
+						<c:choose>
+							<c:when test="${fn:length(bvo.title) < 40 }">
+								<div class='col-md-6 my-board-grid-title'>${bvo.title }</div>
+							</c:when>
+							<c:otherwise>
+								<div class='col-md-6 my-board-grid-title'>${fn:substring(bvo.title, 0, 38) } ...</div>
+							</c:otherwise>
+						</c:choose>
+						<div class='col-md-1 my-board-grid'>${bvo.userId }</div>
+						<div class='col-md-1 my-board-grid'>${bvo.category }</div>
+						<div class='col-md-1 my-board-grid'>${bvo.hit }</div>
+						<div class='col-md-2 my-board-grid'>${bvo.bDate }</div>
+					</div>
+				</c:forEach>
 				
-				<br/><br/>
+				<br/><br/><br/>
 				<hr style='border: 1px solid #afafaf;'/>
-				<br/><br/>
+				<br/><br/><br/>
 				
-				<div style='height: 600px; background-color: #efefef; border-radius: 10px; /* border: 1px solid black; */'>
-					<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
-						<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
-							<img src='/desktop/resources/imgs/boardAttFiles/unbearable01.jpg' alt="unbearable img" style='width: 90px; height: 150px;' />
-						</div>
-						<div style='display: inline-block; width: 200px; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title }</div><br/>
-						<div style='display: inline-block; float: left; width: 150px; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].bDate }</div>
+				<c:if test='${fn:length(boardList) > 2 }'>
+					<div style='height: 600px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 						<div style='display: inline-block; float: left; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
-					</div>
-					<div class='container' style='height: 400px; text-align: center; padding: 10px 20px 30px 20px;'>
-						<p>${boardList[0].content }</p>
-					</div>
-				</div>
-				
-				<br/><hr/><br/>
-				
-				<div style='height: 600px; background-color: #efefef; border-radius: 10px; /* border: 1px solid black; */'>
-					<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
-						<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
-							<img src='/desktop/resources/imgs/boardAttFiles/unbearable01.jpg' alt="unbearable img" style='width: 90px; height: 150px;' />
+						<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
+							<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
+								<img src='${boardList[0].coverImg }' alt="unbearable img" style='width: 90px; height: 150px;' />
+							</div>
+							<span>제목 : </span><div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title } (${boardList[0].bDate })</div><br/>
+							<div style='display: inline-block; float: left; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].author }</div>
 						</div>
-						<div style='display: inline-block; width: 200px; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title }</div><br/>
-						<div style='display: inline-block; float: left; width: 150px; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].bDate }</div>
-						<div style='display: inline-block; float: left; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
-					</div>
-					<div class='container' style='height: 400px; text-align: center; padding: 10px 20px 30px 20px;'>
-						<p>${boardList[0].content }</p>
-					</div>
-				</div>
-				
-				<br/><hr/><br/>
-				
-				<div style='height: 600px; background-color: #efefef; border-radius: 10px; /* border: 1px solid black; */'>
-					<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
-						<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
-							<img src='/desktop/resources/imgs/boardAttFiles/unbearable01.jpg' alt="unbearable img" style='width: 90px; height: 150px;' />
+						<div class='container' style='height: 400px; padding: 10px 20px 30px 20px;'>
+							<p>${boardList[0].content }</p>
 						</div>
-						<div style='display: inline-block; width: 200px; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title }</div><br/>
-						<div style='display: inline-block; float: left; width: 150px; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].bDate }</div>
-						<div style='display: inline-block; float: left; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
 					</div>
-					<div class='container' style='height: 400px; text-align: center; padding: 10px 20px 30px 20px;'>
-						<p>${boardList[0].content }</p>
-					</div>
-				</div>
+					<c:forEach var='bvo' begin='1' end='2' step='1' items='${boardList }'>
+						<br/><hr/><br/>
+						
+						<div style='height: 600px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+							<div style='display: inline-block; float: left; width: 10px; border-bottom: 1px solid #9a9a9a;'>${bvo.serial }</div>
+							<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
+								<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
+									<img src='${bvo.coverImg }' alt="unbearable img" style='width: 90px; height: 150px;' />
+								</div>
+								<span>제목 : </span><div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${bvo.title } (${bvo.bDate })</div><br/>
+								<div style='display: inline-block; float: left; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${bvo.author }</div>
+							</div>
+							<div class='container' style='height: 400px; padding: 10px 20px 30px 20px;'>
+								<p>${bvo.content }</p>
+							</div>
+						</div>
+					</c:forEach>
+				</c:if>
 				
-				<br/><hr/><br/>
+				<c:if test='${fn:length(boardList) > 3 }'>
+					<div class='container' style='text-align: center;'>
+						<div class='btn btn-info' style='display: inline-block;'>더보기</div>
+					</div>
+					<br/><br/>
+				</c:if>
+				
 			</div>
 		</div>
 	

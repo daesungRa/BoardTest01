@@ -26,7 +26,7 @@ public class MemberVo {
 	
 	// 팔로우
 	private int fNum;
-	private List<String> followees;
+	private List<String> followees; // 별도 쿼리로 팔로워 vo 객체를 만들어 리스트로 가져올 것
 	
 	
 	// info

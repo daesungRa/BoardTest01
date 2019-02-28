@@ -143,46 +143,7 @@
 	</c:if>
 
 	<!-- include navBar(aside) -->
-	<div id='navbarAside' style='position: fixed; display: none; width: 17%; height: 100%; border-right: 1px solid #aaa; z-index: 1;'>
-		<div style='width:100%;height:20%;background-color: #fff;border-bottom:1px solid #aaa;'>
-			<div class='' style='height: 20px; margin: 30px auto; text-align: center; border: 1px solid black;'>
-				<a href='/desktop/'>
-					<img src='/desktop/resources/imgs/book_logo01.svg' id='navLogo' alt='brand logo' />
-				</a>
-				<a id='title' href='/desktop/'>DESK TOP</a>
-			</div>
-			<div class='container' style='width: 90%; height: 110px; border: 1px solid black;'>
-				<c:choose>
-					<c:when test="${not empty sessionScope.userId }">
-						<div class='dropdown'>
-							<a class='dropdown-toggle' data-toggle='dropdown' role='button'
-								href='#'> 환영해요, ${sessionScope.userName } 님 <span
-								class='caret'></span>
-							</a>
-							<ul class='dropdown-menu dropdown-menu-right animate slideIn'>
-								<li><a class='dropdown-item my-nav' id='logoutAnc' href='/desktop/member/logout'>로그아웃</a></li>
-								<li><a class='dropdown-item my-nav' id='myPage' href='/desktop/member/myPage'>마이페이지</a></li>
-							</ul>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class='dropdown'>
-							<a class='dropdown-toggle' data-toggle='dropdown' role='button'
-								href='#'>접속 <span class='caret'></span>
-							</a>
-							<ul class='dropdown-menu' style='list-style: none;'>
-								<li><a class='dropdown-item' id='loginAnc' href='#'>로그인</a>
-								</li>
-								<li><a class='dropdown-item' id='joinAnc' href='#'>회원가입</a>
-								</li>
-							</ul>
-						</div>
-					</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-		<jsp:include page="/WEB-INF/views/component/navBar_aside.jsp"></jsp:include>
-	</div>
+	<jsp:include page="/WEB-INF/views/component/navBar_aside.jsp"></jsp:include>
 
 	<!-- include content -->
 	<div id='boardContent' style='z-index: 0;'>
@@ -336,7 +297,7 @@
 						$('#memberInfoContent').html(html);
 						$('#memberImg').css({'display':'none'});
 						$('.my-myPage-memberinfo #image').attr('src', $('#memberImg #image').attr('src'));
-						$('.my-myPage-memberinfo #inputFNum').text($('#joinFrm #fNum').val());
+						$('.my-myPage-memberinfo #inputFNum').text($('#joinFrm #fNum').val() + ' 명');
 						$('.my-myPage-memberinfo #inputMDate').text($('#joinFrm #mDate').val());
 						
 						// 에러코드 0 이면 세션아이디 없음, 에러코드 1 이면 조회된 결과 없음

@@ -4,9 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
-	<select id="selectTest" parameterType="int" resultType="com.daesungra.domain.BoardVo">
-		SELECT serial, title, content, category, userId, gSerial, pSerial, depth, indent, to_char(bDate, 'YY/MM/DD HH24:MI:SS') bDate
-			FROM DBOARD
-			WHERE category = #{category}
+	<select id="boardList" parameterType="int" resultType="com.daesungra.domain.BoardVo">
+		SELECT * FROM (
+			SELECT ROWNUM rno, s.* FROM (
+				SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYMMDD') bDate, bd.hit hit,
+						bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, bk.pDate pDate
+					FROM DBOARD bd join DBOOK bk
+					ON bd.bookNo = bk.bookNo
+					WHERE bd.category = #{category} and bd.isDelete = 0
+					ORDER BY bd.bDate desc
+			) s
+		) WHERE rno BETWEEN 1 and 10
+	</select>
+	<select id="selectBookInfo" parameterType="String" resultType="com.daesungra.domain.BookVo">
+		SELECT bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, pDate, isPermitted
+			FROM DBOOK
+			WHERE bookNo = #{bookNo}
 	</select>
 </mapper>

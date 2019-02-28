@@ -38,7 +38,7 @@
 								<li class="dropdown-divider"></li>
 								<li><a class='dropdown-item my-nav' id='' href='#'>인문/사회/정치</a></li>
 								<li><a class='dropdown-item my-nav' id='' href='#'>경제/경영</a></li>
-								<li><a class='dropdown-item my-nav' id='' href='/desktop/board/categoryFour'>문학/시/소설</a></li>
+								<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/4'>문학/시/소설</a></li>
 								<li><a class='dropdown-item my-nav' id='' href='#'>과학/공학/수학/컴퓨터</a></li>
 								<li><a class='dropdown-item my-nav' id='' href='#'>교육/수험서/자격증</a></li>
 								<li><a class='dropdown-item my-nav' id='' href='#'>예술/문화/자기계발/라이프</a></li>
