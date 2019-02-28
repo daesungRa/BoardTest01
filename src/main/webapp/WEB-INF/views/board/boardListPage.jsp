@@ -49,11 +49,11 @@
 				<h2>게시판 리스트</h2><br/><br/>
 				<div class='row my-board-row' style='border-top: 2px solid black;'>
 					<div class='col-md-1 my-board-grid' style='text-align: center;'>글 번호</div>
-					<div class='col-md-6 my-board-grid-title'>제목</div>
-					<div class='col-md-1 my-board-grid'>작성자</div>
-					<div class='col-md-1 my-board-grid'>카테고리</div>
-					<div class='col-md-1 my-board-grid'>조회수</div>
-					<div class='col-md-2 my-board-grid'>등록일</div>
+					<div class='col-md-6 my-board-grid-title' style='text-align: center;'>제목</div>
+					<div class='col-md-1 my-board-grid' style='text-align: center;'>작성자</div>
+					<div class='col-md-2 my-board-grid' style='text-align: center;'>책제목</div>
+					<div class='col-md-1 my-board-grid' style='text-align: center;'>조회수</div>
+					<div class='col-md-1 my-board-grid' style='text-align: center;'>등록일</div>
 				</div>
 				<c:forEach var="bvo" items="${boardList }" >
 					<div class='row my-board-row'>
@@ -67,9 +67,16 @@
 							</c:otherwise>
 						</c:choose>
 						<div class='col-md-1 my-board-grid'>${bvo.userId }</div>
-						<div class='col-md-1 my-board-grid'>${bvo.category }</div>
+						<c:choose>
+							<c:when test="${fn:length(bvo.title_kor) < 10 }">
+								<div class='col-md-2 my-board-grid-title'>${bvo.title_kor }</div>
+							</c:when>
+							<c:otherwise>
+								<div class='col-md-2 my-board-grid-title'>${fn:substring(bvo.title_kor, 0, 8) } ...</div>
+							</c:otherwise>
+						</c:choose>
 						<div class='col-md-1 my-board-grid'>${bvo.hit }</div>
-						<div class='col-md-2 my-board-grid'>${bvo.bDate }</div>
+						<div class='col-md-1 my-board-grid'>${bvo.bDate }</div>
 					</div>
 				</c:forEach>
 				
@@ -84,8 +91,8 @@
 							<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
 								<img src='${boardList[0].coverImg }' alt="unbearable img" style='width: 90px; height: 150px;' />
 							</div>
-							<span>제목 : </span><div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title } (${boardList[0].bDate })</div><br/>
-							<div style='display: inline-block; float: left; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].author }</div>
+							<span>제목&nbsp;&nbsp;:&nbsp;&nbsp;</span><div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title }</div><br/>
+							<span style='float: left;'>작성자&nbsp;&nbsp;:&nbsp;&nbsp;</span><div style='display: inline-block; float: left; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].userId } | ${boardList[0].bDate }</div>
 						</div>
 						<div class='container' style='height: 400px; padding: 10px 20px 30px 20px;'>
 							<p>${boardList[0].content }</p>
@@ -100,8 +107,8 @@
 								<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
 									<img src='${bvo.coverImg }' alt="unbearable img" style='width: 90px; height: 150px;' />
 								</div>
-								<span>제목 : </span><div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${bvo.title } (${bvo.bDate })</div><br/>
-								<div style='display: inline-block; float: left; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${bvo.author }</div>
+								<span>제목&nbsp;&nbsp;:&nbsp;&nbsp;</span><div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${bvo.title } (${bvo.bDate })</div><br/>
+								<span style='float: left;'>작성자&nbsp;&nbsp;:&nbsp;&nbsp;</span><div style='display: inline-block; float: left; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${bvo.userId } | ${boardList[0].bDate }</div>
 							</div>
 							<div class='container' style='height: 400px; padding: 10px 20px 30px 20px;'>
 								<p>${bvo.content }</p>
