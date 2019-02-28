@@ -46,7 +46,18 @@
 		<div class='container'>
 			<div class='container' id='boardList' style='width: 90%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 60px 80px 20px 80px;'>
 				<p/>
-				<h2>게시판 리스트</h2><br/><br/>
+				<h2>문학 / 시 / 소설</h2><br/>
+				<div class='container' style='position: relative; height: 46px; margin-bottom: 10px;'>
+					<form class='form' style='position: absolute; right: 0; width: 35%;'>
+						<select class='form-control' style='display: inline-block; float: left; width: 34%; height: 40px;'>
+							<option>최신순</option>
+							<option>오래된순</option>
+							<option>조회순</option>
+							<option>추천순</option>
+						</select>
+						<input class='' type='search' style='display: inline-block; float: right; width: 63%; height: 34px; margin-top: 3px;' />
+					</form>
+				</div>
 				<div class='row my-board-row' style='border-top: 2px solid black;'>
 					<div class='col-md-1 my-board-grid' style='text-align: center;'>글 번호</div>
 					<div class='col-md-6 my-board-grid-title' style='text-align: center;'>제목</div>
@@ -63,7 +74,7 @@
 								<div class='col-md-6 my-board-grid-title'>${bvo.title }</div>
 							</c:when>
 							<c:otherwise>
-								<div class='col-md-6 my-board-grid-title'>${fn:substring(bvo.title, 0, 38) } ...</div>
+								<div class='col-md-6 my-board-grid-title'>${fn:substring(bvo.title, 0, 39) } ...</div>
 							</c:otherwise>
 						</c:choose>
 						<div class='col-md-1 my-board-grid'>${bvo.userId }</div>
@@ -80,37 +91,39 @@
 					</div>
 				</c:forEach>
 				
-				<br/><br/><br/>
+				<br/><br/><br/><br/><br/>
 				<hr style='border: 1px solid #afafaf;'/>
-				<br/><br/><br/>
+				<br/><br/><br/><br/><br/>
 				
 				<c:if test='${fn:length(boardList) > 2 }'>
-					<div style='height: 600px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
-						<div style='display: inline-block; float: left; width: 10px; border-bottom: 1px solid #9a9a9a;'>${boardList[0].serial }</div>
-						<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
-							<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
-								<img src='${boardList[0].coverImg }' alt="unbearable img" style='width: 90px; height: 150px;' />
+					<div style='height: 400px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+						<div class='container' style=' height: 90px;'>
+							<div style='display: inline-block; float: left; width: 30px; height: 50px;'>${boardList[0].serial }.</div>
+							<div style='display: inline-block; float: left;'>
+								<div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title }</div><br/>
+								<div style='display: inline-block; border-bottom: 1px solid #9a9a9a;'>${boardList[0].userId }</div>&nbsp;&nbsp;
+								<div style='display: inline-block; border-bottom: 1px solid #9a9a9a;'>${boardList[0].bDate }</div>
 							</div>
-							<span>제목&nbsp;&nbsp;:&nbsp;&nbsp;</span><div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${boardList[0].title }</div><br/>
-							<span style='float: left;'>작성자&nbsp;&nbsp;:&nbsp;&nbsp;</span><div style='display: inline-block; float: left; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${boardList[0].userId } | ${boardList[0].bDate }</div>
 						</div>
-						<div class='container' style='height: 400px; padding: 10px 20px 30px 20px;'>
+						<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+							<img src='${boardList[0].coverImg }' alt="${boardList[0].title_kor } img" style='float: left; width: 150px; height: 200px; margin-right: 20px;' />
 							<p>${boardList[0].content }</p>
 						</div>
 					</div>
 					<c:forEach var='bvo' begin='1' end='2' step='1' items='${boardList }'>
 						<br/><hr/><br/>
 						
-						<div style='height: 600px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
-							<div style='display: inline-block; float: left; width: 10px; border-bottom: 1px solid #9a9a9a;'>${bvo.serial }</div>
-							<div class='container' style='height: 200px; padding: 30px 30px 0 30px;'>
-								<div style='display: inline-block; float: left; margin: 0 40px 0 0; border: 1px solid black;'>
-									<img src='${bvo.coverImg }' alt="unbearable img" style='width: 90px; height: 150px;' />
+						<div style='height: 400px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+							<div class='container' style=' height: 90px;'>
+								<div style='display: inline-block; float: left; width: 30px; height: 50px;'>${bvo.serial }.</div>
+								<div style='display: inline-block; float: left;'>
+									<div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${bvo.title }</div><br/>
+									<div style='display: inline-block; border-bottom: 1px solid #9a9a9a;'>${bvo.userId }</div>&nbsp;&nbsp;
+									<div style='display: inline-block; border-bottom: 1px solid #9a9a9a;'>${bvo.bDate }</div>
 								</div>
-								<span>제목&nbsp;&nbsp;:&nbsp;&nbsp;</span><div style='display: inline-block; border-bottom: 1px solid #9a9a9a; margin-bottom: 10px;'>${bvo.title } (${bvo.bDate })</div><br/>
-								<span style='float: left;'>작성자&nbsp;&nbsp;:&nbsp;&nbsp;</span><div style='display: inline-block; float: left; border-bottom: 1px solid #9a9a9a; margin-right: 10px;'>${bvo.userId } | ${boardList[0].bDate }</div>
 							</div>
-							<div class='container' style='height: 400px; padding: 10px 20px 30px 20px;'>
+							<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+								<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 150px; height: 200px; margin-right: 20px;' />
 								<p>${bvo.content }</p>
 							</div>
 						</div>
