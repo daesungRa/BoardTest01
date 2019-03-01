@@ -8,7 +8,8 @@ import com.daesungra.domain.BoardVo;
 
 public interface BoardService {
 
-	public List<BoardVo> getBoardList (int category);
+	public List<BoardVo> getBoardListDate (int category);
+	public List<BoardVo> getBoardListHit (int category);
 	public BoardVo boardView (String serial);
 	public boolean boardWrite (HttpServletRequest request);
 	public boolean boardModify (HttpServletRequest request);

@@ -260,6 +260,8 @@ public class MemberController {
 			
 			if (modifyResult) { // 성공했다면 result 를 "1" 로 초기화
 				logger.info("profile modify 성공");
+				request.getSession().setAttribute("userName", vo.getUserName()); // 사용자가 이름을 변경할 수 있으므로 무조건 초기화 진행
+				
 				result = "1";
 			} else {
 				logger.info("profile modify 실패");

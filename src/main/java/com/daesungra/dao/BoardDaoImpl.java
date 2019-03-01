@@ -15,11 +15,22 @@ public class BoardDaoImpl implements BoardDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<BoardVo> getBoardList (int category) {
-		List<BoardVo> list = null;
-		list = sqlSession.selectList("board.boardList", category);
+	@Override
+	public List<BoardVo> getBoardListDate (int category) {
+		List<BoardVo> listByDate = null;
 		
-		return list;
+		listByDate = sqlSession.selectList("board.boardListDate", category);
+		
+		return listByDate;
+	}
+	
+	@Override
+	public List<BoardVo> getBoardListHit (int category) {
+		List<BoardVo> listByHit = null;
+		
+		listByHit = sqlSession.selectList("board.boardListHit", category);
+		
+		return listByHit;
 	}
 
 	@Override

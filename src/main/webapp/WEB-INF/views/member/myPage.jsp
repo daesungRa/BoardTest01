@@ -147,7 +147,7 @@
 
 	<!-- include content -->
 	<div id='boardContent' style='z-index: 0;'>
-		<button class='btn btn-sm btn-light' id='btnShowNavbar' style='position: fixed; top: 20px; left: 10px;'>&gt;&gt;</button>
+		<button class='btn btn-sm btn-light' id='btnShowNavbar' style='position: fixed; top: 20px; left: 10px; background-color: #ccc;'>&gt;&gt;</button>
 		<!-- top -->
 		<jsp:include page="/WEB-INF/views/component/top.jsp"></jsp:include>
 	

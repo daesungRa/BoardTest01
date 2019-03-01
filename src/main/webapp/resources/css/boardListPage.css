@@ -9,22 +9,58 @@
 	font-weight: bolder;
 }
 
+#categoryContent {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+#toBoardList:hover {
+	color: #454545;
+	cursor: pointer;
+	background-color: #efefef;
+}
+
+/* 기본 버튼 스타일 */
+.myBtn {
+	font-family: 'Nanum Gothic', sans-serif;
+	width: 56px;
+	height: 28px;
+	text-align: center;
+	color: #787878;
+	background-color: #dedede;
+	font-size: 10pt;
+	padding-top: 5px;
+	border-radius: 10px;
+}
+.myBtn:hover {
+	color: #343434;
+	background-color: #ababab;
+	cursor: pointer;
+}
+
 /*
  * top
  */
 
 /*
- * aricle style
+ * 게시글 리스트
  */
 .my-board-row {
+	margin: 4px 0 -2px 0;
 	border-bottom: 1px solid black;
 }
 .my-board-grid {
 	font-family: 'Nanum Gothic', sans-serif;
 	font-weight: bolder;
-	font-size: 10pt;
+	font-size: 8pt;
+	text-align: center;
 	height: 25px;
 	overflow: hidden;
+}
+.my-board-grid-title {
+	font-size: 9pt;
+}
+.my-board-grid-bookTitle {
+	text-align: center;
+	font-size: 9pt;
 }
 .my-board-row:hover, .my-board-row:focus {
 	background-color: #efefef;
@@ -32,7 +68,35 @@
 .my-board-grid-title:hover, .my-board-grid-title:focus {
 	cursor: pointer;
 }
-#boardList {
-	font-family: 'Nanum Gothic', sans-serif;
-	font-weight: bolder;
+.my-board-grid-bookTitle:hover {
+	cursor: pointer;
 }
+#boardList {
+	/* font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bolder; */
+}
+.btnBoardView {
+	font-family: 'Nanum Gothic', sans-serif;
+	/* border: 1px solid black; */
+	padding: 3px 6px 3px 6px;
+}
+.btnBoardView:hover, .btnBoardView:focus {
+	color: #787878;
+	cursor: pointer;
+}
+
+#boardSearchForm {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+/*
+ * 게시글 미리보기
+ */
+.boardViewAncMini {
+	color: #898989;
+}
+.boardViewAncMini:hover {
+	color: #343434;
+	cursor: pointer;
+}
+

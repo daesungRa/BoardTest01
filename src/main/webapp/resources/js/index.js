@@ -93,7 +93,6 @@ $(function () {
 		// 로그아웃
 	$('#logoutAnc').click(function(){
 		location.href ='/desktop/member/logout';
-		alert("로그아웃되었습니다.");
 	});
 	
 	// 회원정보 조회

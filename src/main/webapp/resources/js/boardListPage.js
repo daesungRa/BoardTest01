@@ -9,8 +9,24 @@ $(function () {
 		getWindowSize();
 	});
 	
+	// 게시판 리스트 부분으로 이동
+	$('#toBoardList').click(function () {
+		funcMovePage('boardListView');
+	});
+	// top 부분으로 이동
+	$('.my-btn-toTop').click(function () {
+		funcMovePage('indexTop');
+	});
+	
 	// top 의 돋보기 아이콘 배치
 	$('.searchForm .icon').css({"margin-top":"-12px"});
+	
+	// 게시글 리스트 미리보기
+	$('.my-board-grid-title').tooltip();
+	$('.my-board-grid-bookTitle').tooltip();
+	
+	// 글 상세보기 페이지로 이동
+	$('.boardViewAncMini').tooltip();
 	
 	$('#btnShowNavbar').click(function () {
 		$('#navbarAside').animate({width:'toggle'}, 350);

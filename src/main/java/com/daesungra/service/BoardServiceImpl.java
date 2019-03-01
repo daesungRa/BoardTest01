@@ -16,10 +16,18 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
-	public List<BoardVo> getBoardList (int category) {
-		List<BoardVo> list = boardDao.getBoardList (category);
+	@Override
+	public List<BoardVo> getBoardListDate (int category) {
+		List<BoardVo> result = boardDao.getBoardListDate(category);
 		
-		return list;
+		return result;
+	}
+	
+	@Override
+	public List<BoardVo> getBoardListHit (int category) {
+		List<BoardVo> result = boardDao.getBoardListHit(category);
+		
+		return result;
 	}
 
 	@Override

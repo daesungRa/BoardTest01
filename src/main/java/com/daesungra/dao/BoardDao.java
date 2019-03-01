@@ -7,7 +7,8 @@ import com.daesungra.domain.MemberVo;
 
 public interface BoardDao {
 
-	public List<BoardVo> getBoardList (int category);
+	public List<BoardVo> getBoardListDate (int category);
+	public List<BoardVo> getBoardListHit (int category);
 	public BoardVo boardSelect (String serial);
 	public boolean boardInsert (MemberVo vo);
 	public boolean boardUpdate (MemberVo vo);

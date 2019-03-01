@@ -28,8 +28,11 @@ public class BoardController {
 	public String getBoardList (HttpServletRequest request, @PathVariable int category) {
 		logger.info("call boardListPage category:" + category);
 		
-		List<BoardVo> list = boardService.getBoardList(category);
-		request.setAttribute("boardList", list);
+		List<BoardVo> listDate = boardService.getBoardListDate(category); // 날짜별 정렬결과 리스트
+		List<BoardVo> listHit = boardService.getBoardListHit(category); // 조회수별 정렬결과 리스트
+		logger.info("[getBoardList] 검색 리스트 길이 : " + listDate.size() + ", " + listHit.size());
+		request.setAttribute("boardListDate", listDate);
+		request.setAttribute("boardListHit", listHit);
 		
 		return "/board/boardListPage";
 	}

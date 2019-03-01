@@ -33,14 +33,10 @@
 						<li class='nav-item dropdown'>
 							<a class='nav-link dropdown-toggle my-nav' data-toggle='dropdown' role='button' id='categoryAnc' href='#'>리뷰 카테고리</a>
 							<ul class='dropdown-menu my-nav' style='text-align: left;'>
-								<li><a class='dropdown-item my-nav' id='' href='#'>오늘의 리뷰</a></li>
-								<li><a class='dropdown-item my-nav' id='' href='#'>베스트셀러/신간</a></li>
-								<li class="dropdown-divider"></li>
 								<li><a class='dropdown-item my-nav' id='' href='#'>인문/사회/정치</a></li>
-								<li><a class='dropdown-item my-nav' id='' href='#'>경제/경영</a></li>
 								<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/4'>문학/시/소설</a></li>
+								<li><a class='dropdown-item my-nav' id='' href='#'>경제/경영</a></li>
 								<li><a class='dropdown-item my-nav' id='' href='#'>과학/공학/수학/컴퓨터</a></li>
-								<li><a class='dropdown-item my-nav' id='' href='#'>교육/수험서/자격증</a></li>
 								<li><a class='dropdown-item my-nav' id='' href='#'>예술/문화/자기계발/라이프</a></li>
 							</ul>
 						</li>
