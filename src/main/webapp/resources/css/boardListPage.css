@@ -41,7 +41,14 @@
  */
 
 /*
- * 게시글 리스트
+ * 게시글 미리보기 (조회수순)
+ */
+.bookTitlePreview:hover {
+	cursor: pointer;
+}
+
+/*
+ * 게시글 리스트 (등록일순)
  */
 .my-board-row {
 	margin: 4px 0 -2px 0;

@@ -63,32 +63,235 @@
 				<br/><br/><br/>
 				
 				<div class='container'>
-					<c:if test='${fn:length(boardListHit) > 2 }'>
-						<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
-							<div class='container' style='position: relative; height: 90px;'>
-								<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
-								<div style='position: absolute; top: 0; left: 30px;'>
-									<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }</div><br/>
-									<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
-									<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].bDate }</div>&nbsp;&nbsp;
-									<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>
+					<c:choose>
+						<c:when test='${fn:length(boardListHit) > 5 }'> <!-- 게시글이 일골 개 이상일 때 -->
+							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+								<div class='container' style='position: relative; height: 90px;'>
+									<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
+									<div style='position: absolute; top: 0; left: 30px;'>
+										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }</div><br/>
+										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor } / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].bDate }</div>
+									</div>
+								</div>
+								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+									<img src='${boardListHit[0].coverImg }' alt="${boardListHit[0].title_kor } img" style='float: left; width: 80px; height: 100px; border-radius: 20px; margin-right: 20px;' />
+									<c:if test='${fn:length(boardListHit[0].content) > 150 }'>
+										<%-- 개행 문자열 치환 ("<br/>" to "\n")
+										<%
+											String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
+											content = content.replaceAll("<br/>", "\n");
+										%>
+										<textarea cols="50" rows='30'><%=content %></textarea>
+										 --%>
+										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+									</c:if>
 								</div>
 							</div>
-							<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
-								<img src='${boardListHit[0].coverImg }' alt="${boardListHit[0].title_kor } img" style='float: left; width: 80px; height: 100px; border-radius: 20px; margin-right: 20px;' />
-								<c:if test='${fn:length(boardListHit[0].content) > 150 }'>
-									<%-- 개행 문자열 치환 ("<br/>" to "\n")
-									<%
-										String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
-										content = content.replaceAll("<br/>", "\n");
-									%>
-									<textarea cols="50" rows='30'><%=content %></textarea>
-									 --%>
-									<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
-								</c:if>
+							<c:forEach var='bvo' begin='1' end='2' step='1' items='${boardListHit }'>
+								<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+								
+								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+									<div class='container' style='position: relative; height: 90px;'>
+										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+										<div style='position: absolute; top: 0; left: 30px;'>
+											<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+										</div>
+									</div>
+									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+										<c:if test='${fn:length(bvo.content) > 150 }'>
+											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										</c:if>
+									</div>
+								</div>
+							</c:forEach>
+							<c:forEach var='bvo' begin='3' end='5' step='1' items='${boardListHit }'>
+								<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+								
+								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+									<div class='container' style='position: relative; height: 90px;'>
+										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+										<div style='position: absolute; top: 0; left: 30px;'>
+											<c:choose>
+												<c:when test='${fn:length(bvo.title) < 35 }'>
+													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+												</c:when>
+												<c:otherwise>
+													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+												</c:otherwise>
+											</c:choose>
+											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+										</div>
+									</div>
+									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+										<c:if test='${fn:length(bvo.content) > 150 }'>
+											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										</c:if>
+									</div>
+								</div>
+							</c:forEach>
+							<c:forEach var='bvo' begin='6' end='${fn:length(boardListHit) - 1 }' step='1' items='${boardListHit }'>
+								<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+								
+								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+									<div class='container' style='position: relative; height: 90px;'>
+										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+										<div style='position: absolute; top: 0; left: 30px;'>
+											<c:choose>
+												<c:when test='${fn:length(bvo.title) < 35 }'>
+													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+												</c:when>
+												<c:otherwise>
+													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+												</c:otherwise>
+											</c:choose>
+											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+										</div>
+									</div>
+									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+										<c:if test='${fn:length(bvo.content) > 150 }'>
+											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										</c:if>
+									</div>
+								</div>
+							</c:forEach>
+							
+							<div class='container' style='text-align: center;'>
+								<div class='myBtn' id='more1' style='display: inline-block;'>더보기</div>
 							</div>
-						</div>
-						<c:forEach var='bvo' begin='1' end='2' step='1' items='${boardListHit }'>
+							
+							<br/>
+							<hr style='border-top: 3px double #8c8b8b;'/>
+							<br/><br/>
+						</c:when>
+						<c:when test='${fn:length(boardListHit) > 2 and fn:length(boardListHit) <= 5 }'> <!-- 게시글이 세 개에서 여섯 개 사이일 때 -->
+							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+								<div class='container' style='position: relative; height: 90px;'>
+									<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
+									<div style='position: absolute; top: 0; left: 30px;'>
+										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }</div><br/>
+										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor } / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].bDate }</div>
+									</div>
+								</div>
+								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+									<img src='${boardListHit[0].coverImg }' alt="${boardListHit[0].title_kor } img" style='float: left; width: 80px; height: 100px; border-radius: 20px; margin-right: 20px;' />
+									<c:if test='${fn:length(boardListHit[0].content) > 150 }'>
+										<%-- 개행 문자열 치환 ("<br/>" to "\n")
+										<%
+											String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
+											content = content.replaceAll("<br/>", "\n");
+										%>
+										<textarea cols="50" rows='30'><%=content %></textarea>
+										 --%>
+										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+									</c:if>
+								</div>
+							</div>
+							<c:forEach var='bvo' begin='1' end='2' step='1' items='${boardListHit }'>
+								<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+								
+								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+									<div class='container' style='position: relative; height: 90px;'>
+										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+										<div style='position: absolute; top: 0; left: 30px;'>
+											<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+										</div>
+									</div>
+									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+										<c:if test='${fn:length(bvo.content) > 150 }'>
+											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										</c:if>
+									</div>
+								</div>
+							</c:forEach>
+							<c:forEach var='bvo' begin='3' end='5' step='1' items='${boardListHit }'>
+								<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+								
+								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+									<div class='container' style='position: relative; height: 90px;'>
+										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+										<div style='position: absolute; top: 0; left: 30px;'>
+											<c:choose>
+												<c:when test='${fn:length(bvo.title) < 35 }'>
+													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+												</c:when>
+												<c:otherwise>
+													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+												</c:otherwise>
+											</c:choose>
+											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+										</div>
+									</div>
+									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+										<c:if test='${fn:length(bvo.content) > 150 }'>
+											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										</c:if>
+									</div>
+								</div>
+							</c:forEach>
+							
+							<div class='container' style='text-align: center;'>
+								<div class='myBtn' id='more1' style='display: inline-block;'>더보기</div>
+							</div>
+							
+							<br/>
+							<hr style='border-top: 3px double #8c8b8b;'/>
+							<br/><br/>
+						</c:when>
+						<c:when test='${fn:length(boardListHit) == 2 }'> <!-- 게시글이 두 개일 때 -->
+							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+								<div class='container' style='position: relative; height: 90px;'>
+									<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
+									<div style='position: absolute; top: 0; left: 30px;'>
+										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }</div><br/>
+										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor } / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].bDate }</div>
+									</div>
+								</div>
+								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+									<img src='${boardListHit[0].coverImg }' alt="${boardListHit[0].title_kor } img" style='float: left; width: 80px; height: 100px; border-radius: 20px; margin-right: 20px;' />
+									<c:if test='${fn:length(boardListHit[0].content) > 150 }'>
+										<%-- 개행 문자열 치환 ("<br/>" to "\n")
+										<%
+											String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
+											content = content.replaceAll("<br/>", "\n");
+										%>
+										<textarea cols="50" rows='30'><%=content %></textarea>
+										 --%>
+										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+									</c:if>
+								</div>
+							</div>
+							
 							<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
 							
 							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
@@ -97,8 +300,9 @@
 									<div style='position: absolute; top: 0; left: 30px;'>
 										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
-										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
 									</div>
 								</div>
 								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
@@ -108,19 +312,46 @@
 									</c:if>
 								</div>
 							</div>
-						</c:forEach>
-					</c:if>
-				</div><br/><br/><br/><br/>
-				
-				<c:if test='${fn:length(boardListHit) > 3 }'>
-					<div class='container' style='text-align: center;'>
-						<div class='myBtn' style='display: inline-block;'>더보기</div>
-					</div>
-				</c:if>
-				
-				<br/>
-				<hr style='border-top: 3px double #8c8b8b;'/>
-				<br/><br/><br/>
+							
+							<div class='container' style='text-align: center;'>
+								<div class='myBtn' id='more1' style='display: inline-block;'>더보기</div>
+							</div>
+							
+							<br/>
+							<hr style='border-top: 3px double #8c8b8b;'/>
+							<br/><br/>
+						</c:when>
+						<c:otherwise> <!-- 게시글이 한 개일 때 -->
+							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+								<div class='container' style='position: relative; height: 90px;'>
+									<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
+									<div style='position: absolute; top: 0; left: 30px;'>
+										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }</div><br/>
+										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor } / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].bDate }</div>
+									</div>
+								</div>
+								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+									<img src='${boardListHit[0].coverImg }' alt="${boardListHit[0].title_kor } img" style='float: left; width: 80px; height: 100px; border-radius: 20px; margin-right: 20px;' />
+									<c:if test='${fn:length(boardListHit[0].content) > 150 }'>
+										<%-- 개행 문자열 치환 ("<br/>" to "\n")
+										<%
+											String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
+											content = content.replaceAll("<br/>", "\n");
+										%>
+										<textarea cols="50" rows='30'><%=content %></textarea>
+										 --%>
+										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+									</c:if>
+								</div>
+							</div><br/>
+							<hr style='border-top: 3px double #8c8b8b;'/>
+							<br/><br/>
+						</c:otherwise>
+					</c:choose>
+				</div>
 				
 				<div id='boardListView'>
 					<div style='position: relative; height: 50px;'>
