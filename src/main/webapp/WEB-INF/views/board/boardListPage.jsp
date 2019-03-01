@@ -47,7 +47,7 @@
 	
 		<!-- middle component -->
 		<div class='container'>
-			<div class='container' id='boardList' style='width: 90%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 80px 20px 80px;'>
+			<div class='container' id='boardList' style='width: 96%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 120px 20px 120px;'>
 				<div style='position: relative; height: 80px;'>
 					<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 150px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />문학 / 시 / 소설</span>
 					<span id='toBoardList'  style='position: absolute; top: 27%; left: 158px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
@@ -110,7 +110,7 @@
 							</div>
 						</c:forEach>
 					</c:if>
-				</div>
+				</div><br/><br/><br/><br/>
 				
 				<c:if test='${fn:length(boardListHit) > 3 }'>
 					<div class='container' style='text-align: center;'>
@@ -118,7 +118,7 @@
 					</div>
 				</c:if>
 				
-				<br/><br/><br/>
+				<br/>
 				<hr style='border-top: 3px double #8c8b8b;'/>
 				<br/><br/><br/>
 				
@@ -140,11 +140,11 @@
 						<div class='row my-board-row'>
 							<div class='col-md-1 my-board-grid'>${bvo.serial }</div>
 							<c:choose>
-								<c:when test="${fn:length(bvo.title) < 25 }">
+								<c:when test="${fn:length(bvo.title) < 24 }">
 									<div class='col-md-5 my-board-grid-title'>${bvo.title }</div>
 								</c:when>
 								<c:otherwise>
-									<div class='col-md-5 my-board-grid-title' data-toggle="tooltip" data-placement="right" title="${bvo.title }">${fn:substring(bvo.title, 0, 24) } ...</div>
+									<div class='col-md-5 my-board-grid-title' data-toggle="tooltip" data-placement="right" title="${bvo.title }">${fn:substring(bvo.title, 0, 23) } ...</div>
 								</c:otherwise>
 							</c:choose>
 							<div class='col-md-1 my-board-grid'>${bvo.userId }</div>
@@ -194,6 +194,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- <div class='container' style='height: 40px;'></div> -->
 	
 		<!-- include footer -->
 		<footer>

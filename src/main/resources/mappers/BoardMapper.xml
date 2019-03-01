@@ -16,7 +16,7 @@
 					WHERE bd.category = #{category} and bd.isDelete = 0
 					ORDER BY bd.bDate desc, bd.hit desc
 			) s
-		) WHERE rno BETWEEN 1 and 15
+		) WHERE rno BETWEEN 1 and 20
 	</select>
 	<select id="boardListHit" parameterType="int" resultType="com.daesungra.domain.BoardVo">
 		SELECT * FROM (
@@ -28,7 +28,7 @@
 					WHERE bd.category = #{category} and bd.isDelete = 0
 					ORDER BY bd.hit desc, bd.bDate desc
 			) s
-		) WHERE rno BETWEEN 1 and 15
+		) WHERE rno BETWEEN 1 and 20
 	</select>
 	<select id="selectBookInfo" parameterType="String" resultType="com.daesungra.domain.BookVo">
 		SELECT bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, pDate, isPermitted
