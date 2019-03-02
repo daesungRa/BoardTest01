@@ -17,8 +17,12 @@
 	width: 25px;
 	height: 20px;
 	font-size: 6pt;
+	font-weight: bolder;
 	padding: 0 0 0 0;
-	background-color: #ccc;
+	background-color: #fff;
+}
+#btnShowNavbar:hover {
+	background-color: #bcbcbc;
 }
 
 /* title 부분 */
@@ -69,13 +73,16 @@
  * 게시글 리스트 (등록일순)
  */
 .my-board-row {
-	margin: 4px 0 -2px 0;
+	margin-top: 5px;
 	border-bottom: 1px solid black;
+}
+.my-board-row:last-child {
+	border-bottom: 2px solid black;
 }
 .my-board-grid {
 	font-family: 'Nanum Gothic', sans-serif;
 	font-weight: bolder;
-	font-size: 8pt;
+	font-size: 9pt;
 	text-align: center;
 	height: 25px;
 	overflow: hidden;

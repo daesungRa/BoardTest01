@@ -56,17 +56,6 @@
 		<div class='container my-index-article'>
 			<div class='row my-index-article-row'>
 				
-			
-			
-				<div class='col-lg-4 my-index-article-col'>
-					<h4>컨텐트 1</h4>
-				</div>
-				<div class='col-lg-4 my-index-article-col'>
-					<h4>컨텐트 2</h4>
-				</div>
-				<div class='col-lg-4 my-index-article-col'>
-					<h4>컨텐트 3</h4>
-				</div>
 			</div>
 		</div>
 	</article>
