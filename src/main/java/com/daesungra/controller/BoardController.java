@@ -25,7 +25,7 @@ public class BoardController {
 
 	// get board list
 	@RequestMapping(value="/boardListPage/{category}", method=RequestMethod.GET)
-	public String getBoardList (HttpServletRequest request, @PathVariable int category) {
+	public String getBoardListPage (HttpServletRequest request, @PathVariable int category) {
 		logger.info("call boardListPage category:" + category);
 		
 		List<BoardVo> listDate = boardService.getBoardListDate(category); // 날짜별 정렬결과 리스트
@@ -39,6 +39,13 @@ public class BoardController {
 	}
 	
 	// write
+	@RequestMapping(value="/boardWritePage/{category}", method=RequestMethod.GET)
+	public String getBoardWritePage (HttpServletRequest request, @PathVariable int category) {
+		logger.info("call boardWritePage category:" + category);
+		request.setAttribute("category", category);
+		
+		return "/board/boardWritePage";
+	}
 	// view
 	// modify
 	// remove

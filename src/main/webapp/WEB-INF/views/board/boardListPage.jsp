@@ -18,7 +18,6 @@
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src='/desktop/resources/js/boardListPage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
@@ -49,10 +48,12 @@
 		<div class='container'>
 			<div class='container' id='boardList' style='width: 96%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 120px 20px 120px;'>
 				<div style='position: relative; height: 80px;'>
+					<div id='saveCategoryNum' style='display: none;'>${requestScope.category }</div>
 					<c:choose>
 						<c:when test='${requestScope.category == 2 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 150px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />경제 / 경영</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 128px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 168px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 16%; height: 29px;'>
 								<option value='1'>인문/사회/정치</option>
 								<option value='2' selected>경제/경영</option>
@@ -64,6 +65,7 @@
 						<c:when test='${requestScope.category == 3 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 240px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />과학 / 공학 / 수학 / 컴퓨터</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 248px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 288px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 24%; height: 29px;'>
 								<option value='1'>인문/사회/정치</option>
 								<option value='2'>경제/경영</option>
@@ -75,6 +77,7 @@
 						<c:when test='${requestScope.category == 4 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 150px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />문학 / 시 / 소설</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 158px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 198px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 17%; height: 29px;'>
 								<option value='1'>인문/사회/정치</option>
 								<option value='2'>경제/경영</option>
@@ -86,6 +89,7 @@
 						<c:when test='${requestScope.category == 5 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 310px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />문화 / 예술 / 자기계발 / 라이프</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 280px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 320px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 27%; height: 29px;'>
 								<option value='1'>인문/사회/정치</option>
 								<option value='2'>경제/경영</option>
@@ -97,6 +101,7 @@
 						<c:otherwise>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 180px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />인문 / 사회 / 정치</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 180px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 220px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 18%; height: 29px;'>
 								<option value='1' selected>인문/사회/정치</option>
 								<option value='2'>경제/경영</option>

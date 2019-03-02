@@ -27,10 +27,11 @@
 	font-size: 6pt;
 	font-weight: bolder;
 	padding: 0 0 0 0;
-	background-color: #fff;
+	background-color: #bcbcbc;
 }
 #btnShowNavbar:hover {
-	background-color: #bcbcbc;
+	color: #fff;
+	background-color: #787878;
 }
 
 /* 타이틀 */

@@ -19,10 +19,11 @@
 	font-size: 6pt;
 	font-weight: bolder;
 	padding: 0 0 0 0;
-	background-color: #fff;
+	background-color: #bcbcbc;
 }
 #btnShowNavbar:hover {
-	background-color: #bcbcbc;
+	color: #fff;
+	background-color: #787878;
 }
 
 /* title 부분 */
@@ -30,9 +31,14 @@
 	font-family: 'Nanum Gothic', sans-serif;
 }
 #toBoardList:hover {
-	color: #454545;
+	color: #000;
 	cursor: pointer;
-	background-color: #efefef;
+	background-color: #dedede;
+}
+#toBoardWritePage:hover {
+	color: #000;
+	cursor: pointer;
+	background-color: #dedede;
 }
 
 /* 기본 버튼 스타일 */

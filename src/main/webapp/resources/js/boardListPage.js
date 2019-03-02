@@ -29,6 +29,14 @@ $(function () {
 			/*$('#navbarAside').css({"display":"block"});*/
 		}
 	});
+	// 게시글 쓰기 페이지로 이동
+	$('#toBoardWritePage').click(function () {
+		var categoryNum = $('#saveCategoryNum').text();
+		var requestUrl = '/desktop/board/boardWritePage/' + categoryNum;
+		
+		location.href = requestUrl;
+	});
+	
 	// 게시글 카테고리 바꾸기
 	$('#changeCategoryInBoardPage').change(function () {
 		// var category1 = $('#changeCategoryInBoardPage option:selected').val();
