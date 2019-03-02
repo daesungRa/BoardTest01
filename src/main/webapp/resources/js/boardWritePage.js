@@ -33,6 +33,14 @@ $(function () {
 		location.href = requestUrl;
 	});
 	
+	// 글쓰기 폼
+	$('#summernote').summernote({
+		height: 430,
+		minHeight: 430,
+		maxHeight: null,
+		placeholder: '내용을 입력하세요',
+	});
+	
 	// top 부분으로 이동
 	$('.my-btn-toTop').click(function () {
 		funcMovePage('indexTop');
