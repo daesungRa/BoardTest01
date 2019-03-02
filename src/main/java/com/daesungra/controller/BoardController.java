@@ -33,6 +33,7 @@ public class BoardController {
 		logger.info("[getBoardList] 검색 리스트 길이 : " + listDate.size() + ", " + listHit.size());
 		request.setAttribute("boardListDate", listDate);
 		request.setAttribute("boardListHit", listHit);
+		request.setAttribute("category", category);
 		
 		return "/board/boardListPage";
 	}

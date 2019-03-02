@@ -51,18 +51,51 @@
 				<div style='position: relative; height: 80px;'>
 					<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 150px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />문학 / 시 / 소설</span>
 					<span id='toBoardList'  style='position: absolute; top: 27%; left: 158px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
-					<select class='form-control' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 16%; height: 29px;'>
-						<option>인문/사회/정치</option>
-						<option selected>문학/시/소설</option>
-						<option>경제/경영</option>
-						<option>과학/공학/수학/컴퓨터</option>
-						<option>문화/예술/자기계발/라이프</option>
+					<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 16%; height: 29px;'>
+						<c:choose>
+							<c:when test='${requestScope.category == 2 }'>
+								<option>인문/사회/정치</option>
+								<option>문학/시/소설</option>
+								<option selected>경제/경영</option>
+								<option>과학/공학/수학/컴퓨터</option>
+								<option>문화/예술/자기계발/라이프</option>
+							</c:when>
+							<c:when test='${requestScope.category == 3 }'>
+								<option>인문/사회/정치</option>
+								<option>문학/시/소설</option>
+								<option>경제/경영</option>
+								<option selected>과학/공학/수학/컴퓨터</option>
+								<option>문화/예술/자기계발/라이프</option>
+							</c:when>
+							<c:when test='${requestScope.category == 4 }'>
+								<option>인문/사회/정치</option>
+								<option selected>문학/시/소설</option>
+								<option>경제/경영</option>
+								<option>과학/공학/수학/컴퓨터</option>
+								<option>문화/예술/자기계발/라이프</option>
+							</c:when>
+							<c:when test='${requestScope.category == 5 }'>
+								<option>인문/사회/정치</option>
+								<option>문학/시/소설</option>
+								<option>경제/경영</option>
+								<option>과학/공학/수학/컴퓨터</option>
+								<option selected>문화/예술/자기계발/라이프</option>
+							</c:when>
+							<c:otherwise>
+								<option selected>인문/사회/정치</option>
+								<option>문학/시/소설</option>
+								<option>경제/경영</option>
+								<option>과학/공학/수학/컴퓨터</option>
+								<option>문화/예술/자기계발/라이프</option>
+							</c:otherwise>
+						</c:choose>
+						
 					</select><br/>
 					<hr style='border-top: 3px double #8c8b8b; margin-top: 30px;'/>
 				</div>
 				<br/><br/><br/>
 				
-				<div class='container'>
+				<div class='container' id='boardPreViewHit'>
 					<c:choose>
 						<c:when test='${fn:length(boardListHit) > 5 }'> <!-- 게시글이 일골 개 이상일 때 -->
 							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
@@ -112,72 +145,178 @@
 									</div>
 								</div>
 							</c:forEach>
-							<c:forEach var='bvo' begin='3' end='5' step='1' items='${boardListHit }'>
-								<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
-								
-								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
-									<div class='container' style='position: relative; height: 90px;'>
-										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
-										<div style='position: absolute; top: 0; left: 30px;'>
-											<c:choose>
-												<c:when test='${fn:length(bvo.title) < 35 }'>
-													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
-												</c:when>
-												<c:otherwise>
-													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
-												</c:otherwise>
-											</c:choose>
-											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
-											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
-											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
-											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
-										</div>
-									</div>
-									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
-										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-										<c:if test='${fn:length(bvo.content) > 150 }'>
-											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
-										</c:if>
-									</div>
-								</div>
-							</c:forEach>
-							<c:forEach var='bvo' begin='6' end='${fn:length(boardListHit) - 1 }' step='1' items='${boardListHit }'>
-								<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
-								
-								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
-									<div class='container' style='position: relative; height: 90px;'>
-										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
-										<div style='position: absolute; top: 0; left: 30px;'>
-											<c:choose>
-												<c:when test='${fn:length(bvo.title) < 35 }'>
-													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
-												</c:when>
-												<c:otherwise>
-													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
-												</c:otherwise>
-											</c:choose>
-											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
-											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
-											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
-											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
-										</div>
-									</div>
-									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
-										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-										<c:if test='${fn:length(bvo.content) > 150 }'>
-											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
-										</c:if>
-									</div>
-								</div>
-							</c:forEach>
 							
-							<div class='container' style='text-align: center;'>
-								<div class='myBtn' id='more1' style='display: inline-block;'>더보기</div>
+							<div id='more1Container'>
+								<div class='container' style='text-align: center;'>
+									<div class='myBtn' id='more1' style='display: inline-block;'>더보기</div>
+								</div>
+								
+								<br/>
+								<hr style='border-top: 3px double #8c8b8b;'/>
+								<br/><br/>
+							</div>
+								
+							<div id='thebogi1' style='display: none;'>
+								<c:forEach var='bvo' begin='3' end='5' step='1' items='${boardListHit }'>
+									<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+									
+									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+										<div class='container' style='position: relative; height: 90px;'>
+											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div style='position: absolute; top: 0; left: 30px;'>
+												<c:choose>
+													<c:when test='${fn:length(bvo.title) < 35 }'>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+													</c:when>
+													<c:otherwise>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+													</c:otherwise>
+												</c:choose>
+												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+											</div>
+										</div>
+										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+											<c:if test='${fn:length(bvo.content) > 150 }'>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+											</c:if>
+										</div>
+									</div>
+								</c:forEach>
+								
+								<div id='more2Container'>
+									<div class='container' style='text-align: center;'>
+										<div class='myBtn' id='more2' style='display: inline-block;'>더보기</div>
+									</div>
+								
+									<br/>
+									<hr style='border-top: 3px double #8c8b8b;'/>
+									<br/><br/>
+								</div>
 							</div>
 							
-							<br/>
-							<hr style='border-top: 3px double #8c8b8b;'/>
-							<br/><br/>
+							<div id='thebogi2' style='display: none;'>
+								<c:forEach var='bvo' begin='6' end='8' step='1' items='${boardListHit }'>
+									<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+									
+									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+										<div class='container' style='position: relative; height: 90px;'>
+											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div style='position: absolute; top: 0; left: 30px;'>
+												<c:choose>
+													<c:when test='${fn:length(bvo.title) < 35 }'>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+													</c:when>
+													<c:otherwise>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+													</c:otherwise>
+												</c:choose>
+												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+											</div>
+										</div>
+										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+											<c:if test='${fn:length(bvo.content) > 150 }'>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+											</c:if>
+										</div>
+									</div>
+								</c:forEach>
+								
+								<div id='more3Container'>
+									<div class='container' style='text-align: center;'>
+										<div class='myBtn' id='more3' style='display: inline-block;'>더보기</div>
+									</div>
+									
+									<br/>
+									<hr style='border-top: 3px double #8c8b8b;'/>
+									<br/><br/>
+								</div>
+							</div>
+							
+							<div id='thebogi3' style='display: none;'>
+								<c:forEach var='bvo' begin='9' end='11' step='1' items='${boardListHit }'>
+									<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+									
+									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+										<div class='container' style='position: relative; height: 90px;'>
+											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div style='position: absolute; top: 0; left: 30px;'>
+												<c:choose>
+													<c:when test='${fn:length(bvo.title) < 35 }'>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+													</c:when>
+													<c:otherwise>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+													</c:otherwise>
+												</c:choose>
+												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+											</div>
+										</div>
+										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+											<c:if test='${fn:length(bvo.content) > 150 }'>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+											</c:if>
+										</div>
+									</div>
+								</c:forEach>
+								
+								<div id='more4Container'>
+									<div class='container' style='text-align: center;'>
+										<div class='myBtn' id='more4' style='display: inline-block;'>더보기</div>
+									</div>
+									
+									<br/>
+									<hr style='border-top: 3px double #8c8b8b;'/>
+									<br/><br/>
+								</div>
+							</div>
+							
+							<div id='thebogi4' style='display: none;'>
+								<c:forEach var='bvo' begin='12' end='${fn:length(boardListHit) - 1 }' step='1' items='${boardListHit }'>
+									<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+									
+									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+										<div class='container' style='position: relative; height: 90px;'>
+											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div style='position: absolute; top: 0; left: 30px;'>
+												<c:choose>
+													<c:when test='${fn:length(bvo.title) < 35 }'>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+													</c:when>
+													<c:otherwise>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+													</c:otherwise>
+												</c:choose>
+												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+											</div>
+										</div>
+										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+											<c:if test='${fn:length(bvo.content) > 150 }'>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+											</c:if>
+										</div>
+									</div>
+								</c:forEach>
+								
+								<br/>
+								<hr style='border-top: 3px double #8c8b8b;'/>
+								<br/><br/>
+							</div>
 						</c:when>
 						<c:when test='${fn:length(boardListHit) > 2 and fn:length(boardListHit) <= 5 }'> <!-- 게시글이 세 개에서 여섯 개 사이일 때 -->
 							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
@@ -227,43 +366,52 @@
 									</div>
 								</div>
 							</c:forEach>
-							<c:forEach var='bvo' begin='3' end='5' step='1' items='${boardListHit }'>
-								<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+							
+							<div id='more1Container'>
+								<div class='container' style='text-align: center;'>
+									<div class='myBtn' id='more1' style='display: inline-block;'>더보기</div>
+								</div>
 								
-								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
-									<div class='container' style='position: relative; height: 90px;'>
-										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
-										<div style='position: absolute; top: 0; left: 30px;'>
-											<c:choose>
-												<c:when test='${fn:length(bvo.title) < 35 }'>
-													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
-												</c:when>
-												<c:otherwise>
-													<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
-												</c:otherwise>
-											</c:choose>
-											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
-											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
-											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
-											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+								<br/>
+								<hr style='border-top: 3px double #8c8b8b;'/>
+								<br/><br/>
+							</div>
+								
+							<div id='thebogi1' style='display: none;'>
+								<c:forEach var='bvo' begin='3' end='${fn:length(boardListHit) - 1 }' step='1' items='${boardListHit }'>
+									<br/><br/><br/><hr style='border: 1px solid #cfcfcf;'/><br/><br/><br/><br/><br/>
+									
+									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
+										<div class='container' style='position: relative; height: 90px;'>
+											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div style='position: absolute; top: 0; left: 30px;'>
+												<c:choose>
+													<c:when test='${fn:length(bvo.title) < 35 }'>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+													</c:when>
+													<c:otherwise>
+														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+													</c:otherwise>
+												</c:choose>
+												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor } / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>
+												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>&nbsp;&nbsp;
+											</div>
+										</div>
+										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
+											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
+											<c:if test='${fn:length(bvo.content) > 150 }'>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+											</c:if>
 										</div>
 									</div>
-									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
-										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-										<c:if test='${fn:length(bvo.content) > 150 }'>
-											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
-										</c:if>
-									</div>
-								</div>
-							</c:forEach>
-							
-							<div class='container' style='text-align: center;'>
-								<div class='myBtn' id='more1' style='display: inline-block;'>더보기</div>
+								</c:forEach>
+								
+								<br/>
+								<hr style='border-top: 3px double #8c8b8b;'/>
+								<br/><br/>
 							</div>
-							
-							<br/>
-							<hr style='border-top: 3px double #8c8b8b;'/>
-							<br/><br/>
 						</c:when>
 						<c:when test='${fn:length(boardListHit) == 2 }'> <!-- 게시글이 두 개일 때 -->
 							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
@@ -311,13 +459,7 @@
 										<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
 									</c:if>
 								</div>
-							</div>
-							
-							<div class='container' style='text-align: center;'>
-								<div class='myBtn' id='more1' style='display: inline-block;'>더보기</div>
-							</div>
-							
-							<br/>
+							</div><br/>
 							<hr style='border-top: 3px double #8c8b8b;'/>
 							<br/><br/>
 						</c:when>
@@ -353,7 +495,7 @@
 					</c:choose>
 				</div>
 				
-				<div id='boardListView'>
+				<div id='boardListViewDate'>
 					<div style='position: relative; height: 50px;'>
 						<span id='categoryContent' style='position: absolute; top: 20%; font-size: 12pt;'>
 							<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 게시글 목록 (문학 / 시 / 소설)

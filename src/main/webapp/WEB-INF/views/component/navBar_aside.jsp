@@ -54,11 +54,11 @@
 				<li class='dropdown'>
 					<a class='dropdown-toggle my-nav' data-toggle='dropdown' role='button' id='categoryAnc' href='#'>리뷰 카테고리</a>
 					<ul class='dropdown-menu my-nav' style='text-align: left;'>
-						<li><a class='dropdown-item my-nav' id='' href='#'>인문/사회/정치</a></li>
+						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/1'>인문/사회/정치</a></li>
 						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/4'>문학/시/소설</a></li>
-						<li><a class='dropdown-item my-nav' id='' href='#'>경제/경영</a></li>
-						<li><a class='dropdown-item my-nav' id='' href='#'>과학/공학/수학/컴퓨터</a></li>
-						<li><a class='dropdown-item my-nav' id='' href='#'>예술/문화/자기계발/라이프</a></li>
+						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/2'>경제/경영</a></li>
+						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/3'>과학/공학/수학/컴퓨터</a></li>
+						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/5'>문화/예술/자기계발/라이프</a></li>
 					</ul>
 				</li>
 						<li class='nav-item'><a class='nav-link my-nav' id='writerListAnc' href='#writerList'>작가별</a></li>
