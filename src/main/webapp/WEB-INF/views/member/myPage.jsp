@@ -20,43 +20,6 @@
 			border-top: 1px solid #ababab;
 			border-bottom: 1px solid #ababab;
 		}
-		.my-col2 {
-			border-right: 1px solid #bbb;
-		}
-		#image {
-			width: 102px;
-			height: 108px;
-			border-radius: 40px;
-		}
-		#inputFNum {
-			width: 56px;
-			height: 29px;
-			text-align: center;
-			padding-top: 3px;
-			color: #666;
-			background-color: #eee;
-			border-radius: 20px;
-		}
-		.my-tabs li {
-			margin-right: 3px;
-			padding: 0 5px 0 5px;
-			border: 1px solid #bbb;
-			border-bottom: none;
-			border-radius: 5px;
-		}
-		#navtab-info-tag-li {
-			border: none;
-		}
-		.my-tabs li:hover {
-			background-color: #bcbcbc;
-		}
-		.my-tabs li a {
-			color: #676767;
-		}
-		.my-tabs li a:hover {
-			color: #38b3ef;
-			text-decoration: none;
-		}
 		
 		/* The switch - the box around the slider */
 		.switch {
@@ -147,28 +110,28 @@
 
 	<!-- include content -->
 	<div id='boardContent' style='z-index: 0;'>
-		<button class='btn btn-sm btn-light' id='btnShowNavbar' style='position: fixed; top: 20px; left: 10px; background-color: #ccc;'>&gt;&gt;</button>
+		<button class='btn btn-light' id='btnShowNavbar'>&gt;&gt;</button>
 		<!-- top -->
 		<jsp:include page="/WEB-INF/views/component/top.jsp"></jsp:include>
 	
 		<!-- middle component -->
 		<div class='container'>
-			<div class='container' style='width: 80%; margin: 50px auto;'>
-				<h2>마이 페이지</h2>
-				<p>나만의 매력적인 프로필을 만드세요!</p>
+			<div class='container' style='width: 75%; margin: 30px auto;'>
+				<p id='myPageTitle'>마이 페이지</p>
+				<p id='myPageDesc'>나만의 매력적인 프로필을 만드세요!</p>
 				
 				<div class='row my-myPage-memberinfo'>
-					<div class='col-sm-2 my-col2'>
-						<img src='/desktop/resources/imgs/blank_profile01.png' id='image' alt='profile image'/><br/><br/>
-						구독자 수<br/>
+					<div class='col-sm-2' id='myPageLeftComponent'>
+						<img src='/desktop/resources/imgs/blank_profile01.png' id='profileImagePreview' alt='profile image preview'/><br/><br/>
+						<p>구독자 수</p>
 						<div id='inputFNum'></div><br/>
-						구독중인 작가<br/>
-						<div id='inputFollowee'><a href='#'>보기 &gt;</a></div><br/>
-						웹페이지<br/>
-						<div id='inputWebPage'></div><br/>
-						활동<br/>
-						<div id='inputActivity'></div><br/>
-						계정 생성일<br/>
+						<P>구독중인 작가</p>
+						<div id='inputFollowee'>보기 &gt;</div><br/>
+						<p>웹페이지</p>
+						<div id='inputWebPage'>새로 등록해주세요</div><br/>
+						<p>활동</p>
+						<div id='inputActivity'>특별한 활동이<br/>없습니다</div><br/>
+						<p>계정 생성일</p>
 						<div id='inputMDate'></div>
 					</div>
 					<hr/>
@@ -176,8 +139,7 @@
 						<ul class='nav nav-tabs my-tabs'>
 							<li class='active' id='navtab-profile-tag-li'><a data-toggle='tab' id='navtab-profile-tag' href='#profile-tag'>프로필</a></li>
 							<li id='navtab-info-tag-li'><a data-toggle='tab' id='navtab-info-tag' href='#info-tag'>회원정보</a></li>
-						</ul>
-						<hr/>
+						</ul><br/>
 						
 						<div class='tab-content my-tab-pane'>
 							<div id='profile-tag' class='tab-pane fade'>
@@ -251,7 +213,7 @@
 					success: function (html, status) {
 						
 						$('#memberProfileContent').html(html);
-						$('.my-myPage-memberinfo #image').attr('src', $('#profileForm #photoPath').val());
+						$('.my-myPage-memberinfo #profileImagePreview').attr('src', $('#profileForm #photoPath').val());
 						$('.my-myPage-memberinfo #inputFNum').text($('#profileForm #fNum').val() + ' 명');
 						$('.my-myPage-memberinfo #inputMDate').text($('#profileForm #mDate').val());
 						
@@ -296,7 +258,7 @@
 						
 						$('#memberInfoContent').html(html);
 						$('#memberImg').css({'display':'none'});
-						$('.my-myPage-memberinfo #image').attr('src', $('#memberImg #image').attr('src'));
+						$('.my-myPage-memberinfo #profileImagePreview').attr('src', $('#memberImg #image').attr('src'));
 						$('.my-myPage-memberinfo #inputFNum').text($('#joinFrm #fNum').val() + ' 명');
 						$('.my-myPage-memberinfo #inputMDate').text($('#joinFrm #mDate').val());
 						

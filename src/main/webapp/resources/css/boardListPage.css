@@ -9,6 +9,19 @@
 	font-weight: bolder;
 }
 
+/* navbar aside */
+#btnShowNavbar {
+	position: fixed;
+	top: 25px;
+	left: 10px;
+	width: 25px;
+	height: 20px;
+	font-size: 6pt;
+	padding: 0 0 0 0;
+	background-color: #ccc;
+}
+
+/* title 부분 */
 #categoryContent {
 	font-family: 'Nanum Gothic', sans-serif;
 }
@@ -45,6 +58,11 @@
  */
 .bookTitlePreview:hover {
 	cursor: pointer;
+}
+#noSelectResult {
+	width: 45%;
+	text-align: center;
+	margin: 30px auto;
 }
 
 /*

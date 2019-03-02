@@ -31,14 +31,14 @@ $(function () {
 	});
 	// 게시글 카테고리 바꾸기
 	$('#changeCategoryInBoardPage').change(function () {
-		var category1 = $('#changeCategoryInBoardPage option:selected').val();
-		var category2 = $(this).val();
+		// var category1 = $('#changeCategoryInBoardPage option:selected').val();
+		// var category2 = $(this).val();
+		// var category4 = $(this).children('option:selected').text();
+		
 		var category3 = $(this).children('option:selected').val();
-		var category4 = $(this).children('option:selected').text();
-		alert(category1);
-		alert(category2);
-		alert(category3);
-		alert(category4);
+		var requestUrl = '/desktop/board/boardListPage/' + category3;
+		
+		location.href = requestUrl;
 	});
 	// 게시판 리스트 부분으로 이동
 	$('#toBoardList').click(function () {

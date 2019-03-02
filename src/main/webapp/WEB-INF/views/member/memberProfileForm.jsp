@@ -31,39 +31,44 @@
 		<div class='container'>
 			<form class='form' name='profileForm' id='profileForm' method='post' action='#profileModifyAction' enctype='multipart/form-data'>
 				<div class="form-group">
-					<label for="nickName">이름</label>
 					<div class='form-inline'>
-						<input class="form-control" type="text" name='userName' id="userName" value='${vo.userName }' readonly style='width: 50%;'>&nbsp;&nbsp;&nbsp;&nbsp;
-						<div id='alertUserName' style='color: #0000ff; display: none;'>이름을 변경하려면 회원정보 수정을 이용하십시오.</div>
+						<label for="nickName" style='text-align: left;'>이름</label>
+						<input class="form-control" type="text" name='userName' id="userName" value='${vo.userName }' readonly style='width: 40%;'>
+						<span id='alertUserName' style='color: #0000ff; display: none;'>이름을 변경하려면 회원정보 수정을 이용하십시오.</span>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="nickName">별명</label>
-					<c:choose>
-						<c:when test='${not empty vo.nickName }'>
-							<input class="form-control" type="text" name='nickName' id="nickName" value='${vo.nickName }' placeholder='별명이 없습니다. 새로 등록해주세요.' readonly style='width: 50%;'>
-						</c:when>
-						<c:otherwise>
-							<input class="form-control" type="text" name='nickName' id="nickName" value='' placeholder='별명이 없습니다. 새로 등록해주세요.' readonly style='width: 50%;'>
-						</c:otherwise>
-					</c:choose>
+					<div class='form-inline'>
+						<c:choose>
+							<c:when test='${not empty vo.nickName }'>
+								<label for="nickName">별명</label>
+								<input class="form-control" type="text" name='nickName' id="nickName" value='${vo.nickName }' placeholder='별명이 없습니다. 새로 등록해주세요.' readonly style='width: 40%;'>
+							</c:when>
+							<c:otherwise>
+								<label for="nickName">별명</label>
+								<input class="form-control" type="text" name='nickName' id="nickName" value='' placeholder='별명이 없습니다. 새로 등록해주세요.' readonly style='width: 40%;'>
+							</c:otherwise>
+						</c:choose>
+					</div>
 				</div>
 				<div class="form-group">
-					<label for="nickName">관심사</label>
-					<input class="form-control" type="text" name='interest' id="interest" value='${vo.interest }' placeholder='관심사 내용이 없습니다. 새로 등록해주세요.' readonly style='width: 50%;'>
+					<div class='form-inline'>
+						<label for="nickName">관심사</label>
+						<input class="form-control" type="text" name='interest' id="interest" value='${vo.interest }' placeholder='관심사 내용이 없습니다. 새로 등록해주세요.' readonly style='width: 40%;'>
+					</div>
 				</div>
 				<div class="form-group shadow-textarea">
 					<label for="introduce">소개</label>
-					<textarea class="form-control z-depth-1" name='introduce' id="introduce" rows="3" placeholder="소개 글이 없습니다. 새로 등록해주세요." readonly>${vo.introduce }</textarea>
+					<textarea class="form-control z-depth-1" name='introduce' id="introduce" rows="2" placeholder="소개 글이 없습니다. 새로 등록해주세요." readonly>${vo.introduce }</textarea>
 				</div>
 				<div class='form-group' id='shiftPhoto' style='display: none;'>
-					<label for="photo">프로필 사진 변경</label><br/>
+					<label for="photo" style='width: 95px;'>프로필 사진 변경</label><br/>
 					<input type='file' id='photo' name='photo' style='padding: 3px 0 3px 3px; border: 1px solid #cdcdcd; border-radius: 5px;' />
 					<input type='hidden' id='photoPath' value='${vo.photo }' />
 				</div>
 				<div class='form-group'>
-					<label for='isDelete'>프로필 공개유무</label><br/>
-					<label class="switch">
+					<label for='isDelete' style='width: 95px;'>프로필 공개유무</label><br/>
+					<span class="switch">
 						<c:choose>
 							<c:when test='${vo.isPublic == 0  }'>
 								<input type="checkbox" id='isPublic' name='isPublic' value='0' disabled />
@@ -73,9 +78,9 @@
 							</c:otherwise>
 						</c:choose>
 						<span class="slider round"></span>
-					</label>
+					</span>
 					<span style='position: relative;'>
-						<span id='descIsPublic' data-toggle="tooltip" data-placement="right" title="변경하려면 '프로필 수정하기' 를 클릭하십시오." >?</span>
+						<span id='descIsPublic' data-toggle="tooltip" data-placement="right" title="변경하려면 '프로필 수정하기' 를 클릭하십시오." >&nbsp;?&nbsp;&nbsp;&nbsp;</span>
 					</span>
 				</div>
 				<div class='form-group'>

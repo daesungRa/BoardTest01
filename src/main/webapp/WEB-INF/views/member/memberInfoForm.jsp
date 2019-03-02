@@ -30,8 +30,8 @@
 		<div class='container' id='memberModifyForm'>
 			<form class='form' name='joinFrm' id='joinFrm' action='#joinAction' method='post' enctype='multipart/form-data'>
 				<div class='form-group'>
-					<label for="userId">아이디</label>
 					<div class='form-inline'>
+						<label for="userId">아이디</label>
 						<input class='form-control' type='text' id='userId' name='userId' maxlength='30' value='${vo.userId }' placeholder='아이디 입력 (필수)' readonly="readonly" style='width: 50%;' />
 						<input class='btn btn-primary' type='button' id='btnIdChk' name='btnIdChk' value='중복확인' style='margin-right: 10px; display: none;'></input>
 						<input type='hidden' id='userIdChk' value='unChecked' readonly/>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -39,29 +39,37 @@
 					</div>
 				</div>
 				<div class='form-group'>
-					<label for="userPwd01" style='display: none;'>비밀번호</label>
-					<input class='form-control' type='password' id='userPwd01' name='userPwd' maxlength='30' value='' placeholder='비밀번호 입력 (필수)' style='display: none; width: 60%;' />
-					<input class='form-control' type='password' id='userPwd02' name='userPwdChk' maxlength='30' placeholder='비밀번호 확인 (필수)' style='display: none; width: 60%;' />
-					<input type='hidden' id='userPwdChk' value='unChecked' readonly/>
-					<div id='userPwdChkResult' style='color: #ff0000;'></div>
+					<div class='form-inline'>
+						<label for="userPwd01" style='display: none;'>비밀번호</label>
+						<input class='form-control' type='password' id='userPwd01' name='userPwd' maxlength='30' value='' placeholder='비밀번호 입력 (필수)' style='display: none; width: 60%;' />
+						<input class='form-control' type='password' id='userPwd02' name='userPwdChk' maxlength='30' placeholder='비밀번호 확인 (필수)' style='display: none; width: 60%;' />
+						<input type='hidden' id='userPwdChk' value='unChecked' readonly/>
+						<div id='userPwdChkResult' style='color: #ff0000;'></div>
+					</div>
 				</div>
 				<div class='form-group'>
-					<label for="userName">이름</label>
-					<input class='form-control' type='text' id='userName' name='userName' value='${vo.userName }' placeholder='이름 입력' readonly style='width: 50%;' />
-					<input type='hidden' id='userNameChk' value='unChecked' readonly/>
-					<div id='userNameChkResult' style='color: #ff0000;'></div>
+					<div class='form-inline'>
+						<label for="userName">이름</label>
+						<input class='form-control' type='text' id='userName' name='userName' value='${vo.userName }' placeholder='이름 입력' readonly style='width: 50%;' />
+						<input type='hidden' id='userNameChk' value='unChecked' readonly/>
+						<div id='userNameChkResult' style='color: #ff0000;'></div>
+					</div>
 				</div>
 				<div class='form-group'>
-					<label for="email">이메일</label>
-					<input class='form-control' type='email' id='email' name='email' value='${vo.email }' placeholder='이메일 입력' readonly="readonly" style='width: 50%;' />
-					<input type='hidden' id='emailChk' value='unChecked' readonly/>
-					<div id='emailChkResult' style='color: #ff0000;'></div>
+					<div class='form-inline'>
+						<label for="email">이메일</label>
+						<input class='form-control' type='email' id='email' name='email' value='${vo.email }' placeholder='이메일 입력' readonly="readonly" style='width: 50%;' />
+						<input type='hidden' id='emailChk' value='unChecked' readonly/>
+						<div id='emailChkResult' style='color: #ff0000;'></div>
+					</div>
 				</div>
 				<div class='form-group'>
-					<label for="phone">연락처</label>
-					<input class='form-control' type='text' id='phone' name='phone' value='${vo.phone }' placeholder="연락처 입력 ('-' 포함, 필수)" readonly="readonly" style='width: 50%;' />
-					<input type='hidden' id='phoneChk' value='unChecked' readonly/>
-					<div id='phoneChkResult' style='color: #ff0000;'></div>
+					<div class='form-inline'>
+						<label for="phone">연락처</label>
+						<input class='form-control' type='text' id='phone' name='phone' value='${vo.phone }' placeholder="연락처 입력 ('-' 포함, 필수)" readonly="readonly" style='width: 50%;' />
+						<input type='hidden' id='phoneChk' value='unChecked' readonly/>
+						<div id='phoneChkResult' style='color: #ff0000;'></div>
+					</div>
 				</div>
 				<div class='form-group'>
 					<label for="postal">주소정보</label>
@@ -69,11 +77,11 @@
 						<input class='form-control' type='text' id='postal' name='postal' value='${vo.postal }' placeholder='우편번호' style='width: 30%; margin-right: 10px;' readonly="readonly"/>
 						<input class='btn btn-primary' type='button' id='btnPostal' name='btnPostal' value='주소 찾기' style='display: none;'></input>
 					</div>
-						<input class='form-control' type='text' id='address' name='address' value='${vo.address }' placeholder='주소 입력' readonly="readonly"/>
-						<input class='form-control' type='text' id='addressAdd' name='addressAdd' value='${vo.addressAdd }' placeholder='추가 주소 입력' readonly="readonly" />
+					<input class='form-control' type='text' id='address' name='address' value='${vo.address }' placeholder='주소 입력' readonly="readonly"/>
+					<input class='form-control' type='text' id='addressAdd' name='addressAdd' value='${vo.addressAdd }' placeholder='추가 주소 입력' readonly="readonly" />
 				</div>
 				<div class='form-group' id='shiftPhoto' style='display: none;'>
-					<label for="photo">프로필 사진 변경</label><br/>
+					<label for="photo" style='width: 95px;'>프로필 사진 변경</label><br/>
 					<%
 						String dir = "";
 						String fileName = "";
