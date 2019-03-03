@@ -33,7 +33,7 @@ $(function () {
 		location.href = requestUrl;
 	});
 	
-	// 글쓰기 폼
+	// 글쓰기 폼 (summernote)
 	$('#summernote').summernote({
 		height: 430,
 		minHeight: 430,

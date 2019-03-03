@@ -109,14 +109,14 @@
 						<div class='form-inline' style='margin: 10px 0 10px 0;'>
 							<span style='color: #898989; font-size: 10pt;'>by&nbsp;&nbsp;</span><span>${sessionScope.userId }&nbsp;&nbsp;</span>
 						</div>
-						<input class='form-control' id='' name='' type='search' placeholder='책 검색' style='width: 50%; font-weight: bolder;' />
+						<input class='form-control' id='searchBookInBoardWrite' name='searchBookInBoardWrite' type='search' placeholder='책 검색' style='width: 50%; font-weight: bolder;' />
 					</form>
-					<form class='form' id='' name='' action='' method='post' enctype=''>
+					<form class='form' id='boardWriteForm' name='boardWriteForm' action='#writeAction' method='post' enctype=''>
 						<input class='form-control' id='' name='' type='text' placeholder='제목을 입력하세요' style='margin: 5px 0 5px 0; font-weight: bolder;' />
-						<textarea class='form-control' id='summernote' name='editordata' rows='20' placeholder='내용을 입력하세요'></textarea>
+						<textarea class='form-control' id='summernote' name='editordata' placeholder='내용을 입력하세요'></textarea>
 						<div class='form-group' style='width: 135px; margin: 25px auto;'>
-							<input class='btn btn-info' id='' name='' type='button' value='제 출' />
-							<input class='btn btn-info' id='' name='' type='button' value='취 소' style='margin-left: 5px;' />
+							<input class='btn btn-info' id='btnBoardWriteSubmit' name='btnBoardWriteSubmit' type='button' value='제 출' />
+							<input class='btn btn-info' id='btnBoardWriteCancel' name='btnBoardWriteCancel' type='button' value='취 소' style='margin-left: 5px;' />
 						</div>
 					</form>
 				</div>
