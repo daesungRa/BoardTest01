@@ -73,13 +73,26 @@ public class BoardController {
 	// write action
 	@RequestMapping(value="/boardWriteAction", method=RequestMethod.POST)
 	public String boardWriteAction (HttpServletRequest request) {
-		logger.info("call boardViewPage");
+		logger.info("call board write action");
 		request.setAttribute("category", request.getParameter("category"));
+		
+		return "/board/boardViewPage"; // 작성 후 해당 뷰 페이지로 이동
+	}
+	
+	// view
+	@RequestMapping(value="/boardViewPage/{serial}", method=RequestMethod.GET)
+	public String getBoardViewPage (HttpServletRequest request, @PathVariable int serial) {
+		BoardVo bvo = null;
+		logger.info("call boardViewPage serial : " + serial);
+		
+		bvo = boardService.boardView(serial);
+		if (bvo != null) {
+			request.setAttribute("boardVo", bvo);
+		}
 		
 		return "/board/boardViewPage";
 	}
 	
-	// view
 	// modify
 	// remove
 }

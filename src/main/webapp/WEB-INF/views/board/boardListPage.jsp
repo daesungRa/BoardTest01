@@ -24,10 +24,10 @@
 <body>
 	
 	<c:if test="${not empty requestScope.boardListDate }">
-		<c:set var="boardListDate" value="${requestScope.boardListDate }"></c:set>
+		<c:set var="boardListDate" value="${requestScope.boardListDate }" scope="page"></c:set>
 	</c:if>
 	<c:if test="${not empty requestScope.boardListHit }">
-		<c:set var="boardListHit" value="${requestScope.boardListHit }"></c:set>
+		<c:set var="boardListHit" value="${requestScope.boardListHit }" scope="page"></c:set>
 	</c:if>
 	
 	<!-- 브라우저 크기 확인 (임시) -->
@@ -550,10 +550,10 @@
 							<div class='col-md-1 my-board-grid'>${bvo.serial }</div>
 							<c:choose>
 								<c:when test="${fn:length(bvo.title) < 24 }">
-									<div class='col-md-5 my-board-grid-title'>${bvo.title }</div>
+									<div class='col-md-5 my-board-grid-title'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div>
 								</c:when>
 								<c:otherwise>
-									<div class='col-md-5 my-board-grid-title' data-toggle="tooltip" data-placement="right" title="${bvo.title }">${fn:substring(bvo.title, 0, 23) } ...</div>
+									<div class='col-md-5 my-board-grid-title' data-toggle="tooltip" data-placement="right" title="${bvo.title }">${fn:substring(bvo.title, 0, 23) } ...<span style='display: none;'>${bvo.serial }</span></div>
 								</c:otherwise>
 							</c:choose>
 							<div class='col-md-1 my-board-grid'>${bvo.userId }</div>

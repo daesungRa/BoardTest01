@@ -11,7 +11,7 @@ public interface BoardService {
 	public List<BoardVo> getBoardListDate (int category);
 	public List<BoardVo> getBoardListHit (int category);
 	public List<BookVo> getBookInfo (String search);
-	public BoardVo boardView (String serial);
+	public BoardVo boardView (int serial);
 	public boolean boardWrite (HttpServletRequest request);
 	public boolean boardModify (HttpServletRequest request);
 	public boolean boardDelete (HttpServletRequest request);

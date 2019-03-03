@@ -29,7 +29,7 @@
 <body>
 
 	<c:if test='${not empty requestScope.category }'>
-		<c:set var='categoryNum' value='${requestScope.category }'></c:set>
+		<c:set var='categoryNum' value='${requestScope.category }' scope="page"></c:set>
 	</c:if>
 
 	<!-- include navBar(aside) -->

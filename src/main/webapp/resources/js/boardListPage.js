@@ -86,4 +86,11 @@ $(function () {
 	// 게시글 리스트 미리보기
 	$('.my-board-grid-title').tooltip();
 	$('.my-board-grid-bookTitle').tooltip();
+	// 게시글 뷰 페이지로 이동
+	$('.my-board-grid-title').click(function () {
+		var serial = $(this).find('span').text();
+		var requestUrl = '/desktop/board/boardViewPage/' + serial;
+		
+		location.href = requestUrl;
+	});
 });

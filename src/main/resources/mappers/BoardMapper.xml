@@ -56,9 +56,20 @@
 			) s
 		) WHERE rno BETWEEN 1 and 20
 	</select>
+	
+	<!-- select book info -->
 	<select id="selectBookInfo" parameterType="String" resultType="com.daesungra.domain.BookVo">
 		SELECT bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, to_char(pDate, 'YYYY') pDate, isPermitted
 			FROM DBOOK
 			WHERE bookNo like '%${_parameter}%' or title_kor like '%${_parameter}%' or title_eng like '%${_parameter}%' or introduce like '%${_parameter}%' or author like '%${_parameter}%'
+	</select>
+	
+	<!-- select board -->
+	<select id="selectBoardInfo" parameterType="int" resultMap="getBoardVoIncludeClobType">
+		SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
+				bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate
+			FROM DBOARD bd JOIN DBOOK bk
+			ON bd.bookNo = bk.bookNo
+			WHERE bd.serial = #{serial} and bd.isDelete = 0
 	</select>
 </mapper>

@@ -40,9 +40,11 @@ public class BoardServiceImpl implements BoardService {
 	};
 
 	@Override
-	public BoardVo boardView(String serial) {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardVo boardView(int serial) {
+		BoardVo bvo = null;
+		bvo = boardDao.boardSelect(serial);
+		
+		return bvo;
 	}
 
 	@Override

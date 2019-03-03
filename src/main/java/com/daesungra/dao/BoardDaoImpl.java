@@ -27,7 +27,7 @@ public class BoardDaoImpl implements BoardDao {
 		listByDate = sqlSession.selectList("board.boardListDate", category);
 		
 		return listByDate;
-	}
+	};
 	
 	@Override
 	public List<BoardVo> getBoardListHit (int category) {
@@ -36,7 +36,7 @@ public class BoardDaoImpl implements BoardDao {
 		listByHit = sqlSession.selectList("board.boardListHit", category);
 		
 		return listByHit;
-	}
+	};
 	
 	@Override
 	public List<BookVo> getBookInfo (String search) {
@@ -49,26 +49,28 @@ public class BoardDaoImpl implements BoardDao {
 	};
 
 	@Override
-	public BoardVo boardSelect(String serial) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public BoardVo boardSelect(int serial) {
+		BoardVo bvo = null;
+		bvo = sqlSession.selectOne("board.selectBoardInfo", serial);
+		
+		return bvo;
+	};
 
 	@Override
 	public boolean boardInsert(MemberVo vo) {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	};
 
 	@Override
 	public boolean boardUpdate(MemberVo vo) {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	};
 
 	@Override
 	public boolean boardDelete(String serial) {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	};
 }

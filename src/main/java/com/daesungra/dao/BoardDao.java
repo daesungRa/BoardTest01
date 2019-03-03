@@ -11,7 +11,7 @@ public interface BoardDao {
 	public List<BoardVo> getBoardListDate (int category);
 	public List<BoardVo> getBoardListHit (int category);
 	public List<BookVo> getBookInfo (String search);
-	public BoardVo boardSelect (String serial);
+	public BoardVo boardSelect (int serial);
 	public boolean boardInsert (MemberVo vo);
 	public boolean boardUpdate (MemberVo vo);
 	public boolean boardDelete (String serial);

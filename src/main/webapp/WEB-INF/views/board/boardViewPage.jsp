@@ -23,9 +23,16 @@
 </head>
 <body>
 
-	<c:if test='${not empty requestScope.category }'>
-		<c:set var='categoryNum' value='${requestScope.category }'></c:set>
-	</c:if>
+	<c:choose>
+		<c:when test='${not empty requestScope.boardVo }'>
+			<c:set var='bvo' value='${requestScope.boardVo }' scope="page"></c:set>
+			<c:set var='categoryNum' value='${bvo.category }' scope="page"></c:set>
+			<script>alert('${bvo.title}');</script>
+		</c:when>
+		<c:when test='${not empty requestScope.category }'>
+			<c:set var='categoryNum' value='${requestScope.category }' scope="page"></c:set>
+		</c:when>
+	</c:choose>
 
 	<!-- include navBar(aside) -->
 	<jsp:include page="/WEB-INF/views/component/navBar_aside.jsp"></jsp:include>
