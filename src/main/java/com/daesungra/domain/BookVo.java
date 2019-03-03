@@ -80,5 +80,27 @@ public class BookVo {
 	public void setIsPermitted(int isPermitted) {
 		this.isPermitted = isPermitted;
 	}
+
+	public String toJson() {
+		String jsonResult = String.format("{bookNo:\"%s\", "
+											+ "title_kor:\"%s\", "
+											+ "title_eng:\"%s\", "
+											+ "introduce:\"%s\", "
+											+ "author:\"%s\", "
+											+ "category:\"%d\", "
+											+ "publisher:\"%s\", "
+											+ "country:\"%s\", "
+											+ "coverImg:\"%s\", "
+											+ "pDate:\"%s\", "
+											+ "isPermitted:\"%d\"}", bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, pDate, isPermitted);
+		return jsonResult;
+		
+		/*"{'bookNo':'" + bookNo + "', 'title_kor':'" + title_kor + "', 'title_eng':'" + title_eng + "', 'introduce':'"
+		+ introduce + "', 'author':'" + author + "', 'category':'" + category + "', 'publisher':'" + publisher
+		+ "', 'country':'" + country + "', 'coverImg':'" + coverImg + "', 'pDate':'" + pDate + "', 'isPermitted':'"
+		+ isPermitted + "'}"*/
+	}
+	
+	
 	
 }

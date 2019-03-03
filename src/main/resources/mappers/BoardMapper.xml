@@ -57,8 +57,8 @@
 		) WHERE rno BETWEEN 1 and 20
 	</select>
 	<select id="selectBookInfo" parameterType="String" resultType="com.daesungra.domain.BookVo">
-		SELECT bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, pDate, isPermitted
+		SELECT bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, to_char(pDate, 'YYYY') pDate, isPermitted
 			FROM DBOOK
-			WHERE bookNo = #{bookNo}
+			WHERE bookNo like '%${_parameter}%' or title_kor like '%${_parameter}%' or title_eng like '%${_parameter}%' or introduce like '%${_parameter}%' or author like '%${_parameter}%'
 	</select>
 </mapper>

@@ -11,14 +11,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>Board List</title>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
+	<link rel='stylesheet' href='https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css'>
 	<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'/>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css">
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css'>
 	<link rel='stylesheet' href='/desktop/resources/css/boardListPage.css' />
 	<link rel='stylesheet' href='/desktop/resources/css/component.css' />
 	
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
+	<script src='https://code.jquery.com/jquery-1.10.2.js'></script>
+	<script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
 	<script src='/desktop/resources/js/boardWritePage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
@@ -105,14 +108,15 @@
 				</div>
 				
 				<div class='container' id='' style='font-weight: bolder;'>
-					<form class='form' method='post'>
+					<form class='form' id='searchBookInfoForm' name='searchBookInfoForm' method='post'>
 						<div class='form-inline' style='margin: 10px 0 10px 0;'>
 							<span style='color: #898989; font-size: 10pt;'>by&nbsp;&nbsp;</span><span>${sessionScope.userId }&nbsp;&nbsp;</span>
 						</div>
-						<input class='form-control' id='searchBookInBoardWrite' name='searchBookInBoardWrite' type='search' placeholder='책 검색' style='width: 50%; font-weight: bolder;' />
+						<input class='form-control' id='searchBookInBoardWrite' name='searchBookInfo' type='search' placeholder='책 검색' style='width: 50%; font-weight: bolder;' />
 					</form>
 					<form class='form' id='boardWriteForm' name='boardWriteForm' action='#writeAction' method='post' enctype=''>
-						<input class='form-control' id='' name='' type='text' placeholder='제목을 입력하세요' style='margin: 5px 0 5px 0; font-weight: bolder;' />
+						<input class='form-control' id='bookNo' name='bookNo' type='hidden' />
+						<input class='form-control' id='title' name='title' type='text' placeholder='제목을 입력하세요' style='margin: 5px 0 5px 0; font-weight: bolder;' />
 						<textarea class='form-control' id='summernote' name='editordata' placeholder='내용을 입력하세요'></textarea>
 						<div class='form-group' style='width: 135px; margin: 25px auto;'>
 							<input class='btn btn-info' id='btnBoardWriteSubmit' name='btnBoardWriteSubmit' type='button' value='제 출' />

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.daesungra.dao.BoardDao;
 import com.daesungra.domain.BoardVo;
+import com.daesungra.domain.BookVo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -29,6 +30,14 @@ public class BoardServiceImpl implements BoardService {
 		
 		return result;
 	}
+	
+	@Override
+	public List<BookVo> getBookInfo (String search) {
+		List<BookVo> bookList = null;
+		bookList = boardDao.getBookInfo(search);
+		
+		return bookList;
+	};
 
 	@Override
 	public BoardVo boardView(String serial) {

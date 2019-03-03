@@ -11,17 +11,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daesungra.domain.BoardVo;
+import com.daesungra.domain.BookVo;
 import com.daesungra.service.BoardService;
 
 @Controller
 @RequestMapping(value="/board")
 public class BoardController {
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Autowired
 	private BoardService boardService;
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	// get board list
 	@RequestMapping(value="/boardListPage/{category}", method=RequestMethod.GET)
@@ -36,6 +38,27 @@ public class BoardController {
 		request.setAttribute("category", category);
 		
 		return "/board/boardListPage";
+	}
+	
+	// search book info
+	@ResponseBody // json 타입으로 반환하기 위함
+	@RequestMapping(value="/searchBookInfo", method=RequestMethod.POST)
+	public String searchBookInfo (HttpServletRequest request) {
+		StringBuffer jsonResult = new StringBuffer();
+		String search = request.getParameter("searchBookInfo");
+		logger.info("search book info :" + request.getParameter("searchBookInfo"));
+		
+		List<BookVo> bookList = boardService.getBookInfo(search);
+		if (bookList != null && bookList.size() > 0) { // 검색된 vo 객체만큼 json 타입 문자열 생성
+			jsonResult.append("[" + bookList.get(0).toJson());
+			for (int i = 1; i < bookList.size(); i++) {
+				jsonResult.append(", " + bookList.get(i).toJson());
+			}
+			jsonResult.append("]");
+		}
+		
+		logger.info("jsonResult : " + jsonResult.toString());
+		return jsonResult.toString();
 	}
 	
 	// write

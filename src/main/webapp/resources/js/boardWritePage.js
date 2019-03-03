@@ -33,12 +33,58 @@ $(function () {
 		location.href = requestUrl;
 	});
 	
+	// 책 정보 검색
+	var availableTags = [
+	      "ActionScript",
+	      "AppleScript",
+	      "Asp",
+	      "BASIC",
+	      "C",
+	      "C++",
+	      "Clojure",
+	      "COBOL",
+	      "ColdFusion",
+	      "Erlang",
+	      "Fortran",
+	      "Groovy",
+	      "Haskell",
+	      "Java",
+	      "JavaScript",
+	      "Lisp",
+	      "Perl",
+	      "PHP",
+	      "Python",
+	      "Ruby",
+	      "Scala",
+	      "Scheme"
+	    ];
+	$('#searchBookInBoardWrite').autocomplete({
+		source: function (request, response) {
+			$.ajax({
+				type: 'post',
+				url: '/desktop/board/searchBookInfo',
+				dataType: 'json',
+				data: {searchBookInfo : request.term},
+				success: function (data) {
+					response(data);
+				}
+			});
+		},
+		minLength: 2
+	});
 	// 글쓰기 폼 (summernote)
 	$('#summernote').summernote({
 		height: 430,
 		minHeight: 430,
 		maxHeight: null,
 		placeholder: '내용을 입력하세요',
+	});
+	// 글쓰기 cancel > 같은 카테고리의 리스트 페이지로 이동
+	$('#boardWriteForm #btnBoardWriteCancel').click(function () {
+		var categoryNum = $('#saveCategoryNum').text();
+		var requestUrl = '/desktop/board/boardListPage/' + categoryNum;
+		
+		location.href = requestUrl;
 	});
 	
 	// top 부분으로 이동
