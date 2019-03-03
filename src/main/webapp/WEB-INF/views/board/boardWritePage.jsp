@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<title>Board List</title>
+<title>Board Write Page</title>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css' />
 	<link rel='stylesheet' href='https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css'>
 	<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'/>
@@ -45,7 +45,7 @@
 		<div class='container'>
 			<div class='container' id='boardList' style='width: 96%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 120px 20px 120px;'>
 				<div style='position: relative; height: 80px;'>
-					<div id='saveCategoryNum' style='display: none;'>${requestScope.category }</div>
+					<div id='saveCategoryNum' style='display: none;'>${categoryNum }</div>
 					<c:choose>
 						<c:when test='${requestScope.category == 2 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 180px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />글쓰기</span>
@@ -114,8 +114,9 @@
 						</div>
 						<input class='form-control' id='searchBookInBoardWrite' name='searchBookInfo' type='search' placeholder='책 검색' style='width: 50%; font-weight: bolder;' />
 					</form>
-					<form class='form' id='boardWriteForm' name='boardWriteForm' action='#writeAction' method='post' enctype=''>
+					<form class='form' id='boardWriteForm' name='boardWriteForm' action='/desktop/board/boardWriteAction' method='post'>
 						<input class='form-control' id='bookNo' name='bookNo' type='hidden' />
+						<input class='form-control' id='category' name='category' type='hidden' value='${categoryNum }' />
 						<input class='form-control' id='title' name='title' type='text' placeholder='제목을 입력하세요' style='margin: 5px 0 5px 0; font-weight: bolder;' />
 						<textarea class='form-control' id='summernote' name='editordata' placeholder='내용을 입력하세요'></textarea>
 						<div class='form-group' style='width: 135px; margin: 25px auto;'>

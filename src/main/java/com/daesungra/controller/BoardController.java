@@ -61,7 +61,7 @@ public class BoardController {
 		return jsonResult.toString();
 	}
 	
-	// write
+	// get write page
 	@RequestMapping(value="/boardWritePage/{category}", method=RequestMethod.GET)
 	public String getBoardWritePage (HttpServletRequest request, @PathVariable int category) {
 		logger.info("call boardWritePage category:" + category);
@@ -69,6 +69,16 @@ public class BoardController {
 		
 		return "/board/boardWritePage";
 	}
+	
+	// write action
+	@RequestMapping(value="/boardWriteAction", method=RequestMethod.POST)
+	public String boardWriteAction (HttpServletRequest request) {
+		logger.info("call boardViewPage");
+		request.setAttribute("category", request.getParameter("category"));
+		
+		return "/board/boardViewPage";
+	}
+	
 	// view
 	// modify
 	// remove

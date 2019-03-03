@@ -66,11 +66,22 @@ $(function () {
 				dataType: 'json',
 				data: {searchBookInfo : request.term},
 				success: function (data) {
-					response(data);
-				}
+					response($.map (data, function (item) {
+						return {
+							label: item.title_kor,
+							value: item.bookNo
+						}
+					}));
+				},
+				error: function (xhr, status, error) { }
 			});
 		},
-		minLength: 2
+		minLength: 2,
+		matchContains: true,
+		autoFocus: true,
+		select: function (event, ui) {
+			
+		}
 	});
 	// 글쓰기 폼 (summernote)
 	$('#summernote').summernote({
@@ -78,6 +89,32 @@ $(function () {
 		minHeight: 430,
 		maxHeight: null,
 		placeholder: '내용을 입력하세요',
+	});
+	// 글쓰기 submit
+	$('#btnBoardWriteSubmit').click(function () {
+		$('#boardWriteForm').submit();
+		
+		// multipart 사용시
+		/*var formData = new FormData($('#boardWriteForm'));
+		$.ajax({
+			type: 'post',
+			url: '/desktop/board/boardWriteAction',
+			data: formData,
+			contentType: false,
+			processData: false,
+			success: function (data) {
+				// write 완료되면 해당 view 페이지 자동응답
+				
+			}
+		});*/
+		
+		/*$.post('list.bd',
+		{
+			category: '1'
+		},
+		function (data, status){
+			$('#content').html(data);
+		});*/
 	});
 	// 글쓰기 cancel > 같은 카테고리의 리스트 페이지로 이동
 	$('#boardWriteForm #btnBoardWriteCancel').click(function () {
