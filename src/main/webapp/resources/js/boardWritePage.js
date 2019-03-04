@@ -88,7 +88,7 @@ $(function () {
 		height: 430,
 		minHeight: 430,
 		maxHeight: null,
-		placeholder: '내용을 입력하세요',
+		placeholder: '내용을 입력하세요'
 	});
 	// 글쓰기 submit
 	$('#btnBoardWriteSubmit').click(function () {

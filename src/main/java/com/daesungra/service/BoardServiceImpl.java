@@ -48,15 +48,27 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean boardWrite(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return false;
+	public BoardVo boardWrite(HttpServletRequest request) {
+		BoardVo resultVo = null;
+		BoardVo bvo = new BoardVo();
+		bvo.setUserId((String) request.getSession().getAttribute("userId"));
+		bvo.setBookNo(request.getParameter("bookNo"));
+		bvo.setCategory(Integer.parseInt(request.getParameter("category")));
+		bvo.setTitle(request.getParameter("title"));
+		if (request.getParameter("content") != null) {
+			bvo.setContent(request.getParameter("content"));
+		}
+		
+		resultVo = boardDao.boardInsert(bvo);
+		
+		return resultVo;
 	}
 
 	@Override
-	public boolean boardModify(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return false;
+	public BoardVo boardModify(HttpServletRequest request) {
+		BoardVo resultVo = null;
+		
+		return resultVo;
 	}
 
 	@Override

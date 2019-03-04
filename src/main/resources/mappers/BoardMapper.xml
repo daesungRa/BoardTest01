@@ -65,11 +65,24 @@
 	</select>
 	
 	<!-- select board -->
-	<select id="selectBoardInfo" parameterType="int" resultMap="getBoardVoIncludeClobType">
+	<select id="selectBoardInfo" parameterType="com.daesungra.domain.BoardVo" resultMap="getBoardVoIncludeClobType">
 		SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
 				bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate
 			FROM DBOARD bd JOIN DBOOK bk
 			ON bd.bookNo = bk.bookNo
-			WHERE bd.serial = #{serial} and bd.isDelete = 0
+			<where>
+				<if test="serial != null">
+					bd.serial = #{serial} AND bd.isDelete = 0 <!-- 시리얼 넘버로 조회 -->
+				</if>
+				<if test="userId != null and bookNo != null and category != null and title != null">
+					AND userId = #{userId} AND bookNo = #{bookNo} AND category = #{category} AND title = #{title}
+				</if>
+			</where>
 	</select>
+	
+	<!-- insert -->
+	<insert id="insertBoardInfo" parameterType="com.daesungra.domain.BoardVo">
+		INSERT INTO DBOARD (serial, userId, delUserId, bookNo, delBookNo, category, title, content, gSerial, pSerial, depth, indent, bDate, hit, isDelete)
+			VALUES (SEQ_DBOARD.NEXTVAL, #{userId}, #{userId}, #{bookNo}, #{bookNo}, #{category}, #{title}, #{content}, SEQ_DBOARD.CURRVAL, 0, 0, 0, SYSDATE, 0, 0)
+	</insert>
 </mapper>

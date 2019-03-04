@@ -12,7 +12,7 @@ public interface BoardService {
 	public List<BoardVo> getBoardListHit (int category);
 	public List<BookVo> getBookInfo (String search);
 	public BoardVo boardView (int serial);
-	public boolean boardWrite (HttpServletRequest request);
-	public boolean boardModify (HttpServletRequest request);
+	public BoardVo boardWrite (HttpServletRequest request);
+	public BoardVo boardModify (HttpServletRequest request);
 	public boolean boardDelete (HttpServletRequest request);
 }

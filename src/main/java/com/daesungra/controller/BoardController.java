@@ -73,7 +73,13 @@ public class BoardController {
 	// write action
 	@RequestMapping(value="/boardWriteAction", method=RequestMethod.POST)
 	public String boardWriteAction (HttpServletRequest request) {
+		BoardVo bvo = null;
 		logger.info("call board write action");
+		
+		bvo = boardService.boardWrite(request);
+		if (bvo != null) {
+			request.setAttribute("boardVo", bvo);
+		}
 		request.setAttribute("category", request.getParameter("category"));
 		
 		return "/board/boardViewPage"; // 작성 후 해당 뷰 페이지로 이동

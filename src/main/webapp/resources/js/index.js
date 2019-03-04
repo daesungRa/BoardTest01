@@ -39,16 +39,16 @@ $(function () {
 		// modal action
 	$(window).click(function (ev) { // 모달 외 화면 클릭 시
 		if (ev.target == modalWindow) {
-			modalWindow.style.display = 'none';
+			$('#btnShowModal').trigger('click');
 		}
 	});
 	$(window).keydown(function (ev) { // esc 버튼 입력 시
 		if (ev.keyCode == '27') {
-			modalWindow.style.display = 'none';
+			$('#btnShowModal').trigger('click');
 		}
 	});
 	$('#closeModal').click(function () {
-		modalWindow.style.display = 'none';
+		$('#btnShowModal').trigger('click');
 	});
 	
 	/*
@@ -62,11 +62,10 @@ $(function () {
 			url: '/desktop/member/loginForm',
 			dataType: 'html',
 			success: function (html, status) {
-				modalContent.setAttribute('style', 'height: 60%; margin: 12% auto;');
-				innerModalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -10px;');
 				
 				innerModalContent.innerHTML = html;
-				modalWindow.style.display = 'block';
+				$('#btnShowModal').trigger('click');
+				// modalWindow.style.display = 'block';
 				
 				funcLoginAction();
 			}
@@ -84,7 +83,7 @@ $(function () {
 				innerModalContent.setAttribute('style', 'position: absolute; width: 97%; height: 90%; top: 0;');
 				
 				innerModalContent.innerHTML = html;
-				modalWindow.style.display = 'block';
+				$('#btnShowModal').trigger('click');
 				
 				funcJoinAction();
 			}
@@ -121,7 +120,7 @@ $(function () {
 							innerModalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -10px;');
 							
 							innerModalContent.innerHTML = html;
-							modalWindow.style.display = 'block';
+							$('#btnShowModal').trigger('click');
 							
 							funcLoginAction();
 						}
@@ -131,7 +130,7 @@ $(function () {
 					innerModalContent.innerHTML = "";
 					location.href = '/desktop';
 				} else if ($('#flag').text() == "2"){
-					modalWindow.style.display = 'block';
+					$('#btnShowModal').trigger('click');
 					
 					funcMemberInfo();
 				} else {

@@ -7,15 +7,16 @@
 <title>modal component</title>
 </head>
 <body>
-
-    <div id="modalWindow" class="modal" style='display: none;'>
-    	
-	    <!-- Modal content -->
-	    <div class='modal-content' id='modalContent'>
-			<div id='innerModalContent'></div>
-			<span class='close' id='closeModal'>닫기</span>
-		</div>
-	    
+	
+	<button type="button" class="btn btn-primary" id='btnShowModal' data-toggle="modal" data-target="#modalWindow" style='display: none;'></button>
+    <div id="modalWindow" class="modal fade">
+    	<div class="modal-dialog modal-dialog-centered" style='z-index: 10;'>
+		    <!-- Modal content -->
+		    <div class='modal-content' id='modalContent'>
+				<div id='innerModalContent'></div>
+				<span class='close' id='closeModal'>닫기</span>
+			</div>
+		</div>	    
     </div>
 
 </body>

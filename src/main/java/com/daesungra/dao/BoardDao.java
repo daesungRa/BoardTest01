@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
-import com.daesungra.domain.MemberVo;
 
 public interface BoardDao {
 
@@ -12,7 +11,7 @@ public interface BoardDao {
 	public List<BoardVo> getBoardListHit (int category);
 	public List<BookVo> getBookInfo (String search);
 	public BoardVo boardSelect (int serial);
-	public boolean boardInsert (MemberVo vo);
-	public boolean boardUpdate (MemberVo vo);
+	public BoardVo boardInsert (BoardVo vo); // insert 성공 시 조회
+	public BoardVo boardUpdate (BoardVo vo);
 	public boolean boardDelete (String serial);
 }

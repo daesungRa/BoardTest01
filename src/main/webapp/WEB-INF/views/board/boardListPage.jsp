@@ -615,16 +615,7 @@
 	<a class='btn btn-secondary my-btn-toTop' href='#'>top</a>
 	
 	<!-- Modal -->
-    <button id="modalBtn" style='display: none;'>Open Modal</button>
-    <div id="mainModal" class="modal">
-    	
-	    <!-- Modal content -->
-	    <div class="modal-content">
-	   		<div id='innerContent'></div>
-	   		<span class="close">닫기</span>
-	    </div>
-	    
-    </div>
+    <jsp:include page="/WEB-INF/views/component/modal.jsp"></jsp:include>
 	
 </body>
 </html>

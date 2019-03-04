@@ -115,11 +115,11 @@
 						<input class='form-control' id='searchBookInBoardWrite' name='searchBookInfo' type='search' placeholder='책 검색' style='width: 50%; font-weight: bolder;' />
 					</form>
 					<form class='form' id='boardWriteForm' name='boardWriteForm' action='/desktop/board/boardWriteAction' method='post'>
-						<input class='form-control' id='bookNo' name='bookNo' type='hidden' />
+						<input class='form-control' id='bookNo' name='bookNo' type='hidden' value='401' />
 						<input class='form-control' id='category' name='category' type='hidden' value='${categoryNum }' />
 						<input class='form-control' id='title' name='title' type='text' placeholder='제목을 입력하세요' style='margin: 5px 0 5px 0; font-weight: bolder;' />
-						<textarea class='form-control' id='summernote' name='editordata' placeholder='내용을 입력하세요'></textarea>
-						<div class='form-group' style='width: 135px; margin: 25px auto;'>
+						<textarea class='form-control' id='summernote' name='content' placeholder='내용을 입력하세요'></textarea>
+						<div class='form-group' id='submitGrp' style='width: 135px; margin: 25px auto;'>
 							<input class='btn btn-info' id='btnBoardWriteSubmit' name='btnBoardWriteSubmit' type='button' value='제 출' />
 							<input class='btn btn-info' id='btnBoardWriteCancel' name='btnBoardWriteCancel' type='button' value='취 소' style='margin-left: 5px;' />
 						</div>
@@ -138,16 +138,7 @@
 	<a class='btn btn-secondary my-btn-toTop' href='#'>top</a>
 	
 	<!-- Modal -->
-    <button id="modalBtn" style='display: none;'>Open Modal</button>
-    <div id="mainModal" class="modal">
-    	
-	    <!-- Modal content -->
-	    <div class="modal-content">
-	   		<div id='innerContent'></div>
-	   		<span class="close">닫기</span>
-	    </div>
-	    
-    </div>
+    <jsp:include page="/WEB-INF/views/component/modal.jsp"></jsp:include>
 
 </body>
 </html>
