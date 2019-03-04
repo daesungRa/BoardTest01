@@ -10,7 +10,7 @@ public interface BoardDao {
 	public List<BoardVo> getBoardListDate (int category);
 	public List<BoardVo> getBoardListHit (int category);
 	public List<BookVo> getBookInfo (String search);
-	public BoardVo boardSelect (int serial);
+	public BoardVo boardSelect (BoardVo vo);
 	public BoardVo boardInsert (BoardVo vo); // insert 성공 시 조회
 	public BoardVo boardUpdate (BoardVo vo);
 	public boolean boardDelete (String serial);

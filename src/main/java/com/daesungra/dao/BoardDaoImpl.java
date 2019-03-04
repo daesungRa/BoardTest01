@@ -48,13 +48,14 @@ public class BoardDaoImpl implements BoardDao {
 	};
 
 	@Override
-	public BoardVo boardSelect(int serial) {
+	public BoardVo boardSelect(BoardVo vo) {
 		BoardVo resultVo = null;
-		BoardVo bvo = new BoardVo();
-		bvo.setSerial(serial);
 		
-		resultVo = sqlSession.selectOne("board.selectBoardInfo", bvo);
-		// 현재 조회된 글의 조회수 1 증가
+		resultVo = sqlSession.selectOne("board.selectBoardInfo", vo);
+		if (resultVo != null) { // 조회 결과가 있을 경우
+			// 현재 조회된 글의 조회수 1 증가
+			sqlSession.update("board.boardHitIncrement", vo);
+		}		
 		
 		return resultVo;
 	};
@@ -73,6 +74,10 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public BoardVo boardUpdate(BoardVo vo) {
 		BoardVo bvo = null;
+		int updateResult = sqlSession.update("board.boardUpdate", vo);
+		if (updateResult > 0) {
+			bvo = sqlSession.selectOne("board.selectBoardInfo", vo);
+		}
 		
 		return bvo;
 	};

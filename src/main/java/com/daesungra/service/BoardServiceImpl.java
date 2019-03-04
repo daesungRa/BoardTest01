@@ -40,9 +40,9 @@ public class BoardServiceImpl implements BoardService {
 	};
 
 	@Override
-	public BoardVo boardView(int serial) {
+	public BoardVo boardView(BoardVo vo) {
 		BoardVo bvo = null;
-		bvo = boardDao.boardSelect(serial);
+		bvo = boardDao.boardSelect(vo);
 		
 		return bvo;
 	}
@@ -65,8 +65,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVo boardModify(HttpServletRequest request) {
+	public BoardVo boardModify(BoardVo bvo) {
 		BoardVo resultVo = null;
+		resultVo = boardDao.boardUpdate(bvo);
 		
 		return resultVo;
 	}

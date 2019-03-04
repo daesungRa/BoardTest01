@@ -59,7 +59,7 @@ $(function () {
 	});
 	// modify submit
 	$('#btnBoardModifySubmit').click(function () {
-		
+		$('#boardModifyAction').submit();
 	});
 	// modify cancel
 	$('#btnBoardModifyCancel').click(function () {

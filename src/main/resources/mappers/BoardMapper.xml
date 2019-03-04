@@ -75,12 +75,12 @@
 					bd.serial = #{serial} AND bd.isDelete = 0 <!-- 시리얼 넘버로 조회 -->
 				</if>
 				<if test="userId != null and bookNo != null and category != null and title != null">
-					AND userId = #{userId} AND bookNo = #{bookNo} AND category = #{category} AND title = #{title}
+					AND bd.userId = #{userId} AND bd.bookNo = #{bookNo} AND bd.category = #{category} AND bd.title = #{title}
 				</if>
 			</where>
 	</select>
 	<update id="boardHitIncrement" parameterType="com.daesungra.domain.BoardVo">
-		UPDATE DBOARD SET hit = hit + 1 WHERE serial = #{serial}
+		UPDATE DBOARD SET hit = hit + 1 WHERE serial = #{serial} AND userId != #{userId}
 	</update>
 	
 	<!-- insert -->
@@ -88,4 +88,10 @@
 		INSERT INTO DBOARD (serial, userId, delUserId, bookNo, delBookNo, category, title, content, gSerial, pSerial, depth, indent, bDate, hit, isDelete)
 			VALUES (SEQ_DBOARD.NEXTVAL, #{userId}, #{userId}, #{bookNo}, #{bookNo}, #{category}, #{title}, #{content}, SEQ_DBOARD.CURRVAL, 0, 0, 0, SYSDATE, 0, 0)
 	</insert>
+	
+	<!-- update -->
+	<update id="boardUpdate" parameterType="com.daesungra.domain.BoardVo">
+		UPDATE DBOARD SET title = #{title}, content = #{content}
+			WHERE serial = #{serial} AND userId = #{userId} AND isDelete = 0
+	</update>
 </mapper>

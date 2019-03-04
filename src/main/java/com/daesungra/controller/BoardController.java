@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -89,18 +90,37 @@ public class BoardController {
 	@RequestMapping(value="/boardViewPage/{serial}", method=RequestMethod.GET)
 	public String getBoardViewPage (HttpServletRequest request, @PathVariable int serial) {
 		BoardVo bvo = null;
+		BoardVo insertVo = new BoardVo();
 		logger.info("call boardViewPage serial : " + serial);
 		
-		bvo = boardService.boardView(serial);
+		insertVo.setSerial(serial);
+		if (request.getSession().getAttribute("userId") != null) { // 접속정보가 있으면 아이디 세팅
+			insertVo.setUserId((String) request.getSession().getAttribute("userId"));
+		}
+		bvo = boardService.boardView(insertVo);
 		if (bvo != null) {
 			request.setAttribute("boardVo", bvo);
+			request.setAttribute("category", bvo.getCategory());
 		}
 		
 		return "/board/boardViewPage";
 	}
 	
 	// modify
-	
+	@RequestMapping(value="/boardModifyAction", method=RequestMethod.POST)
+	public String boardModifyAction (HttpServletRequest request, @ModelAttribute BoardVo bvo) {
+		BoardVo resultVo = null;
+		logger.info("call board modify action");
+		
+		bvo.setUserId((String) request.getSession().getAttribute("userId"));
+		resultVo = boardService.boardModify(bvo);
+		if (resultVo != null) {
+			request.setAttribute("boardVo", resultVo);
+		}
+		request.setAttribute("category", resultVo.getCategory());
+		
+		return "/board/boardViewPage"; // 수정 후 해당 뷰 페이지로 이동
+	}
 	
 	// remove
 }
