@@ -79,6 +79,9 @@
 				</if>
 			</where>
 	</select>
+	<update id="boardHitIncrement" parameterType="com.daesungra.domain.BoardVo">
+		UPDATE DBOARD SET hit = hit + 1 WHERE serial = #{serial}
+	</update>
 	
 	<!-- insert -->
 	<insert id="insertBoardInfo" parameterType="com.daesungra.domain.BoardVo">

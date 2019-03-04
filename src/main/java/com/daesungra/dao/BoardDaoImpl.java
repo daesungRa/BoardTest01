@@ -54,6 +54,7 @@ public class BoardDaoImpl implements BoardDao {
 		bvo.setSerial(serial);
 		
 		resultVo = sqlSession.selectOne("board.selectBoardInfo", bvo);
+		// 현재 조회된 글의 조회수 1 증가
 		
 		return resultVo;
 	};

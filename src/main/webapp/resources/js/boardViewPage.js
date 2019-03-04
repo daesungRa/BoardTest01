@@ -43,4 +43,26 @@ $(function () {
 	/*
 	 * modify 페이지로 변경
 	 */
+	$('#toBoardModifyPage').click(function () {
+		$('#categoryContent').text('글수정');
+		$('#boardTitleContent').css({"display":"none"});
+		$('#boardTextContent').css({"display":"none"});
+		$('#boardModifyPage').css({"display":"block"});
+		$('#boardCommentContent').css({"display":"none"});
+		
+		$('#summernote').summernote({
+			minHeight: 300,
+			maxHeight: 1000
+		});
+		
+		$('.my-btn-toTop').trigger('click');
+	});
+	// modify submit
+	$('#btnBoardModifySubmit').click(function () {
+		
+	});
+	// modify cancel
+	$('#btnBoardModifyCancel').click(function () {
+		location.reload();
+	});
 });
