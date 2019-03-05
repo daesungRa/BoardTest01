@@ -2,7 +2,9 @@ package com.daesungra.domain;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PageDto {
 	
 	@Autowired
@@ -23,7 +25,7 @@ public class PageDto {
 	private int startPage;
 	private int endPage;
 	
-	public PageDto (int listSize, int blockSize, int nowPage, int category) {
+	public void setPageDto (int listSize, int blockSize, int nowPage, int category) {
 		this.listSize = listSize;
 		this.blockSize = blockSize;
 		this.nowPage = nowPage;

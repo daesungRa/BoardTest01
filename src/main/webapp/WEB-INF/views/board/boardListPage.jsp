@@ -30,6 +30,9 @@
 	<c:if test="${not empty requestScope.boardListHit }">
 		<c:set var="boardListHit" value="${requestScope.boardListHit }" scope="page"></c:set>
 	</c:if>
+	<c:if test='${not empty requestScope.pageDto }'>
+		<c:set var='pageDto' value='${requestScope.pageDto }' scope='page'></c:set>
+	</c:if>
 	
 	<!-- 브라우저 크기 확인 (임시) -->
 	<!-- <div id='windowSize' style='width: 180px; border: 1px solid black;'>
@@ -571,17 +574,19 @@
 						</div>
 					</c:forEach>
 					<div class='container' style='height: 46px; font-size: 9pt; text-align: center; margin-top: 30px;'>
-						<span class='btnBoardView'>처음</span>
-						<span class='btnBoardView'>이전</span>
-						<span class='btnBoardView' style='color: #8a8a8a'>|</span>
-						<span class='btnBoardView'>01</span>
-						<span class='btnBoardView'>02</span>
-						<span class='btnBoardView'>03</span>
-						<span class='btnBoardView'>04</span>
-						<span class='btnBoardView'>05</span>
-						<span class='btnBoardView' style='color: #8a8a8a'>|</span>
-						<span class='btnBoardView'>다음</span>
-						<span class='btnBoardView'>마지막</span>
+						<c:if test='${pageDto.nowPage >= 2 }'>
+							<span class='btnBoardView'>처음<span style='display: none;'>1</span></span>
+							<span class='btnBoardView'>이전<span style='display: none;'>${pageDto.startPage - 1 }</span></span>
+							<span class='btnBoardView' style='color: #8a8a8a'>|</span>
+						</c:if>
+						<c:forEach var='i' begin='${pageDto.startPage }' end='${pageDto.endPage }' step='1'>
+							<span class='btnBoardView'>${i }</span>
+						</c:forEach>
+						<c:if test='${pageDto.nowBlock < pageDto.totBlock }'>
+							<span class='btnBoardView' style='color: #8a8a8a'>|</span>
+							<span class='btnBoardView'>다음<span style='display: none;'>${pageDto.endPage + 1 }</span></span>
+							<span class='btnBoardView'>마지막<span style='display: none;'>${pageDto.totPage }</span></span>
+						</c:if>
 					</div>
 					<div class='container' style='height: 46px; text-align: center; /* border: 1px solid black; */'>
 						<form class='form' id='boardSearchForm' name='boardSearchForm' style='position: relative; display: inline-block; right: 0; width: 70%;'>
@@ -598,6 +603,7 @@
 								<option>작가별</option>
 							</select>
 							<input class='' type='search' style='display: inline-block; font-size: 8pt; float: left; width: 45%; height: 25px; margin: 3px 0 0 7px;' />
+							<input type='text' id='nowPage' name='nowPage' style='display: none;' />
 							<input type='button' value='검색' style='display: inline-block; font-size: 8pt; float: right; width: 10%; height: 25px; margin-top: 2px;' />
 						</form>
 					</div><br/><br/>

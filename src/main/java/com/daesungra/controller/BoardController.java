@@ -28,6 +28,8 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private PageDto pageDto;
 
 	// get board list
 	/*
@@ -42,7 +44,7 @@ public class BoardController {
 		
 		int listSize = 5;
 		int blockSize = 5;
-		PageDto pageDto = new PageDto(listSize, blockSize, nowPage, category); // 페이징 처리를 위한 도메인 객체
+		pageDto.setPageDto(listSize, blockSize, nowPage, category); // 페이징 처리를 위한 도메인 객체
 		pageDto.pageCompute();
 		
 		Map<String, Object> pagenatedInputData = new HashMap<String, Object>();
