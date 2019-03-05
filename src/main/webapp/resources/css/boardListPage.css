@@ -66,6 +66,13 @@
 /*
  * 게시글 미리보기 (조회수순)
  */
+.boardTitlePreview:hover {
+	transition: 0.5s;
+	padding: 3px 5px 3px 5px;
+	cursor: pointer;
+	background-color: #efefef;
+	border-radius: 10px;
+}
 .bookTitlePreview:hover {
 	cursor: pointer;
 }

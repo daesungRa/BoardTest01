@@ -1,32 +1,36 @@
 package com.daesungra.service;
 
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daesungra.controller.BoardController;
 import com.daesungra.dao.BoardDao;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	@Autowired
 	private BoardDao boardDao;
 	
 	@Override
-	public List<BoardVo> getBoardListDate (int category) {
-		List<BoardVo> result = boardDao.getBoardListDate(category);
+	public List<BoardVo> getBoardListDate (Map<String, Object> pagenatedInputData) {
+		List<BoardVo> result = boardDao.getBoardListDate(pagenatedInputData);
 		
 		return result;
 	}
 	
 	@Override
-	public List<BoardVo> getBoardListHit (int category) {
-		List<BoardVo> result = boardDao.getBoardListHit(category);
+	public List<BoardVo> getBoardListHit (Map<String, Object> pagenatedInputData) {
+		List<BoardVo> result = boardDao.getBoardListHit(pagenatedInputData);
 		
 		return result;
 	}
@@ -40,41 +44,35 @@ public class BoardServiceImpl implements BoardService {
 	};
 
 	@Override
-	public BoardVo boardView(BoardVo vo) {
-		BoardVo bvo = null;
-		bvo = boardDao.boardSelect(vo);
-		
-		return bvo;
-	}
-
-	@Override
-	public BoardVo boardWrite(HttpServletRequest request) {
+	public BoardVo boardView(BoardVo bvo) {
 		BoardVo resultVo = null;
-		BoardVo bvo = new BoardVo();
-		bvo.setUserId((String) request.getSession().getAttribute("userId"));
-		bvo.setBookNo(request.getParameter("bookNo"));
-		bvo.setCategory(Integer.parseInt(request.getParameter("category")));
-		bvo.setTitle(request.getParameter("title"));
-		if (request.getParameter("content") != null) {
-			bvo.setContent(request.getParameter("content"));
-		}
-		
-		resultVo = boardDao.boardInsert(bvo);
+		resultVo = boardDao.boardSelect(bvo);
 		
 		return resultVo;
 	}
 
 	@Override
-	public BoardVo boardModify(BoardVo bvo) {
-		BoardVo resultVo = null;
-		resultVo = boardDao.boardUpdate(bvo);
+	public boolean boardWrite(BoardVo bvo) {
+		logger.info("[service] call boardWrite action");
+		boolean result = false;
+		result = boardDao.boardInsert(bvo);
 		
-		return resultVo;
+		return result;
 	}
 
 	@Override
-	public boolean boardDelete(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean boardModify(BoardVo bvo) {
+		boolean result = false;
+		result = boardDao.boardUpdate(bvo);
+		
+		return result;
+	}
+
+	@Override
+	public boolean boardRemove(BoardVo bvo) {
+		boolean result = false;
+		result = boardDao.boardDelete(bvo);
+		
+		return result;
 	}
 }

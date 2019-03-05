@@ -27,7 +27,7 @@
 								class='caret'></span>
 							</a>
 							<ul class='dropdown-menu dropdown-menu-left animate slideIn'>
-								<li><a class='dropdown-item' id='logoutAnc' href='/desktop/member/logout'>로그아웃</a></li>
+								<li><a class='dropdown-item' id='logoutAnc' href='#logout'>로그아웃</a></li>
 								<li><a class='dropdown-item' id='myPage' href='/desktop/member/myPage'>마이페이지</a></li>
 							</ul>
 						</div>
@@ -38,9 +38,9 @@
 								href='#'>접속 <span class='caret'></span>
 							</a>
 							<ul class='dropdown-menu text-left' style='list-style: none;'>
-								<li><a class='dropdown-item' id='loginAnc' href='#'>로그인</a>
+								<li><a class='dropdown-item' id='loginAnc' href='#login'>로그인</a>
 								</li>
-								<li><a class='dropdown-item' id='joinAnc' href='#'>회원가입</a>
+								<li><a class='dropdown-item' id='joinAnc' href='#join'>회원가입</a>
 								</li>
 							</ul>
 						</div>
@@ -54,11 +54,11 @@
 				<li class='dropdown'>
 					<a class='dropdown-toggle my-nav' data-toggle='dropdown' role='button' id='categoryAnc' href='#'>리뷰 카테고리</a>
 					<ul class='dropdown-menu my-nav' style='text-align: left;'>
-						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/1'>인문/사회/정치</a></li>
-						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/2'>경제/경영</a></li>
-						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/3'>과학/공학/수학/컴퓨터</a></li>
-						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/4'>문학/시/소설</a></li>
-						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/5'>문화/예술/자기계발/라이프</a></li>
+						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/1/1'>인문/사회/정치</a></li>
+						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/2/1'>경제/경영</a></li>
+						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/3/1'>과학/공학/수학/컴퓨터</a></li>
+						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/4/1'>문학/시/소설</a></li>
+						<li><a class='dropdown-item my-nav' id='' href='/desktop/board/boardListPage/5/1'>문화/예술/자기계발/라이프</a></li>
 					</ul>
 				</li>
 						<li class='nav-item'><a class='nav-link my-nav' id='writerListAnc' href='#writerList'>작가별</a></li>

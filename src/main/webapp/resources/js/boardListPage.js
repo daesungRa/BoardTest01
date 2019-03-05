@@ -87,9 +87,24 @@ $(function () {
 	$('.my-board-grid-title').tooltip();
 	$('.my-board-grid-bookTitle').tooltip();
 	// 게시글 뷰 페이지로 이동
+	$('.boardTitlePreview').click(function () {
+		var serial = $(this).find('span').text();
+		var categoryNum = $('#boardList #saveCategoryNum').text();
+		var requestUrl = '/desktop/board/boardViewPage/' + serial + '/' + categoryNum;
+		
+		location.href = requestUrl;
+	});
+	$('.boardViewAncMini').click(function () {
+		var serial = $(this).find('span').text();
+		var categoryNum = $('#boardList #saveCategoryNum').text();
+		var requestUrl = '/desktop/board/boardViewPage/' + serial + '/' + categoryNum;
+		
+		location.href = requestUrl;
+	});
 	$('.my-board-grid-title').click(function () {
 		var serial = $(this).find('span').text();
-		var requestUrl = '/desktop/board/boardViewPage/' + serial;
+		var categoryNum = $('#boardList #saveCategoryNum').text();
+		var requestUrl = '/desktop/board/boardViewPage/' + serial + '/' + categoryNum;
 		
 		location.href = requestUrl;
 	});

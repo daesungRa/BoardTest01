@@ -44,7 +44,7 @@ $(function () {
 	 * modify 페이지로 변경
 	 */
 	$('#toBoardModifyPage').click(function () {
-		$('#categoryContent').text('글수정');
+		$('#categoryContent #titleName').text('글수정');
 		$('#boardTitleContent').css({"display":"none"});
 		$('#boardTextContent').css({"display":"none"});
 		$('#boardModifyPage').css({"display":"block"});
@@ -59,10 +59,37 @@ $(function () {
 	});
 	// modify submit
 	$('#btnBoardModifySubmit').click(function () {
-		$('#boardModifyAction').submit();
+		var result = confirm('게시글을 수정하시겠습니까?');
+		if (result) {
+			$('#boardModifyAction').submit();
+		}
 	});
 	// modify cancel
 	$('#btnBoardModifyCancel').click(function () {
 		location.reload();
+	});
+	
+	/*
+	 * 게시글 삭제
+	 */
+	$('#toBoardDeleteAction').click(function () {
+		var serial = $('#boardModifyAction #serial').val();
+		var result = confirm('해당 게시글을 삭제하시겠습니까?');
+		if (result) {
+			$.ajax({
+				type: 'get',
+				url: '/desktop/board/boardRemoveAction',
+				dataType: 'html',
+				data: {serial: serial},
+				success: function (data) {
+					if (data == '1') {
+						var categoryNum = $('#boardViewContainer #saveCategoryNum').text();
+						location.href = '/desktop/board/boardListPage/' + categoryNum;
+					} else if (data == '0') {
+						alert('게시글 삭제에 실패했습니다');
+					}
+				}
+			});
+		}
 	});
 });

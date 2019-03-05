@@ -32,7 +32,7 @@
 	</resultMap>
 
 	<!-- select list -->
-	<select id="boardListDate" parameterType="int" resultMap="getBoardVoIncludeClobType">
+	<select id="boardListDate" parameterType="map" resultMap="getBoardVoIncludeClobType">
 		SELECT * FROM (
 			SELECT ROWNUM rno, s.* FROM (
 				SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
@@ -42,9 +42,9 @@
 					WHERE bd.category = #{category} and bd.isDelete = 0
 					ORDER BY bd.bDate desc, bd.hit desc
 			) s
-		) WHERE rno BETWEEN 1 and 20
+		) WHERE rno BETWEEN #{startNo} and #{endNo}
 	</select>
-	<select id="boardListHit" parameterType="int" resultMap="getBoardVoIncludeClobType">
+	<select id="boardListHit" parameterType="map" resultMap="getBoardVoIncludeClobType">
 		SELECT * FROM (
 			SELECT ROWNUM rno, s.* FROM (
 				SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
@@ -54,7 +54,13 @@
 					WHERE bd.category = #{category} and bd.isDelete = 0
 					ORDER BY bd.hit desc, bd.bDate desc
 			) s
-		) WHERE rno BETWEEN 1 and 20
+		) WHERE rno BETWEEN #{startNo} and #{endNo}
+	</select>
+	<select id="boardListPagenation" parameterType="int" resultType="int">
+		SELECT COUNT(*) cnt
+			FROM DBOARD bd JOIN DBOOK bk
+			ON bd.bookNo = bk.bookNo
+			WHERE bd.category = #{category} and bd.isDelete = 0
 	</select>
 	
 	<!-- select book info -->
@@ -74,13 +80,21 @@
 				<if test="serial != null">
 					bd.serial = #{serial} AND bd.isDelete = 0 <!-- 시리얼 넘버로 조회 -->
 				</if>
-				<if test="userId != null and bookNo != null and category != null and title != null">
+				<if test="userId != null and bookNo != null and category != null and title != null"> <!-- 쓰기 이후 시리얼 조회를 위함 -->
 					AND bd.userId = #{userId} AND bd.bookNo = #{bookNo} AND bd.category = #{category} AND bd.title = #{title}
 				</if>
 			</where>
 	</select>
 	<update id="boardHitIncrement" parameterType="com.daesungra.domain.BoardVo">
-		UPDATE DBOARD SET hit = hit + 1 WHERE serial = #{serial} AND userId != #{userId}
+		UPDATE DBOARD SET hit = hit + 1
+			<where>
+				<if test="serial != null">
+					serial = #{serial}
+				</if>
+				<if test="userId != null">
+					AND userId != #{userId}
+				</if>
+			</where>
 	</update>
 	
 	<!-- insert -->
@@ -93,5 +107,10 @@
 	<update id="boardUpdate" parameterType="com.daesungra.domain.BoardVo">
 		UPDATE DBOARD SET title = #{title}, content = #{content}
 			WHERE serial = #{serial} AND userId = #{userId} AND isDelete = 0
+	</update>
+	
+	<!-- delete -->
+	<update id="boardDelete" parameterType="com.daesungra.domain.BoardVo">
+		UPDATE DBOARD SET isDelete = 1 WHERE serial = #{serial} AND userId = #{userId}
 	</update>
 </mapper>

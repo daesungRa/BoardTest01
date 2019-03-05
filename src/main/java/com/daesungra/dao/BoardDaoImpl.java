@@ -1,6 +1,7 @@
 package com.daesungra.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -20,19 +21,19 @@ public class BoardDaoImpl implements BoardDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<BoardVo> getBoardListDate (int category) {
+	public List<BoardVo> getBoardListDate (Map<String, Object> pagenatedInputData) {
 		List<BoardVo> listByDate = null;
 		
-		listByDate = sqlSession.selectList("board.boardListDate", category);
+		listByDate = sqlSession.selectList("board.boardListDate", pagenatedInputData);
 		
 		return listByDate;
 	};
 	
 	@Override
-	public List<BoardVo> getBoardListHit (int category) {
+	public List<BoardVo> getBoardListHit (Map<String, Object> pagenatedInputData) {
 		List<BoardVo> listByHit = null;
 		
-		listByHit = sqlSession.selectList("board.boardListHit", category);
+		listByHit = sqlSession.selectList("board.boardListHit", pagenatedInputData);
 		
 		return listByHit;
 	};
@@ -48,43 +49,51 @@ public class BoardDaoImpl implements BoardDao {
 	};
 
 	@Override
-	public BoardVo boardSelect(BoardVo vo) {
+	public BoardVo boardSelect(BoardVo bvo) {
 		BoardVo resultVo = null;
 		
-		resultVo = sqlSession.selectOne("board.selectBoardInfo", vo);
+		resultVo = sqlSession.selectOne("board.selectBoardInfo", bvo);
 		if (resultVo != null) { // 조회 결과가 있을 경우
-			// 현재 조회된 글의 조회수 1 증가
-			sqlSession.update("board.boardHitIncrement", vo);
+			sqlSession.update("board.boardHitIncrement", bvo); // 현재 조회된 글의 조회수 1 증가
 		}		
 		
 		return resultVo;
 	};
 
 	@Override
-	public BoardVo boardInsert(BoardVo vo) {
-		BoardVo bvo = null;
-		int insertResult = sqlSession.insert("board.insertBoardInfo", vo);
-		if (insertResult > 0) { // 글쓰기 성공시 해당 게시글 정보 조회
-			bvo = sqlSession.selectOne("board.selectBoardInfo", vo);
+	public boolean boardInsert(BoardVo bvo) {
+		logger.info("[dao] call board insert action");
+		boolean result = false;
+		int insertResult = sqlSession.insert("board.insertBoardInfo", bvo);
+		if (insertResult > 0) { // 글쓰기 성공시
+			result = true;
 		}
 		
-		return bvo;
+		return result;
 	};
 
 	@Override
-	public BoardVo boardUpdate(BoardVo vo) {
-		BoardVo bvo = null;
-		int updateResult = sqlSession.update("board.boardUpdate", vo);
+	public boolean boardUpdate(BoardVo bvo) {
+		boolean result = false;
+		int updateResult = sqlSession.update("board.boardUpdate", bvo);
 		if (updateResult > 0) {
-			bvo = sqlSession.selectOne("board.selectBoardInfo", vo);
+			result = true;
 		}
 		
-		return bvo;
+		return result;
 	};
 
 	@Override
-	public boolean boardDelete(String serial) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean boardDelete(BoardVo bvo) {
+		boolean result = false;
+		logger.info("[boardDao-delete] 요청 serial, userId : " + bvo.getSerial() + ", " + bvo.getUserId());
+		
+		// set isDelete = 1
+		int resultQuery = sqlSession.update("board.boardDelete", bvo);
+		if (resultQuery > 0) {
+			result = true;
+		}
+		
+		return result;
 	};
 }

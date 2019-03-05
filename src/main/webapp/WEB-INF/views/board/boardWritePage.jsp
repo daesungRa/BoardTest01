@@ -23,6 +23,7 @@
 	<script src='https://code.jquery.com/jquery-1.10.2.js'></script>
 	<script src='https://code.jquery.com/ui/1.10.4/jquery-ui.js'></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+	<script src='/desktop/resources/js/index.js'></script>
 	<script src='/desktop/resources/js/boardWritePage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>

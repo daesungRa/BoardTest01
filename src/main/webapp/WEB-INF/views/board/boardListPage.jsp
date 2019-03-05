@@ -18,6 +18,7 @@
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
+	<script src='/desktop/resources/js/index.js'></script>
 	<script src='/desktop/resources/js/boardListPage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
@@ -121,9 +122,9 @@
 						<c:when test='${fn:length(boardListHit) > 5 }'> <!-- 게시글이 일골 개 이상일 때 -->
 							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 								<div class='container' style='position: relative; height: 90px;'>
-									<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
+									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }</div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor }(${boardListHit[0].pDate }) / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
@@ -140,7 +141,7 @@
 										%>
 										<textarea cols="50" rows='30'><%=content %></textarea>
 										 --%>
-										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
 									</c:if>
 								</div>
 							</div>
@@ -149,9 +150,9 @@
 								
 								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 									<div class='container' style='position: relative; height: 90px;'>
-										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+										<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 										<div style='position: absolute; top: 0; left: 30px;'>
-											<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+											<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
 											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
@@ -161,7 +162,7 @@
 									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
 										<c:if test='${fn:length(bvo.content) > 150 }'>
-											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
 										</c:if>
 									</div>
 								</div>
@@ -184,14 +185,14 @@
 									
 									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 										<div class='container' style='position: relative; height: 90px;'>
-											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
@@ -203,7 +204,7 @@
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
 											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
 											</c:if>
 										</div>
 									</div>
@@ -227,14 +228,14 @@
 									
 									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 										<div class='container' style='position: relative; height: 90px;'>
-											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
@@ -246,7 +247,7 @@
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
 											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
 											</c:if>
 										</div>
 									</div>
@@ -270,14 +271,14 @@
 									
 									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 										<div class='container' style='position: relative; height: 90px;'>
-											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
@@ -289,7 +290,7 @@
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
 											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
 											</c:if>
 										</div>
 									</div>
@@ -313,14 +314,14 @@
 									
 									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 										<div class='container' style='position: relative; height: 90px;'>
-											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
@@ -332,7 +333,7 @@
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
 											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
 											</c:if>
 										</div>
 									</div>
@@ -346,9 +347,9 @@
 						<c:when test='${fn:length(boardListHit) > 2 and fn:length(boardListHit) <= 5 }'> <!-- 게시글이 세 개에서 여섯 개 사이일 때 -->
 							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 								<div class='container' style='position: relative; height: 90px;'>
-									<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
+									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }</div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor }(${boardListHit[0].pDate }) / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
@@ -365,7 +366,7 @@
 										%>
 										<textarea cols="50" rows='30'><%=content %></textarea>
 										 --%>
-										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
 									</c:if>
 								</div>
 							</div>
@@ -374,9 +375,9 @@
 								
 								<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 									<div class='container' style='position: relative; height: 90px;'>
-										<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+										<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 										<div style='position: absolute; top: 0; left: 30px;'>
-											<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+											<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
 											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
@@ -386,7 +387,7 @@
 									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
 										<c:if test='${fn:length(bvo.content) > 150 }'>
-											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
 										</c:if>
 									</div>
 								</div>
@@ -409,14 +410,14 @@
 									
 									<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 										<div class='container' style='position: relative; height: 90px;'>
-											<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+											<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) } ...</div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
@@ -428,7 +429,7 @@
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
 											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
 											</c:if>
 										</div>
 									</div>
@@ -442,9 +443,9 @@
 						<c:when test='${fn:length(boardListHit) == 2 }'> <!-- 게시글이 두 개일 때 -->
 							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 								<div class='container' style='position: relative; height: 90px;'>
-									<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
+									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }</div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor }(${boardListHit[0].pDate }) / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
@@ -461,7 +462,7 @@
 										%>
 										<textarea cols="50" rows='30'><%=content %></textarea>
 										 --%>
-										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
 									</c:if>
 								</div>
 							</div>
@@ -470,9 +471,9 @@
 							
 							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 								<div class='container' style='position: relative; height: 90px;'>
-									<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
+									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
@@ -482,7 +483,7 @@
 								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 									<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
 									<c:if test='${fn:length(bvo.content) > 150 }'>
-										<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
 									</c:if>
 								</div>
 							</div><br/>
@@ -492,9 +493,9 @@
 						<c:when test='${fn:length(boardListHit) == 1 }'> <!-- 게시글이 한 개일 때 -->
 							<div style='height: 280px; background-color: #fff; border-radius: 10px; /* border: 1px solid black; */'>
 								<div class='container' style='position: relative; height: 90px;'>
-									<div style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
+									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }</div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor }(${boardListHit[0].pDate }) / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
@@ -511,7 +512,7 @@
 										%>
 										<textarea cols="50" rows='30'><%=content %></textarea>
 										 --%>
-										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" >...</span></p>
+										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
 									</c:if>
 								</div>
 							</div><br/>
@@ -534,7 +535,7 @@
 				<div id='boardListViewDate'>
 					<div style='position: relative; height: 50px;'>
 						<span id='categoryContent' style='position: absolute; top: 20%; font-size: 12pt;'>
-							<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 게시글 목록 (문학 / 시 / 소설)
+							<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 게시글 목록
 						</span>
 					</div>
 					<div class='row my-board-row' style='border-top: 2px solid black; padding-top: 6px; background-color: #dedede;'>
@@ -553,7 +554,7 @@
 									<div class='col-md-5 my-board-grid-title'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div>
 								</c:when>
 								<c:otherwise>
-									<div class='col-md-5 my-board-grid-title' data-toggle="tooltip" data-placement="right" title="${bvo.title }">${fn:substring(bvo.title, 0, 23) } ...<span style='display: none;'>${bvo.serial }</span></div>
+									<div class='col-md-5 my-board-grid-title' data-toggle="tooltip" data-placement="right" title="${bvo.title }">${fn:substring(bvo.title, 0, 23) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div>
 								</c:otherwise>
 							</c:choose>
 							<div class='col-md-1 my-board-grid'>${bvo.userId }</div>
@@ -562,7 +563,7 @@
 									<div class='col-md-2 my-board-grid-bookTitle' data-toggle="tooltip" data-placement="right" title="[${bvo.title_kor }] / ${bvo.author }">${bvo.title_kor }</div>
 								</c:when>
 								<c:otherwise>
-									<div class='col-md-2 my-board-grid-bookTitle' data-toggle="tooltip" data-placement="right" title="[${bvo.title_kor }] / ${bvo.author }">${fn:substring(bvo.title_kor, 0, 6) } ...</div>
+									<div class='col-md-2 my-board-grid-bookTitle' data-toggle="tooltip" data-placement="right" title="[${bvo.title_kor }] / ${bvo.author }">${fn:substring(bvo.title_kor, 0, 6) }  ... <span style='display: none;'>${bvo.serial }</span></div>
 								</c:otherwise>
 							</c:choose>
 							<div class='col-md-1 my-board-grid'>${bvo.hit }</div>

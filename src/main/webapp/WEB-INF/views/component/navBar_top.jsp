@@ -33,11 +33,11 @@
 						<li class='nav-item dropdown'>
 							<a class='nav-link dropdown-toggle' data-toggle='dropdown' role='button' id='categoryAnc' href='#'>리뷰 카테고리</a>
 							<ul class='dropdown-menu' style='text-align: left;'>
-								<li><a class='dropdown-item' id='category1' href='/desktop/board/boardListPage/1'>인문/사회/정치</a></li>
-								<li><a class='dropdown-item' id='category2' href='/desktop/board/boardListPage/2'>경제/경영</a></li>
-								<li><a class='dropdown-item' id='category3' href='/desktop/board/boardListPage/3'>과학/공학/수학/컴퓨터</a></li>
-								<li><a class='dropdown-item' id='category4' href='/desktop/board/boardListPage/4'>문학/시/소설</a></li>
-								<li><a class='dropdown-item' id='category5' href='/desktop/board/boardListPage/5'>문화/예술/자기계발/라이프</a></li>
+								<li><a class='dropdown-item' id='category1' href='/desktop/board/boardListPage/1/1'>인문/사회/정치</a></li>
+								<li><a class='dropdown-item' id='category2' href='/desktop/board/boardListPage/2/1'>경제/경영</a></li>
+								<li><a class='dropdown-item' id='category3' href='/desktop/board/boardListPage/3/1'>과학/공학/수학/컴퓨터</a></li>
+								<li><a class='dropdown-item' id='category4' href='/desktop/board/boardListPage/4/1'>문학/시/소설</a></li>
+								<li><a class='dropdown-item' id='category5' href='/desktop/board/boardListPage/5/1'>문화/예술/자기계발/라이프</a></li>
 							</ul>
 						</li>
 						<li class='nav-item'><a class='nav-link my-nav-top' id='writerListAnc' href='#writerList'>작가별</a></li>
