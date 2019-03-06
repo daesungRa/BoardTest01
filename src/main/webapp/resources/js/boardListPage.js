@@ -86,17 +86,9 @@ $(function () {
 	// 게시글 리스트 미리보기
 	$('.my-board-grid-title').tooltip();
 	$('.my-board-grid-bookTitle').tooltip();
+	
 	// 검색
-	$('#btnBoardChangeGrp .btnBoardView').click(function () {
-		alert('clicked btnBoardView');
-		// 하단 검색 폼에 nowPage 입력 후 함수 실행
-		$('#boardListSearchForm #nowPage').val($(this).find('span').text());
-		movePage();
-	});
-	$('#boardListSearchForm #btnBoardListSearch').click(function () {
-		alert('clicked btnBoardListSearch');
-		movePage();
-	});
+	funcSearchAndMovePage();
 	
 	// 게시글 뷰 페이지로 이동
 	$('.boardTitlePreview').click(function () {
@@ -122,6 +114,17 @@ $(function () {
 	});
 });
 
+function funcSearchAndMovePage () {
+	$('#btnBoardChangeGrp .btnBoardView').click(function () {
+		// 하단 검색 폼에 nowPage 입력 후 함수 실행
+		$('#boardListSearchForm #nowPage').val($(this).find('span').text());
+		movePage();
+	});
+	$('#boardListSearchForm #btnBoardListSearch').click(function () {
+		alert('clicked btnBoardListSearch');
+		movePage();
+	});
+}
 function movePage () {
 	var params = $('#boardListSearchForm').serialize();
 	$.ajax({
@@ -136,6 +139,8 @@ function movePage () {
 			var searchByContent = $('#boardSearchContainer #searchByContentHidden').text();
 			$('#boardSearchContainer #boardListSearchForm #searchBySort option[value=' + searchBySort + ']').attr('selected', 'selected');
 			$('#boardSearchContainer #boardListSearchForm #searchByContent option[value=' + searchByContent + ']').attr('selected', 'selected');
+			
+			funcSearchAndMovePage();
 		}
 	});
 }

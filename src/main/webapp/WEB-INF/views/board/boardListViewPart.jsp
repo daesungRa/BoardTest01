@@ -63,15 +63,22 @@
 	<div class='container' id='btnBoardChangeGrp' style='height: 46px; font-size: 9pt; text-align: center; margin-top: 30px;'>
 		<c:if test='${pageDto.nowPage >= 2 }'>
 			<span class='btnBoardView'>처음<span style='display: none;'>1</span></span>
-			<span class='btnBoardView'>이전<span style='display: none;'>${pageDto.startPage - 1 }</span></span>
+			<span class='btnBoardView'>이전<span style='display: none;'>${pageDto.nowPage - 1 }</span></span>
 			<span class='btnBoardView' style='color: #8a8a8a'>|</span>
 		</c:if>
 		<c:forEach var='i' begin='${pageDto.startPage }' end='${pageDto.endPage }' step='1'>
-			<span class='btnBoardView'>${i }<span style='display: none;'>${i }</span></span>
+			<c:choose>
+				<c:when test='${pageDto.nowPage == i }'>
+					<span class='btnBoardViewNone'>${i }</span>
+				</c:when>
+				<c:otherwise>
+					<span class='btnBoardView'>${i }<span style='display: none;'>${i }</span></span>
+				</c:otherwise>
+			</c:choose>
 		</c:forEach>
-		<c:if test='${pageDto.nowBlock < pageDto.totBlock }'>
+		<c:if test='${pageDto.nowPage < pageDto.totPage }'>
 			<span class='btnBoardView' style='color: #8a8a8a'>|</span>
-			<span class='btnBoardView'>다음<span style='display: none;'>${pageDto.endPage + 1 }</span></span>
+			<span class='btnBoardView'>다음<span style='display: none;'>${pageDto.nowPage + 1 }</span></span>
 			<span class='btnBoardView'>마지막<span style='display: none;'>${pageDto.totPage }</span></span>
 		</c:if>
 	</div>

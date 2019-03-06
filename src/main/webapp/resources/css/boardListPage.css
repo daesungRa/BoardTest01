@@ -129,6 +129,24 @@
 	color: #787878;
 	cursor: pointer;
 }
+.btnBoardViewNone {
+	font-family: 'Nanum Gothic', sans-serif;
+	/* border: 1px solid black; */
+	padding: 3px 6px 3px 6px;
+	color: #fff;
+	background-color: #797979;
+	cursor: default;
+	border-radius: 10px;
+}
+.btnBoardViewBar {
+	font-family: 'Nanum Gothic', sans-serif;
+	/* border: 1px solid black; */
+	padding: 3px 6px 3px 6px;
+	color: #8a8a8a
+}
+.btnBoardViewBar:hover {
+	cursor: default;
+}
 
 #boardSearchForm {
 	font-family: 'Nanum Gothic', sans-serif;

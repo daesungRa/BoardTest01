@@ -57,7 +57,7 @@
 						<c:when test='${requestScope.category == 2 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 150px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />경제 / 경영</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 128px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
-							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 168px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 178px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 16%; height: 29px;'>
 								<option value='1'>인문/사회/정치</option>
 								<option value='2' selected>경제/경영</option>
@@ -69,7 +69,7 @@
 						<c:when test='${requestScope.category == 3 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 240px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />과학 / 공학 / 수학 / 컴퓨터</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 248px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
-							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 288px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 298px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 24%; height: 29px;'>
 								<option value='1'>인문/사회/정치</option>
 								<option value='2'>경제/경영</option>
@@ -81,7 +81,7 @@
 						<c:when test='${requestScope.category == 4 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 150px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />문학 / 시 / 소설</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 158px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
-							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 198px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 208px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 17%; height: 29px;'>
 								<option value='1'>인문/사회/정치</option>
 								<option value='2'>경제/경영</option>
@@ -93,7 +93,7 @@
 						<c:when test='${requestScope.category == 5 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 310px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />문화 / 예술 / 자기계발 / 라이프</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 280px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
-							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 320px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 330px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 27%; height: 29px;'>
 								<option value='1'>인문/사회/정치</option>
 								<option value='2'>경제/경영</option>
@@ -105,7 +105,7 @@
 						<c:otherwise>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 180px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />인문 / 사회 / 정치</span>
 							<span id='toBoardList'  style='position: absolute; top: 27%; left: 180px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글목록</span>
-							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 220px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
+							<span id='toBoardWritePage'  style='position: absolute; top: 27%; left: 230px; color: #898989; font-size: 6pt; text-align: center; border: 1px solid #898989; border-radius: 10px; padding: 1px 3px 1px 3px;'>글쓰기</span>
 							<select class='form-control' id='changeCategoryInBoardPage' style='position: absolute; top: 20%; right: 0; font-size: 8pt; width: 18%; height: 29px;'>
 								<option value='1' selected>인문/사회/정치</option>
 								<option value='2'>경제/경영</option>
@@ -637,13 +637,20 @@
 						<c:if test='${pageDto.nowPage >= 2 }'>
 							<span class='btnBoardView'>처음<span style='display: none;'>1</span></span>
 							<span class='btnBoardView'>이전<span style='display: none;'>${pageDto.nowPage - 1 }</span></span>
-							<span class='btnBoardView' style='color: #8a8a8a'>|</span>
+							<span class='btnBoardViewBar'>|</span>
 						</c:if>
 						<c:forEach var='i' begin='${pageDto.startPage }' end='${pageDto.endPage }' step='1'>
-							<span class='btnBoardView'>${i }<span style='display: none;'>${i }</span></span>
+							<c:choose>
+								<c:when test='${pageDto.nowPage == i }'>
+									<span class='btnBoardViewNone'>${i }</span>
+								</c:when>
+								<c:otherwise>
+									<span class='btnBoardView'>${i }<span style='display: none;'>${i }</span></span>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
-						<c:if test='${pageDto.nowBlock < pageDto.totBlock }'>
-							<span class='btnBoardView' style='color: #8a8a8a'>|</span>
+						<c:if test='${pageDto.nowPage < pageDto.totPage }'>
+							<span class='btnBoardViewBar'>|</span>
 							<span class='btnBoardView'>다음<span style='display: none;'>${pageDto.nowPage + 1 }</span></span>
 							<span class='btnBoardView'>마지막<span style='display: none;'>${pageDto.totPage }</span></span>
 						</c:if>
