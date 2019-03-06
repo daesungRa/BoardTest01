@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
+import com.daesungra.domain.CommentVo;
 import com.daesungra.domain.PageDto;
 import com.daesungra.service.BoardService;
 
@@ -32,7 +33,7 @@ public class BoardController {
 	private PageDto pageDto;
 	
 	// 게시글 리스트 조회 및 페이징 처리를 위한 변수
-	private int listSize = 5;
+	private int listSize = 20;
 	private int blockSize = 5;
 	private int nowPage = 1;
 	
@@ -91,8 +92,6 @@ public class BoardController {
 		logger.info("searchBySort, searchByContent, searchContent, category, nowPage : "
 				+ searchBySort + ", " + searchByContent + ", " + searchContent + ", " + category + ", " + nowPage);
 		
-		int listSize = 5;
-		int blockSize = 5;
 		pageDto.setPageDtoSearch(listSize, blockSize, nowPage, category, searchContent, searchByContent);
 		pageDto.pageCompute();
 		
@@ -184,7 +183,9 @@ public class BoardController {
 		
 		resultVo = boardService.boardView(insertVo);
 		if (resultVo != null) {
+			List<CommentVo> commentList = boardService.getCommentList(serial);
 			request.setAttribute("boardVo", resultVo);
+			request.setAttribute("commentList", commentList);
 			request.setAttribute("category", resultVo.getCategory());
 		} else {
 			request.setAttribute("category", insertVo.getCategory());

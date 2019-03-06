@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.daesungra.controller.BoardController;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
+import com.daesungra.domain.CommentVo;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -87,4 +88,12 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return result;
 	};
+	
+	@Override
+	public List<CommentVo> getCommentList (int serial) {
+		List<CommentVo> commentList = null;
+		commentList = sqlSession.selectList("comment.getCommentList", serial);
+		
+		return commentList;
+	}
 }

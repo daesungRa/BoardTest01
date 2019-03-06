@@ -699,5 +699,7 @@
 	<!-- Modal -->
     <jsp:include page="/WEB-INF/views/component/modal.jsp"></jsp:include>
 	
+	<script>funcBoardListPage();</script>
+	
 </body>
 </html>

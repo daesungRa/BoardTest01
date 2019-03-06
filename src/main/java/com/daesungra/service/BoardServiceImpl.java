@@ -12,6 +12,7 @@ import com.daesungra.controller.BoardController;
 import com.daesungra.dao.BoardDao;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
+import com.daesungra.domain.CommentVo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -67,5 +68,13 @@ public class BoardServiceImpl implements BoardService {
 		result = boardDao.boardDelete(bvo);
 		
 		return result;
+	}
+	
+	@Override
+	public List<CommentVo> getCommentList (int serial) {
+		List<CommentVo> commentList = null;
+		commentList = boardDao.getCommentList (serial);
+		
+		return commentList;
 	}
 }

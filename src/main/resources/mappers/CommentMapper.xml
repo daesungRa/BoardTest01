@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment">
+
+	<!-- select list -->
+	<select id="getCommentList" parameterType="int" resultType="com.daesungra.domain.CommentVo">
+		SELECT serial, lpad(' ', (indent * 2), ' ') || userId userId, content, gSerial, pSerial, depth, indent, to_char(cDate, 'YYYY') cDate, isDelete, fSerial
+			FROM DBOARD_COMMENT
+			WHERE fSerial = #{_parameter} AND isDelete = 0
+			ORDER BY gSerial asc, depth asc;
+	</select>
+	
+</mapper>

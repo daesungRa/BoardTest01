@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
+import com.daesungra.domain.CommentVo;
 
 public interface BoardDao {
 
@@ -14,4 +15,7 @@ public interface BoardDao {
 	public boolean boardInsert (BoardVo bvo);
 	public boolean boardUpdate (BoardVo bvo);
 	public boolean boardDelete (BoardVo bvo);
+	
+	public List<CommentVo> getCommentList (int serial);
+	
 }

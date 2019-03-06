@@ -3,7 +3,7 @@
  * 작성일: 190218
  * 기능: boardListPage
  */
-$(function () {
+function funcBoardListPage () {
 	// get window size
 	$(window).resize(function () {
 		getWindowSize();
@@ -87,9 +87,6 @@ $(function () {
 	$('.my-board-grid-title').tooltip();
 	$('.my-board-grid-bookTitle').tooltip();
 	
-	// 검색
-	funcSearchAndMovePage();
-	
 	// 게시글 뷰 페이지로 이동
 	$('.boardTitlePreview').click(function () {
 		var serial = $(this).find('span').text();
@@ -112,9 +109,8 @@ $(function () {
 		
 		location.href = requestUrl;
 	});
-});
 
-function funcSearchAndMovePage () {
+	// 검색
 	$('#btnBoardChangeGrp .btnBoardView').click(function () {
 		// 하단 검색 폼에 nowPage 입력 후 함수 실행
 		$('#boardListSearchForm #nowPage').val($(this).find('span').text());
@@ -125,6 +121,7 @@ function funcSearchAndMovePage () {
 		movePage();
 	});
 }
+
 function movePage () {
 	var params = $('#boardListSearchForm').serialize();
 	$.ajax({
@@ -140,7 +137,7 @@ function movePage () {
 			$('#boardSearchContainer #boardListSearchForm #searchBySort option[value=' + searchBySort + ']').attr('selected', 'selected');
 			$('#boardSearchContainer #boardListSearchForm #searchByContent option[value=' + searchByContent + ']').attr('selected', 'selected');
 			
-			funcSearchAndMovePage();
+			funcBoardListPage();
 		}
 	});
 }
