@@ -8,8 +8,7 @@ import com.daesungra.domain.BookVo;
 
 public interface BoardDao {
 
-	public List<BoardVo> getBoardListDate (Map<String, Object> pagenatedInputData);
-	public List<BoardVo> getBoardListHit (Map<String, Object> pagenatedInputData);
+	public List<BoardVo> getBoardList (Map<String, Object> pagenatedInputData);
 	public List<BookVo> getBookInfo (String search);
 	public BoardVo boardSelect (BoardVo bvo);
 	public boolean boardInsert (BoardVo bvo);

@@ -1,5 +1,8 @@
 package com.daesungra.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,11 +12,15 @@ public class PageDto {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	private int category; // db select 파라미터
+	
+	private Map<String, Object> inputData = new HashMap<>(); // db select 파라미터
+	private int category = 1;
+	private String search = "";
+	private int searchByContent = 1; // 1: 제목 + 내용, 2: 제목만, 3: 내용만, 4: 작가별
 
-	private int listSize;
-	private int blockSize;
-	private int nowPage;
+	private int listSize = 10;
+	private int blockSize = 5;
+	private int nowPage = 1;
 	
 	private int totSize;
 	private int totPage;
@@ -32,9 +39,23 @@ public class PageDto {
 		this.category = category;
 	}
 	
+	public void setPageDtoSearch (int listSize, int blockSize, int nowPage, int category, String search, int searchByContent) {
+		this.listSize = listSize;
+		this.blockSize = blockSize;
+		this.nowPage = nowPage;
+		this.category = category;
+		this.search = search;
+		this.searchByContent = searchByContent;
+	}
+	
 	public void pageCompute () {
+		// 쿼리에 입력할 hashMap 세팅
+		this.inputData.put("search", this.search); // 검색어
+		this.inputData.put("category", this.category); // 카테고리
+		this.inputData.put("searchByContent", searchByContent); // 검색 필터 (정렬은 필요없음. 어차피 갯수 totSize 만 반환되기 때문)
+		
 		// 입력된 카테고리 기반으로 totSize 구한 뒤 나머지 요소 구하기
-		this.totSize = sqlSession.selectOne("board.boardListPagenation", this.category);
+		this.totSize = sqlSession.selectOne("board.boardListPagenation", this.inputData);
 		this.totPage = (int) Math.ceil(this.totSize / (double) this.listSize);
 		this.totBlock = (int) Math.ceil(this.totPage / (double) this.blockSize);
 		this.nowBlock = (int) Math.ceil(this.nowPage / (double) this.blockSize);

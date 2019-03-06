@@ -136,16 +136,21 @@
 								</div>
 								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 									<img src='${boardListHit[0].coverImg }' alt="${boardListHit[0].title_kor } img" style='float: left; width: 80px; height: 100px; border-radius: 20px; margin-right: 20px;' />
-									<c:if test='${fn:length(boardListHit[0].content) > 150 }'>
-										<%-- 개행 문자열 치환 ("<br/>" to "\n")
-										<%
-											String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
-											content = content.replaceAll("<br/>", "\n");
-										%>
-										<textarea cols="50" rows='30'><%=content %></textarea>
-										 --%>
-										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
-									</c:if>
+									<c:choose>
+										<c:when test='${fn:length(boardListHit[0].content) > 150 }'>
+											<%-- 개행 문자열 치환 ("<br/>" to "\n")
+											<%
+												String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
+												content = content.replaceAll("<br/>", "\n");
+											%>
+											<textarea cols="50" rows='30'><%=content %></textarea>
+											 --%>
+											<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
+										</c:when>
+										<c:otherwise>
+											<p>${boardListHit[0].content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 							<c:forEach var='bvo' begin='1' end='2' step='1' items='${boardListHit }'>
@@ -164,9 +169,14 @@
 									</div>
 									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-										<c:if test='${fn:length(bvo.content) > 150 }'>
-											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
-										</c:if>
+										<c:choose>
+											<c:when test='${fn:length(bvo.content) > 150 }'>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+											</c:when>
+											<c:otherwise>
+												<p>${bvo.content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</c:forEach>
@@ -206,9 +216,14 @@
 										</div>
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
-											</c:if>
+											<c:choose>
+												<c:when test='${fn:length(bvo.content) > 150 }'>
+													<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:when>
+												<c:otherwise>
+													<p>${bvo.content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 								</c:forEach>
@@ -249,9 +264,14 @@
 										</div>
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
-											</c:if>
+											<c:choose>
+												<c:when test='${fn:length(bvo.content) > 150 }'>
+													<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:when>
+												<c:otherwise>
+													<p>${bvo.content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 								</c:forEach>
@@ -292,9 +312,14 @@
 										</div>
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
-											</c:if>
+											<c:choose>
+												<c:when test='${fn:length(bvo.content) > 150 }'>
+													<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:when>
+												<c:otherwise>
+													<p>${bvo.content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 								</c:forEach>
@@ -335,9 +360,14 @@
 										</div>
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
-											</c:if>
+											<c:choose>
+												<c:when test='${fn:length(bvo.content) > 150 }'>
+													<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:when>
+												<c:otherwise>
+													<p>${bvo.content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 								</c:forEach>
@@ -361,16 +391,21 @@
 								</div>
 								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 									<img src='${boardListHit[0].coverImg }' alt="${boardListHit[0].title_kor } img" style='float: left; width: 80px; height: 100px; border-radius: 20px; margin-right: 20px;' />
-									<c:if test='${fn:length(boardListHit[0].content) > 150 }'>
-										<%-- 개행 문자열 치환 ("<br/>" to "\n")
-										<%
-											String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
-											content = content.replaceAll("<br/>", "\n");
-										%>
-										<textarea cols="50" rows='30'><%=content %></textarea>
-										 --%>
-										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
-									</c:if>
+									<c:choose>
+										<c:when test='${fn:length(boardListHit[0].content) > 150 }'>
+											<%-- 개행 문자열 치환 ("<br/>" to "\n")
+											<%
+												String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
+												content = content.replaceAll("<br/>", "\n");
+											%>
+											<textarea cols="50" rows='30'><%=content %></textarea>
+											 --%>
+											<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
+										</c:when>
+										<c:otherwise>
+											<p>${boardListHit[0].content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 							<c:forEach var='bvo' begin='1' end='2' step='1' items='${boardListHit }'>
@@ -389,9 +424,14 @@
 									</div>
 									<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 										<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-										<c:if test='${fn:length(bvo.content) > 150 }'>
-											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
-										</c:if>
+										<c:choose>
+											<c:when test='${fn:length(bvo.content) > 150 }'>
+												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+											</c:when>
+											<c:otherwise>
+												<p>${bvo.content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</c:forEach>
@@ -431,9 +471,14 @@
 										</div>
 										<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 											<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-											<c:if test='${fn:length(bvo.content) > 150 }'>
-												<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
-											</c:if>
+											<c:choose>
+												<c:when test='${fn:length(bvo.content) > 150 }'>
+													<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:when>
+												<c:otherwise>
+													<p>${bvo.content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 								</c:forEach>
@@ -457,16 +502,21 @@
 								</div>
 								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 									<img src='${boardListHit[0].coverImg }' alt="${boardListHit[0].title_kor } img" style='float: left; width: 80px; height: 100px; border-radius: 20px; margin-right: 20px;' />
-									<c:if test='${fn:length(boardListHit[0].content) > 150 }'>
-										<%-- 개행 문자열 치환 ("<br/>" to "\n")
-										<%
-											String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
-											content = content.replaceAll("<br/>", "\n");
-										%>
-										<textarea cols="50" rows='30'><%=content %></textarea>
-										 --%>
-										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
-									</c:if>
+									<c:choose>
+										<c:when test='${fn:length(boardListHit[0].content) > 150 }'>
+											<%-- 개행 문자열 치환 ("<br/>" to "\n")
+											<%
+												String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
+												content = content.replaceAll("<br/>", "\n");
+											%>
+											<textarea cols="50" rows='30'><%=content %></textarea>
+											 --%>
+											<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
+										</c:when>
+										<c:otherwise>
+											<p>${boardListHit[0].content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 							
@@ -485,9 +535,14 @@
 								</div>
 								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 									<img src='${bvo.coverImg }' alt="${bvo.title_kor } img" style='float: left; width: 80p; height: 100px; margin-right: 20px; border-radius: 20px;' />
-									<c:if test='${fn:length(bvo.content) > 150 }'>
-										<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
-									</c:if>
+									<c:choose>
+										<c:when test='${fn:length(bvo.content) > 150 }'>
+											<p>${fn:substring(bvo.content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+										</c:when>
+										<c:otherwise>
+											<p>${bvo.content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${bvo.serial }</span></span></p>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div><br/>
 							<hr style='border-top: 3px double #8c8b8b;'/>
@@ -507,16 +562,21 @@
 								</div>
 								<div class='container' style='display: inline-block; float: left; padding: 30px 30px 0 30px;'>
 									<img src='${boardListHit[0].coverImg }' alt="${boardListHit[0].title_kor } img" style='float: left; width: 80px; height: 100px; border-radius: 20px; margin-right: 20px;' />
-									<c:if test='${fn:length(boardListHit[0].content) > 150 }'>
-										<%-- 개행 문자열 치환 ("<br/>" to "\n")
-										<%
-											String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
-											content = content.replaceAll("<br/>", "\n");
-										%>
-										<textarea cols="50" rows='30'><%=content %></textarea>
-										 --%>
-										<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
-									</c:if>
+									<c:choose>
+										<c:when test='${fn:length(boardListHit[0].content) > 150 }'>
+											<%-- 개행 문자열 치환 ("<br/>" to "\n")
+											<%
+												String content = ((BoardVo) ((List<BoardVo>) request.getAttribute("boardListHit")).get(0)).getContent();
+												content = content.replaceAll("<br/>", "\n");
+											%>
+											<textarea cols="50" rows='30'><%=content %></textarea>
+											 --%>
+											<p>${fn:substring(boardListHit[0].content, 0, 149) } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
+										</c:when>
+										<c:otherwise>
+											<p>${boardListHit[0].content } <span class='boardViewAncMini' data-toggle="tooltip" data-placement="top" title="글 상세보기" > ... <span style='display: none;'>${boardListHit[0].serial }</span></span></p>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div><br/>
 							<hr style='border-top: 3px double #8c8b8b;'/>
@@ -573,14 +633,14 @@
 							<div class='col-md-2 my-board-grid'>${fn:substring(bvo.bDate, 2, 10) }</div>
 						</div>
 					</c:forEach>
-					<div class='container' style='height: 46px; font-size: 9pt; text-align: center; margin-top: 30px;'>
+					<div class='container' id='btnBoardChangeGrp' style='height: 46px; font-size: 9pt; text-align: center; margin-top: 30px;'>
 						<c:if test='${pageDto.nowPage >= 2 }'>
 							<span class='btnBoardView'>처음<span style='display: none;'>1</span></span>
 							<span class='btnBoardView'>이전<span style='display: none;'>${pageDto.startPage - 1 }</span></span>
 							<span class='btnBoardView' style='color: #8a8a8a'>|</span>
 						</c:if>
 						<c:forEach var='i' begin='${pageDto.startPage }' end='${pageDto.endPage }' step='1'>
-							<span class='btnBoardView'>${i }</span>
+							<span class='btnBoardView'>${i }<span style='display: none;'>${i }</span></span>
 						</c:forEach>
 						<c:if test='${pageDto.nowBlock < pageDto.totBlock }'>
 							<span class='btnBoardView' style='color: #8a8a8a'>|</span>
@@ -588,23 +648,31 @@
 							<span class='btnBoardView'>마지막<span style='display: none;'>${pageDto.totPage }</span></span>
 						</c:if>
 					</div>
-					<div class='container' style='height: 46px; text-align: center; /* border: 1px solid black; */'>
-						<form class='form' id='boardSearchForm' name='boardSearchForm' style='position: relative; display: inline-block; right: 0; width: 70%;'>
-							<select class='form-control' style='display: inline-block; font-size: 8pt; float: left; width: 18%; height: 29px; margin-right: 3px;'>
-								<option selected>최신순</option>
-								<option>오래된순</option>
-								<option>조회순</option>
-								<option>추천순</option>
+					<div class='container' id='boardSearchContainer' style='height: 46px; text-align: center; /* border: 1px solid black; */'>
+						<form class='form' id='boardListSearchForm' name='boardListSearchForm' action='#' style='position: relative; display: inline-block; right: 0; width: 70%;'>
+							<select class='form-control' id='searchBySort' name='searchBySort' style='display: inline-block; font-size: 8pt; float: left; width: 18%; height: 29px; margin-right: 3px;'>
+								<option selected value='1'>최신순</option>
+								<option value='2'>오래된순</option>
+								<option value='3'>조회순</option>
+								<option value='4'>추천순</option>
 							</select>
-							<select class='form-control' style='display: inline-block; font-size: 8pt; float: left; width: 24%; height: 29px;'>
-								<option selected>제목 + 내용</option>
-								<option>제목만</option>
-								<option>내용만</option>
-								<option>작가별</option>
+							<select class='form-control' id='searchByContent' name='searchByContent' style='display: inline-block; font-size: 8pt; float: left; width: 24%; height: 29px;'>
+								<option selected value='1'>제목 + 내용</option>
+								<option value='2'>제목만</option>
+								<option value='3'>내용만</option>
+								<option value='4'>작가별</option>
 							</select>
-							<input class='' type='search' style='display: inline-block; font-size: 8pt; float: left; width: 45%; height: 25px; margin: 3px 0 0 7px;' />
-							<input type='text' id='nowPage' name='nowPage' style='display: none;' />
-							<input type='button' value='검색' style='display: inline-block; font-size: 8pt; float: right; width: 10%; height: 25px; margin-top: 2px;' />
+							<input type='search' name='searchContent' style='display: inline-block; font-size: 8pt; float: left; width: 45%; height: 25px; margin: 3px 0 0 7px;' />
+							<input type='text' name='category' value='${requestScope.category }' style='display: none' />
+							<c:choose>
+								<c:when test='${not empty requestScope.nowPage }'>
+									<input type='text' id='nowPage' name='nowPage' value='${requestScope.nowPage }' style='display: none;' />
+								</c:when>
+								<c:otherwise>
+									<input type='text' id='nowPage' name='nowPage' value='1' style='display: none;' />
+								</c:otherwise>
+							</c:choose>
+							<input id='btnBoardListSearch' type='button' value='검색' style='display: inline-block; font-size: 8pt; float: right; width: 10%; height: 25px; margin-top: 2px;' />
 						</form>
 					</div><br/><br/>
 				</div>

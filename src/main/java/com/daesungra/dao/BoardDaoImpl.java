@@ -21,21 +21,12 @@ public class BoardDaoImpl implements BoardDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<BoardVo> getBoardListDate (Map<String, Object> pagenatedInputData) {
+	public List<BoardVo> getBoardList (Map<String, Object> pagenatedInputData) {
 		List<BoardVo> listByDate = null;
 		
-		listByDate = sqlSession.selectList("board.boardListDate", pagenatedInputData);
+		listByDate = sqlSession.selectList("board.getBoardList", pagenatedInputData);
 		
 		return listByDate;
-	};
-	
-	@Override
-	public List<BoardVo> getBoardListHit (Map<String, Object> pagenatedInputData) {
-		List<BoardVo> listByHit = null;
-		
-		listByHit = sqlSession.selectList("board.boardListHit", pagenatedInputData);
-		
-		return listByHit;
 	};
 	
 	@Override

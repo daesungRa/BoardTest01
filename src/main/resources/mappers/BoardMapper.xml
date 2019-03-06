@@ -29,38 +29,74 @@
 		<result property='country' column='country' />
 		<result property='coverImg' column='coverImg' />
 		<result property='pDate' column='pDate' />
+		<!-- thumbUpCnt -->
+		<result property='thumbUpCnt' column='thumbUpCnt' />
 	</resultMap>
 
 	<!-- select list -->
-	<select id="boardListDate" parameterType="map" resultMap="getBoardVoIncludeClobType">
+	<select id="getBoardList" parameterType="map" resultMap="getBoardVoIncludeClobType">
 		SELECT * FROM (
 			SELECT ROWNUM rno, s.* FROM (
 				SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
-						bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate
+						bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate,
+						(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd2 ON bdt.pSerial bd2.serial WHERE bd2.serial = bd.serial) thumbUpCnt
 					FROM DBOARD bd join DBOOK bk
 					ON bd.bookNo = bk.bookNo
-					WHERE bd.category = #{category} and bd.isDelete = 0
-					ORDER BY bd.bDate desc, bd.hit desc
+					<where>
+						<if test='category != null'>
+							bd.category = #{category} AND bd.isDelete = 0
+						</if>
+						<if test='search != "" and searchByContent == 1'>
+							AND bd.title = #{search} AND bd.content = #{search}
+						</if>
+						<if test='search != "" and searchByContent == 2'>
+							AND bd.title = #{search}
+						</if>
+						<if test='search != "" and searchByContent == 3'>
+							AND bd.content = #{search}
+						</if>
+						<if test='search != "" and searchByContent == 4'>
+							AND bd.userId = #{search}
+						</if>
+					</where>
+					<trim prefix="ORDER BY">
+						<if test='searchBySort == 1'>
+							bd.bDate desc, bd.hit desc, thumbUpCnt desc
+						</if>
+						<if test='searchBySort == 2'>
+							bd.bDate asc, bd.hit desc, thumbUpCnt desc
+						</if>
+						<if test='searchBySort == 3'>
+							bd.hit desc, bd.bDate desc, thumbUpCnt desc
+						</if>
+						<if test='searchBySort == 4'>
+							thumbUpCnt desc, bd.bDate desc, bd.hit desc
+						</if>
+					</trim>
 			) s
 		) WHERE rno BETWEEN #{startNo} and #{endNo}
 	</select>
-	<select id="boardListHit" parameterType="map" resultMap="getBoardVoIncludeClobType">
-		SELECT * FROM (
-			SELECT ROWNUM rno, s.* FROM (
-				SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
-						bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate
-					FROM DBOARD bd join DBOOK bk
-					ON bd.bookNo = bk.bookNo
-					WHERE bd.category = #{category} and bd.isDelete = 0
-					ORDER BY bd.hit desc, bd.bDate desc
-			) s
-		) WHERE rno BETWEEN #{startNo} and #{endNo}
-	</select>
-	<select id="boardListPagenation" parameterType="int" resultType="int">
+	<select id="boardListPagenation" parameterType="map" resultType="int">
 		SELECT COUNT(*) cnt
 			FROM DBOARD bd JOIN DBOOK bk
 			ON bd.bookNo = bk.bookNo
-			WHERE bd.category = #{category} and bd.isDelete = 0
+			<where>
+				<if test='category != null'>
+					bd.category = #{category} AND bd.isDelete = 0
+				</if>
+				<if test='search != "" and searchByContent == 1'>
+					AND bd.title = #{search} AND bd.content = #{search}
+				</if>
+				<if test='search != "" and searchByContent == 2'>
+					AND bd.title = #{search}
+				</if>
+				<if test='search != "" and searchByContent == 3'>
+					AND bd.content = #{search}
+				</if>
+				<if test='search != "" and searchByContent == 4'>
+					AND bd.userId = #{search}
+				</if>
+			</where>
 	</select>
 	
 	<!-- select book info -->

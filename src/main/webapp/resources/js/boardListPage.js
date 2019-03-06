@@ -86,6 +86,16 @@ $(function () {
 	// 게시글 리스트 미리보기
 	$('.my-board-grid-title').tooltip();
 	$('.my-board-grid-bookTitle').tooltip();
+	// 검색
+	$('#btnBoardChangeGrp .btnBoardView').click(function () {
+		// 하단 검색 폼에 nowPage 입력 후 함수 실행
+		$('#boardSearchForm #nowPage').val($(this).find('span').text());
+		movePage();
+	});
+	$('#boardSearchForm #btnBoardListSearch').click(function () {
+		movePage();
+	});
+	
 	// 게시글 뷰 페이지로 이동
 	$('.boardTitlePreview').click(function () {
 		var serial = $(this).find('span').text();
@@ -109,3 +119,8 @@ $(function () {
 		location.href = requestUrl;
 	});
 });
+
+function movePage () {
+	$('#boardSearchContainer #boardListSearchForm').attr('action', '/desktop/board/boardListSearch');
+	$('#boardSearchContainer #boardListSearchForm').submit();
+}

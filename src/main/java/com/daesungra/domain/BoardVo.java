@@ -26,6 +26,9 @@ public class BoardVo {
 	private String coverImg;
 	private String pDate;
 	
+	// thumbUpCnt
+	private int thumbUpCnt;
+	
 	// DBOARD
 	public int getSerial() {
 		return serial;
@@ -154,6 +157,14 @@ public class BoardVo {
 	}
 	public void setpDate(String pDate) {
 		this.pDate = pDate;
+	}
+	
+	// thumbUpCnt
+	public int getThumbUpCnt() {
+		return thumbUpCnt;
+	}
+	public void setThumbUpCnt(int thumbUpCnt) {
+		this.thumbUpCnt = thumbUpCnt;
 	}
 	
 }

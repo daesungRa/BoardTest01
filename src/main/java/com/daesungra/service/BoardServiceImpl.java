@@ -22,15 +22,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao boardDao;
 	
 	@Override
-	public List<BoardVo> getBoardListDate (Map<String, Object> pagenatedInputData) {
-		List<BoardVo> result = boardDao.getBoardListDate(pagenatedInputData);
-		
-		return result;
-	}
-	
-	@Override
-	public List<BoardVo> getBoardListHit (Map<String, Object> pagenatedInputData) {
-		List<BoardVo> result = boardDao.getBoardListHit(pagenatedInputData);
+	public List<BoardVo> getBoardList (Map<String, Object> pagenatedInputData) {
+		List<BoardVo> result = boardDao.getBoardList(pagenatedInputData);
 		
 		return result;
 	}
