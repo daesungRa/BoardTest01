@@ -636,7 +636,7 @@
 					<div class='container' id='btnBoardChangeGrp' style='height: 46px; font-size: 9pt; text-align: center; margin-top: 30px;'>
 						<c:if test='${pageDto.nowPage >= 2 }'>
 							<span class='btnBoardView'>처음<span style='display: none;'>1</span></span>
-							<span class='btnBoardView'>이전<span style='display: none;'>${pageDto.startPage - 1 }</span></span>
+							<span class='btnBoardView'>이전<span style='display: none;'>${pageDto.nowPage - 1 }</span></span>
 							<span class='btnBoardView' style='color: #8a8a8a'>|</span>
 						</c:if>
 						<c:forEach var='i' begin='${pageDto.startPage }' end='${pageDto.endPage }' step='1'>
@@ -644,20 +644,20 @@
 						</c:forEach>
 						<c:if test='${pageDto.nowBlock < pageDto.totBlock }'>
 							<span class='btnBoardView' style='color: #8a8a8a'>|</span>
-							<span class='btnBoardView'>다음<span style='display: none;'>${pageDto.endPage + 1 }</span></span>
+							<span class='btnBoardView'>다음<span style='display: none;'>${pageDto.nowPage + 1 }</span></span>
 							<span class='btnBoardView'>마지막<span style='display: none;'>${pageDto.totPage }</span></span>
 						</c:if>
 					</div>
 					<div class='container' id='boardSearchContainer' style='height: 46px; text-align: center; /* border: 1px solid black; */'>
-						<form class='form' id='boardListSearchForm' name='boardListSearchForm' action='#' style='position: relative; display: inline-block; right: 0; width: 70%;'>
+						<form class='form' id='boardListSearchForm' name='boardListSearchForm' action='#' method='post'  style='position: relative; display: inline-block; right: 0; width: 70%;'>
 							<select class='form-control' id='searchBySort' name='searchBySort' style='display: inline-block; font-size: 8pt; float: left; width: 18%; height: 29px; margin-right: 3px;'>
-								<option selected value='1'>최신순</option>
+								<option value='1' selected="selected">최신순</option>
 								<option value='2'>오래된순</option>
 								<option value='3'>조회순</option>
 								<option value='4'>추천순</option>
 							</select>
 							<select class='form-control' id='searchByContent' name='searchByContent' style='display: inline-block; font-size: 8pt; float: left; width: 24%; height: 29px;'>
-								<option selected value='1'>제목 + 내용</option>
+								<option value='1' selected="selected">제목 + 내용</option>
 								<option value='2'>제목만</option>
 								<option value='3'>내용만</option>
 								<option value='4'>작가별</option>
@@ -665,8 +665,8 @@
 							<input type='search' name='searchContent' style='display: inline-block; font-size: 8pt; float: left; width: 45%; height: 25px; margin: 3px 0 0 7px;' />
 							<input type='text' name='category' value='${requestScope.category }' style='display: none' />
 							<c:choose>
-								<c:when test='${not empty requestScope.nowPage }'>
-									<input type='text' id='nowPage' name='nowPage' value='${requestScope.nowPage }' style='display: none;' />
+								<c:when test='${not empty pageDto.nowPage }'>
+									<input type='text' id='nowPage' name='nowPage' value='${pageDto.nowPage }' style='display: none;' />
 								</c:when>
 								<c:otherwise>
 									<input type='text' id='nowPage' name='nowPage' value='1' style='display: none;' />

@@ -104,7 +104,15 @@ public class BoardController {
 		searchInputData.put("startNo", pageDto.getStartNo());
 		searchInputData.put("endNo", pageDto.getEndNo());
 		
-		return "/board/boardListPage";
+		List<BoardVo> list = boardService.getBoardList(searchInputData); // 정렬결과 리스트
+		logger.info("[getBoardList] 검색 리스트 길이 : " + list.size());
+		
+		request.setAttribute("boardList", list);
+		request.setAttribute("pageDto", pageDto);
+		request.setAttribute("category", category);
+		request.setAttribute("searchInputData", searchInputData);
+		
+		return "/board/boardListViewPart";
 	}
 	
 	// search book info

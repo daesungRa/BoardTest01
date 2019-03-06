@@ -39,7 +39,7 @@
 			SELECT ROWNUM rno, s.* FROM (
 				SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
 						bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate,
-						(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd2 ON bdt.pSerial bd2.serial WHERE bd2.serial = bd.serial) thumbUpCnt
+						(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd2 ON bdt.pSerial = bd2.serial WHERE bd2.serial = bd.serial) thumbUpCnt
 					FROM DBOARD bd join DBOOK bk
 					ON bd.bookNo = bk.bookNo
 					<where>
@@ -47,16 +47,16 @@
 							bd.category = #{category} AND bd.isDelete = 0
 						</if>
 						<if test='search != "" and searchByContent == 1'>
-							AND bd.title = #{search} AND bd.content = #{search}
+							AND bd.title like '%${search}%' AND bd.content like '%${search}%'
 						</if>
 						<if test='search != "" and searchByContent == 2'>
-							AND bd.title = #{search}
+							AND bd.title like '%${search}%'
 						</if>
 						<if test='search != "" and searchByContent == 3'>
-							AND bd.content = #{search}
+							AND bd.content like '%${search}%'
 						</if>
 						<if test='search != "" and searchByContent == 4'>
-							AND bd.userId = #{search}
+							AND bd.userId like '%${search}%'
 						</if>
 					</where>
 					<trim prefix="ORDER BY">
@@ -85,16 +85,16 @@
 					bd.category = #{category} AND bd.isDelete = 0
 				</if>
 				<if test='search != "" and searchByContent == 1'>
-					AND bd.title = #{search} AND bd.content = #{search}
+					AND bd.title like '%${search}%' AND bd.content like '%${search}%'
 				</if>
 				<if test='search != "" and searchByContent == 2'>
-					AND bd.title = #{search}
+					AND bd.title like '%${search}%'
 				</if>
 				<if test='search != "" and searchByContent == 3'>
-					AND bd.content = #{search}
+					AND bd.content like '%${search}%'
 				</if>
 				<if test='search != "" and searchByContent == 4'>
-					AND bd.userId = #{search}
+					AND bd.userId like '%${search}%'
 				</if>
 			</where>
 	</select>

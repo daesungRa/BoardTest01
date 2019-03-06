@@ -65,7 +65,7 @@ public class PageDto {
 		this.endPage = this.nowBlock * this.blockSize;
 		this.startPage = this.endPage - this.blockSize + 1;
 		if (this.endPage > this.totPage) this.endPage = this.totPage;
-		System.out.println("boardPageConpute 완료");
+		System.out.println("boardPageCompute 완료");
 		
 		System.out.println("listSize: " + listSize);
 		System.out.println("blockSize: " + blockSize);

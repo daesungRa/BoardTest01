@@ -44,7 +44,7 @@ $(function () {
 		// var category4 = $(this).children('option:selected').text();
 		
 		var category3 = $(this).children('option:selected').val();
-		var requestUrl = '/desktop/board/boardListPage/' + category3;
+		var requestUrl = '/desktop/board/boardListPage/' + category3 + '/1';
 		
 		location.href = requestUrl;
 	});
@@ -88,11 +88,13 @@ $(function () {
 	$('.my-board-grid-bookTitle').tooltip();
 	// 검색
 	$('#btnBoardChangeGrp .btnBoardView').click(function () {
+		alert('clicked btnBoardView');
 		// 하단 검색 폼에 nowPage 입력 후 함수 실행
-		$('#boardSearchForm #nowPage').val($(this).find('span').text());
+		$('#boardListSearchForm #nowPage').val($(this).find('span').text());
 		movePage();
 	});
-	$('#boardSearchForm #btnBoardListSearch').click(function () {
+	$('#boardListSearchForm #btnBoardListSearch').click(function () {
+		alert('clicked btnBoardListSearch');
 		movePage();
 	});
 	
@@ -121,6 +123,19 @@ $(function () {
 });
 
 function movePage () {
-	$('#boardSearchContainer #boardListSearchForm').attr('action', '/desktop/board/boardListSearch');
-	$('#boardSearchContainer #boardListSearchForm').submit();
+	var params = $('#boardListSearchForm').serialize();
+	$.ajax({
+		type: 'post',
+		url: '/desktop/board/boardListSearch',
+		data: params,
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		dataType: 'html',
+		success: function (data) {
+			$('#boardListViewDate').html(data);
+			var searchBySort = $('#boardSearchContainer #searchBySortHidden').text();
+			var searchByContent = $('#boardSearchContainer #searchByContentHidden').text();
+			$('#boardSearchContainer #boardListSearchForm #searchBySort option[value=' + searchBySort + ']').attr('selected', 'selected');
+			$('#boardSearchContainer #boardListSearchForm #searchByContent option[value=' + searchByContent + ']').attr('selected', 'selected');
+		}
+	});
 }

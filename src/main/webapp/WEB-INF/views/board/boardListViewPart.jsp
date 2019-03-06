@@ -10,6 +10,19 @@
 </head>
 <body>
 
+	<c:if test='${not empty requestScope.boardList }'>
+		<c:set var='boardList' value='${requestScope.boardList }' scope='page'></c:set>
+	</c:if>
+	<c:if test='${not empty requestScope.pageDto }'>
+		<c:set var='pageDto' value='${requestScope.pageDto }' scope='page'></c:set>
+	</c:if>
+	<c:if test='${not empty requestScope.category }'>
+		<c:set var='category' value='${requestScope.category }' scope='page'></c:set>
+	</c:if>
+	<c:if test='${not empty requestScope.searchInputData }'>
+		<c:set var='searchInputData' value='${requestScope.searchInputData }' scope='page'></c:set>
+	</c:if>
+
 	<div style='position: relative; height: 50px;'>
 		<span id='categoryContent' style='position: absolute; top: 20%; font-size: 12pt;'>
 			<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 게시글 목록
@@ -23,7 +36,7 @@
 		<div class='col-md-1 my-board-grid'>조회</div>
 		<div class='col-md-2 my-board-grid'>등록일</div>
 	</div>
-	<c:forEach var="bvo" items="${boardListDate }" >
+	<c:forEach var="bvo" items="${boardList }" >
 		<div class='row my-board-row'>
 			<div class='col-md-1 my-board-grid'>${bvo.serial }</div>
 			<c:choose>
@@ -63,6 +76,8 @@
 		</c:if>
 	</div>
 	<div class='container' id='boardSearchContainer' style='height: 46px; text-align: center; /* border: 1px solid black; */'>
+		<span id='searchBySortHidden' style='display: none;'>${searchInputData.searchBySort }</span>
+		<span id='searchByContentHidden' style='display: none;'>${searchInputData.searchByContent }</span>
 		<form class='form' id='boardListSearchForm' name='boardListSearchForm' action='#' style='position: relative; display: inline-block; right: 0; width: 70%;'>
 			<select class='form-control' id='searchBySort' name='searchBySort' style='display: inline-block; font-size: 8pt; float: left; width: 18%; height: 29px; margin-right: 3px;'>
 				<option selected value='1'>최신순</option>
@@ -76,11 +91,19 @@
 				<option value='3'>내용만</option>
 				<option value='4'>작가별</option>
 			</select>
-			<input type='search' name='searchContent' style='display: inline-block; font-size: 8pt; float: left; width: 45%; height: 25px; margin: 3px 0 0 7px;' />
+			<input type='search' name='searchContent' value='' style='display: inline-block; font-size: 8pt; float: left; width: 45%; height: 25px; margin: 3px 0 0 7px;' />
+			<%-- <c:choose>
+				<c:when test='${not empty pageDto.searchContent }'>
+					<input type='search' name='searchContent' value='${pageDto.searchContent }' style='display: inline-block; font-size: 8pt; float: left; width: 45%; height: 25px; margin: 3px 0 0 7px;' />
+				</c:when>
+				<c:otherwise>
+					<input type='search' name='searchContent' value='' style='display: inline-block; font-size: 8pt; float: left; width: 45%; height: 25px; margin: 3px 0 0 7px;' />
+				</c:otherwise>
+			</c:choose> --%>
 			<input type='text' name='category' value='${requestScope.category }' style='display: none' />
 			<c:choose>
-				<c:when test='${not empty requestScope.nowPage }'>
-					<input type='text' id='nowPage' name='nowPage' value='${requestScope.nowPage }' style='display: none;' />
+				<c:when test='${not empty pageDto.nowPage }'>
+					<input type='text' id='nowPage' name='nowPage' value='${pageDto.nowPage }' style='display: none;' />
 				</c:when>
 				<c:otherwise>
 					<input type='text' id='nowPage' name='nowPage' value='1' style='display: none;' />
