@@ -10,7 +10,7 @@
 		SELECT serial, lpad(' ', (indent * 2), ' ') || userId userId, content, gSerial, pSerial, depth, indent, to_char(cDate, 'YYYY') cDate, isDelete, fSerial
 			FROM DBOARD_COMMENT
 			WHERE fSerial = #{_parameter} AND isDelete = 0
-			ORDER BY gSerial asc, depth asc;
+			ORDER BY gSerial asc, depth asc
 	</select>
 	
 </mapper>
