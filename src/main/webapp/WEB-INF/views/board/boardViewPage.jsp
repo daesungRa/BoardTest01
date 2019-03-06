@@ -27,7 +27,7 @@
 	<script src='/desktop/resources/js/boardViewPage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
-<body>
+<body style='position: relative; height: 100%; padding-bottom: 100px;'>
 
 	<c:choose>
 		<c:when test='${not empty requestScope.boardVo }'>
@@ -36,7 +36,7 @@
 		</c:when>
 		<c:when test='${not empty requestScope.category }'>
 			<c:set var='categoryNum' value='${requestScope.category }' scope="page"></c:set>
-			<script>alert('조회 정보가 없습니다');history.back();</script>
+			<script>alert('조회 정보가 없습니다');location.href = '/desktop/board/boardListPage/' + ${categoryNum} + '/1';</script>
 		</c:when>
 	</c:choose>
 
@@ -191,12 +191,12 @@
 				</div>
 			</div>
 		</div>
-		
-		<!-- include footer -->
-		<footer>
-			<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
-		</footer>
 	</div>
+	
+	<!-- include footer -->
+	<footer>
+		<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
+	</footer>
 	
 	<!-- button for to-top -->
 	<a class='btn btn-secondary my-btn-toTop' href='#'>top</a>

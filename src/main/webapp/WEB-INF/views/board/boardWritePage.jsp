@@ -27,7 +27,7 @@
 	<script src='/desktop/resources/js/boardWritePage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
-<body>
+<body style='position: relative; height: 100%; padding-bottom: 100px;'>
 
 	<c:if test='${not empty requestScope.category }'>
 		<c:set var='categoryNum' value='${requestScope.category }' scope="page"></c:set>
@@ -115,7 +115,7 @@
 						</div>
 						<input class='form-control' id='searchBookInBoardWrite' name='searchBookInfo' type='search' placeholder='책 검색' style='width: 50%; font-weight: bolder;' />
 					</form>
-					<form class='form' id='boardWriteForm' name='boardWriteForm' action='/desktop/board/boardWriteAction' method='post'>
+					<form class='form' id='boardWriteForm' name='boardWriteForm' action='#' method='post'>
 						<input class='form-control' id='bookNo' name='bookNo' type='hidden' value='401' />
 						<input class='form-control' id='category' name='category' type='hidden' value='${categoryNum }' />
 						<input class='form-control' id='title' name='title' type='text' placeholder='제목을 입력하세요' style='margin: 5px 0 5px 0; font-weight: bolder;' />
@@ -129,11 +129,12 @@
 			</div>
 		</div>
 		
-		<!-- include footer -->
-		<footer>
-			<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
-		</footer>
 	</div>
+	
+	<!-- include footer -->
+	<footer>
+		<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
+	</footer>
 	
 	<!-- button for to-top -->
 	<a class='btn btn-secondary my-btn-toTop' href='#'>top</a>

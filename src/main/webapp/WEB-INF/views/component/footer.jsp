@@ -9,7 +9,7 @@
 </head>
 <body class="d-flex flex-column">
 
-	<div id="sticky-footer" class="page-footer py-4 bg-dark text-white-50 my-footer">
+	<div id="sticky-footer" class="page-footer py-4 bg-dark text-white-50 my-footer" style='position: absolute; bottom: 0; width: 100%;'>
 		<div class="container text-center">
 			<small>Copyright &copy; Your Website</small><br/>
 			<small>Copyright &copy; Your Website</small><br/>

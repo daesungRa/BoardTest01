@@ -22,7 +22,7 @@
 	<script src='/desktop/resources/js/boardListPage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
-<body>
+<body style='position: relative; height: 100%; padding-bottom: 100px;'>
 	
 	<c:if test="${not empty requestScope.boardListDate }">
 		<c:set var="boardListDate" value="${requestScope.boardListDate }" scope="page"></c:set>
@@ -43,7 +43,7 @@
 	<jsp:include page="/WEB-INF/views/component/navBar_aside.jsp"></jsp:include>
 	
 	<!-- include content -->
-	<div id='boardContent' style='z-index: 0;'>
+	<div id='boardContent' style='position: relative; z-index: 0; min-height: 100%;'>
 		<button class='btn btn-sm btn-light' id='btnShowNavbar'>&gt;&gt;</button>
 		<!-- top -->
 		<jsp:include page="/WEB-INF/views/component/top.jsp"></jsp:include>
@@ -679,12 +679,12 @@
 			</div>
 		</div>
 		<!-- <div class='container' style='height: 40px;'></div> -->
-	
-		<!-- include footer -->
-		<footer>
-			<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
-		</footer>
 	</div>
+	
+	<!-- include footer -->
+	<footer>
+		<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
+	</footer>
 	
 	<!-- button for to-top -->
 	<a class='btn btn-secondary my-btn-toTop' href='#'>top</a>

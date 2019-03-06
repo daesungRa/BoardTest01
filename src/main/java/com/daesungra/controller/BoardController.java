@@ -149,23 +149,21 @@ public class BoardController {
 	}
 	
 	// write action
+	@ResponseBody
 	@RequestMapping(value="/boardWriteAction", method=RequestMethod.POST)
 	public String boardWriteAction (HttpServletRequest request, @ModelAttribute BoardVo bvo) {
-		BoardVo resultVo = null;
+		String resultStr = "0";
 		boolean result = false;
 		logger.info("call board write action");
 		
 		bvo.setUserId((String) request.getSession().getAttribute("userId")); // 제출할 게시글 정보에 유저아이디 추가
 		result = boardService.boardWrite(bvo); // 게시글 등록 (userId, bookNo, category, title, content)
 		if (result) { // 등록 성공 시
-			resultVo = boardService.boardView(bvo); // 방금 등록한 게시글 정보 조회
-			if (resultVo != null) {
-				request.setAttribute("boardVo", resultVo);
-			}
+			resultStr = "1";
 		}
 		request.setAttribute("category", request.getParameter("category"));
 		
-		return "/board/boardViewPage"; // 작성 후 해당 뷰 페이지로 이동
+		return resultStr; // 작성 후 해당 뷰 페이지로 이동
 	}
 	
 	/*

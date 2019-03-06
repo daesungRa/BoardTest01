@@ -84,7 +84,7 @@ $(function () {
 				success: function (data) {
 					if (data == '1') {
 						var categoryNum = $('#boardViewContainer #saveCategoryNum').text();
-						location.href = '/desktop/board/boardListPage/' + categoryNum;
+						location.href = '/desktop/board/boardListPage/' + categoryNum + '/1';
 					} else if (data == '0') {
 						alert('게시글 삭제에 실패했습니다');
 					}

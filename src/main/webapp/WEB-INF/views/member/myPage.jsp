@@ -99,7 +99,7 @@
 	<script src='/desktop/resources/js/member.js'></script>
 	<script src='/desktop/resources/js/board.js'></script>
 </head>
-<body>
+<body style='position: relative; height: 100%; padding-bottom: 100px;'>
 
 	<c:if test='${not empty requestScope.vo }'>
 		<c:set var='mvo' value='${requestScope.vo }' scope='page' />
@@ -157,12 +157,12 @@
 			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 			
 		</div>
-	
-		<!-- include footer -->
-		<footer>
-			<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
-		</footer>
 	</div>
+	
+	<!-- include footer -->
+	<footer>
+		<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
+	</footer>
 	
 	<!-- button for to-top -->
 	<a class='btn btn-secondary my-btn-toTop' href='#' onclick='funcMovePage("indexTop");'>top</a>

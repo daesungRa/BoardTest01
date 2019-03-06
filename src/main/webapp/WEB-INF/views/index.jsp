@@ -21,7 +21,7 @@
 	<script src='/desktop/resources/js/component.js'></script>
 	<script src='/desktop/resources/js/member.js'></script>
 </head>
-<body>
+<body style='position: relative; height: 100%; padding-bottom: 100px;'>
 
 	<!-- 세션 메시지는 스크립트로 일괄 처리할 것! -->
 	

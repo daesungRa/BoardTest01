@@ -28,7 +28,7 @@ $(function () {
 	// 게시글 카테고리 바꾸기
 	$('#changeCategoryInWritePage').change(function () {
 		var category3 = $(this).children('option:selected').val();
-		var requestUrl = '/desktop/board/boardWritePage/' + category3;
+		var requestUrl = '/desktop/board/boardWritePage/' + category3 + '/1';
 		
 		location.href = requestUrl;
 	});
@@ -92,7 +92,26 @@ $(function () {
 	});
 	// 글쓰기 submit
 	$('#btnBoardWriteSubmit').click(function () {
-		$('#boardWriteForm').submit();
+		alert('글쓰기 실행');
+		var categoryNum = $('#boardList #saveCategoryNum').text();
+		var params = $('#boardWriteForm').serialize();
+		$.ajax({
+			type: 'POST',
+			url: '/desktop/board/boardWriteAction',
+			data: params,
+			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+			dataType: 'html',
+			success: function (data) {
+				location.href = '/desktop/board/boardListPage/' + categoryNum + '/1';
+				if (data == '1') {
+					alert('게시글 등록 완료');
+				} else if (data == '0') {
+					alert('게시글 등록 실패. 입력 정보를 확인하세요');
+				} else {
+					alert('게시글 등록 실패. 관리자에게 문의하세요');
+				}
+			}
+		});
 		
 		// multipart 사용시
 		/*var formData = new FormData($('#boardWriteForm'));
