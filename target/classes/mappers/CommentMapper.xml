@@ -15,4 +15,10 @@
 			ORDER BY cmt.gSerial asc, cmt.depth asc
 	</select>
 	
+	<!-- comment insert -->
+	<insert id="commentInsert" parameterType='com.daesungra.domain.CommentVo'>
+		INSERT INTO DBOARD_COMMENT (SERIAL, FSERIAL, DELFSERIAL, USERID, DELUSERID, ISDELETE, CONTENT, GSERIAL, PSERIAL, DEPTH, INDENT, CDATE)
+			VALUES (SEQ_DBOARDCOMMENT.NEXTVAL, #{fSerial}, #{fSerial}, #{userId}, #{userId}, 0, #{content}, SEQ_DBOARDCOMMENT.CURRVAL, 0, 0, 0, SYSDATE)
+	</insert>
+	
 </mapper>

@@ -77,4 +77,12 @@ public class BoardServiceImpl implements BoardService {
 		
 		return commentList;
 	}
+	
+	@Override
+	public boolean commentWriteAction (CommentVo cvo) {
+		boolean result = false;
+		result = boardDao.commentInsert(cvo);
+		
+		return result;
+	}
 }

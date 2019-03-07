@@ -96,4 +96,15 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return commentList;
 	}
+	
+	@Override
+	public boolean commentInsert (CommentVo cvo) {
+		boolean result = false;
+		int insertResult = sqlSession.insert("comment.commentInsert", cvo);
+		if (insertResult > 0) {
+			
+		}
+		
+		return result;
+	}
 }

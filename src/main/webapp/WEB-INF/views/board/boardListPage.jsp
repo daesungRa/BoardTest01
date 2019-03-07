@@ -37,6 +37,7 @@
 	<!-- 브라우저 크기 확인 (임시) -->
 	<!-- <div id='windowSize' style='width: 180px; border: 1px solid black;'>
 		window size : 
+		
 	</div> -->
 	
 	<!-- include navBar(aside) -->

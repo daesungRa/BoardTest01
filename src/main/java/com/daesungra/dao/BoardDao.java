@@ -17,5 +17,6 @@ public interface BoardDao {
 	public boolean boardDelete (BoardVo bvo);
 	
 	public List<CommentVo> getCommentList (int serial);
+	public boolean commentInsert (CommentVo cvo);
 	
 }

@@ -59,7 +59,7 @@ $(function () {
 			replyList.push($('#commentContainer' + nextSerial + 'reply'));
 			$('#commentContainer' + nextSerial + 'reply').css({"display":"block"});
 			
-			// 다음 답글 버튼이 있는지 확인
+			// 다음 답글 버튼이 있는지 확인 후 보여주기
 			if ($('#commentContainer' + nextSerial + 'reply').find('.showCommentReply') != null) {
 				$('#commentContainer' + nextSerial + 'reply').find('.showCommentReply').trigger('click');
 			}
@@ -85,6 +85,31 @@ $(function () {
 				funcLoginAction();
 			}
 		});
+	});
+	
+	// 댓글 제출
+	$('#btnSubmitCommentMain').click(function () {
+		var categoryNum = $('#boardList #saveCategoryNum').text();
+		var params = $('#commentForm').serialize();
+		$.ajax({
+			type: 'post',
+			url: '/desktop/board/commentWriteAction',
+			data: params,
+			dataType: 'html',
+			success: function (data) {
+				var boardSerial = data; // 게시글의 시리얼이 반환됨
+				
+				if (boardSerial != -1) {
+					location.href = '/desktop/board/boardViewPage/' + boardSerial + "/" + categoryNum; // view 페이지 요청
+					alert('요청 serial, category : ' + boardSerial + ", " + categoryNum);
+				} else {
+					alert('댓글 작성 실패');
+				}
+			}
+		});
+		
+		
+		$('#commentForm').submit();
 	});
 	
 	/*

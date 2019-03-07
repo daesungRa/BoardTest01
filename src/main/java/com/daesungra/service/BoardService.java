@@ -17,5 +17,6 @@ public interface BoardService {
 	public boolean boardRemove (BoardVo bvo);
 	
 	public List<CommentVo> getCommentList (int serial);
+	public boolean commentWriteAction (CommentVo cvo);
 	
 }

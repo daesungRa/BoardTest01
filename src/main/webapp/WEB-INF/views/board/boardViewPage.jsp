@@ -244,19 +244,22 @@
 							<hr/>
 						</div>
 					</c:if>
-					<form class='form' id='commentForm' name='commentForm' action='' method='post'>
+					<form class='form' id='commentForm' name='commentForm' action='#' method='post'>
 						<div class='form-group'>
 							<c:choose>
 								<c:when test='${not empty sessionScope.userId and not empty sessionScope.userName }'>
 									<label for='' style='margin-bottom: 15px;'>댓글 쓰기</label>
-									<textarea class='form-control' id='' rows='5' placeholder='댓글 내용을 입력하세요' style='font-size: 10pt;'></textarea><br/>
+									<textarea class='form-control' id='content' name='content' rows='5' placeholder='댓글 내용을 입력하세요' style='font-size: 10pt;'></textarea><br/>
 									<span id='btnSubmitCommentMain'>제출</span>
 								</c:when>
 								<c:otherwise>
 									<label for='' style='margin-bottom: 15px;'>댓글 쓰기</label><span id='btnLoginInComment'>&nbsp;&nbsp;&nbsp;로그인</span>
-									<textarea class='form-control' id='' rows='5' placeholder='댓글을 작성하려면 로그인 후 이용하세요' style='font-size: 10pt;' readonly></textarea>
+									<textarea class='form-control' id='' name='' rows='5' placeholder='댓글을 작성하려면 로그인 후 이용하세요' style='font-size: 10pt;' readonly></textarea>
 								</c:otherwise>
 							</c:choose>
+						</div>
+						<div class='form-group' id='commentExtraInfo'>
+							<input type='hidden' id='fSerial' name='fSerial' value='${bvo.serial }' />
 						</div>
 					</form>
 				</div>
