@@ -116,7 +116,7 @@
 						<input class='form-control' id='searchBookInBoardWrite' name='searchBookInfo' type='search' placeholder='책 검색' style='width: 50%; font-weight: bolder;' />
 					</form>
 					<form class='form' id='boardWriteForm' name='boardWriteForm' action='#' method='post'>
-						<input class='form-control' id='bookNo' name='bookNo' type='hidden' value='401' />
+						<input class='form-control' id='bookNo' name='bookNo' type='hidden' value='0000' />
 						<input class='form-control' id='category' name='category' type='hidden' value='${categoryNum }' />
 						<input class='form-control' id='title' name='title' type='text' placeholder='제목을 입력하세요' style='margin: 5px 0 5px 0; font-weight: bolder;' />
 						<textarea class='form-control' id='summernote' name='content' placeholder='내용을 입력하세요'></textarea>

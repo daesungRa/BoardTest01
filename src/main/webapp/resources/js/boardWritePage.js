@@ -66,10 +66,12 @@ $(function () {
 				dataType: 'json',
 				data: {searchBookInfo : request.term},
 				success: function (data) {
+					// alert(data);
 					response($.map (data, function (item) {
 						return {
-							label: item.title_kor,
-							value: item.bookNo
+							label: item.title_eng+ "(" + item.pDate + ")",
+							value: item.title_eng+ "(" + item.pDate + ")",
+							data: item.bookNo
 						}
 					}));
 				},
@@ -79,8 +81,12 @@ $(function () {
 		minLength: 2,
 		matchContains: true,
 		autoFocus: true,
+		focus: function (event, ui) {
+			event.preventDefault();
+		},
 		select: function (event, ui) {
-			
+			$('#boardWriteForm #bookNo').val(ui.item.data);
+			alert('bookNo 세팅 완료');
 		}
 	});
 	// 글쓰기 폼 (summernote)

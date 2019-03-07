@@ -120,7 +120,7 @@ public class BoardController {
 	public String searchBookInfo (HttpServletRequest request) {
 		StringBuffer jsonResult = new StringBuffer();
 		String search = request.getParameter("searchBookInfo");
-		logger.info("search book info :" + request.getParameter("searchBookInfo"));
+		logger.info("search book info :" + search);
 		
 		List<BookVo> bookList = boardService.getBookInfo(search);
 		if (bookList != null && bookList.size() > 0) { // 검색된 vo 객체만큼 json 타입 문자열 생성
@@ -184,6 +184,7 @@ public class BoardController {
 		resultVo = boardService.boardView(insertVo);
 		if (resultVo != null) {
 			List<CommentVo> commentList = boardService.getCommentList(serial);
+			logger.info("[boardview] comment list size : " + commentList.size());
 			request.setAttribute("boardVo", resultVo);
 			request.setAttribute("commentList", commentList);
 			request.setAttribute("category", resultVo.getCategory());

@@ -137,7 +137,15 @@ function movePage () {
 			$('#boardSearchContainer #boardListSearchForm #searchBySort option[value=' + searchBySort + ']').attr('selected', 'selected');
 			$('#boardSearchContainer #boardListSearchForm #searchByContent option[value=' + searchByContent + ']').attr('selected', 'selected');
 			
-			funcBoardListPage();
+			$('#btnBoardChangeGrp .btnBoardView').click(function () {
+				// 하단 검색 폼에 nowPage 입력 후 함수 실행
+				$('#boardListSearchForm #nowPage').val($(this).find('span').text());
+				movePage();
+			});
+			$('#boardListSearchForm #btnBoardListSearch').click(function () {
+				alert('clicked btnBoardListSearch');
+				movePage();
+			});
 		}
 	});
 }

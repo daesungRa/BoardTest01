@@ -82,17 +82,24 @@ public class BookVo {
 	}
 
 	public String toJson() {
-		String jsonResult = String.format("{bookNo:\"%s\", "
-											+ "title_kor:\"%s\", "
-											+ "title_eng:\"%s\", "
-											+ "introduce:\"%s\", "
-											+ "author:\"%s\", "
-											+ "category:\"%d\", "
-											+ "publisher:\"%s\", "
-											+ "country:\"%s\", "
-											+ "coverImg:\"%s\", "
-											+ "pDate:\"%s\", "
-											+ "isPermitted:\"%d\"}", bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, pDate, isPermitted);
+		/*String jsonResult = String.format("{\"bookNo\":\"%s\", "
+											+ "'title_kor':\"%s\", "
+											+ "'title_eng':\"%s\", "
+											+ "'introduce':\"%s\", "
+											+ "'author':\"%s\", "
+											+ "'category':\"%d\", "
+											+ "'publisher':\"%s\", "
+											+ "'country':\"%s\", "
+											+ "'coverImg':\"%s\", "
+											+ "'pDate':\"%s\", "
+											+ "\"isPermitted\":\"%d\"}", bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, pDate, isPermitted);*/
+		
+		String jsonResult = String.format("{\"title_kor\":\"%s\", "
+											+ "\"bookNo\":\"%s\", "
+											+ "\"title_eng\":\"%s\", "
+											+ "\"category\":\"%d\", "
+											+ "\"coverImg\":\"%s\", "
+											+ "\"pDate\":\"%s\"}", title_kor, bookNo, title_eng, category, coverImg, pDate);
 		return jsonResult;
 		
 		/*"{'bookNo':'" + bookNo + "', 'title_kor':'" + title_kor + "', 'title_eng':'" + title_eng + "', 'introduce':'"

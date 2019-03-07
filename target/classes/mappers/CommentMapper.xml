@@ -7,10 +7,12 @@
 
 	<!-- select list -->
 	<select id="getCommentList" parameterType="int" resultType="com.daesungra.domain.CommentVo">
-		SELECT serial, lpad(' ', (indent * 2), ' ') || userId userId, content, gSerial, pSerial, depth, indent, to_char(cDate, 'YYYY') cDate, isDelete, fSerial
-			FROM DBOARD_COMMENT
-			WHERE fSerial = #{_parameter} AND isDelete = 0
-			ORDER BY gSerial asc, depth asc
+		SELECT cmt.serial serial,cmt.userId userId, cmt.content content, cmt.gSerial gSerial, cmt.pSerial pSerial, cmt.depth depth, cmt.indent indent, to_char(cmt.cDate, 'YY.MM.DD HH24:MI:SS') cDate, cmt.isDelete isDelete, cmt.fSerial fSerial,
+				mem.photo photo
+			FROM DBOARD_COMMENT cmt JOIN DMEMBER mem
+			ON cmt.userId = mem.userId
+			WHERE cmt.fSerial = #{_parameter} AND cmt.isDelete = 0
+			ORDER BY cmt.gSerial asc, cmt.depth asc
 	</select>
 	
 </mapper>

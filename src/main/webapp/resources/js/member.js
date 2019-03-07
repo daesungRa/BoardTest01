@@ -44,7 +44,11 @@ function funcLoginAction () {
 			function (data, status){
 				var result = data;
 				if (result == '1') {
-					location.href = '/desktop';
+					if ($('#boardViewContainer') != null &&  $('#boardCommentContent') != null) {
+						location.reload();
+					} else {
+						location.href = '/desktop';
+					}
 				} else if (result == '0') {
 					alert('아이디나 암호를 확인해주세요.');
 					userPwd.val('');

@@ -4,6 +4,8 @@
  * 기능: boardViewPage
  */
 $(function () {
+	var replyList = new Array();
+	
 	/*
 	 * component
 	 */
@@ -31,7 +33,7 @@ $(function () {
 	// 게시글 카테고리 바꾸기
 	$('#changeCategoryInWritePage').change(function () {
 		var category3 = $(this).children('option:selected').val();
-		var requestUrl = '/desktop/board/boardListPage/' + category3;
+		var requestUrl = '/desktop/board/boardListPage/' + category3 + '/1';
 		
 		location.href = requestUrl;
 	});
@@ -39,6 +41,51 @@ $(function () {
 	$('#rightSideComponent #iconComment').tooltip();
 	$('#rightSideComponent #iconThumbUpDown').tooltip();
 	$('#rightSideComponent #iconSettings').tooltip();
+	
+	// 댓글 부분으로 이동
+	$('#rightSideComponent #iconComment').click(function () {
+		funcMovePage('boardCommentContent');
+	});
+	
+	// 댓글에 대한 답글 보기
+	$('#listOfComment .showCommentReply').click(function () {
+		if ($(this).text().substring(0, 5) == '답글 보기'){
+			// 다음번 시리얼 구하기
+			var nextSerial = $(this).find('span').text();
+			// 버튼 텍스트 변경
+			$(this).text('닫기');
+			
+			// 다음번 시리얼 태그 객체정보를 배열에 저장 후 보여주기
+			replyList.push($('#commentContainer' + nextSerial + 'reply'));
+			$('#commentContainer' + nextSerial + 'reply').css({"display":"block"});
+			
+			// 다음 답글 버튼이 있는지 확인
+			if ($('#commentContainer' + nextSerial + 'reply').find('.showCommentReply') != null) {
+				$('#commentContainer' + nextSerial + 'reply').find('.showCommentReply').trigger('click');
+			}
+		} else if ($(this).text().substring(0, 2) == '닫기') {
+			$(this).text('답글 보기');
+			for (var i = 0; i < replyList.length; i++) {
+				replyList[i].css({"display":"none"});
+			}
+			replyList = new Array();
+		}
+	});
+	
+	// 댓글 로그인
+	$('#btnLoginInComment').click(function () {
+		$.ajax({
+			type: 'get',
+			url: '/desktop/member/loginForm',
+			dataType: 'html',
+			success: function (html, status) {
+				$('#innerModalContent').html(html);
+				$('#btnShowModal').trigger('click');
+				
+				funcLoginAction();
+			}
+		});
+	});
 	
 	/*
 	 * modify 페이지로 변경

@@ -62,7 +62,6 @@ $(function () {
 			url: '/desktop/member/loginForm',
 			dataType: 'html',
 			success: function (html, status) {
-				
 				innerModalContent.innerHTML = html;
 				$('#btnShowModal').trigger('click');
 				// modalWindow.style.display = 'block';

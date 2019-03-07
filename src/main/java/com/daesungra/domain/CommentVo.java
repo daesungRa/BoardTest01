@@ -15,6 +15,9 @@ public class CommentVo {
 	private int indent;
 	private String cDate;
 	
+	// member profile img
+	private String photo;
+	
 	public int getSerial() {
 		return serial;
 	}
@@ -86,6 +89,14 @@ public class CommentVo {
 	}
 	public void setcDate(String cDate) {
 		this.cDate = cDate;
+	}
+	
+	// member
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	
 }
