@@ -3,7 +3,8 @@
  * 작성일: 190304
  * 기능: boardViewPage
  */
-$(function () {
+$(function () {	
+	// [답글 보기] 종속된 답글 객체들 저장
 	var replyList = new Array();
 	
 	/*
@@ -47,14 +48,32 @@ $(function () {
 		funcMovePage('boardCommentContent');
 	});
 	
-	// 댓글에 대한 답글 보기
-	$('#listOfComment .showCommentReply').click(function () {
-		if ($(this).text().substring(0, 5) == '답글 보기'){
-			// 다음번 시리얼 구하기
-			var nextSerial = $(this).find('span').text();
-			// 버튼 텍스트 변경
+	// 댓글에 대한 답글 쓰기
+	$('#listOfComment .writeCommentReply').click(function () {
+		if ($(this).text() == '답글 쓰기') {
+			// 현재 시리얼 구하기
+			var nowSerial = $(this).parent().children('.serialWithWriteCommentReply').text();
+			//alert('nowSerial : ' + nowSerial);
 			$(this).text('닫기');
 			
+			$('#listOfComment #commentReplyForm' + nowSerial).css({"display":"block"});
+		} else if ($(this).text() == '닫기') {
+			// 현재 시리얼 구하기
+			var nowSerial = $(this).parent().children('.serialWithWriteCommentReply').text();
+			//alert('nowSerial : ' + nowSerial);
+			$(this).text('답글 쓰기');
+			
+			$('#listOfComment #commentReplyForm' + nowSerial).css({"display":"none"});
+		}
+	});
+	
+	// 댓글에 대한 답글 보기
+	$('#listOfComment .showCommentReply').click(function () {
+		var nextSerial = $(this).parent().children('.serialWithShowCommentReply').text();
+		
+		if ($(this).text().substring(0, 5) == '답글 보기') {
+			$(this).text('닫기');
+
 			// 다음번 시리얼 태그 객체정보를 배열에 저장 후 보여주기
 			replyList.push($('#commentContainer' + nextSerial + 'reply'));
 			$('#commentContainer' + nextSerial + 'reply').css({"display":"block"});
@@ -65,6 +84,7 @@ $(function () {
 			}
 		} else if ($(this).text().substring(0, 2) == '닫기') {
 			$(this).text('답글 보기');
+
 			for (var i = 0; i < replyList.length; i++) {
 				replyList[i].css({"display":"none"});
 			}
@@ -89,27 +109,26 @@ $(function () {
 	
 	// 댓글 제출
 	$('#btnSubmitCommentMain').click(function () {
-		var categoryNum = $('#boardList #saveCategoryNum').text();
+		var categoryNum = $('#boardViewContainer #saveCategoryNum').text();
 		var params = $('#commentForm').serialize();
 		$.ajax({
-			type: 'post',
+			type: 'POST',
 			url: '/desktop/board/commentWriteAction',
 			data: params,
+			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			dataType: 'html',
 			success: function (data) {
 				var boardSerial = data; // 게시글의 시리얼이 반환됨
 				
-				if (boardSerial != -1) {
-					location.href = '/desktop/board/boardViewPage/' + boardSerial + "/" + categoryNum; // view 페이지 요청
-					alert('요청 serial, category : ' + boardSerial + ", " + categoryNum);
+				if (boardSerial != "") {
+					location.reload();
+					// location.href = '/desktop/board/boardViewPage/' + boardSerial + "/" + categoryNum; // view 페이지 요청
+					// alert('요청 serial, category : ' + boardSerial + ", " + categoryNum);
 				} else {
 					alert('댓글 작성 실패');
 				}
 			}
 		});
-		
-		
-		$('#commentForm').submit();
 	});
 	
 	/*

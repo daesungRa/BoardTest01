@@ -102,7 +102,8 @@ public class BoardDaoImpl implements BoardDao {
 		boolean result = false;
 		int insertResult = sqlSession.insert("comment.commentInsert", cvo);
 		if (insertResult > 0) {
-			
+			logger.info("[comment write dao] 성공!");
+			result = true;
 		}
 		
 		return result;

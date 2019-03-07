@@ -241,8 +241,8 @@ public class BoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="/commentWriteAction", method=RequestMethod.POST)
-	public int commentWriteAction (HttpServletRequest request, @ModelAttribute CommentVo cvo) {
-		int boardSerial = -1;
+	public String commentWriteAction (HttpServletRequest request, @ModelAttribute CommentVo cvo) {
+		String boardSerial = "";
 		boolean writeResult = false;
 		logger.info("[comment write] 요청 fSerial : " + cvo.getfSerial());
 		
@@ -250,10 +250,10 @@ public class BoardController {
 			cvo.setUserId((String) request.getSession().getAttribute("userId")); 
 			writeResult = boardService.commentWriteAction(cvo);
 			if (writeResult) { // 댓글 입력 성공시 참조하는 게시글의 시리얼을 반환하여 ajax 방식으로 해당 게시글의 view 페이지를 재호춣하도록 함
-				boardSerial = cvo.getfSerial();
+				boardSerial = String.valueOf(cvo.getfSerial());
+				logger.info("[comment write] 댓글 쓰기 성공 (" + boardSerial + ")");
 			}
 		}
-		
 		
 		return boardSerial;
 	}

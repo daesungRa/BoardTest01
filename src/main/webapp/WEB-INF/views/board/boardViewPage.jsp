@@ -176,10 +176,28 @@
 				<hr style='border: 1px solid #dedede;'/>
 				
 				<div class='container' id='boardCommentContent' style='width: 80%; padding: 30px 0 60px 0;'>
+					<form class='form' id='commentForm' name='commentForm' action='#commentWriteAction' method='post'>
+						<div class='form-group'>
+							<c:choose>
+								<c:when test='${not empty sessionScope.userId and not empty sessionScope.userName }'>
+									<label for='' style='margin-bottom: 15px;'>댓글 쓰기</label>
+									<textarea class='form-control' id='content' name='content' rows='5' placeholder='댓글 내용을 입력하세요' style='font-size: 10pt;'></textarea><br/>
+									<span id='btnSubmitCommentMain'>제출</span>
+								</c:when>
+								<c:otherwise>
+									<label for='' style='margin-bottom: 15px;'>댓글 쓰기</label><span id='btnLoginInComment'>&nbsp;&nbsp;&nbsp;로그인</span>
+									<textarea class='form-control' id='' name='' rows='5' placeholder='댓글을 작성하려면 로그인 후 이용하세요' style='font-size: 10pt;' readonly></textarea>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class='form-group' id='commentExtraInfo'>
+							<input type='hidden' id='fSerial' name='fSerial' value='${bvo.serial }' />
+						</div>
+					</form><br/>
 					<c:if test='${not empty requestScope.commentList }'>
-						<span>&nbsp;&nbsp;&nbsp;댓글&nbsp;&nbsp;<span style=''>${fn:length(commentList) }</span></span>
+						<span>&nbsp;&nbsp;&nbsp;댓글 목록&nbsp;&nbsp;<span style=''>${fn:length(commentList) }</span></span>
 						<div class='container' id='listOfComment' style='margin-bottom: 40px;'>
-							<hr/>
+							<hr style='border-top: 1px solid #9a9a9a;'/>
 							<c:forEach var='i' begin='0' end='${fn:length(commentList) - 1 }' step='1'>
 								<c:choose>
 									<c:when test='${commentList[i].indent == 0 }'>
@@ -193,11 +211,32 @@
 											</div><br/>
 											<div class='container'>
 												<span style='color: #787878; font-size: 11pt;'>${commentList[i].content }</span><br/><br/>
+												<span class='serialWithWriteCommentReply' style='display: none;'>${commentList[i].serial }</span>
 												&nbsp;&nbsp;<span class='writeCommentReply'>답글 쓰기</span>
 												<c:if test='${commentList[i + 1].indent > 0 }'>
-													&nbsp;&nbsp;&nbsp;<span class='showCommentReply'>답글 보기<span style='display: none;'>${commentList[i + 1].serial }</span></span>
+													<span class='serialWithShowCommentReply' style='display: none;'>${commentList[i + 1].serial }</span>
+													&nbsp;&nbsp;&nbsp;<span class='showCommentReply'>답글 보기</span>
 												</c:if>
 											</div>
+										</div>
+										<div class='container' id='commentReplyForm${commentList[i].serial }' style='display: none;'>
+											<form class='form my-commentReplyForm' name='commentReplyForm' action='#commentWriteAction' method='post'>
+												<div class='form-group'>
+													<c:choose>
+														<c:when test='${not empty sessionScope.userId and not empty sessionScope.userName }'>
+															<hr/>
+															<label for='' style='font-size: 9pt; margin-bottom: 15px;'>&nbsp;&nbsp;&nbsp;&nbsp;댓글 쓰기</label>
+															<textarea class='form-control' id='' rows='5' placeholder='댓글 내용을 입력하세요' style='font-size: 10pt;'></textarea><br/>
+															<span id='btnSubmitCommentMain'>제출</span>
+														</c:when>
+														<c:otherwise>
+															<hr/>
+															<label for='' style='font-size: 9pt; margin-bottom: 15px;'>&nbsp;&nbsp;&nbsp;&nbsp;댓글 쓰기</label>
+															<textarea class='form-control' id='' rows='5' placeholder='댓글을 작성하려면 로그인 후 이용하세요' style='font-size: 10pt;' readonly></textarea>
+														</c:otherwise>
+													</c:choose>
+												</div>
+											</form>
 										</div>
 									</c:when>
 									<c:when test='${commentList[i].indent > 0 }'>
@@ -213,12 +252,13 @@
 											<div class='container' style='position: relative;'>
 												<span style='position: absolute; left: 60px; color: #787878; font-size: 11pt;'>${commentList[i].content }</span><br/><br/>
 												<c:if test='${commentList[i + 1].indent > 0 }'>
-													&nbsp;&nbsp;&nbsp;<span class='showCommentReply' hidden='hidden'>답글 보기<span style='position: absolute; left: 60px; display: none;'>${commentList[i + 1].serial }</span></span>
+													<span class='serialWithShowCommentReply' style='display: none;'>${commentList[i + 1].serial }</span>
+													&nbsp;&nbsp;&nbsp;<span class='showCommentReply' hidden='hidden'>답글 보기</span>
 												</c:if>
 											</div>
 										</div>
 										<%-- <c:if test='${commentList[i + 1].indent == 0 }'>
-											<div  class='container' id='commentReplyForm${commentList[i].serial }'>
+											<div class='container' id='commentReplyForm${commentList[i].serial }'>
 												<form class='form my-commentReplyForm' name='commentReplyForm' action='' method='post' style='width: 80%; display: block;'>
 													<div class='form-group'>
 														<c:choose>
@@ -244,24 +284,6 @@
 							<hr/>
 						</div>
 					</c:if>
-					<form class='form' id='commentForm' name='commentForm' action='#' method='post'>
-						<div class='form-group'>
-							<c:choose>
-								<c:when test='${not empty sessionScope.userId and not empty sessionScope.userName }'>
-									<label for='' style='margin-bottom: 15px;'>댓글 쓰기</label>
-									<textarea class='form-control' id='content' name='content' rows='5' placeholder='댓글 내용을 입력하세요' style='font-size: 10pt;'></textarea><br/>
-									<span id='btnSubmitCommentMain'>제출</span>
-								</c:when>
-								<c:otherwise>
-									<label for='' style='margin-bottom: 15px;'>댓글 쓰기</label><span id='btnLoginInComment'>&nbsp;&nbsp;&nbsp;로그인</span>
-									<textarea class='form-control' id='' name='' rows='5' placeholder='댓글을 작성하려면 로그인 후 이용하세요' style='font-size: 10pt;' readonly></textarea>
-								</c:otherwise>
-							</c:choose>
-						</div>
-						<div class='form-group' id='commentExtraInfo'>
-							<input type='hidden' id='fSerial' name='fSerial' value='${bvo.serial }' />
-						</div>
-					</form>
 				</div>
 			</div>
 		</div>
