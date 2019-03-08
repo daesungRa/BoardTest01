@@ -227,7 +227,7 @@
 															<hr/>
 															<label for='' style='font-size: 9pt; margin-bottom: 15px;'>&nbsp;&nbsp;&nbsp;&nbsp;댓글 쓰기</label>
 															<textarea class='form-control' id='' rows='5' placeholder='댓글 내용을 입력하세요' style='font-size: 10pt;'></textarea><br/>
-															<span id='btnSubmitCommentMain'>제출</span>
+															<span class='btnSubmitCommentSub'>제출</span>
 														</c:when>
 														<c:otherwise>
 															<hr/>
@@ -235,6 +235,9 @@
 															<textarea class='form-control' id='' rows='5' placeholder='댓글을 작성하려면 로그인 후 이용하세요' style='font-size: 10pt;' readonly></textarea>
 														</c:otherwise>
 													</c:choose>
+												</div>
+												<div class='form-group' id='subCommentExtraInfo'>
+													<input type='hidden' id='fSerial' name='fSerial' value='${bvo.serial }' />
 												</div>
 											</form>
 										</div>

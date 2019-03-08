@@ -183,8 +183,11 @@ public class BoardController {
 		
 		resultVo = boardService.boardView(insertVo);
 		if (resultVo != null) {
+			// 조회 성공 시 해당하는 댓글 불러오기
 			List<CommentVo> commentList = boardService.getCommentList(serial);
 			logger.info("[boardview] comment list size : " + commentList.size());
+			
+			// 조회 결과 세팅
 			request.setAttribute("boardVo", resultVo);
 			request.setAttribute("commentList", commentList);
 			request.setAttribute("category", resultVo.getCategory());

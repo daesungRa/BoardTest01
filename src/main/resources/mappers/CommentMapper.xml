@@ -7,12 +7,16 @@
 
 	<!-- select list -->
 	<select id="getCommentList" parameterType="int" resultType="com.daesungra.domain.CommentVo">
-		SELECT cmt.serial serial,cmt.userId userId, cmt.content content, cmt.gSerial gSerial, cmt.pSerial pSerial, cmt.depth depth, cmt.indent indent, to_char(cmt.cDate, 'YY.MM.DD HH24:MI:SS') cDate, cmt.isDelete isDelete, cmt.fSerial fSerial,
-				mem.photo photo
-			FROM DBOARD_COMMENT cmt JOIN DMEMBER mem
-			ON cmt.userId = mem.userId
-			WHERE cmt.fSerial = #{_parameter} AND cmt.isDelete = 0
-			ORDER BY cmt.gSerial asc, cmt.depth asc
+		<!-- SELECT * FROM (
+			SELECT ROWNUM rno, s.* FROM ( -->
+				SELECT cmt.serial serial,cmt.userId userId, cmt.content content, cmt.gSerial gSerial, cmt.pSerial pSerial, cmt.depth depth, cmt.indent indent, to_char(cmt.cDate, 'YY.MM.DD HH24:MI:SS') cDate, cmt.isDelete isDelete, cmt.fSerial fSerial,
+						mem.photo photo
+					FROM DBOARD_COMMENT cmt JOIN DMEMBER mem
+					ON cmt.userId = mem.userId
+					WHERE cmt.fSerial = #{_parameter} AND cmt.isDelete = 0
+					ORDER BY cmt.gSerial asc, cmt.depth asc
+			<!-- ) s
+		) WHERE rno BEWTEEN 1 AND 10 -->
 	</select>
 	
 	<!-- comment insert -->

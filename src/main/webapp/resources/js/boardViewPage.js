@@ -87,6 +87,10 @@ $(function () {
 
 			for (var i = 0; i < replyList.length; i++) {
 				replyList[i].css({"display":"none"});
+				var btn = replyList[i].find('.showCommentReply');
+				if (btn != null) {
+					btn.text('답글 보기');
+				}
 			}
 			replyList = new Array();
 		}
