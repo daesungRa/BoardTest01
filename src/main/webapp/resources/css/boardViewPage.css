@@ -94,6 +94,9 @@
 #listOfComment .writeCommentReply:hover {
 	color: #a9edee;
 }
+#boardCommentContent .iconCommentSettings:hover {
+	cursor: pointer;
+}
 #commentForm #btnLoginInComment {
 	color: #48baff;
 	font-size: 8pt;

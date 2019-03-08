@@ -110,4 +110,19 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return result;
 	}
+	
+	@Override
+	public boolean commentDelete (CommentVo cvo) {
+		boolean result = false;
+		logger.info("[comment delete dao] 입력 데이터 serial, userId : " + cvo.getSerial() + ", " + cvo.getUserId());
+		
+		int deleteResult = sqlSession.update("comment.commentDelete", cvo);
+		if (deleteResult > 0) {
+			logger.info("[comment delete dao] 성공!");
+			result = true;
+		}
+		
+		return result;
+	}
+	
 }

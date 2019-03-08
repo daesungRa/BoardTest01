@@ -18,5 +18,6 @@ public interface BoardDao {
 	
 	public List<CommentVo> getCommentList (Map<String, Object> pagenatedInputData);
 	public boolean commentInsert (CommentVo cvo);
+	public boolean commentDelete (CommentVo cvo);
 	
 }

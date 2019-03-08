@@ -269,4 +269,26 @@ public class BoardController {
 		
 		return boardSerial;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/commentDeleteAction", method=RequestMethod.POST)
+	public String commentDeleteAction (HttpServletRequest request) {
+		String result = "0";
+		boolean deleteResult = false;
+		CommentVo cvo = new CommentVo();
+		cvo.setSerial(Integer.parseInt(request.getParameter("serial")));
+		
+		if (cvo.getSerial() > 0) { // 요청 시리얼이 존재한다면
+			cvo.setUserId((String) request.getSession().getAttribute("userId")); // 작성한 유저 아이디 세팅 
+			logger.info("[comment delete] 요청 serial, userId : " + cvo.getSerial() + ", " + cvo.getUserId());
+			
+			deleteResult = boardService.commentDeleteAction(cvo);
+			if (deleteResult) { // 댓글 삭제 성공 시
+				result = "1";
+				logger.info("[comment delete] 댓글 삭제 성공");
+			}
+		}
+		
+		return result;
+	}
 }

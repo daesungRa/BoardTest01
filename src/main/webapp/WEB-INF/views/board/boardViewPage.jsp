@@ -208,6 +208,16 @@
 													<span class='userIdInComment' style='color: #454545; font-size: 10pt;'>${commentList[i].userId }</span><br/>
 													<span class='commentDate' style='color: #9a9a9a; font-size: 9pt;'>${commentList[i].cDate }</span>
 												</div>
+												<c:if test='${not empty sessionScope.userId and commentList[i].userId == sessionScope.userId }'>
+													<div class='dropdown' style='float: right;'>
+														<span class='' data-toggle='dropdown' role='button' aria-expanded='false'>
+															<img src='/desktop/resources/imgs/sample/gear02.svg' class='iconCommentSettings' alt='commentSettings' style='width: 12px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='댓글 설정' />
+														</span>
+														<ul class='dropdown-menu dropdown-menu-left'>
+															<li><a class='dropdown-item my-toCommentDeleteAction' href='#commentDeleteAction'>댓글 삭제<span style='display: none;'>${commentList[i].serial }</span></a></li>
+														</ul>
+													</div>
+												</c:if>
 											</div><br/>
 											<div class='container'>
 												<span style='color: #787878; font-size: 11pt;'>${commentList[i].content }</span><br/><br/>
@@ -252,6 +262,16 @@
 													<span class='userIdInComment' style='color: #454545; font-size: 10pt;'>${commentList[i].userId }</span><br/>
 													<span class='commentDate' style='color: #9a9a9a; font-size: 9pt;'>${commentList[i].cDate }</span>
 												</div>
+												<c:if test='${not empty sessionScope.userId and commentList[i].userId == sessionScope.userId }'>
+													<div class='dropdown' style='float: right;'>
+														<span class='' data-toggle='dropdown' role='button' aria-expanded='false'>
+															<img src='/desktop/resources/imgs/sample/gear02.svg' class='iconCommentSettings' alt='commentSettings' style='width: 12px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='댓글 설정' />
+														</span>
+														<ul class='dropdown-menu dropdown-menu-left'>
+															<li><a class='dropdown-item my-toCommentDeleteAction' href='#commentDeleteAction'>댓글 삭제<span style='display: none;'>${commentList[i].serial }</span></a></li>
+														</ul>
+													</div>
+												</c:if>
 											</div><br/>
 											<div class='container' style='position: relative;'>
 												<span style='position: absolute; left: 60px; color: #787878; font-size: 11pt;'>${commentList[i].content }</span><br/><br/>

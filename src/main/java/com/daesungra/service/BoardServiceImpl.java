@@ -85,4 +85,13 @@ public class BoardServiceImpl implements BoardService {
 		
 		return result;
 	}
+	
+	@Override
+	public boolean commentDeleteAction (CommentVo cvo) {
+		boolean result = false;
+		result = boardDao.commentDelete(cvo);
+		
+		return result;
+	}
+	
 }

@@ -43,6 +43,10 @@ $(function () {
 	$('#rightSideComponent #iconThumbUpDown').tooltip();
 	$('#rightSideComponent #iconSettings').tooltip();
 	
+	$('#iconThumbUpDown').click(function () {
+		
+	});
+	
 	// 댓글 부분으로 이동
 	$('#rightSideComponent #iconComment').click(function () {
 		funcMovePage('boardCommentContent');
@@ -154,6 +158,30 @@ $(function () {
 				}
 			}
 		});
+	});
+	
+	// 댓글 삭제
+	$('#boardCommentContent .my-toCommentDeleteAction').click(function () {
+		var delCommit = confirm('댓글을 삭제하시겠습니까?');
+		var delSerial = $(this).find('span').text();
+		if (delCommit) {
+			alert('삭제 실행 : ' + delSerial);
+			$.ajax({
+				type: 'post',
+				url: '/desktop/board/commentDeleteAction',
+				data: {serial: delSerial},
+				dataType: 'html',
+				success: function (data) {
+					if (data == '1') {
+						location.reload();
+					} else if (data == '0') {
+						alert('댓글 삭제 실패');
+					} else {
+						alert('error!');
+					}
+				}
+			});
+		}
 	});
 	
 	/*

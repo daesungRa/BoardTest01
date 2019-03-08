@@ -18,5 +18,6 @@ public interface BoardService {
 	
 	public List<CommentVo> getCommentList (Map<String, Object> pagenatedInputData);
 	public boolean commentWriteAction (CommentVo cvo);
+	public boolean commentDeleteAction (CommentVo cvo);
 	
 }

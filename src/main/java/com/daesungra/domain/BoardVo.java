@@ -26,8 +26,14 @@ public class BoardVo {
 	private String coverImg;
 	private String pDate;
 	
+	// commentCnt
+	private int commentCnt;
+	
 	// thumbUpCnt
 	private int thumbUpCnt;
+	
+	// isThumbUp
+	private int isThumbUp;
 	
 	// DBOARD
 	public int getSerial() {
@@ -159,6 +165,14 @@ public class BoardVo {
 		this.pDate = pDate;
 	}
 	
+	// commentCnt
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+	
 	// thumbUpCnt
 	public int getThumbUpCnt() {
 		return thumbUpCnt;
@@ -166,5 +180,14 @@ public class BoardVo {
 	public void setThumbUpCnt(int thumbUpCnt) {
 		this.thumbUpCnt = thumbUpCnt;
 	}
+	
+	// isThumbUp
+	public int getIsThumbUp() {
+		return isThumbUp;
+	}
+	public void setIsThumbUp(int isThumbUp) {
+		this.isThumbUp = isThumbUp;
+	}
+	
 	
 }

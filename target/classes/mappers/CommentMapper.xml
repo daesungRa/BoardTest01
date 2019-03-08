@@ -39,4 +39,10 @@
 				</choose>
 	</insert>
 	
+	<!-- comment delete -->
+	<update id='commentDelete' parameterType='com.daesungra.domain.CommentVo'>
+		UPDATE DBOARD_COMMENT SET isDelete = 1
+			WHERE serial = #{serial} AND userId = #{userId}
+	</update>
+	
 </mapper>
