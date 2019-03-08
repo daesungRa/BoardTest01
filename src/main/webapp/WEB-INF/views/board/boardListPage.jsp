@@ -54,6 +54,7 @@
 			<div class='container' id='boardList' style='width: 96%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 120px 20px 120px;'>
 				<div style='position: relative; height: 80px;'>
 					<div id='saveCategoryNum' style='display: none;'>${requestScope.category }</div>
+					<a class='btn btn-secondary my-btn-recommend' id='btnBookRegister' href='#btnBookRegister'>책 등록</a>
 					<c:choose>
 						<c:when test='${requestScope.category == 2 }'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 14pt;  width: 150px;'><img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board' style='width: 15px; padding-bottom: 3px; margin-right: 10px;' />경제 / 경영</span>
@@ -128,10 +129,11 @@
 								<div class='container' style='position: relative; height: 90px;'>
 									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${boardListHit[0].commentCnt }]</p><span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor }(${boardListHit[0].pDate }) / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].thumbUpCnt }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].bDate }</div>
 									</div>
 								</div>
@@ -161,10 +163,11 @@
 									<div class='container' style='position: relative; height: 90px;'>
 										<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 										<div style='position: absolute; top: 0; left: 30px;'>
-											<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
+											<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span></div><br/>
 											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 										</div>
 									</div>
@@ -203,15 +206,16 @@
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 											</div>
 										</div>
@@ -251,15 +255,16 @@
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 											</div>
 										</div>
@@ -299,15 +304,16 @@
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 											</div>
 										</div>
@@ -347,15 +353,16 @@
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 											</div>
 										</div>
@@ -383,7 +390,7 @@
 								<div class='container' style='position: relative; height: 90px;'>
 									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${boardListHit[0].commentCnt }]</p><span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor }(${boardListHit[0].pDate }) / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
@@ -416,10 +423,11 @@
 									<div class='container' style='position: relative; height: 90px;'>
 										<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 										<div style='position: absolute; top: 0; left: 30px;'>
-											<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
+											<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span></div><br/>
 											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 										</div>
 									</div>
@@ -458,15 +466,16 @@
 											<div style='position: absolute; top: 0; left: 30px;'>
 												<c:choose>
 													<c:when test='${fn:length(bvo.title) < 35 }'>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:when>
 													<c:otherwise>
-														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
+														<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${fn:substring(bvo.title, 0, 34) }  ... <p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div><br/>
 													</c:otherwise>
 												</c:choose>
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 											</div>
 										</div>
@@ -494,10 +503,11 @@
 								<div class='container' style='position: relative; height: 90px;'>
 									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${boardListHit[0].commentCnt }]</p><span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor }(${boardListHit[0].pDate }) / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].thumbUpCnt }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].bDate }</div>
 									</div>
 								</div>
@@ -527,10 +537,11 @@
 								<div class='container' style='position: relative; height: 90px;'>
 									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p><span style='display: none;'>${bvo.serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 									</div>
 								</div>
@@ -554,10 +565,11 @@
 								<div class='container' style='position: relative; height: 90px;'>
 									<div class='boardSerialPreview' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${boardListHit[0].serial }</div>
 									<div style='position: absolute; top: 0; left: 30px;'>
-										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
+										<div class='boardTitlePreview' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${boardListHit[0].title }<p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${boardListHit[0].commentCnt }]</p><span style='display: none;'>${boardListHit[0].serial }</span></div><br/>
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor }(${boardListHit[0].pDate }) / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].thumbUpCnt }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].bDate }</div>
 									</div>
 								</div>
@@ -602,9 +614,9 @@
 							<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 게시글 목록
 						</span>
 					</div>
-					<div class='row my-board-row' style='border-top: 2px solid black; padding-top: 6px; background-color: #dedede;'>
+					<div class='row my-board-row' style='height: 30px; border-top: 2px solid black; padding-top: 4px; background-color: #dedede;'>
 						<div class='col-md-1 my-board-grid'>NO</div>
-						<div class='col-md-5 my-board-grid-title' style='text-align: center;'>제목</div>
+						<div class='col-md-5 my-board-grid-title-top'>제목</div>
 						<div class='col-md-1 my-board-grid'>작가</div>
 						<div class='col-md-2 my-board-grid'>책제목</div>
 						<div class='col-md-1 my-board-grid'>조회</div>
@@ -615,10 +627,10 @@
 							<div class='col-md-1 my-board-grid'>${bvo.serial }</div>
 							<c:choose>
 								<c:when test="${fn:length(bvo.title) < 24 }">
-									<div class='col-md-5 my-board-grid-title'>${bvo.title }<span style='display: none;'>${bvo.serial }</span></div>
+									<div class='col-md-5 my-board-grid-title'>${bvo.title }<c:if test='${bvo.commentCnt > 0 }'><p style='display: inline-block; color: #48baff; font-size: 8pt;'>&nbsp;[${bvo.commentCnt }]</p></c:if><span style='display: none;'>${bvo.serial }</span></div>
 								</c:when>
 								<c:otherwise>
-									<div class='col-md-5 my-board-grid-title' data-toggle="tooltip" data-placement="right" title="${bvo.title }">${fn:substring(bvo.title, 0, 23) }  ... <span style='display: none;'>${bvo.serial }</span><span style='display: none;'>${bvo.serial }</span></div>
+									<div class='col-md-5 my-board-grid-title' data-toggle="tooltip" data-placement="right" title="${bvo.title }">${fn:substring(bvo.title, 0, 23) }  ... <c:if test='${bvo.commentCnt > 0 }'><p style='display: inline-block; color: #48baff; font-size: 10pt;'>&nbsp;[${bvo.commentCnt }]</p></c:if><span style='display: none;'>${bvo.serial }</span></div>
 								</c:otherwise>
 							</c:choose>
 							<div class='col-md-1 my-board-grid'>${bvo.userId }</div>
@@ -695,7 +707,7 @@
 	</footer>
 	
 	<!-- button for to-top -->
-	<a class='btn btn-secondary my-btn-toTop' href='#'>top</a>
+	<a class='btn btn-secondary my-btn-toTop' href='#toTop'>top</a>
 	
 	<!-- Modal -->
     <jsp:include page="/WEB-INF/views/component/modal.jsp"></jsp:include>

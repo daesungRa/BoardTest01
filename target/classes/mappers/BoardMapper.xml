@@ -110,7 +110,9 @@
 	<!-- select board -->
 	<select id="selectBoardInfo" parameterType="com.daesungra.domain.BoardVo" resultMap="getBoardVoIncludeClobType">
 		SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
-				bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate
+				bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate,
+				(SELECT COUNT(*) FROM DBOARD_COMMENT cmt JOIN dboard bd2 ON cmt.fSerial = bd2.serial WHERE bd2.serial = bd.serial) commentCnt,
+				(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd3 ON bdt.pSerial = bd3.serial WHERE bd3.serial = bd.serial) thumbUpCnt
 			FROM DBOARD bd JOIN DBOOK bk
 			ON bd.bookNo = bk.bookNo
 			<where>

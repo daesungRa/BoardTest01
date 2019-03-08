@@ -86,7 +86,8 @@
  * 게시글 리스트 (등록일순)
  */
 .my-board-row {
-	margin-top: 5px;
+	height: 40px;
+	padding-top: 10px;
 	border-bottom: 1px solid black;
 }
 .my-board-row:last-child {
@@ -99,6 +100,10 @@
 	text-align: center;
 	height: 25px;
 	overflow: hidden;
+}
+.my-board-grid-title-top {
+	font-size: 9pt;
+	text-align: center;
 }
 .my-board-grid-title {
 	font-size: 9pt;

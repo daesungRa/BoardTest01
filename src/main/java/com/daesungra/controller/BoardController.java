@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
@@ -133,6 +134,16 @@ public class BoardController {
 		
 		logger.info("jsonResult : " + jsonResult.toString());
 		return jsonResult.toString();
+	}
+	
+	// load book register page
+	@RequestMapping(value="/getBookRegisterForm", method=RequestMethod.GET)
+	public ModelAndView getBookRegisterPage (HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("[get book register page] 책 등록 페이지 요청");
+		mav.setViewName("/board/bookRegisterPart");
+		
+		return mav;
 	}
 	
 	/*

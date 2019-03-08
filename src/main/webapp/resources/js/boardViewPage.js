@@ -118,46 +118,54 @@ $(function () {
 	// 댓글 제출
 	$('#btnSubmitCommentMain').click(function () {
 		var categoryNum = $('#boardViewContainer #saveCategoryNum').text();
-		var params = $('#commentForm').serialize();
-		$.ajax({
-			type: 'POST',
-			url: '/desktop/board/commentWriteAction',
-			data: params,
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			dataType: 'html',
-			success: function (data) {
-				var boardSerial = data; // 게시글의 시리얼이 반환됨
-				
-				if (boardSerial != "") {
-					location.reload();
-					// location.href = '/desktop/board/boardViewPage/' + boardSerial + "/" + categoryNum; // view 페이지 요청
-					// alert('요청 serial, category : ' + boardSerial + ", " + categoryNum);
-				} else {
-					alert('댓글 작성 실패');
+		if ($('#commentForm #content').val() == "") {
+			alert('댓글 내용을 입력하세요');
+		} else {
+			var params = $('#commentForm').serialize();
+			$.ajax({
+				type: 'POST',
+				url: '/desktop/board/commentWriteAction',
+				data: params,
+				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+				dataType: 'html',
+				success: function (data) {
+					var boardSerial = data; // 게시글의 시리얼이 반환됨
+					
+					if (boardSerial != "") {
+						location.reload();
+						// location.href = '/desktop/board/boardViewPage/' + boardSerial + "/" + categoryNum; // view 페이지 요청
+						// alert('요청 serial, category : ' + boardSerial + ", " + categoryNum);
+					} else {
+						alert('댓글 작성 실패');
+					}
 				}
-			}
-		});
+			});
+		}
 	});
 	
 	// 댓글의 답글 제출
 	$('.btnSubmitCommentSub').click(function () {
 		var form = $(this).closest('form');
-		var params = form.serialize();
-		$.ajax({
-			type: 'post',
-			url: '/desktop/board/commentWriteAction',
-			data: params,
-			dataType: 'html',
-			success: function (data) {
-				var boardSerial = data; // 게시글의 시리얼이 반환됨
-				
-				if (boardSerial != "") {
-					location.reload();
-				} else {
-					alert('댓글 작성 실패');
+		if ($(this).closest('form').find('textarea').val() == "") {
+			alert('답글 내용을 입력하세요')
+		} else {
+			var params = form.serialize();
+			$.ajax({
+				type: 'post',
+				url: '/desktop/board/commentWriteAction',
+				data: params,
+				dataType: 'html',
+				success: function (data) {
+					var boardSerial = data; // 게시글의 시리얼이 반환됨
+					
+					if (boardSerial != "") {
+						location.reload();
+					} else {
+						alert('댓글 작성 실패');
+					}
 				}
-			}
-		});
+			});
+		}
 	});
 	
 	// 댓글 삭제

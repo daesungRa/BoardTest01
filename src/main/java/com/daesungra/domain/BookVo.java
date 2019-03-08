@@ -2,17 +2,17 @@ package com.daesungra.domain;
 
 public class BookVo {
 
-	private String bookNo;
+	private String bookNo; // 관리자 입력
 	private String title_kor;
 	private String title_eng;
 	private String introduce;
 	private String author;
-	private int category;
+	private int category; // 관리자 입력
 	private String publisher;
 	private String country;
 	private String coverImg;
-	private String pDate;
-	private int isPermitted;
+	private String pDate; // 자동 입력
+	private int isPermitted; // 승인 전까지 0
 	
 	public String getBookNo() {
 		return bookNo;

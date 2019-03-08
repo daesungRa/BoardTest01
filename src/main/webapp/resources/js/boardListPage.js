@@ -56,6 +56,12 @@ function funcBoardListPage () {
 	$('.my-btn-toTop').click(function () {
 		funcMovePage('indexTop');
 	});
+	// 책 등록하기
+	$('#btnBookRegister').click(function () {
+		getBookRegisterPart();
+	});
+	// 책 등록 action
+	
 	
 	/*
 	 * preview

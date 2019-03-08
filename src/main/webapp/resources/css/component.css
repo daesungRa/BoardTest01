@@ -196,6 +196,15 @@
 }
 
 /*
+ * recommend book info
+ */
+.my-btn-recommend {
+	position: absolute;
+	right: 0;
+	top: 65px;
+}
+
+/*
  * to top
  */
 .my-btn-toTop {

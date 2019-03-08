@@ -10,7 +10,7 @@
 	
 	<button type="button" class="btn btn-primary" id='btnShowModal' data-toggle="modal" data-target="#modalWindow" style='display: none;'></button>
     <div id="modalWindow" class="modal fade">
-    	<div class="modal-dialog modal-dialog-centered" style='z-index: 10;'>
+    	<div class="modal-dialog modal-lg modal-dialog-centered" style='z-index: 10;'>
 		    <!-- Modal content -->
 		    <div class='modal-content' id='modalContent'>
 				<div id='innerModalContent'></div>

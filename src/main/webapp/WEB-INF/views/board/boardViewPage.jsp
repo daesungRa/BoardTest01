@@ -124,6 +124,7 @@
 						<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 						<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 						<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
+						<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 						<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 					</div>
 				</div>
@@ -254,7 +255,7 @@
 										</div>
 									</c:when>
 									<c:when test='${commentList[i].indent > 0 }'>
-										<div id='commentContainer${commentList[i].serial }reply' style='margin: 30px 0 10px 0; display: none;'>
+										<div id='commentContainer${commentList[i].serial }reply' style='margin: 30px 0 10px 0; display: none; background-color: #efefef; border-radius: 20px; padding: 40px 10px 0 0;'>
 											<div class='container' style='position: relative; height: 45px;'>
 												<span style='position: absolute; left: 30px; top: 0;'>ㄴ</span>
 												<img class='memImgInComment' src='${commentList[i].photo }' alt='member profile img' style='position: absolute; left: 60px; top: 0; width: 35px; height: 40px; border-radius: 20px;' />
@@ -277,7 +278,7 @@
 												<span style='position: absolute; left: 60px; color: #787878; font-size: 11pt;'>${commentList[i].content }</span><br/><br/>
 												<c:if test='${commentList[i + 1].indent > 0 }'>
 													<span class='serialWithShowCommentReply' style='display: none;'>${commentList[i + 1].serial }</span>
-													&nbsp;&nbsp;&nbsp;<span class='showCommentReply' hidden='hidden'>답글 보기</span>
+													&nbsp;&nbsp;&nbsp;<span class='showCommentReply' style='display: none;'>답글 보기</span>
 												</c:if>
 											</div>
 										</div>

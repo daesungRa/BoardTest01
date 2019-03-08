@@ -48,3 +48,36 @@ function getWindowSize () {
 	var width = window.outerWidth;
 	$('#windowSize').text('window size : ' + width);
 }
+
+// 모달창에 책 등록 페이지 로드
+function getBookRegisterPart () {
+	$.ajax({
+		type: 'get',
+		url: '/desktop/board/getBookRegisterForm',
+		dataType: 'html',
+		success: function (html) {
+			$('#modalWindow #innerModalContent').html(html);
+			$('#btnShowModal').trigger('click');
+			
+			funcBookRegister();
+		}
+	});
+}
+// 책 등록 페이지 로드 후 실행되는 함수
+function funcBookRegister () {
+	var coverImg = document.getElementById('coverImg');
+	coverImg.onchange = imagePreView;
+}
+// 이미지 프리뷰 함수
+function imagePreView (e) {
+    var profile = document.getElementById('image');
+    var url = e.srcElement;
+    var file = url.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function (e2) {
+        var img = new Image();
+        img.src = e2.target.result;
+        profile.src = img.src;
+    }
+}
