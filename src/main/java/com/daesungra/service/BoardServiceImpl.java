@@ -71,9 +71,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<CommentVo> getCommentList (int serial) {
+	public List<CommentVo> getCommentList (Map<String, Object> pagenatedInputData) {
 		List<CommentVo> commentList = null;
-		commentList = boardDao.getCommentList (serial);
+		commentList = boardDao.getCommentList (pagenatedInputData);
 		
 		return commentList;
 	}

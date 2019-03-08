@@ -117,3 +117,18 @@
 	color: #48baff;
 	border: 1px solid #48baff;
 }
+.my-commentReplyForm .btnSubmitCommentSub {
+	float: right;
+	color: #787878;
+	font-size: 12pt;
+	text-align: center;
+	cursor: pointer;
+	padding: 2px 10px 2px 10px;
+	margin: -10px 20px 0 0;
+	border: 1px solid #9a9a9a;
+	border-radius: 20px;
+}
+.my-commentReplyForm .btnSubmitCommentSub:hover {
+	color: #48baff;
+	border: 1px solid #48baff;
+}

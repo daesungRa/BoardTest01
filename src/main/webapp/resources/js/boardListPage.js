@@ -146,6 +146,14 @@ function movePage () {
 				alert('clicked btnBoardListSearch');
 				movePage();
 			});
+			
+			$('.my-board-grid-title').click(function () {
+				var serial = $(this).find('span').text();
+				var categoryNum = $('#boardList #saveCategoryNum').text();
+				var requestUrl = '/desktop/board/boardViewPage/' + serial + '/' + categoryNum;
+				
+				location.href = requestUrl;
+			});
 		}
 	});
 }

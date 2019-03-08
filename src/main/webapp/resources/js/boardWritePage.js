@@ -28,7 +28,7 @@ $(function () {
 	// 게시글 카테고리 바꾸기
 	$('#changeCategoryInWritePage').change(function () {
 		var category3 = $(this).children('option:selected').val();
-		var requestUrl = '/desktop/board/boardWritePage/' + category3 + '/1';
+		var requestUrl = '/desktop/board/boardWritePage/' + category3;
 		
 		location.href = requestUrl;
 	});
@@ -148,7 +148,7 @@ $(function () {
 	// 글쓰기 cancel > 같은 카테고리의 리스트 페이지로 이동
 	$('#boardWriteForm #btnBoardWriteCancel').click(function () {
 		var categoryNum = $('#saveCategoryNum').text();
-		var requestUrl = '/desktop/board/boardListPage/' + categoryNum;
+		var requestUrl = '/desktop/board/boardListPage/' + categoryNum + '/1';
 		
 		location.href = requestUrl;
 	});

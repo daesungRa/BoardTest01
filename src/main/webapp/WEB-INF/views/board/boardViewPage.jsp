@@ -226,7 +226,7 @@
 														<c:when test='${not empty sessionScope.userId and not empty sessionScope.userName }'>
 															<hr/>
 															<label for='' style='font-size: 9pt; margin-bottom: 15px;'>&nbsp;&nbsp;&nbsp;&nbsp;댓글 쓰기</label>
-															<textarea class='form-control' id='' rows='5' placeholder='댓글 내용을 입력하세요' style='font-size: 10pt;'></textarea><br/>
+															<textarea class='form-control' id='' name='content' rows='5' placeholder='댓글 내용을 입력하세요' style='font-size: 10pt;'></textarea><br/>
 															<span class='btnSubmitCommentSub'>제출</span>
 														</c:when>
 														<c:otherwise>
@@ -238,6 +238,7 @@
 												</div>
 												<div class='form-group' id='subCommentExtraInfo'>
 													<input type='hidden' id='fSerial' name='fSerial' value='${bvo.serial }' />
+													<input type='hidden' id='pSerial' name='gSerial' value='${commentList[i].serial }' />
 												</div>
 											</form>
 										</div>

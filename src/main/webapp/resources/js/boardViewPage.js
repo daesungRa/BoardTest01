@@ -135,6 +135,27 @@ $(function () {
 		});
 	});
 	
+	// 댓글의 답글 제출
+	$('.btnSubmitCommentSub').click(function () {
+		var form = $(this).closest('form');
+		var params = form.serialize();
+		$.ajax({
+			type: 'post',
+			url: '/desktop/board/commentWriteAction',
+			data: params,
+			dataType: 'html',
+			success: function (data) {
+				var boardSerial = data; // 게시글의 시리얼이 반환됨
+				
+				if (boardSerial != "") {
+					location.reload();
+				} else {
+					alert('댓글 작성 실패');
+				}
+			}
+		});
+	});
+	
 	/*
 	 * modify 페이지로 변경
 	 */

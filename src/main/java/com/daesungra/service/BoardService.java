@@ -16,7 +16,7 @@ public interface BoardService {
 	public boolean boardModify (BoardVo bvo);
 	public boolean boardRemove (BoardVo bvo);
 	
-	public List<CommentVo> getCommentList (int serial);
+	public List<CommentVo> getCommentList (Map<String, Object> pagenatedInputData);
 	public boolean commentWriteAction (CommentVo cvo);
 	
 }

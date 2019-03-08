@@ -90,9 +90,9 @@ public class BoardDaoImpl implements BoardDao {
 	};
 	
 	@Override
-	public List<CommentVo> getCommentList (int serial) {
+	public List<CommentVo> getCommentList (Map<String, Object> pagenatedInputData) {
 		List<CommentVo> commentList = null;
-		commentList = sqlSession.selectList("comment.getCommentList", serial);
+		commentList = sqlSession.selectList("comment.getCommentList", pagenatedInputData);
 		
 		return commentList;
 	}
@@ -100,6 +100,8 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public boolean commentInsert (CommentVo cvo) {
 		boolean result = false;
+		logger.info("[comment write dao] 입력 데이터 fSerial, gSerial, userId : " + cvo.getfSerial() + ", " + cvo.getgSerial() + ", " + cvo.getUserId());
+		
 		int insertResult = sqlSession.insert("comment.commentInsert", cvo);
 		if (insertResult > 0) {
 			logger.info("[comment write dao] 성공!");

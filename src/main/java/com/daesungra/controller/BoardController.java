@@ -56,8 +56,8 @@ public class BoardController {
 		if (nowPage < 1) {
 			nowPage = 1;
 		}
-		pageDto.setPageDto(this.listSize, this.blockSize, nowPage, category); // 페이징 처리를 위한 도메인 객체
-		pageDto.pageCompute();
+		pageDto.setBoardPageDto(this.listSize, this.blockSize, nowPage, category); // 페이징 처리를 위한 도메인 객체
+		pageDto.boardPageCompute();
 		
 		Map<String, Object> pagenatedInputData = new HashMap<String, Object>(); // 페이징 결과값을 포함한 db input data
 		pagenatedInputData.put("category", category);
@@ -93,7 +93,7 @@ public class BoardController {
 				+ searchBySort + ", " + searchByContent + ", " + searchContent + ", " + category + ", " + nowPage);
 		
 		pageDto.setPageDtoSearch(listSize, blockSize, nowPage, category, searchContent, searchByContent);
-		pageDto.pageCompute();
+		pageDto.boardPageCompute();
 		
 		Map<String, Object> searchInputData = new HashMap<String, Object>();
 		searchInputData.put("searchBySort", searchBySort);
@@ -184,7 +184,16 @@ public class BoardController {
 		resultVo = boardService.boardView(insertVo);
 		if (resultVo != null) {
 			// 조회 성공 시 해당하는 댓글 불러오기
-			List<CommentVo> commentList = boardService.getCommentList(serial);
+			this.nowPage = 1; // 1 페이지 내용 불러온다
+			pageDto.setCommentPageDto(this.listSize, this.blockSize, this.nowPage, serial); // board 테이블의 serial 은 댓글 테이블 입장에서 참조하는 fSerial 임
+			pageDto.commentPageCompute();
+			
+			Map<String, Object> pagenatedInputData = new HashMap<String, Object>(); // 페이징 결과값을 포함한 db input data
+			pagenatedInputData.put("fSerial", pageDto.getfSerial());
+			pagenatedInputData.put("startNo", pageDto.getStartNo());
+			pagenatedInputData.put("endNo", pageDto.getEndNo());
+			
+			List<CommentVo> commentList = boardService.getCommentList(pagenatedInputData);
 			logger.info("[boardview] comment list size : " + commentList.size());
 			
 			// 조회 결과 세팅
@@ -247,10 +256,10 @@ public class BoardController {
 	public String commentWriteAction (HttpServletRequest request, @ModelAttribute CommentVo cvo) {
 		String boardSerial = "";
 		boolean writeResult = false;
-		logger.info("[comment write] 요청 fSerial : " + cvo.getfSerial());
+		logger.info("[comment write] 요청 fSerial, gSerial : " + cvo.getfSerial() + ", " + cvo.getgSerial());
 		
-		if (cvo.getfSerial() > 0) {
-			cvo.setUserId((String) request.getSession().getAttribute("userId")); 
+		if (cvo.getfSerial() > 0) { // 요청 시리얼이 존재한다면
+			cvo.setUserId((String) request.getSession().getAttribute("userId")); // 작성한 유저 아이디 세팅 
 			writeResult = boardService.commentWriteAction(cvo);
 			if (writeResult) { // 댓글 입력 성공시 참조하는 게시글의 시리얼을 반환하여 ajax 방식으로 해당 게시글의 view 페이지를 재호춣하도록 함
 				boardSerial = String.valueOf(cvo.getfSerial());

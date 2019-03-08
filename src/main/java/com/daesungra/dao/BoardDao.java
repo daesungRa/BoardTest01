@@ -16,7 +16,7 @@ public interface BoardDao {
 	public boolean boardUpdate (BoardVo bvo);
 	public boolean boardDelete (BoardVo bvo);
 	
-	public List<CommentVo> getCommentList (int serial);
+	public List<CommentVo> getCommentList (Map<String, Object> pagenatedInputData);
 	public boolean commentInsert (CommentVo cvo);
 	
 }

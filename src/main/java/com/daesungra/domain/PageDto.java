@@ -17,6 +17,7 @@ public class PageDto {
 	private int category = 1;
 	private String search = "";
 	private int searchByContent = 1; // 1: 제목 + 내용, 2: 제목만, 3: 내용만, 4: 작가별
+	private int fSerial;
 
 	private int listSize = 10;
 	private int blockSize = 5;
@@ -32,13 +33,15 @@ public class PageDto {
 	private int startPage;
 	private int endPage;
 	
-	public void setPageDto (int listSize, int blockSize, int nowPage, int category) {
+	// 게시판 페이지네이션
+	public void setBoardPageDto (int listSize, int blockSize, int nowPage, int category) {
 		this.listSize = listSize;
 		this.blockSize = blockSize;
 		this.nowPage = nowPage;
 		this.category = category;
 	}
 	
+	// 게시판 페이지네이션 (검색)
 	public void setPageDtoSearch (int listSize, int blockSize, int nowPage, int category, String search, int searchByContent) {
 		this.listSize = listSize;
 		this.blockSize = blockSize;
@@ -47,8 +50,17 @@ public class PageDto {
 		this.search = search;
 		this.searchByContent = searchByContent;
 	}
+
+	// 댓글 페이지네이션
+	public void setCommentPageDto (int listSize, int blockSize, int nowPage, int fSerial) {
+		this.listSize = listSize;
+		this.blockSize = blockSize;
+		this.nowPage = nowPage;
+		this.fSerial = fSerial;
+	}
 	
-	public void pageCompute () {
+	// 게시판 페이지네이션 실행
+	public void boardPageCompute () {
 		// 쿼리에 입력할 hashMap 세팅
 		this.inputData.put("search", this.search); // 검색어
 		this.inputData.put("category", this.category); // 카테고리
@@ -65,7 +77,7 @@ public class PageDto {
 		this.endPage = this.nowBlock * this.blockSize;
 		this.startPage = this.endPage - this.blockSize + 1;
 		if (this.endPage > this.totPage) this.endPage = this.totPage;
-		System.out.println("boardPageCompute 완료");
+		System.out.println("[boardPageCompute 완료]====================");
 		
 		System.out.println("listSize: " + listSize);
 		System.out.println("blockSize: " + blockSize);
@@ -78,6 +90,39 @@ public class PageDto {
 		System.out.println("startNo: " + startNo);
 		System.out.println("endPage: " + endPage);
 		System.out.println("startPage: " + startPage);
+		System.out.println("========================================");
+	}
+	
+	// 댓글 페이지네이션 실행
+	public void commentPageCompute () {
+		// 쿼리에 입력할 hashMap 세팅
+		this.inputData.put("fSerial", this.fSerial);
+		
+		// 입력된 카테고리 기반으로 totSize 구한 뒤 나머지 요소 구하기
+		this.totSize = sqlSession.selectOne("comment.commentListPagenation", this.inputData);
+		this.totPage = (int) Math.ceil(this.totSize / (double) this.listSize);
+		this.totBlock = (int) Math.ceil(this.totPage / (double) this.blockSize);
+		this.nowBlock = (int) Math.ceil(this.nowPage / (double) this.blockSize);
+		this.endNo = this.nowPage * this.listSize;
+		this.startNo = this.endNo - this.listSize + 1;
+		if (this.endNo > this.totSize) this.endNo = this.totSize;
+		this.endPage = this.nowBlock * this.blockSize;
+		this.startPage = this.endPage - this.blockSize + 1;
+		if (this.endPage > this.totPage) this.endPage = this.totPage;
+		System.out.println("[commentPageCompute 완료]====================");
+		
+		System.out.println("listSize: " + listSize);
+		System.out.println("blockSize: " + blockSize);
+		System.out.println("nowPage: " + nowPage);
+		System.out.println("totSize: " + totSize);
+		System.out.println("totPage: " + totPage);
+		System.out.println("totBlock: " + totBlock);
+		System.out.println("nowBlock: " + nowBlock);
+		System.out.println("endNo: " + endNo);
+		System.out.println("startNo: " + startNo);
+		System.out.println("endPage: " + endPage);
+		System.out.println("startPage: " + startPage);
+		System.out.println("========================================");
 	}
 
 	public int getNowPage() {
@@ -106,6 +151,11 @@ public class PageDto {
 	}
 	public int getEndPage() {
 		return endPage;
+	}
+	
+	// 댓글
+	public int getfSerial() {
+		return fSerial;
 	}
 	
 }
