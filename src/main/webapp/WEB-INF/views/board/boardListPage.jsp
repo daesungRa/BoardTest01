@@ -22,7 +22,7 @@
 	<script src='/desktop/resources/js/boardListPage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
-<body style='position: relative; height: 100%; padding-bottom: 100px;'>
+<body style='position: relative; height: 100%; padding-bottom: 200px;'>
 	
 	<c:if test="${not empty requestScope.boardListDate }">
 		<c:set var="boardListDate" value="${requestScope.boardListDate }" scope="page"></c:set>

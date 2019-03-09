@@ -28,7 +28,7 @@
 	<script src='/desktop/resources/js/boardViewPage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
-<body style='position: relative; height: 100%; padding-bottom: 100px;'>
+<body style='position: relative; height: 100%; padding-bottom: 200px;'>
 
 	<c:choose>
 		<c:when test='${not empty requestScope.boardVo }'>

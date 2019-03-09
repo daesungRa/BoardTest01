@@ -27,7 +27,7 @@
 	<script src='/desktop/resources/js/boardWritePage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
-<body style='position: relative; height: 100%; padding-bottom: 100px;'>
+<body style='position: relative; height: 100%; padding-bottom: 200px;'>
 
 	<c:if test='${not empty requestScope.category }'>
 		<c:set var='categoryNum' value='${requestScope.category }' scope="page"></c:set>

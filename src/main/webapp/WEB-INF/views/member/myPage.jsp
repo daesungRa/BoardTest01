@@ -99,7 +99,7 @@
 	<script src='/desktop/resources/js/member.js'></script>
 	<script src='/desktop/resources/js/board.js'></script>
 </head>
-<body style='position: relative; height: 100%; padding-bottom: 100px;'>
+<body style='position: relative; height: 100%; padding-bottom: 200px;'>
 
 	<c:if test='${not empty requestScope.vo }'>
 		<c:set var='mvo' value='${requestScope.vo }' scope='page' />

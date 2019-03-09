@@ -21,7 +21,7 @@
 	<script src='/desktop/resources/js/admin.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>
-<body style='position: relative; height: 100%; padding-bottom: 100px;'>
+<body style='position: relative; height: 100%; padding-bottom: 200px;'>
 	
 	<!-- 
 		[관리자 페이지]
