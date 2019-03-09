@@ -6,9 +6,13 @@
 <mapper namespace="member">
 	<!--
 		login
+			- 로그인 성공 시 아이디, 이름, 권한수준을 세션에 세팅함
 	-->
 	<select id="selectMemberLogin" parameterType="com.daesungra.domain.MemberVo" resultType="com.daesungra.domain.MemberVo">
-		SELECT userId, userName from DMEMBER WHERE userId = #{userId} and userPwd = #{userPwd} and isDelete = 0
+		SELECT mem.userId, mem.userName, admin.authority
+			FROM DMEMBER mem JOIN DADMIN admin
+			ON mem.userId = admin.userId
+			WHERE mem.userId = #{userId} and mem.userPwd = #{userPwd} and mem.isDelete = 0
 	</select>
 	<select id="selectSalt" parameterType="String" resultType="String">
 		SELECT saltData from DMEMBER_SALT WHERE userId = #{userId}
@@ -16,6 +20,7 @@
 	
 	<!--
 		join
+			- 관리자 권한은 기본 0 으로 등록됨. 추후 수퍼관리자가 추가 권한 부여
 	-->
 	<select id="idCheck" parameterType="String" resultType="String">
 		SELECT userId FROM DMEMBER WHERE userId = #{userId}
@@ -23,6 +28,10 @@
 	<insert id="memberInsert" parameterType="com.daesungra.domain.MemberVo">
 		INSERT INTO DMEMBER (userId, userPwd, userName, email, phone, postal, address, addressAdd, photo, photoOri, mDate, isDelete)
 			VALUES (#{userId}, #{userPwd}, #{userName}, #{email}, #{phone}, #{postal}, #{address}, #{addressAdd}, #{photo}, #{photoOri}, SYSDATE, 0)
+	</insert>
+	<insert id='memberAuth' parameterType='String'>
+		INSERT INTO DADMIN (userId, authority)
+			VALUES (#{_parameter}, 0)
 	</insert>
 	<insert id="profileInsert" parameterType="String">
 		INSERT INTO DMEMBER_PROFILE (userId, introduce, interest, isPublic, nickName)

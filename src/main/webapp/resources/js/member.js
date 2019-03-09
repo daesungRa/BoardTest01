@@ -43,13 +43,15 @@ function funcLoginAction () {
 			},
 			function (data, status){
 				var result = data;
-				if (result == '1') {
+				if (result == '1') { // 일반 유저 로그인
 					if ($('#boardViewContainer') != null &&  $('#boardCommentContent') != null) {
 						location.reload();
 					} else {
 						location.href = '/desktop';
 					}
-				} else if (result == '0') {
+				} else if (result == '2') { // 관리자 로그인
+					location.href = '/desktop/getAdminPage';
+				} else if (result == '0') { // 로그인 실패
 					alert('아이디나 암호를 확인해주세요.');
 					userPwd.val('');
 					userId.focus();

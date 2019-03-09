@@ -41,7 +41,7 @@ public class MemberController {
 	@ResponseBody // ViewResolver 를 거치지 않고 응답객체 자체를 반환. (json 에 주로 활용됨)
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login (@RequestParam(value="userId") String userId, @RequestParam(value="userPwd") String userPwd, HttpServletRequest request) {
-		String result = "";
+		String result = "0";
 		MemberVo vo = null;
 		HttpSession session = request.getSession();
 		logger.info("login 시작");
@@ -49,11 +49,17 @@ public class MemberController {
 		
 		// 성공시 세션 세팅 후 인덱스로 이동, 실패시 실패 이유 알려주지 않음 (실패이유는 로그에 저장됨)
 		if (vo != null) {
+			// 아이디. 이름, 권한수준 세팅
 			session.setAttribute("userId", vo.getUserId());
 			session.setAttribute("userName", vo.getUserName());
+			session.setAttribute("authority", vo.getAuthority());
 			logger.info("login 성공");
 			
-			result = "1"; // 성공 플래그
+			if (vo.getAuthority() == 0) {
+				result = "1"; // 성공, 일반 유저
+			} else if (vo.getAuthority() > 0) {
+				result = "2"; // 성공, 관리자
+			}
 		} else {
 			logger.info("login 실패");
 			

@@ -3,6 +3,9 @@ package com.daesungra.domain;
 import java.util.List;
 
 public class MemberVo {
+	
+	// 관리자 정보
+	private int authority;
 
 	// 기본 회원 정보
 	private String userId;
@@ -28,6 +31,13 @@ public class MemberVo {
 	private int fNum;
 	private List<String> followees; // 별도 쿼리로 팔로워 vo 객체를 만들어 리스트로 가져올 것
 	
+	// admin
+	public int getAuthority() {
+		return authority;
+	}
+	public void setAuthority(int authority) {
+		this.authority = authority;
+	}
 	
 	// info
 	public String getUserId() {
@@ -155,6 +165,5 @@ public class MemberVo {
 		return "{\"userId\":\"" + userId + "\", \"userName\":\"" + userName + "\", \"photo\":\"" + photo + "\", \"photoOri\":\"" + photoOri
 					+ "\", \"introduce:\":\"" + introduce + "\", \"interest:\":\"" + interest + "\", \"isPublic\":\"" + isPublic + "\"}";
 	}
-	
 	
 }

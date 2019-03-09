@@ -40,9 +40,12 @@
 								<li><a class='dropdown-item' id='category5' href='/desktop/board/boardListPage/5/1'>문화/예술/자기계발/라이프</a></li>
 							</ul>
 						</li>
-						<li class='nav-item'><a class='nav-link my-nav-top' id='writerListAnc' href='#writerList'>작가별</a></li>
-						<li class='nav-item'><a class='nav-link my-nav-top' id='guestbookAnc' href='#guestbook'>방명록</a></li>
+						<!-- <li class='nav-item'><a class='nav-link my-nav-top' id='writerListAnc' href='#writerList'>작가별</a></li>
+						<li class='nav-item'><a class='nav-link my-nav-top' id='guestbookAnc' href='#guestbook'>방명록</a></li> -->
 						<li class='nav-item'><a class='nav-link my-nav-top .myPageAnc' id='' href='/desktop/member/myPage'>나의 책상</a></li>
+						<c:if test='${not empty sessionScope.authority and sessionScope.authority > 0 }'>
+							<li class='nav-item'><a class='nav-link my-nav-top' id='getAdminPageAnc' href='/desktop/getAdminPage'>관리자 페이지</a></li>
+						</c:if>
 					<%-- </c:otherwise>
 				</c:choose> --%>
 			</ul>

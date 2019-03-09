@@ -130,18 +130,27 @@ public class MemberDaoImpl implements MemberDao{
 	
 	// - memberInsert -
 	// 회원가입에 사용됨 (register)
+	// 권한은 기본 0, 추후 수퍼관리자가 추가 권한 부여
 	public boolean memberInsert (MemberVo vo) {
 		boolean result = false;
+		logger.info("[JOIN]");
 		int r = sqlSession.insert("member.memberInsert", vo);
 		
 		// insert 성공 시 반환값은 true
 		if (r > 0) {
+			logger.info("[회원정보 등록완료]");
 			result = true;
 			
 			// 프로필 생성
 			r = sqlSession.insert("member.profileInsert", vo.getUserId());
 			if (r > 0) {
-				logger.info("프로필 생성완료");
+				logger.info("[프로필 생성완료]");
+				
+				// 권한 부여 (기본 0)
+				r = sqlSession.insert("member.memberAuth", vo.getUserId());
+				if (r > 0) {
+					logger.info("[권한 부여 완료]");
+				}
 			}
 		}
 		
