@@ -13,7 +13,7 @@
 	<div class='container'>
 		<div class='row' style='margin: 40px 100px 40px 40px;'>
 			<div class='col-sm-8'>
-				<form class='form' id='bookRegisterForm' name='bookRegisterForm' method='post' action ='#bookRegisterAction'>
+				<form class='form' id='bookRegisterForm' name='bookRegisterForm' method='post' action ='#bookRegisterAction' enctype='multipart/form-data'>
 					<div class='form-group'>
 						<label for=''>책 제목(한글)</label>
 						<input class='form-control' type='text' id='title_kor' name='title_kor' value='' placeholder='책 제목(한글) 입력' />
@@ -43,7 +43,7 @@
 						<input class='form-control' type='file' id='coverImg' name='coverImg' value='' />
 					</div>
 					<div class='form-group'>
-						<input class='btn btn-info' type='button' id='btnBookRegisterSubmit' name='btnBookRegisterSubmit' value='제출' style='float: right;' />
+						<input class='btn btn-info' type='button' id='btnBookRegisterSubmit' value='제출' style='float: right;' />
 					</div>
 				</form>
 			</div>

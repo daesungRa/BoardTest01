@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.daesungra.component.FileUpload;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 import com.daesungra.domain.CommentVo;
@@ -32,6 +33,8 @@ public class BoardController {
 	private BoardService boardService;
 	@Autowired
 	private PageDto pageDto;
+	@Autowired
+	FileUpload fileUpload;
 	
 	// 게시글 리스트 조회 및 페이징 처리를 위한 변수
 	private int listSize = 20;
@@ -153,8 +156,45 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value="/bookRegisterAction", method=RequestMethod.POST)
 	public String bookRegisterAction (HttpServletRequest request) {
-		 String result = "1"; // 0: 실패, 1: 성공, 2: 접속정보 없음
+		String result = "0"; // 0: 실패, 1: 성공, 2: 접속정보 없음
+		Boolean registerResult = false; 
 		logger.info("[book register action] 책 등록 요청");
+		
+		// 파일업로드 객체확인
+		if (fileUpload == null) {
+			logger.info("fileupload object is null");
+		}
+		
+		if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) { // 접속정보가 있다면
+			// 파일 업로드 수행 후 BookVo 객체 반환
+			BookVo bkvo = fileUpload.getBookVo(request);
+			
+			// 업로드 결과가 있다면 디비 저장 수행
+			if (bkvo != null) {
+				bkvo.setUserId((String) request.getSession().getAttribute("userId"));
+				logger.info("[book register action] BookVo 생성완료====================");
+				logger.info("bookNo: " + bkvo.getBookNo());
+				logger.info("title_kor: " + bkvo.getTitle_kor());
+				logger.info("title_eng: " + bkvo.getTitle_eng());
+				logger.info("introduce: " + bkvo.getIntroduce());
+				logger.info("author: " + bkvo.getAuthor());
+				logger.info("category: " + bkvo.getCategory());
+				logger.info("publisher: " + bkvo.getPublisher());
+				logger.info("country: " + bkvo.getCountry());
+				logger.info("coverImg: " + bkvo.getCoverImg());
+				logger.info("coverImgOri: " + bkvo.getCoverImgOri());
+				logger.info("pDate: " + bkvo.getpDate());
+				logger.info("isPermitted: " + bkvo.getIsPermitted());
+				logger.info("userId: " + bkvo.getUserId());
+				logger.info("========================================");
+				registerResult = boardService.bookRegister(bkvo);
+				if (registerResult) {
+					result = "1"; // 성공
+				}
+			}
+		} else {
+			result = "2"; // 접속정보 없음
+		}
 		
 		return result;
 	}

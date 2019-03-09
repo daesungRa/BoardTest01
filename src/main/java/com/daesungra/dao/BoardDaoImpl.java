@@ -29,16 +29,6 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return listByDate;
 	};
-	
-	@Override
-	public List<BookVo> getBookInfo (String search) {
-		List<BookVo> bookList = null;
-		logger.info("[boardDao-searchBookInfo] 검색어 : " + search);
-		
-		bookList = sqlSession.selectList("board.selectBookInfo", search);
-		
-		return bookList;
-	};
 
 	@Override
 	public BoardVo boardSelect(BoardVo bvo) {
@@ -87,6 +77,30 @@ public class BoardDaoImpl implements BoardDao {
 		}
 		
 		return result;
+	};
+	
+	@Override
+	public List<BookVo> getBookInfo (String search) {
+		List<BookVo> bookList = null;
+		logger.info("[boardDao-searchBookInfo] 검색어 : " + search);
+		
+		bookList = sqlSession.selectList("board.selectBookInfo", search);
+		
+		return bookList;
+	};
+	
+	@Override
+	public boolean bookInsert (BookVo bkvo) {
+		boolean insertResult = false;
+		logger.info("[boardDao-insertBookInfo] 책 등록 요청");
+		
+		int result = sqlSession.insert("board.insertBookInfo", bkvo);
+		if (result > 0) {
+			logger.info("[boardDao-insertBookInfo] 등록 완료");
+			insertResult = true;
+		}
+		
+		return insertResult;
 	};
 	
 	@Override

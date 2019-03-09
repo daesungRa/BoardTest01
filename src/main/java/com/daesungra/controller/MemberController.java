@@ -146,7 +146,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/myPage", method=RequestMethod.GET)
 	public String getMyPage (HttpServletRequest request) {
-		MemberVo vo = null;
+		// MemberVo vo = null;
 		logger.info("call myPage");
 		
 		/*vo = service.memberView((String) request.getSession().getAttribute("userId"));

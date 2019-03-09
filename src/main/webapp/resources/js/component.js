@@ -50,6 +50,7 @@ function getWindowSize () {
 }
 
 // 모달창에 책 등록 페이지 로드
+// 무조건 모달창에서 띄워지므로 component 로 취급
 function getBookRegisterPart () {
 	$.ajax({
 		type: 'get',
@@ -65,11 +66,13 @@ function getBookRegisterPart () {
 }
 // 책 등록 페이지 로드 후 실행되는 함수
 function funcBookRegister () {
+	// 커버 이미지 미리보기
 	var coverImg = document.getElementById('coverImg');
 	coverImg.onchange = imagePreView;
 	
+	// 등록 요청 폼 submit
 	$('#btnBookRegisterSubmit').click(function () {
-		var formData = new FormData($('#bookRegisterForm'));
+		var formData = new FormData(document.getElementById('bookRegisterForm'));
 		$.ajax({
 			type: 'post',
 			url: '/desktop/board/bookRegisterAction',
@@ -79,7 +82,7 @@ function funcBookRegister () {
 			dataType: 'text',
 			success: function (data) {
 				if (data == '1') {
-					alert('책 정보 등록 성공');
+					alert('책 정보 등록 요청 성공');
 					
 					// 모달 창 닫기
 					$('#modalWindow #closeModal').trigger('click');

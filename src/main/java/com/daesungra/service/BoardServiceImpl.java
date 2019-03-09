@@ -29,13 +29,7 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 	
-	@Override
-	public List<BookVo> getBookInfo (String search) {
-		List<BookVo> bookList = null;
-		bookList = boardDao.getBookInfo(search);
-		
-		return bookList;
-	};
+	
 
 	@Override
 	public BoardVo boardView(BoardVo bvo) {
@@ -69,6 +63,22 @@ public class BoardServiceImpl implements BoardService {
 		
 		return result;
 	}
+	
+	@Override
+	public List<BookVo> getBookInfo (String search) {
+		List<BookVo> bookList = null;
+		bookList = boardDao.getBookInfo(search);
+		
+		return bookList;
+	};
+	
+	@Override
+	public boolean bookRegister (BookVo bkvo) {
+		boolean registerResult = false;
+		registerResult = boardDao.bookInsert(bkvo);
+		
+		return registerResult;
+	};
 	
 	@Override
 	public List<CommentVo> getCommentList (Map<String, Object> pagenatedInputData) {

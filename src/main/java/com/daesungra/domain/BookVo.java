@@ -11,8 +11,10 @@ public class BookVo {
 	private String publisher;
 	private String country;
 	private String coverImg;
+	private String coverImgOri;
 	private String pDate; // 자동 입력
 	private int isPermitted; // 승인 전까지 0
+	private String userId;
 	
 	public String getBookNo() {
 		return bookNo;
@@ -68,6 +70,12 @@ public class BookVo {
 	public void setCoverImg(String coverImg) {
 		this.coverImg = coverImg;
 	}
+	public String getCoverImgOri() {
+		return coverImgOri;
+	}
+	public void setCoverImgOri(String coverImgOri) {
+		this.coverImgOri = coverImgOri;
+	}
 	public String getpDate() {
 		return pDate;
 	}
@@ -79,6 +87,12 @@ public class BookVo {
 	}
 	public void setIsPermitted(int isPermitted) {
 		this.isPermitted = isPermitted;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String toJson() {
@@ -107,7 +121,5 @@ public class BookVo {
 		+ "', 'country':'" + country + "', 'coverImg':'" + coverImg + "', 'pDate':'" + pDate + "', 'isPermitted':'"
 		+ isPermitted + "'}"*/
 	}
-	
-	
 	
 }

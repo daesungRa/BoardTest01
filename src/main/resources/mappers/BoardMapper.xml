@@ -104,8 +104,15 @@
 	<select id="selectBookInfo" parameterType="String" resultType="com.daesungra.domain.BookVo">
 		SELECT bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, to_char(pDate, 'YYYY') pDate, isPermitted
 			FROM DBOOK
-			WHERE bookNo like '%${_parameter}%' or title_kor like '%${_parameter}%' or title_eng like '%${_parameter}%' or introduce like '%${_parameter}%' or author like '%${_parameter}%'
+			WHERE (bookNo like '%${_parameter}%' or title_kor like '%${_parameter}%' or title_eng like '%${_parameter}%' or introduce like '%${_parameter}%' or author like '%${_parameter}%')
+				AND isPermitted = 1
 	</select>
+	
+	<!-- insert book info -->
+	<insert id='insertBookInfo' parameterType='com.daesungra.domain.BookVo'>
+		insert into dbook (bookNo, title_kor, title_eng, introduce, author, category, publisher, country, coverImg, coverImgOri, pDate, isPermitted, userId)
+			values (#{bookNo}, #{title_kor}, #{title_eng}, #{introduce}, #{author}, #{category}, #{publisher}, #{country}, #{coverImg}, #{coverImgOri}, sysdate, #{isPermitted}, #{userId})
+	</insert>
 	
 	<!-- select board -->
 	<select id="selectBoardInfo" parameterType="com.daesungra.domain.BoardVo" resultMap="getBoardVoIncludeClobType">

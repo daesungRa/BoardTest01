@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.daesungra.domain.BookVo;
 import com.daesungra.domain.MemberVo;
 
 /*
@@ -18,6 +19,7 @@ import com.daesungra.domain.MemberVo;
 @Repository
 public class FileUpload {
 	private MemberVo mvo = null;
+	private BookVo bkvo = null;
 
 	private String oriFileName = "";
 	private String sysFileName = "";
@@ -171,99 +173,283 @@ public class FileUpload {
 	// 정보는 > nickName, interest, introduce, isPublic (DMEMBER_PROFILE), 그리고 경우에 따라 photo (DMEMBER)
 	public MemberVo getProfileVo (HttpServletRequest request) {
 		// 지정된 경로의 디렉토리가 없다면 새로 생성
-				File file = new File(saveDir);
-				if (!file.isDirectory()) {
-					file.mkdirs();
-				}
+		File file = new File(saveDir);
+		if (!file.isDirectory()) {
+			file.mkdirs();
+		}
+		
+		try {
+			// enctype='multipart/form-data' 방식으로 넘어온 요청정보를 다루기 위해 
+			// 스프링 컨테이너에 포함된 MultipartHttpServletRequest 객체로 변환하여 사용한다
+			// 이 클래스는 HttpServletRequest, MultipartRequest, ServletRequest 의 세 인터페이스를 구현한 자손 인터페이스이므로
+			// 같은 계열 request 객체를 캐스팅해 활용 가능하다
+			MultipartHttpServletRequest multi = (MultipartHttpServletRequest) request;
+			Iterator<String> ite = multi.getFileNames();
+			if (ite.hasNext()) { // 어차피 업로드 파일은 한개이므로
+				String tagName = ite.next();
+				MultipartFile mFile = multi.getFile(tagName);
 				
-				try {
-					// enctype='multipart/form-data' 방식으로 넘어온 요청정보를 다루기 위해 
-					// 스프링 컨테이너에 포함된 MultipartHttpServletRequest 객체로 변환하여 사용한다
-					// 이 클래스는 HttpServletRequest, MultipartRequest, ServletRequest 의 세 인터페이스를 구현한 자손 인터페이스이므로
-					// 같은 계열 request 객체를 캐스팅해 활용 가능하다
-					MultipartHttpServletRequest multi = (MultipartHttpServletRequest) request;
-					Iterator<String> ite = multi.getFileNames();
-					if (ite.hasNext()) { // 어차피 업로드 파일은 한개이므로
-						String tagName = ite.next();
-						MultipartFile mFile = multi.getFile(tagName);
-						
-						// 전달받은 파일 확인
-						System.out.println("file form name : " + mFile.getName());
-						System.out.println("ori file name : " + mFile.getOriginalFilename());
-						System.out.println("file size : " + mFile.getSize());
-						System.out.println("is existing? : " + mFile.isEmpty());
-						
-						// 오리지널 파일명, 인코딩 처리
-						oriFileName = new String(mFile.getOriginalFilename().getBytes("8859_1"), "utf-8");
-						// 실제 저장 파일명은 오리지널 파일명으로 지정했다가, 추후 지정 경로에 동일 파일명이 존재하면 수정한다
-						sysFileName = oriFileName;
-						
-						// 지정 경로에 파일 저장하기
-						// 저장할 파일이 존재한다면 수행
-						if (sysFileName != null && !sysFileName.equals("")) {
-							// 지정 경로에 동일 파일명이 이미 존재한다면 실제 저장 파일명 변경 (시스템 시각을 더함)
-							if (new File(saveDir + sysFileName).exists()) {
-								String preName = sysFileName.substring(0, sysFileName.lastIndexOf("."));
-								String postName = sysFileName.substring(sysFileName.lastIndexOf("."), sysFileName.length());
-								System.out.println("preName: " + preName + ", postName: " + postName);
-								sysFileName = preName + "_" + System.currentTimeMillis() + postName; // 같은 파일명이 존재하므로 저장파일명 변경
-							}
-							
-							// 컨테이너에 임시 파일로 저장되어 있으므로, 실제 지정 경로로 transfer 해야 한다
-							// InputStream 사용해도 됨
-							mFile.transferTo(new File(saveDir + sysFileName)); // 최종 조립된 이름으로 지정 경로로 전송(저장)
-							System.out.println("================================");
-							System.out.println("[result] ori : " + oriFileName);
-							System.out.println("[result] sys : " + sysFileName);
-							
-							// 파일 저장까지 완료했다면, 반환할 vo 객체를 생성한다
-							// 여기에 ori, sys 파일을 구분해서 세팅한다
-							this.mvo = new MemberVo();
-							
-							// profile 이므로 nickName, interest, introduce, isPublic, photo 입력
-							mvo.setNickName(multi.getParameter("nickName"));
-							mvo.setInterest(multi.getParameter("interest"));
-							mvo.setIntroduce(multi.getParameter("introduce"));
-							try {
-								mvo.setIsPublic(Integer.parseInt(multi.getParameter("isPublic"))); // 토글로 무조건 입력됨
-							} catch (Exception ex) { ex.printStackTrace(); }
-							
-							mvo.setPhoto("/desktop/resources/imgs/memberImg/" + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
-							mvo.setPhotoOri(oriFileName); // 사용자에게 보여질 오리지널 파일명
-						} else {
-							// 저장에 성공한 파일이 존재하지 않거나
-							// 애초에 요청받은 파일 정보가 없는 경우 파일을 제외한 정보만 저장됨
-							this.mvo = new MemberVo();
-							
-							// profile 이므로 nickName, interest, introduce, isPublic, photo 입력
-							mvo.setNickName(multi.getParameter("nickName"));
-							mvo.setInterest(multi.getParameter("interest"));
-							mvo.setIntroduce(multi.getParameter("introduce"));
-							try {
-								mvo.setIsPublic(Integer.parseInt(multi.getParameter("isPublic"))); // 토글로 무조건 입력됨
-							} catch (Exception ex) { ex.printStackTrace(); }
-							
-							mvo.setPhoto("");
-							mvo.setPhotoOri("");
-						}
-					} else if (multi.getParameter("photo") == null || multi.getParameter("photo").equals("")) {
-						this.mvo = new MemberVo();
-						
-						// profile 이므로 nickName, interest, introduce, isPublic, photo 입력
-						mvo.setNickName(multi.getParameter("nickName"));
-						mvo.setInterest(multi.getParameter("interest"));
-						mvo.setIntroduce(multi.getParameter("introduce"));
-						try {
-							mvo.setIsPublic(Integer.parseInt(multi.getParameter("isPublic"))); // 토글로 무조건 입력됨
-						} catch (Exception ex) { ex.printStackTrace(); }
-						
-						mvo.setPhoto("");
-						mvo.setPhotoOri("");
+				// 전달받은 파일 확인
+				System.out.println("file form name : " + mFile.getName());
+				System.out.println("ori file name : " + mFile.getOriginalFilename());
+				System.out.println("file size : " + mFile.getSize());
+				System.out.println("is existing? : " + mFile.isEmpty());
+				
+				// 오리지널 파일명, 인코딩 처리
+				oriFileName = new String(mFile.getOriginalFilename().getBytes("8859_1"), "utf-8");
+				// 실제 저장 파일명은 오리지널 파일명으로 지정했다가, 추후 지정 경로에 동일 파일명이 존재하면 수정한다
+				sysFileName = oriFileName;
+				
+				// 지정 경로에 파일 저장하기
+				// 저장할 파일이 존재한다면 수행
+				if (sysFileName != null && !sysFileName.equals("")) {
+					// 지정 경로에 동일 파일명이 이미 존재한다면 실제 저장 파일명 변경 (시스템 시각을 더함)
+					if (new File(saveDir + sysFileName).exists()) {
+						String preName = sysFileName.substring(0, sysFileName.lastIndexOf("."));
+						String postName = sysFileName.substring(sysFileName.lastIndexOf("."), sysFileName.length());
+						System.out.println("preName: " + preName + ", postName: " + postName);
+						sysFileName = preName + "_" + System.currentTimeMillis() + postName; // 같은 파일명이 존재하므로 저장파일명 변경
 					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
+					
+					// 컨테이너에 임시 파일로 저장되어 있으므로, 실제 지정 경로로 transfer 해야 한다
+					// InputStream 사용해도 됨
+					mFile.transferTo(new File(saveDir + sysFileName)); // 최종 조립된 이름으로 지정 경로로 전송(저장)
+					System.out.println("================================");
+					System.out.println("[result] ori : " + oriFileName);
+					System.out.println("[result] sys : " + sysFileName);
+					
+					// 파일 저장까지 완료했다면, 반환할 vo 객체를 생성한다
+					// 여기에 ori, sys 파일을 구분해서 세팅한다
+					this.mvo = new MemberVo();
+					
+					// profile 이므로 nickName, interest, introduce, isPublic, photo 입력
+					mvo.setNickName(multi.getParameter("nickName"));
+					mvo.setInterest(multi.getParameter("interest"));
+					mvo.setIntroduce(multi.getParameter("introduce"));
+					try {
+						mvo.setIsPublic(Integer.parseInt(multi.getParameter("isPublic"))); // 토글로 무조건 입력됨
+					} catch (Exception ex) { ex.printStackTrace(); }
+					
+					mvo.setPhoto("/desktop/resources/imgs/memberImg/" + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
+					mvo.setPhotoOri(oriFileName); // 사용자에게 보여질 오리지널 파일명
+				} else {
+					// 저장에 성공한 파일이 존재하지 않거나
+					// 애초에 요청받은 파일 정보가 없는 경우 파일을 제외한 정보만 저장됨
+					this.mvo = new MemberVo();
+					
+					// profile 이므로 nickName, interest, introduce, isPublic, photo 입력
+					mvo.setNickName(multi.getParameter("nickName"));
+					mvo.setInterest(multi.getParameter("interest"));
+					mvo.setIntroduce(multi.getParameter("introduce"));
+					try {
+						mvo.setIsPublic(Integer.parseInt(multi.getParameter("isPublic"))); // 토글로 무조건 입력됨
+					} catch (Exception ex) { ex.printStackTrace(); }
+					
+					mvo.setPhoto("");
+					mvo.setPhotoOri("");
 				}
+			} else if (multi.getParameter("photo") == null || multi.getParameter("photo").equals("")) {
+				this.mvo = new MemberVo();
 				
-				return this.mvo;
+				// profile 이므로 nickName, interest, introduce, isPublic, photo 입력
+				mvo.setNickName(multi.getParameter("nickName"));
+				mvo.setInterest(multi.getParameter("interest"));
+				mvo.setIntroduce(multi.getParameter("introduce"));
+				try {
+					mvo.setIsPublic(Integer.parseInt(multi.getParameter("isPublic"))); // 토글로 무조건 입력됨
+				} catch (Exception ex) { ex.printStackTrace(); }
+				
+				mvo.setPhoto("");
+				mvo.setPhotoOri("");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return this.mvo;
+	}
+	
+	// 프로파일 수정을 위한 객체생성
+	// 정보는 > nickName, interest, introduce, isPublic (DMEMBER_PROFILE), 그리고 경우에 따라 photo (DMEMBER)
+	public BookVo getBookVo (HttpServletRequest request) {
+		// 지정된 경로의 디렉토리가 없다면 새로 생성
+		File file = new File(saveDirBookInfo);
+		if (!file.isDirectory()) {
+			file.mkdirs();
+		}
+		
+		try {
+			// enctype='multipart/form-data' 방식으로 넘어온 요청정보를 다루기 위해 
+			// 스프링 컨테이너에 포함된 MultipartHttpServletRequest 객체로 변환하여 사용한다
+			// 이 클래스는 HttpServletRequest, MultipartRequest, ServletRequest 의 세 인터페이스를 구현한 자손 인터페이스이므로
+			// 같은 계열 request 객체를 캐스팅해 활용 가능하다
+			MultipartHttpServletRequest multi = (MultipartHttpServletRequest) request;
+			Iterator<String> ite = multi.getFileNames();
+			if (ite.hasNext()) { // 어차피 업로드 파일은 한개이므로
+				String tagName = ite.next();
+				MultipartFile mFile = multi.getFile(tagName);
+				
+				// 전달받은 파일 확인
+				System.out.println("file form name : " + mFile.getName());
+				System.out.println("ori file name : " + mFile.getOriginalFilename());
+				System.out.println("file size : " + mFile.getSize());
+				System.out.println("is existing? : " + mFile.isEmpty());
+				
+				// 오리지널 파일명, 인코딩 처리
+				oriFileName = new String(mFile.getOriginalFilename().getBytes("8859_1"), "utf-8");
+				// 실제 저장 파일명은 오리지널 파일명으로 지정했다가, 추후 지정 경로에 동일 파일명이 존재하면 수정한다
+				sysFileName = oriFileName;
+				
+				// 지정 경로에 파일 저장하기
+				// 저장할 파일이 존재한다면 수행
+				if (sysFileName != null && !sysFileName.equals("")) {
+					// 지정 경로에 동일 파일명이 이미 존재한다면 실제 저장 파일명 변경 (시스템 시각을 더함)
+					if (new File(saveDirBookInfo + sysFileName).exists()) {
+						String preName = sysFileName.substring(0, sysFileName.lastIndexOf("."));
+						String postName = sysFileName.substring(sysFileName.lastIndexOf("."), sysFileName.length());
+						System.out.println("preName: " + preName + ", postName: " + postName);
+						sysFileName = preName + "_" + System.currentTimeMillis() + postName; // 같은 파일명이 존재하므로 저장파일명 변경
+					}
+					
+					// 컨테이너에 임시 파일로 저장되어 있으므로, 실제 지정 경로로 transfer 해야 한다
+					// InputStream 사용해도 됨
+					mFile.transferTo(new File(saveDirBookInfo + sysFileName)); // 최종 조립된 이름으로 지정 경로로 전송(저장)
+					System.out.println("================================");
+					System.out.println("[result] ori : " + oriFileName);
+					System.out.println("[result] sys : " + sysFileName);
+					
+					// 파일 저장까지 완료했다면, 반환할 vo 객체를 생성한다
+					// 여기에 ori, sys 파일을 구분해서 세팅한다
+					this.bkvo = new BookVo();
+					
+					/* bkvo 세팅 */
+					// bookNo, category, pDate 제외, 추후 관리자 입력
+					bkvo.setBookNo("notPermitted:" + System.currentTimeMillis() / 1000);
+					bkvo.setCategory(9999);
+					// title_kor, title_eng, introduce, author, publisher, country, coverImg, coverImgOri, isPermitted 입력
+					if (multi.getParameter("title_kor") != null) {
+						bkvo.setTitle_kor(multi.getParameter("title_kor"));
+					} else {
+						bkvo.setTitle_kor(multi.getParameter(""));
+					}
+					if (multi.getParameter("title_eng") != null) {
+						bkvo.setTitle_eng(multi.getParameter("title_eng"));
+					} else {
+						bkvo.setTitle_eng(multi.getParameter(""));
+					}
+					if (multi.getParameter("introduce") != null) {
+						bkvo.setIntroduce(multi.getParameter("introduce"));
+					} else {
+						bkvo.setIntroduce(multi.getParameter(""));
+					}
+					if (multi.getParameter("author") != null) {
+						bkvo.setAuthor(multi.getParameter("author"));
+					} else {
+						bkvo.setAuthor(multi.getParameter(""));
+					}
+					if (multi.getParameter("publisher") != null) {
+						bkvo.setPublisher(multi.getParameter("publisher"));
+					} else {
+						bkvo.setPublisher(multi.getParameter(""));
+					}
+					if (multi.getParameter("country") != null) {
+						bkvo.setCountry(multi.getParameter("country"));
+					} else {
+						bkvo.setCountry(multi.getParameter(""));
+					}
+					bkvo.setCoverImg("/desktop/resources/imgs/bookAttFiles/" + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
+					bkvo.setCoverImgOri(oriFileName); // 사용자에게 보여질 오리지널 파일명
+					bkvo.setIsPermitted(0);
+				} else {
+					// 저장에 성공한 파일이 존재하지 않거나
+					// 애초에 요청받은 파일 정보가 없는 경우 파일을 제외한 정보만 저장됨
+					this.bkvo = new BookVo();
+					
+					/* bkvo 세팅 */
+					// bookNo, category, pDate 제외, 추후 관리자 입력
+					bkvo.setBookNo("notPermitted:" + System.currentTimeMillis() / 1000);
+					bkvo.setCategory(9999);
+					// title_kor, title_eng, introduce, author, publisher, country, coverImg, coverImgOri, isPermitted 입력
+					if (multi.getParameter("title_kor") != null) {
+						bkvo.setTitle_kor(multi.getParameter("title_kor"));
+					} else {
+						bkvo.setTitle_kor(multi.getParameter(""));
+					}
+					if (multi.getParameter("title_eng") != null) {
+						bkvo.setTitle_eng(multi.getParameter("title_eng"));
+					} else {
+						bkvo.setTitle_eng(multi.getParameter(""));
+					}
+					if (multi.getParameter("introduce") != null) {
+						bkvo.setIntroduce(multi.getParameter("introduce"));
+					} else {
+						bkvo.setIntroduce(multi.getParameter(""));
+					}
+					if (multi.getParameter("author") != null) {
+						bkvo.setAuthor(multi.getParameter("author"));
+					} else {
+						bkvo.setAuthor(multi.getParameter(""));
+					}
+					if (multi.getParameter("publisher") != null) {
+						bkvo.setPublisher(multi.getParameter("publisher"));
+					} else {
+						bkvo.setPublisher(multi.getParameter(""));
+					}
+					if (multi.getParameter("country") != null) {
+						bkvo.setCountry(multi.getParameter("country"));
+					} else {
+						bkvo.setCountry(multi.getParameter(""));
+					}
+					bkvo.setCoverImg(""); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
+					bkvo.setCoverImgOri(""); // 사용자에게 보여질 오리지널 파일명
+					bkvo.setIsPermitted(0);
+				}
+			} else if (multi.getParameter("coverImg") == null || multi.getParameter("coverImg").equals("")) {
+				this.bkvo = new BookVo();
+				
+				/* bkvo 세팅 */
+				// bookNo, category, pDate 제외, 추후 관리자 입력
+				bkvo.setBookNo("notPermitted:" + System.currentTimeMillis() / 1000);
+				bkvo.setCategory(9999);
+				// title_kor, title_eng, introduce, author, publisher, country, coverImg, coverImgOri, isPermitted 입력
+				if (multi.getParameter("title_kor") != null) {
+					bkvo.setTitle_kor(multi.getParameter("title_kor"));
+				} else {
+					bkvo.setTitle_kor(multi.getParameter(""));
+				}
+				if (multi.getParameter("title_eng") != null) {
+					bkvo.setTitle_eng(multi.getParameter("title_eng"));
+				} else {
+					bkvo.setTitle_eng(multi.getParameter(""));
+				}
+				if (multi.getParameter("introduce") != null) {
+					bkvo.setIntroduce(multi.getParameter("introduce"));
+				} else {
+					bkvo.setIntroduce(multi.getParameter(""));
+				}
+				if (multi.getParameter("author") != null) {
+					bkvo.setAuthor(multi.getParameter("author"));
+				} else {
+					bkvo.setAuthor(multi.getParameter(""));
+				}
+				if (multi.getParameter("publisher") != null) {
+					bkvo.setPublisher(multi.getParameter("publisher"));
+				} else {
+					bkvo.setPublisher(multi.getParameter(""));
+				}
+				if (multi.getParameter("country") != null) {
+					bkvo.setCountry(multi.getParameter("country"));
+				} else {
+					bkvo.setCountry(multi.getParameter(""));
+				}
+				bkvo.setCoverImg(""); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
+				bkvo.setCoverImgOri(""); // 사용자에게 보여질 오리지널 파일명
+				bkvo.setIsPermitted(0);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return this.bkvo;
 	}
 }

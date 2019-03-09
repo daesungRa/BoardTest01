@@ -10,11 +10,13 @@ import com.daesungra.domain.CommentVo;
 public interface BoardDao {
 
 	public List<BoardVo> getBoardList (Map<String, Object> pagenatedInputData);
-	public List<BookVo> getBookInfo (String search);
 	public BoardVo boardSelect (BoardVo bvo);
 	public boolean boardInsert (BoardVo bvo);
 	public boolean boardUpdate (BoardVo bvo);
 	public boolean boardDelete (BoardVo bvo);
+
+	public boolean bookInsert (BookVo bkvo);
+	public List<BookVo> getBookInfo (String search);
 	
 	public List<CommentVo> getCommentList (Map<String, Object> pagenatedInputData);
 	public boolean commentInsert (CommentVo cvo);
