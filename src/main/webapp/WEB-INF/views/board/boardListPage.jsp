@@ -712,6 +712,11 @@
 		<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
 	</footer>
 	
+	<!-- report icon -->
+	<div class='btn btn-secondary' id='reportIcon'>
+		<img src='/desktop/resources/imgs/sample/warning-light02.svg' alt='report icon' style='width: 23px; padding-bottom: 3px;' />
+	</div>
+		
 	<!-- button for to-top -->
 	<a class='btn btn-secondary my-btn-toTop' href='#toTop'>top</a>
 	

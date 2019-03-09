@@ -52,7 +52,8 @@
 #profileImagePreview {
 	width: 82px;
 	height: 88px;
-	border-radius: 40px;
+	border: 1px solid #dedede;
+	border-radius: 35px;
 }
 #inputFNum {
 	width: 42px;

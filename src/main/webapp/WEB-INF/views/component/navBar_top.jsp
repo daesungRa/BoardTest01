@@ -42,9 +42,12 @@
 						</li>
 						<!-- <li class='nav-item'><a class='nav-link my-nav-top' id='writerListAnc' href='#writerList'>작가별</a></li>
 						<li class='nav-item'><a class='nav-link my-nav-top' id='guestbookAnc' href='#guestbook'>방명록</a></li> -->
-						<li class='nav-item'><a class='nav-link my-nav-top .myPageAnc' id='' href='/desktop/member/myPage'>나의 책상</a></li>
+						<li class='nav-item'><a class='nav-link my-nav-top' id='' href='/desktop/member/myPage'>나의 책상</a></li>
 						<c:if test='${not empty sessionScope.authority and sessionScope.authority > 0 }'>
 							<li class='nav-item'><a class='nav-link my-nav-top' id='getAdminPageAnc' href='/desktop/getAdminPage'>관리자 페이지</a></li>
+							<c:if test='${not empty sessionScope.authority and sessionScope.authority == 2 }'>
+								<li class='nav-item'><a class='nav-link my-nav-top' id='' href='#'>회원관리</a></li>
+							</c:if>
 						</c:if>
 					<%-- </c:otherwise>
 				</c:choose> --%>

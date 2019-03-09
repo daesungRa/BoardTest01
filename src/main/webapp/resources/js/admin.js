@@ -5,4 +5,20 @@
  */
 $(function () {
 	$('#indexTop #adminComponentInTop').css({"display":"block"});
+	
+	$('#adminArticle #showMemberAdminComponent').click(function () {
+		$('#adminArticle #showMemberAdminComponent').css({"display":"none"});
+		$('#adminArticle #hideAlign').css({"display":"block"});
+		$('#adminArticle #memberAdminComponent').css({"display":"block"});
+		
+		funcMovePage('memberAdminComponent');
+	});
+	
+	$('#adminArticle #hideMemberAdminComponent').click(function () {
+		$('#adminArticle #showMemberAdminComponent').css({"display":"inline-block"});
+		$('#adminArticle #hideAlign').css({"display":"none"});
+		$('#adminArticle #memberAdminComponent').css({"display":"none"});
+		
+		funcMovePage('adminPageTitle');
+	});
 })

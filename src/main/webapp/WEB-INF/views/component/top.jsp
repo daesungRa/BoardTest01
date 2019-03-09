@@ -16,8 +16,15 @@
 				<p style='font-size: 7pt; margin-top: -16px;'>세상의 모든 책 리뷰</p>
 			</div>
 			<c:if test='${not empty sessionScope.authority and sessionScope.authority > 0 }'>
-				<div id='adminComponentInTop' style='display: none;' onclick='location.href = "/desktop/getAdminPage"'>
-					<p style='font-size: 20pt; margin-top: 3px;'>Admin Page</p>
+				<div id='adminComponentInTop' style='display: none;' onclick='location.href = "/desktop/getAdminPage'>
+					<c:choose>
+						<c:when test='${sessionScope.authority == 2 }'>
+							<p style='font-size: 20pt; margin-top: 3px;'>Admin Page Super</p>
+						</c:when>
+						<c:otherwise>
+							<p style='font-size: 20pt; margin-top: 3px;'>Admin Page</p>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</c:if>
 			<div class='searchForm'>

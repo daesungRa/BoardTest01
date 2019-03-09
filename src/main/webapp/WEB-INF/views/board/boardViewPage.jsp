@@ -144,17 +144,22 @@
 						<br/><br/><br/>
 						<img src='/desktop/resources/imgs/sample/balloon02.svg' id='iconComment' alt='toCommentPart' style='width: 20px;' data-toggle="tooltip" data-placement="right" title='댓글보기' /><br/>
 						<img src='/desktop/resources/imgs/sample/heart_empty01.svg' id='iconThumbUpDown' alt='thumbUpDown' style='width: 20px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='추천하기' /><br/>
-						<c:if test='${not empty sessionScope.userId and bvo.userId == sessionScope.userId }'>
-							<div class='dropdown'>
-								<span class='' data-toggle='dropdown' role='button' aria-expanded='false'>
-									<img src='/desktop/resources/imgs/sample/gear02.svg' id='iconSettings' alt='boardSettings' style='width: 20px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='글 설정' />
-								</span>
-								<ul class='dropdown-menu dropdown-menu-left'>
-									<li><a class='dropdown-item' id='toBoardModifyPage' href='#boardModifyPage'>게시글 수정</a></li>
-									<li><a class='dropdown-item' id='toBoardDeleteAction' href='#boardDeleteAction'>게시글 삭제</a></li>
-								</ul>
-							</div>
-						</c:if>
+						<div class='dropdown'>
+							<span class='' data-toggle='dropdown' role='button' aria-expanded='false'>
+								<img src='/desktop/resources/imgs/sample/gear02.svg' id='iconSettings' alt='boardSettings' style='width: 20px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='글 설정' />
+							</span>
+							<ul class='dropdown-menu dropdown-menu-left'>
+								<c:choose>
+									<c:when test='${not empty sessionScope.userId and bvo.userId == sessionScope.userId }'>
+										<li><a class='dropdown-item' id='toBoardModifyPage' href='#boardModifyPage'>게시글 수정</a></li>
+										<li><a class='dropdown-item' id='toBoardDeleteAction' href='#boardDeleteAction'>게시글 삭제</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a class='dropdown-item' id='showReportPage' href='#showReportPage'>신고하기</a></li>
+									</c:otherwise>
+								</c:choose>
+							</ul>
+						</div>
 					</div>
 				</div>
 				
