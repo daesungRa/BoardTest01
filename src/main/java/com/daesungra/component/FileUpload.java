@@ -22,6 +22,7 @@ public class FileUpload {
 	private String oriFileName = "";
 	private String sysFileName = "";
 	private String saveDir = "D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/";
+	private String saveDirBookInfo = "D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/bookAttFiles/";
 	
 	// 전달받은 요청 객체의 파일을 multipart 인스턴스를 활용해 서버에 저장한 후 (sysFileName)
 	// 오리지널 파일명, 실제 저장 파일명 구분해 vo 객체 생성 후 반환

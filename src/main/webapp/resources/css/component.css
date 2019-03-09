@@ -198,10 +198,15 @@
 /*
  * recommend book info
  */
-.my-btn-recommend {
+.my-btn-register {
 	position: absolute;
 	right: 0;
 	top: 65px;
+}
+.my-btn-register:hover {
+	color: #000;
+	cursor: pointer;
+	background-color: #dedede;
 }
 
 /*

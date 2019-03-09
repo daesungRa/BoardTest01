@@ -35,7 +35,12 @@
 	cursor: pointer;
 	background-color: #dedede;
 }
-#toBoardWritePage:hover {
+#toBoardWritePage {
+	position: absolute;
+	right: 0;
+	top: 65px;
+}
+.toBoardWritePage:hover {
 	color: #000;
 	cursor: pointer;
 	background-color: #dedede;

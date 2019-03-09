@@ -13,30 +13,30 @@
 	<div class='container'>
 		<div class='row' style='margin: 40px 100px 40px 40px;'>
 			<div class='col-sm-8'>
-				<form class='form' id='bookRegisterForm' name='bookRegisterForm' method='post' action ='#'>
+				<form class='form' id='bookRegisterForm' name='bookRegisterForm' method='post' action ='#bookRegisterAction'>
 					<div class='form-group'>
 						<label for=''>책 제목(한글)</label>
-						<input class='form-control' type='text' id='' name='' value='' placeholder='책 제목(한글) 입력' />
+						<input class='form-control' type='text' id='title_kor' name='title_kor' value='' placeholder='책 제목(한글) 입력' />
 					</div>
 					<div class='form-group'>
 						<label for=''>책 제목(영문)</label>
-						<input class='form-control' type='text' id='' name='' value='' placeholder='책 제목(영문) 입력' />
+						<input class='form-control' type='text' id='title_eng' name='title_eng' value='' placeholder='책 제목(영문) 입력' />
 					</div>
 					<div class='form-group'>
 						<label for=''>작가</label>
-						<input class='form-control' type='text' id='' name='' value='' placeholder='작가 입력' />
+						<input class='form-control' type='text' id='author' name='author' value='' placeholder='작가 입력' />
 					</div>
 					<div class='form-group'>
 						<label for=''>출판사</label>
-						<input class='form-control' type='text' id='' name='' value='' placeholder='출판사 입력' />
+						<input class='form-control' type='text' id='publisher' name='publisher' value='' placeholder='출판사 입력' />
 					</div>
 					<div class='form-group'>
 						<label for=''>국가</label>
-						<input class='form-control' type='text' id='' name='' value='' placeholder='출판 국가 입력' />
+						<input class='form-control' type='text' id='country' name='country' value='' placeholder='출판 국가 입력' />
 					</div>
 					<div class='form-group'>
 						<label for=''>소개</label>
-						<textarea class='form-control' rows='3' id='' name='' placeholder='책 소개 입력'></textarea>
+						<textarea class='form-control' rows='3' id='introduce' name='introduce' placeholder='책 소개 입력'></textarea>
 					</div>
 					<div class='form-group'>
 						<label for=''>커버 이미지</label>
@@ -48,8 +48,8 @@
 				</form>
 			</div>
 			<div class='col-sm-4' style='text-align: center;'>
-				<img id='image' src='https://via.placeholder.com/150x200?text=Images here' width='250px' height='300px' style='border-radius: 50px;' /><br/>
-				<p>이미지 미리보기</p>
+				<img id='image' src='https://via.placeholder.com/150x200?text=Images here' width='250px' height='320px' style='border-radius: 30px;' /><br/>
+				<p id='imgName'>이미지 미리보기</p>
 			</div>
 		</div>
 	</div>

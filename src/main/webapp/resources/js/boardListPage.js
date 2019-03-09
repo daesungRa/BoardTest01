@@ -30,7 +30,7 @@ function funcBoardListPage () {
 		}
 	});
 	// 게시글 쓰기 페이지로 이동
-	$('#toBoardWritePage').click(function () {
+	$('.toBoardWritePage').click(function () {
 		var categoryNum = $('#saveCategoryNum').text();
 		var requestUrl = '/desktop/board/boardWritePage/' + categoryNum;
 		
@@ -57,7 +57,7 @@ function funcBoardListPage () {
 		funcMovePage('indexTop');
 	});
 	// 책 등록하기
-	$('#btnBookRegister').click(function () {
+	$('.my-btn-register').click(function () {
 		getBookRegisterPart();
 	});
 	// 책 등록 action

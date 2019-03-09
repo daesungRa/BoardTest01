@@ -67,6 +67,32 @@ function getBookRegisterPart () {
 function funcBookRegister () {
 	var coverImg = document.getElementById('coverImg');
 	coverImg.onchange = imagePreView;
+	
+	$('#btnBookRegisterSubmit').click(function () {
+		var formData = new FormData($('#bookRegisterForm'));
+		$.ajax({
+			type: 'post',
+			url: '/desktop/board/bookRegisterAction',
+			data: formData,
+			contentType: false,
+			processData: false,
+			dataType: 'text',
+			success: function (data) {
+				if (data == '1') {
+					alert('책 정보 등록 성공');
+					
+					// 모달 창 닫기
+					$('#modalWindow #closeModal').trigger('click');
+				} else if (data == '0') {
+					alert('책 정보 등록 실패');
+				} else if (data == '2') {
+					alert('접속 정보가 없습니다. 로그인 후 이용하세요');
+				} else {
+					alert('에러 발생, 관리자에게 문의하십시오');
+				}
+			}
+		});
+	});
 }
 // 이미지 프리뷰 함수
 function imagePreView (e) {
@@ -79,5 +105,8 @@ function imagePreView (e) {
         var img = new Image();
         img.src = e2.target.result;
         profile.src = img.src;
+        
+        var imgName = $('#coverImg').val().substring($('#coverImg').val().lastIndexOf('\\') + 1, $('#coverImg').val().length);
+        $('#imgName').text(imgName);
     }
 }

@@ -115,6 +115,9 @@ public class BoardController {
 		return "/board/boardListViewPart";
 	}
 	
+	/*
+	 * regard to book info
+	 */
 	// search book info
 	@ResponseBody // json 타입으로 반환하기 위함
 	@RequestMapping(value="/searchBookInfo", method=RequestMethod.POST)
@@ -144,6 +147,16 @@ public class BoardController {
 		mav.setViewName("/board/bookRegisterPart");
 		
 		return mav;
+	}
+	
+	// book register action
+	@ResponseBody
+	@RequestMapping(value="/bookRegisterAction", method=RequestMethod.POST)
+	public String bookRegisterAction (HttpServletRequest request) {
+		 String result = "1"; // 0: 실패, 1: 성공, 2: 접속정보 없음
+		logger.info("[book register action] 책 등록 요청");
+		
+		return result;
 	}
 	
 	/*

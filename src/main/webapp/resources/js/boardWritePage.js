@@ -100,6 +100,8 @@ $(function () {
 	$('#boardWriteForm #btnBoardWriteSubmit').click(function () {
 		if ($('#boardWriteForm #existingBookCheck').val() == 'unChecked') {
 			alert('리뷰를 작성할 책을 검색하세요');
+			$('#searchBookInfoForm #searchBookInBoardWrite').focus();
+			$('#searchBookInfoForm #searchBookInBoardWrite').select();
 		} else if ($('#boardWriteForm #existingBookCheck').val() == 'checked') {
 			var result = confirm('글을 등록하시겠습니까?');
 			if (result) {
