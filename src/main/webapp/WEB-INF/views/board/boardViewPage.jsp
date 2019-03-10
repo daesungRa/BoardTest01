@@ -53,7 +53,7 @@
 		
 		<!-- middle component -->
 		<div class='container'>
-			<div class='container' id='boardViewContainer' style='width: 96%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 120px 20px 120px;'>
+			<div class='container' id='boardViewContainer' style='width: 96%; min-height: 1100px; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 120px 20px 120px;'>
 				<div style='position: relative; height: 80px;'>
 					<div id='saveCategoryNum' style='display: none;'>${categoryNum }</div>
 					<c:choose>
@@ -120,8 +120,8 @@
 				<div class='container' id='boardTitleContent' style='position: relative; height: 100px; margin: 60px auto;'>
 					<div id='inputBoardSerial' style='position: absolute; top: 0; left: 0; width: 30px; height: 50px; display: none'>${bvo.serial }</div>
 					<div style='position: absolute; top: 0; left: 30px;'>
-						<div style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
-						<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
+						<div id='inputBoardTitle' style='display: inline-block; font-size: 16pt; margin-bottom: 10px;'>${bvo.title }</div><br/>
+						<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div id='inputBoardUserId' style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 						<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 						<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
 						<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
@@ -144,22 +144,24 @@
 						<br/><br/><br/>
 						<img src='/desktop/resources/imgs/sample/balloon02.svg' id='iconComment' alt='toCommentPart' style='width: 20px;' data-toggle="tooltip" data-placement="right" title='댓글보기' /><br/>
 						<img src='/desktop/resources/imgs/sample/heart_empty01.svg' id='iconThumbUpDown' alt='thumbUpDown' style='width: 20px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='추천하기' /><br/>
-						<div class='dropdown'>
-							<span class='' data-toggle='dropdown' role='button' aria-expanded='false'>
-								<img src='/desktop/resources/imgs/sample/gear02.svg' id='iconSettings' alt='boardSettings' style='width: 20px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='글 설정' />
-							</span>
-							<ul class='dropdown-menu dropdown-menu-left'>
-								<c:choose>
-									<c:when test='${not empty sessionScope.userId and bvo.userId == sessionScope.userId }'>
-										<li><a class='dropdown-item' id='toBoardModifyPage' href='#boardModifyPage'>게시글 수정</a></li>
-										<li><a class='dropdown-item' id='toBoardDeleteAction' href='#boardDeleteAction'>게시글 삭제</a></li>
-									</c:when>
-									<c:otherwise>
-										<li><a class='dropdown-item' id='showReportPage' href='#showReportPage'>신고하기</a></li>
-									</c:otherwise>
-								</c:choose>
-							</ul>
-						</div>
+						<c:if test='${not empty sessionScope.userId }'>
+							<div class='dropdown'>
+								<span class='' data-toggle='dropdown' role='button' aria-expanded='false'>
+									<img src='/desktop/resources/imgs/sample/gear02.svg' id='iconSettings' alt='boardSettings' style='width: 20px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='글 설정' />
+								</span>
+								<ul class='dropdown-menu dropdown-menu-left'>
+									<c:choose>
+										<c:when test='${not empty sessionScope.userId and bvo.userId == sessionScope.userId }'>
+											<li><a class='dropdown-item' id='toBoardModifyPage' href='#boardModifyPage'>게시글 수정</a></li>
+											<li><a class='dropdown-item' id='toBoardDeleteAction' href='#boardDeleteAction'>게시글 삭제</a></li>
+										</c:when>
+										<c:when test='${not empty sessionScope.userId }'>
+											<li><a class='dropdown-item showReportPage' href='#showReportPage'>신고하기<span id='viewUserId' style='display: none;'>${sessionScope.userId }</span></a></li>
+										</c:when>
+									</c:choose>
+								</ul>
+							</div>
+						</c:if>
 					</div>
 				</div>
 				
@@ -323,6 +325,11 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/component/footer.jsp"></jsp:include>
 	</footer>
+	
+	<!-- report icon -->
+	<div class='btn btn-secondary' id='reportIcon'>
+		<img src='/desktop/resources/imgs/sample/warning-light02.svg' class='showReportPage' alt='report icon' style='width: 23px; padding-bottom: 3px;' />
+	</div>
 	
 	<!-- button for to-top -->
 	<a class='btn btn-secondary my-btn-toTop' href='#'>top</a>

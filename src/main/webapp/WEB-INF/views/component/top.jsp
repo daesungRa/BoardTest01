@@ -19,7 +19,7 @@
 				<div id='adminComponentInTop' style='display: none;' onclick='location.href = "/desktop/getAdminPage'>
 					<c:choose>
 						<c:when test='${sessionScope.authority == 2 }'>
-							<p style='font-size: 20pt; margin-top: 3px;'>Admin Page Super</p>
+							<p style='font-size: 20pt; margin-top: 3px;'>Admin Page <span style='font-size: 11pt; color: #bafeff;'>Super</span></p>
 						</c:when>
 						<c:otherwise>
 							<p style='font-size: 20pt; margin-top: 3px;'>Admin Page</p>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+	<resultMap type='com.daesungra.domain.BoardReportVo' id='boardReportType'>
+		<!-- report -->
+		<result property='serial' column='serial' />
+		<result property='rUserId' column='rUserId' />
+		<result property='fSerial' column='fSerial' />
+		<result property='rContent' column='rContent' />
+		<result property='isDelete' column='isDelete' />
+		<result property='rDate' column='rDate' />
+		
+		<!-- dboard -->
+		<result property='userId' column='userId' />
+		<result property='bookNo' column='bookNo' />
+		<result property='category' column='category' />
+		<result property='title' column='title' />
+		<result property='content' column='content' jdbcType='CLOB' javaType='java.lang.String' />
+		<result property='bDate' column='bDate' />
+		<result property='hit' column='hit' />
+		
+		<!-- dbook -->
+		<result property='title_kor' column='title_kor' />
+		<result property='title_eng' column='title_eng' />
+		<result property='author' column='author' />
+		<result property='country' column='country' />
+		<result property='coverImg' column='coverImg' />
+		<result property='pDate' column='pDate' />
+	</resultMap>
+	
+	<!-- get board report list -->
+	<select id='getBoardReportList' parameterType='com.daesungra.domain.BoardReportVo' resultMap='boardReportType'>
+		SELECT br.serial serial,
+				br.rUserId rUserId,
+				br.fSerial fSerial,
+				br.rContent rContent,
+				br.isDelete isDelete,
+				to_char(br.rDate, 'YYYY.MM.DD HH24:MI:SS') rDate,
+				
+				bd.userId userId,
+				bd.bookNo bookNo,
+				bd.category category,
+				bd.title title,
+				bd.content content,
+				to_char(bd.bDate, 'YYYY.MM.DD HH24:MI:SS') bDate,
+				bd.hit hit,
+				
+				bk.title_kor title_kor,
+				bk.title_eng title_eng,
+				bk.author author,
+				bk.country country,
+				bk.coverImg coverImg,
+				to_char(bk.pDate, 'YYYY.MM.DD HH24:MI:SS') pDate
+			FROM DBOARD_REPORTLIST br
+				JOIN DBOARD bd ON br.fSerial = bd.serial
+				JOIN DBOOK bk ON bd.bookNo = bk.bookNo
+			WHERE to_char(br.rDate, 'YYMMDD') = #{rDate}
+	</select>
+	
+	<!-- board report (신고글 등록) -->
+	<insert id='boardReportInsert' parameterType='com.daesungra.domain.BoardReportVo'>
+		INSERT INTO DBOARD_REPORTLIST (serial, rUserId, fSerial, content, isDelete, gSerial, pSerial, depth, indent, rDate)
+			VALUES (SEQ_BOARDREPORT.NEXTVAL, #{rUserId}, #{fSerial}, #{content}, 0, SEQ_BOARDREPORT.CURRVAL, 0, 0, 0, SYSDATE)
+	</insert>
+</mapper>

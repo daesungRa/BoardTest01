@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.daesungra.controller.BoardController;
 import com.daesungra.dao.BoardDao;
+import com.daesungra.domain.BoardReportVo;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 import com.daesungra.domain.CommentVo;
@@ -28,8 +29,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		return result;
 	}
-	
-	
 
 	@Override
 	public BoardVo boardView(BoardVo bvo) {
@@ -100,6 +99,14 @@ public class BoardServiceImpl implements BoardService {
 	public boolean commentDeleteAction (CommentVo cvo) {
 		boolean result = false;
 		result = boardDao.commentDelete(cvo);
+		
+		return result;
+	}
+	
+	@Override
+	public boolean boardReport (BoardReportVo brvo) {
+		boolean result = false;
+		result = boardDao.boardReportInsert(brvo);
 		
 		return result;
 	}

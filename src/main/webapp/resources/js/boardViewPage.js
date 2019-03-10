@@ -38,6 +38,12 @@ $(function () {
 		
 		location.href = requestUrl;
 	});
+	
+	// 신고 페이지 로드
+	$('.showReportPage').click(function (){
+		getBoardReportPart();
+	});
+	
 	// 댓글, 좋아요, 설정 부분의 tooltip
 	$('#rightSideComponent #iconComment').tooltip();
 	$('#rightSideComponent #iconThumbUpDown').tooltip();

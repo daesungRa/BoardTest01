@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.daesungra.component.FileUpload;
+import com.daesungra.domain.BoardReportVo;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 import com.daesungra.domain.CommentVo;
@@ -191,6 +192,44 @@ public class BoardController {
 				if (registerResult) {
 					result = "1"; // 성공
 				}
+			}
+		} else {
+			result = "2"; // 접속정보 없음
+		}
+		
+		return result;
+	}
+	
+	// load board report page
+	@RequestMapping(value="/getBoardReportForm", method=RequestMethod.GET)
+	public ModelAndView getBoardReportPage (HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("[get board report page] 신고 페이지 요청");
+		mav.setViewName("/board/boardReportPart");
+		
+		return mav;
+	}
+	
+	// board report action
+	@ResponseBody
+	@RequestMapping(value="/boardReportAction", method=RequestMethod.POST)
+	public String boardReportAction (HttpServletRequest request) {
+		String result = "0"; // 0: 실패, 1: 성공, 2: 접속정보 없음
+		boolean reportResult = false;
+		logger.info("[board report action] 게시글 신고 요청");
+		
+		if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) { // 접속정보가 있다면
+			// 파일 업로드 수행 후 BookVo 객체 반환
+			BoardReportVo brvo = new BoardReportVo();
+			try {
+				brvo.setfSerial(Integer.parseInt(request.getParameter("fSerial")));
+			} catch (Exception ex) { ex.printStackTrace(); }
+			brvo.setrUserId((String) request.getSession().getAttribute("rUserId"));
+			brvo.setrContent(request.getParameter("rContent"));
+			
+			reportResult = boardService.boardReport(brvo);
+			if (reportResult) {
+				result = "1"; // 성공
 			}
 		} else {
 			result = "2"; // 접속정보 없음

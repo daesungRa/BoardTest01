@@ -37,7 +37,7 @@
 	<jsp:include page="/WEB-INF/views/component/navBar_aside.jsp"></jsp:include>
 	
 	<!-- include content -->
-	<div id='boardContent' style='z-index: 0;'>
+	<div id='boardContent' style='z-index: 0; min-height: 1100px;'>
 		<button class='btn btn-sm btn-light' id='btnShowNavbar'>&gt;&gt;</button>
 		<!-- top -->
 		<jsp:include page="/WEB-INF/views/component/top.jsp"></jsp:include>

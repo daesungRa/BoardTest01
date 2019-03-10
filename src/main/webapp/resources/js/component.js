@@ -97,6 +97,7 @@ function funcBookRegister () {
 		});
 	});
 }
+
 // 이미지 프리뷰 함수
 function imagePreView (e) {
     var profile = document.getElementById('image');
@@ -112,4 +113,60 @@ function imagePreView (e) {
         var imgName = $('#coverImg').val().substring($('#coverImg').val().lastIndexOf('\\') + 1, $('#coverImg').val().length);
         $('#imgName').text(imgName);
     }
+}
+
+//모달창에 책 등록 페이지 로드
+//무조건 모달창에서 띄워지므로 component 로 취급
+function getBoardReportPart () {
+	$.ajax({
+		type: 'get',
+		url: '/desktop/board/getBoardReportForm',
+		dataType: 'html',
+		success: function (html) {
+			$('#modalWindow #innerModalContent').html(html);
+			$('#btnShowModal').trigger('click');
+			
+			funcBoardReport();
+		}
+	});
+}
+
+function funcBoardReport () {
+	var boardSerial = $('#boardTitleContent #inputBoardSerial').text();
+	var boardTitle = $('#boardTitleContent #inputBoardTitle').text();
+	var writer = $('#boardTitleContent #inputBoardUserId').text();
+	var rUserId = $('#rightSideComponent #viewUserId').text();
+
+	$('#boardReportForm #reportBoardTitle').val(boardTitle + ' (' + writer + ')');
+	$('#boardReportForm #fSerial').val(boardSerial);
+	$('#boardReportForm #rUserId').val(rUserId);
+	
+	$('#boardReportForm #btnBoardReportSubmit').click(function () {
+		if ($('#boardReportForm #rContent').val() != '') {
+			alert($('#boardReportForm #rContent').val());
+			var params = $('#boardReportForm').serialize();
+			$.ajax({
+				type: 'post',
+				url: '/desktop/board/boardReportAction',
+				data: params,
+				dataType: 'text',
+				success: function (data) {
+					if (data == '1') {
+						alert('게시글 신고 완료');
+						
+						// 모달 창 닫기
+						$('#modalWindow #closeModal').trigger('click');
+					} else if (data == '0') {
+						alert('게시글 신고 실패');
+					} else if (data == '2') {
+						alert('접속 정보가 없습니다. 로그인 후 이용하세요');
+					} else {
+						alert('에러 발생, 관리자에게 문의하십시오');
+					}
+				}
+			})
+		} else {
+			alert('신고 내용을 입력하세요 (가급적 상세히 적어주세요)');
+		}
+	});
 }

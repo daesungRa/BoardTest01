@@ -15,7 +15,7 @@
 			<small class='intro'>----------------------------------------</small><br/>
 			<small class='intro'>개발자: 라대성</small><br/>
 			<small class='intro'>개발 기간: 2019.02.02 (sat) ~ 2019.03. (1차 완료)</small><br/>
-			<small class='intro'>연락처: daesungRa@gmail.com</small><br/>
+			<small class='intro'>연락처: daesungRa@gmail.com / 010-9234-8111</small><br/>
 			<small class='intro'>----------------------------------------</small>
 		</div>
 	</div>

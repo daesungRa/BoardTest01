@@ -3,6 +3,7 @@ package com.daesungra.service;
 import java.util.List;
 import java.util.Map;
 
+import com.daesungra.domain.BoardReportVo;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 import com.daesungra.domain.CommentVo;
@@ -21,5 +22,7 @@ public interface BoardService {
 	public List<CommentVo> getCommentList (Map<String, Object> pagenatedInputData);
 	public boolean commentWriteAction (CommentVo cvo);
 	public boolean commentDeleteAction (CommentVo cvo);
+	
+	public boolean boardReport (BoardReportVo brvo);
 	
 }

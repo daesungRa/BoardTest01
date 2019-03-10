@@ -51,7 +51,7 @@
 	
 		<!-- middle component -->
 		<div class='container'>
-			<div class='container' id='boardList' style='width: 96%; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 120px 20px 120px;'>
+			<div class='container' id='boardList' style='width: 96%; min-height: 1000px; border-right: 1px solid #bfbfbf; border-left: 1px solid #bfbfbf; padding: 20px 120px 20px 120px;'>
 				<div style='position: relative; height: 80px;'>
 					<div id='saveCategoryNum' style='display: none;'>${requestScope.category }</div>
 					<c:if test='${not empty sessionScope.userId and sessionScope != "" }'>
@@ -713,7 +713,7 @@
 	</footer>
 	
 	<!-- report icon -->
-	<div class='btn btn-secondary' id='reportIcon'>
+	<div class='btn btn-secondary' id='reportIcon' style='display: none;'>
 		<img src='/desktop/resources/imgs/sample/warning-light02.svg' alt='report icon' style='width: 23px; padding-bottom: 3px;' />
 	</div>
 		

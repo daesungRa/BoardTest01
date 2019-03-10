@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.daesungra.controller.BoardController;
+import com.daesungra.domain.BoardReportVo;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 import com.daesungra.domain.CommentVo;
@@ -133,6 +134,20 @@ public class BoardDaoImpl implements BoardDao {
 		int deleteResult = sqlSession.update("comment.commentDelete", cvo);
 		if (deleteResult > 0) {
 			logger.info("[comment delete dao] 성공!");
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public boolean boardReportInsert (BoardReportVo brvo) {
+		boolean result = false;
+		logger.info("[board report insert - dao] 게시글 신고 요청");
+		logger.info("[board report insert - dao] 입력 데이터 (fSerial, userId, content) : " + brvo.getfSerial() + ", " + brvo.getrUserId() + ", " + brvo.getrContent());
+		
+		int reportResult = sqlSession.insert("board.boardReportInsert", brvo);
+		if (reportResult > 0) {
 			result = true;
 		}
 		

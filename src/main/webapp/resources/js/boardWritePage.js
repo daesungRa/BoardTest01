@@ -66,14 +66,22 @@ $(function () {
 				dataType: 'json',
 				data: {searchBookInfo : request.term},
 				success: function (data) {
-					// alert(data);
-					response($.map (data, function (item) {
-						return {
-							label: item.title_eng+ "(" + item.pDate + ")",
-							value: item.title_eng+ "(" + item.pDate + ")",
-							data: item.bookNo
-						}
-					}));
+					if (data != null && data != '') {
+						response($.map (data, function (item) {
+							return {
+								label: item.title_eng+ "(" + item.pDate + ")",
+								value: item.title_eng+ "(" + item.pDate + ")",
+								data: item.bookNo
+							}
+						}));
+					} else {
+						response($.map ([{"result":"검색 결과가 없습니다"}], function (item) {
+							return {
+								label: item.result,
+								value: item.result
+							}
+						}));
+					}
 				},
 				error: function (xhr, status, error) { }
 			});

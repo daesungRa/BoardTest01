@@ -143,20 +143,26 @@
 			</where>
 	</update>
 	
-	<!-- insert -->
+	<!-- board insert -->
 	<insert id="insertBoardInfo" parameterType="com.daesungra.domain.BoardVo">
 		INSERT INTO DBOARD (serial, userId, delUserId, bookNo, delBookNo, category, title, content, gSerial, pSerial, depth, indent, bDate, hit, isDelete)
 			VALUES (SEQ_DBOARD.NEXTVAL, #{userId}, #{userId}, #{bookNo}, #{bookNo}, #{category}, #{title}, #{content}, SEQ_DBOARD.CURRVAL, 0, 0, 0, SYSDATE, 0, 0)
 	</insert>
 	
-	<!-- update -->
+	<!-- board update -->
 	<update id="boardUpdate" parameterType="com.daesungra.domain.BoardVo">
 		UPDATE DBOARD SET title = #{title}, content = #{content}
 			WHERE serial = #{serial} AND userId = #{userId} AND isDelete = 0
 	</update>
 	
-	<!-- delete -->
+	<!-- board delete -->
 	<update id="boardDelete" parameterType="com.daesungra.domain.BoardVo">
 		UPDATE DBOARD SET isDelete = 1 WHERE serial = #{serial} AND userId = #{userId}
 	</update>
+	
+	<!-- board report (신고글 등록) -->
+	<insert id='boardReportInsert' parameterType='com.daesungra.domain.BoardReportVo'>
+		INSERT INTO DBOARD_REPORTLIST (serial, userId, fSerial, rContent, isDelete, gSerial, pSerial, depth, indent, rDate)
+			VALUES (SEQ_BOARDREPORT.NEXTVAL, #{userId}, #{fSerial}, #{rContent}, 0, SEQ_BOARDREPORT.CURRVAL, 0, 0, 0, SYSDATE)
+	</insert>
 </mapper>
