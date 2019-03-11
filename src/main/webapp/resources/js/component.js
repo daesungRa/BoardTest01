@@ -115,8 +115,8 @@ function imagePreView (e) {
     }
 }
 
-//모달창에 책 등록 페이지 로드
-//무조건 모달창에서 띄워지므로 component 로 취급
+// 모달창에 게시글 신고 페이지
+// 무조건 모달창에서 띄워지므로 component 로 취급
 function getBoardReportPart () {
 	$.ajax({
 		type: 'get',

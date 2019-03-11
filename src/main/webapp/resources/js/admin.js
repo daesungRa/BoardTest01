@@ -30,7 +30,10 @@ $(function () {
 			url: '/desktop/admin/getBoardReportInfo/' + brSerial,
 			dataType: 'html',
 			success: function (html) {
+				$('#modalWindow #innerModalContent').html(html);
+				$('#btnShowModal').trigger('click');
 				
+				// funcBoardReport();
 			}
 		});
 	});
