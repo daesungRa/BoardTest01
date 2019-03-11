@@ -15,6 +15,7 @@ public class BoardVo {
 	private String bDate;
 	private int hit;
 	private int isDelete;
+	private int isBlocked;
 	
 	// DBOOK
 	private String title_kor;
@@ -114,6 +115,12 @@ public class BoardVo {
 	public void setIsDelete(int isDelete) {
 		this.isDelete = isDelete;
 	}
+	public int getIsBlocked() {
+		return isBlocked;
+	}
+	public void setIsBlocked(int isBlocked) {
+		this.isBlocked = isBlocked;
+	}
 	
 	// DBOOK
 	public String getTitle_kor() {
@@ -187,7 +194,6 @@ public class BoardVo {
 	}
 	public void setIsThumbUp(int isThumbUp) {
 		this.isThumbUp = isThumbUp;
-	}
-	
+	}	
 	
 }

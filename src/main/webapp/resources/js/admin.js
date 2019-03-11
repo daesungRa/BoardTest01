@@ -6,7 +6,7 @@
 $(function () {
 	$('#indexTop #adminComponentInTop').css({"display":"block"});
 	
-	$('#showshowshow').click(function () {
+	/*$('#showshowshow').click(function () {
 		$.ajax({
 			type: 'get',
 			url: '/desktop/admin/getBoardReportList',
@@ -16,8 +16,37 @@ $(function () {
 				$('#noSelectResult').html(html);
 			}
 		});
+	});*/
+	
+	/*
+	 * board report admin
+	 */
+	// 게시글 신고정보 조회
+	$('#boardReportListBody .my-boardReportlist-row').click(function () {
+		var brSerial = $(this).find('#boardReportSerial').text();
+		
+		$.ajax({
+			type: 'get',
+			url: '/desktop/admin/getBoardReportInfo/' + brSerial,
+			dataType: 'html',
+			success: function (html) {
+				
+			}
+		});
 	});
 	
+	// 일자별 조회
+	
+	// 페이지 이동
+	$('.btnBoardReportView').click(function () {
+		var nowPage = $(this).find('span').text();
+		
+		funcBoardReportChangePage(nowPage);
+	});
+	
+	/*
+	 * member admin
+	 */
 	// navbar 의 회원관리 버튼 클릭 시 member admin component 보여주기
 	$('#collapsibleNavbar #showMemberAdminComponentNav').click(function () {
 		$('#adminArticle #showMemberAdminComponent').trigger('click');
@@ -43,3 +72,23 @@ $(function () {
 		funcMovePage('adminPageTitle');
 	});
 })
+
+function funcBoardReportChangePage (nowPage) {
+	$('#boardReportListComponent #boardReportListForm #nowPage').val(nowPage); // 제출 form 에 선택된 nowPage 값 세팅
+	var formData = $('#boardReportListComponent #boardReportListForm').serialize();
+	$.ajax({
+		type: 'post',
+		url: '/desktop/admin/getBoardReportList',
+		data: formData,
+		dataType: 'html',
+		success: function (html) {
+			$('#boardReportListComponent #boardReportListBody').html(html);
+			
+			$('.btnBoardReportView').click(function () {
+				var nowPage = $(this).find('span').text();
+				
+				funcBoardReportChangePage(nowPage);
+			});
+		}
+	});
+}

@@ -131,13 +131,14 @@ function getBoardReportPart () {
 	});
 }
 
+// 게시글 신고 함수
 function funcBoardReport () {
 	var boardSerial = $('#boardTitleContent #inputBoardSerial').text();
 	var boardTitle = $('#boardTitleContent #inputBoardTitle').text();
 	var writer = $('#boardTitleContent #inputBoardUserId').text();
 	var rUserId = $('#rightSideComponent #viewUserId').text();
 
-	$('#boardReportForm #reportBoardTitle').val(boardTitle + ' (' + writer + ')');
+	$('#boardReportForm #reportBoardTitle').val(boardTitle + ' / ' + writer);
 	$('#boardReportForm #fSerial').val(boardSerial);
 	$('#boardReportForm #rUserId').val(rUserId);
 	

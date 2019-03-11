@@ -140,6 +140,12 @@ $(function () {
 			}
 		});
 	});
+	
+	// navbar 의 회원관리 버튼 클릭 시 member admin component 보여주기
+	$('#collapsibleNavbar #showMemberAdminComponentNav').click(function () {
+		location.href = '/desktop/admin/getAdminPage';
+		$('#adminArticle #showMemberAdminComponent').trigger('click');
+	});
 });
 
 /*

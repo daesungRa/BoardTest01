@@ -65,7 +65,7 @@
 				<li class='nav-item'><a class='nav-link my-nav' id='guestbookAnc' href='#guestbook'>방명록</a></li> -->
 				<li class='nav-item'><a class='nav-link my-nav .myPageAnc' id='' href='/desktop/member/myPage'>나의 책상</a></li>
 				<c:if test='${not empty sessionScope.authority and sessionScope.authority > 0 }'>
-					<li class='nav-item'><a class='nav-link my-nav-top' id='getAdminPageAnc' href='/desktop/getAdminPage'>관리자 페이지</a></li>
+					<li class='nav-item'><a class='nav-link my-nav-top' id='getAdminPageAnc' href='/desktop/admin/getAdminPage/1'>관리자 페이지</a></li>
 				</c:if>
 			</ul>
 		</div>

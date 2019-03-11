@@ -61,7 +61,7 @@ public class BoardController {
 		if (nowPage < 1) {
 			nowPage = 1;
 		}
-		pageDto.setBoardPageDto(this.listSize, this.blockSize, nowPage, category); // 페이징 처리를 위한 도메인 객체
+		pageDto.setBoardPageDto(this.listSize, this.blockSize, this.nowPage, category); // 페이징 처리를 위한 도메인 객체
 		pageDto.boardPageCompute();
 		
 		Map<String, Object> pagenatedInputData = new HashMap<String, Object>(); // 페이징 결과값을 포함한 db input data
@@ -74,7 +74,7 @@ public class BoardController {
 		
 		pagenatedInputData.put("searchBySort", 3);
 		List<BoardVo> listHit = boardService.getBoardList(pagenatedInputData); // 조회수별 정렬결과 리스트
-		logger.info("[getBoardList] 검색 리스트 길이(date, hit) / 현재 페이지 >>> " + listDate.size() + ", " + listHit.size() + " / " + nowPage);
+		logger.info("[getBoardList] 검색 리스트 길이(date, hit) / 현재 페이지 >>> " + listDate.size() + ", " + listHit.size() + " / " + this.nowPage);
 		
 		request.setAttribute("boardListDate", listDate);
 		request.setAttribute("boardListHit", listHit);
@@ -87,17 +87,20 @@ public class BoardController {
 	// get board list including search content (검색 폼으로 검색시, ajax, post 방식)
 	@RequestMapping(value="/boardListSearch", method=RequestMethod.POST)
 	public String getBoardListWithSearch (HttpServletRequest request) {
+		int category = 1;
 		// form 전송내용 >> searchBySort, searchByContent, searchContent, category, nowPage
-		this.searchBySort = Integer.parseInt(request.getParameter("searchBySort")); // 1: 최신순, 2: 오래된순, 3: 조회순, 4: 추천순
-		this.searchByContent = Integer.parseInt(request.getParameter("searchByContent")); // 1: 제목 + 내용, 2: 제목만, 3: 내용만, 4: 작가별
-		this.searchContent = request.getParameter("searchContent");
-		int category = Integer.parseInt(request.getParameter("category"));
-		this.nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		try {
+			this.searchBySort = Integer.parseInt(request.getParameter("searchBySort")); // 1: 최신순, 2: 오래된순, 3: 조회순, 4: 추천순
+			this.searchByContent = Integer.parseInt(request.getParameter("searchByContent")); // 1: 제목 + 내용, 2: 제목만, 3: 내용만, 4: 작가별
+			this.searchContent = request.getParameter("searchContent");
+			category = Integer.parseInt(request.getParameter("category"));
+			this.nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		} catch (Exception ex) { ex.printStackTrace(); }
 		logger.info("[search board list]");
 		logger.info("searchBySort, searchByContent, searchContent, category, nowPage : "
-				+ searchBySort + ", " + searchByContent + ", " + searchContent + ", " + category + ", " + nowPage);
+				+ searchBySort + ", " + searchByContent + ", " + searchContent + ", " + category + ", " + this.nowPage);
 		
-		pageDto.setPageDtoSearch(listSize, blockSize, nowPage, category, searchContent, searchByContent);
+		pageDto.setPageDtoSearch(this.listSize, this.blockSize, this.nowPage, category, this.searchContent, this.searchByContent);
 		pageDto.boardPageCompute();
 		
 		Map<String, Object> searchInputData = new HashMap<String, Object>();
@@ -216,16 +219,18 @@ public class BoardController {
 	public String boardReportAction (HttpServletRequest request) {
 		String result = "0"; // 0: 실패, 1: 성공, 2: 접속정보 없음
 		boolean reportResult = false;
-		logger.info("[board report action] 게시글 신고 요청");
+		logger.info("[board report action] 게시글 신고 요청 / rUserId, reportType : " + request.getParameter("rUserId") + ", " + request.getParameter("reportType"));
 		
 		if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) { // 접속정보가 있다면
-			// 파일 업로드 수행 후 BookVo 객체 반환
-			BoardReportVo brvo = new BoardReportVo();
+			BoardReportVo brvo = new BoardReportVo(); // 매개변수 객체
 			try {
-				brvo.setfSerial(Integer.parseInt(request.getParameter("fSerial")));
+				brvo.setfSerial(Integer.parseInt(request.getParameter("fSerial"))); // 신고할 게시글 시리얼
 			} catch (Exception ex) { ex.printStackTrace(); }
-			brvo.setrUserId((String) request.getSession().getAttribute("rUserId"));
+			brvo.setrUserId((String) request.getSession().getAttribute("userId")); // 신고자 (세션에 저장된 아이디를 가져옴)
 			brvo.setrContent(request.getParameter("rContent"));
+			try {
+				brvo.setReportType(Integer.parseInt(request.getParameter("reportType"))); // 신고 분류 > 1: (통)부적절한 게시글, 2: 광고, 3: 욕설, 4: 음란물, 5: 저작권 침해
+			} catch (Exception ex) { ex.printStackTrace(); }
 			
 			reportResult = boardService.boardReport(brvo);
 			if (reportResult) {

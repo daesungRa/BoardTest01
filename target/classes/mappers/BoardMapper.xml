@@ -20,6 +20,7 @@
 		<result property='depth' column='depth' />
 		<result property='indent' column='indent' />
 		<result property='isDelete' column='isDelete' />
+		<result property='isBlocked' column='isBlocked' />
 		<!-- dbook -->
 		<result property='title_kor' column='title_kor' />
 		<result property='title_eng' column='title_eng' />
@@ -38,7 +39,7 @@
 		SELECT * FROM (
 			SELECT ROWNUM rno, s.* FROM (
 				SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
-						bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate,
+						bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate, bd.isBlocked isBlocked,
 						(SELECT COUNT(*) FROM DBOARD_COMMENT cmt JOIN dboard bd2 ON cmt.fSerial = bd2.serial WHERE bd2.serial = bd.serial) commentCnt,
 						(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd3 ON bdt.pSerial = bd3.serial WHERE bd3.serial = bd.serial) thumbUpCnt
 					FROM DBOARD bd join DBOOK bk
@@ -77,6 +78,7 @@
 			) s
 		) WHERE rno BETWEEN #{startNo} and #{endNo}
 	</select>
+	<!-- board list pagenation -->
 	<select id="boardListPagenation" parameterType="map" resultType="int">
 		SELECT COUNT(*) cnt
 			FROM DBOARD bd JOIN DBOOK bk
@@ -117,7 +119,7 @@
 	<!-- select board -->
 	<select id="selectBoardInfo" parameterType="com.daesungra.domain.BoardVo" resultMap="getBoardVoIncludeClobType">
 		SELECT bd.serial serial, bd.bookNo bookNo, bd.title title, bd.content content, bd.category category, bd.userId userId, to_char(bd.bDate, 'YYYY.MM.DD') bDate, bd.hit hit,
-				bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate,
+				bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate, bd.isBlocked isBlocked,
 				(SELECT COUNT(*) FROM DBOARD_COMMENT cmt JOIN dboard bd2 ON cmt.fSerial = bd2.serial WHERE bd2.serial = bd.serial) commentCnt,
 				(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd3 ON bdt.pSerial = bd3.serial WHERE bd3.serial = bd.serial) thumbUpCnt
 			FROM DBOARD bd JOIN DBOOK bk
@@ -145,8 +147,8 @@
 	
 	<!-- board insert -->
 	<insert id="insertBoardInfo" parameterType="com.daesungra.domain.BoardVo">
-		INSERT INTO DBOARD (serial, userId, delUserId, bookNo, delBookNo, category, title, content, gSerial, pSerial, depth, indent, bDate, hit, isDelete)
-			VALUES (SEQ_DBOARD.NEXTVAL, #{userId}, #{userId}, #{bookNo}, #{bookNo}, #{category}, #{title}, #{content}, SEQ_DBOARD.CURRVAL, 0, 0, 0, SYSDATE, 0, 0)
+		INSERT INTO DBOARD (serial, userId, delUserId, bookNo, delBookNo, category, title, content, gSerial, pSerial, depth, indent, bDate, hit, isDelete, isBlocked)
+			VALUES (SEQ_DBOARD.NEXTVAL, #{userId}, #{userId}, #{bookNo}, #{bookNo}, #{category}, #{title}, #{content}, SEQ_DBOARD.CURRVAL, 0, 0, 0, SYSDATE, 0, 0, 0)
 	</insert>
 	
 	<!-- board update -->
@@ -162,7 +164,7 @@
 	
 	<!-- board report (신고글 등록) -->
 	<insert id='boardReportInsert' parameterType='com.daesungra.domain.BoardReportVo'>
-		INSERT INTO DBOARD_REPORTLIST (serial, userId, fSerial, rContent, isDelete, gSerial, pSerial, depth, indent, rDate)
-			VALUES (SEQ_BOARDREPORT.NEXTVAL, #{userId}, #{fSerial}, #{rContent}, 0, SEQ_BOARDREPORT.CURRVAL, 0, 0, 0, SYSDATE)
+		INSERT INTO DBOARD_REPORTLIST (serial, rUserId, fSerial, rContent, isDelete, gSerial, pSerial, depth, indent, rDate, reportType)
+			VALUES (SEQ_BOARDREPORT.NEXTVAL, #{rUserId}, #{fSerial}, #{rContent}, 0, SEQ_BOARDREPORT.CURRVAL, 0, 0, 0, SYSDATE, #{reportType})
 	</insert>
 </mapper>

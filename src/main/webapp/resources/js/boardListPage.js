@@ -128,6 +128,7 @@ function funcBoardListPage () {
 	});
 }
 
+// 페이지 이동 함수
 function movePage () {
 	var params = $('#boardListSearchForm').serialize();
 	$.ajax({

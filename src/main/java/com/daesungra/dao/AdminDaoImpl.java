@@ -1,6 +1,7 @@
 package com.daesungra.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -19,9 +20,9 @@ public class AdminDaoImpl implements AdminDao {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<BoardReportVo> selectBoardReportList (BoardReportVo brvo) {
+	public List<BoardReportVo> selectBoardReportList (Map<String, Object> pagenatedInputData) {
 		List<BoardReportVo> brvoList = null;
-		brvoList = sqlSession.selectList("admin.getBoardReportList", brvo);
+		brvoList = sqlSession.selectList("admin.getBoardReportList", pagenatedInputData);
 		if (brvoList != null) {
 			logger.info("[get board report list - dao] 조회 성공, 리스트 길이 : " + brvoList.size());
 		} else {

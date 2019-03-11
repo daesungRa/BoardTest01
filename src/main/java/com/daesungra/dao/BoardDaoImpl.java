@@ -144,10 +144,11 @@ public class BoardDaoImpl implements BoardDao {
 	public boolean boardReportInsert (BoardReportVo brvo) {
 		boolean result = false;
 		logger.info("[board report insert - dao] 게시글 신고 요청");
-		logger.info("[board report insert - dao] 입력 데이터 (fSerial, userId, content) : " + brvo.getfSerial() + ", " + brvo.getrUserId() + ", " + brvo.getrContent());
+		logger.info("[board report insert - dao] 입력 데이터 (fSerial, rUserId, rContent, reportType) : " + brvo.getfSerial() + ", " + brvo.getrUserId() + ", " + brvo.getrContent() + ", " + brvo.getReportType());
 		
 		int reportResult = sqlSession.insert("board.boardReportInsert", brvo);
 		if (reportResult > 0) {
+			logger.info("[board report insert - dao] 게시글 신고 완료!");
 			result = true;
 		}
 		

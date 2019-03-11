@@ -36,14 +36,4 @@ public class HomeController {
 		return "index";
 	}
 	
-	/*
-	 * get admin page
-	 */
-	@RequestMapping(value="/getAdminPage")
-	public String getAdminPage (Model model) {
-		logger.info("[admin] load admin page");
-		
-		return "/admin/adminPage";
-	}
-	
 }

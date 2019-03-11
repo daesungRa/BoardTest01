@@ -50,7 +50,7 @@ function funcLoginAction () {
 						location.href = '/desktop';
 					}
 				} else if (result == '2') { // 관리자 로그인
-					location.href = '/desktop/getAdminPage';
+					location.href = '/desktop/admin/getAdminPage/1';
 				} else if (result == '0') { // 로그인 실패
 					alert('아이디나 암호를 확인해주세요.');
 					userPwd.val('');

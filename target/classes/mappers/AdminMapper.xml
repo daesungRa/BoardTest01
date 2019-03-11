@@ -12,6 +12,7 @@
 		<result property='rContent' column='rContent' />
 		<result property='isDelete' column='isDelete' />
 		<result property='rDate' column='rDate' />
+		<result property='reportType' column='reportType' />
 		
 		<!-- dboard -->
 		<result property='userId' column='userId' />
@@ -21,6 +22,7 @@
 		<result property='content' column='content' jdbcType='CLOB' javaType='java.lang.String' />
 		<result property='bDate' column='bDate' />
 		<result property='hit' column='hit' />
+		<result property='isBlocked' column='isBlocked' />
 		
 		<!-- dbook -->
 		<result property='title_kor' column='title_kor' />
@@ -31,38 +33,102 @@
 		<result property='pDate' column='pDate' />
 	</resultMap>
 	
-	<!-- get board report list -->
-	<select id='getBoardReportList' parameterType='com.daesungra.domain.BoardReportVo' resultMap='boardReportType'>
-		SELECT br.serial serial,
-				br.rUserId rUserId,
-				br.fSerial fSerial,
-				br.rContent rContent,
-				br.isDelete isDelete,
-				to_char(br.rDate, 'YYYY.MM.DD HH24:MI:SS') rDate,
-				
-				bd.userId userId,
-				bd.bookNo bookNo,
-				bd.category category,
-				bd.title title,
-				bd.content content,
-				to_char(bd.bDate, 'YYYY.MM.DD HH24:MI:SS') bDate,
-				bd.hit hit,
-				
-				bk.title_kor title_kor,
-				bk.title_eng title_eng,
-				bk.author author,
-				bk.country country,
-				bk.coverImg coverImg,
-				to_char(bk.pDate, 'YYYY.MM.DD HH24:MI:SS') pDate
-			FROM DBOARD_REPORTLIST br
-				JOIN DBOARD bd ON br.fSerial = bd.serial
-				JOIN DBOOK bk ON bd.bookNo = bk.bookNo
-			WHERE to_char(br.rDate, 'YYMMDD') = #{rDate}
+	<!--
+		pagenation
+	-->
+	<!-- board report list pagenation -->
+	<select id='boardReportListPagenation' parameterType='int' resultType='int'>
+		SELECT COUNT(*) cnt
+			FROM DBOARD_REPORTLIST
+			<choose>
+				<!--
+					파라미터로 map 을 사용해도 됨
+					(int) dateFlag => value
+				-->
+				<when test='value == 0'>
+					
+				</when>
+				<when test='value == 1'>
+					WHERE to_char(rDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND isDelete = 0
+				</when>
+				<when test='value == 2'>
+					WHERE to_char(rDate, 'YYMMDD') > to_char(sysdate - 1, 'YYMMDD') AND isDelete = 0
+				</when>
+				<when test='value == 3'>
+					WHERE to_char(rDate, 'YYMMDD') > to_char(sysdate - 7, 'YYMMDD') AND isDelete = 0
+				</when>
+				<when test='value == 4'>
+					WHERE to_char(rDate, 'YYMMDD') > to_char(add_months(sysdate, -1), 'YYMMDD') AND isDelete = 0
+				</when>
+			</choose>
 	</select>
 	
-	<!-- board report (신고글 등록) -->
-	<insert id='boardReportInsert' parameterType='com.daesungra.domain.BoardReportVo'>
-		INSERT INTO DBOARD_REPORTLIST (serial, rUserId, fSerial, content, isDelete, gSerial, pSerial, depth, indent, rDate)
-			VALUES (SEQ_BOARDREPORT.NEXTVAL, #{rUserId}, #{fSerial}, #{content}, 0, SEQ_BOARDREPORT.CURRVAL, 0, 0, 0, SYSDATE)
-	</insert>
+	<!-- 
+		board report
+	 -->
+	<!-- get board report list -->
+	<select id='getBoardReportList' parameterType='map' resultMap='boardReportType'>
+		SELECT * FROM (
+			SELECT ROWNUM rno, s.* FROM (
+				SELECT br.serial serial,
+						br.rUserId rUserId,
+						<!-- 
+						br.fSerial fSerial,
+						br.rContent rContent,
+						br.isDelete isDelete,
+						 -->
+						to_char(br.rDate, 'YYYY.MM.DD HH24:MI:SS') rDate,
+						br.reportType reportType,
+						
+						bd.userId userId,
+						<!-- 
+						bd.bookNo bookNo,
+						 -->
+						bd.category category,
+						bd.title title,
+						<!-- 
+						bd.content content,
+						to_char(bd.bDate, 'YYYY.MM.DD HH24:MI:SS') bDate,
+						bd.hit hit,
+						 -->
+						bd.isBlocked isBlocked
+						
+						<!-- 
+						bk.title_kor title_kor,
+						bk.title_eng title_eng,
+						bk.author author,
+						bk.country country,
+						bk.coverImg coverImg,
+						to_char(bk.pDate, 'YYYY.MM.DD HH24:MI:SS') pDate
+						 -->
+					FROM DBOARD_REPORTLIST br
+						JOIN DBOARD bd ON br.fSerial = bd.serial
+						<!-- 
+						JOIN DBOOK bk ON bd.bookNo = bk.bookNo
+						 -->
+					<choose>
+						<!--
+							파라미터로 map 을 사용해도 됨
+							(int) dateFlag => value
+						-->
+						<when test='dateFlag == 0'>
+							
+						</when>
+						<when test='dateFlag == 1'>
+							WHERE to_char(br.rDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND br.isDelete = 0
+						</when>
+						<when test='dateFlag == 2'>
+							WHERE to_char(br.rDate, 'YYMMDD') > to_char(sysdate - 1, 'YYMMDD') AND br.isDelete = 0
+						</when>
+						<when test='dateFlag == 3'>
+							WHERE to_char(br.rDate, 'YYMMDD') > to_char(sysdate - 7, 'YYMMDD') AND br.isDelete = 0
+						</when>
+						<when test='dateFlag == 4'>
+							WHERE to_char(br.rDate, 'YYMMDD') > to_char(add_months(sysdate, -1), 'YYMMDD') AND br.isDelete = 0
+						</when>
+					</choose>
+					ORDER BY br.rDate desc
+			) s
+		) WHERE rno BETWEEN #{startNo} AND #{endNo}
+	</select>
 </mapper>
