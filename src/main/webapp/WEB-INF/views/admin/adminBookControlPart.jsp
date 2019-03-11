@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board report control part</title>
+<title>admin book controt part</title>
 </head>
 <body>
 
@@ -79,7 +79,7 @@
 					<span style='font-size: 14pt;'>신고된 게시글 정보</span>
 					<c:choose>
 						<c:when test='${brvo.isBlocked == 0 }'>
-							<span class='btn btn-primary' id='boardBlockAction' style='font-size: 10pt; margin: 0 0 5px 10px;'>게시글 블럭하기</span>
+							<span class='btn btn-info' id='boardBlockAction' style='font-size: 10pt; margin: 0 0 5px 10px;'>게시글 블럭하기</span>
 						</c:when>
 						<c:when test='${brvo.isBlocked == 1 }'>
 							<span class='btn btn-danger' id='boardBlockFreeAction' style='font-size: 10pt; margin: 0 0 5px 10px;'>블럭 해제하기</span>

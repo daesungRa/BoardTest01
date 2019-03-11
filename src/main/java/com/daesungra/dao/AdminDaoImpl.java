@@ -31,4 +31,48 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return brvoList;
 	}
+	
+	@Override
+	public BoardReportVo selectBoardReportInfo (int serial) {
+		BoardReportVo brvo = null;
+		brvo = sqlSession.selectOne("admin.selectBoardReportInfo", serial);
+		
+		return brvo;
+	}
+	
+	@Override
+	public boolean deleteBoardReport (int serial) {
+		boolean result = false;
+		int updateResult = sqlSession.update("admin.deleteBoardReport", serial);
+		if (updateResult > 0) {
+			logger.info("[board report delete - dao] 신고 요청 처리 성공");
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public boolean updateBoardBlockAction (int fSerial) {
+		boolean result = false;
+		int updateResult = sqlSession.update("admin.updateBoardBlock", fSerial);
+		if (updateResult > 0) {
+			logger.info("[block reported board - dao] 블럭 처리 완료");
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public boolean updateBoardBlockFreeAction (int fSerial) {
+		boolean result = false;
+		int updateResult = sqlSession.update("admin.updateBoardBlockFree", fSerial);
+		if (updateResult > 0) {
+			logger.info("[free blocked board - dao] 블럭 해제 완료");
+			result = true;
+		}
+		
+		return result;
+	}
 }

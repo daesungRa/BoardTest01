@@ -34,7 +34,7 @@
 	 <c:choose>
 		<c:when test='${not empty sessionScope.userId and not empty sessionScope.authority and sessionScope.authority > 0 }'>
 			<c:set var='authority' value='${sessionScope.authority }' scope='page' />
-			<script>alert('관리자 페이지입니다');</script>
+			<!-- <script>alert('관리자 페이지입니다');</script> -->
 		</c:when>
 		<c:otherwise>
 			<script>
@@ -97,7 +97,7 @@
 						<div id='boardReportListBody'>
 							<div class='row' style='height: 30px; font-size: 10pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
 								<div class='col-md-1'>NO</div>
-								<div class='col-md-3'>분류 / 블럭유무</div>
+								<div class='col-md-3'>분류 / 블럭 여부</div>
 								<div class='col-md-2'>신고자</div>
 								<div class='col-md-4'>[카테고리] 게시글 / 작성자</div>
 								<div class='col-md-2'>등록일</div>
@@ -124,7 +124,15 @@
 													<c:when test='${brvo.reportType == 5 }'>
 														저작권 침해
 													</c:when>
-												</c:choose> / ${brvo.isBlocked }
+												</c:choose>
+												<c:choose>
+													<c:when test='${brvo.isBlocked == 0 }'>
+														/<span style='color: #7878ff;'> 블럭되지 않음</span>
+													</c:when>
+													<c:when test='${brvo.isBlocked == 1 }'>
+														/<span style='color: #ff7878;'> 블럭됨</span>
+													</c:when>
+												</c:choose>
 											</div>
 											<div class='col-md-2'>${brvo.rUserId }</div>
 											<div class='col-md-4'>[${brvo.category }] ${brvo.title } / ${brvo.userId }</div>
@@ -176,19 +184,28 @@
 				
 				<div class='col-sm-5' style='min-height: 420px; /* border: 1px solid black; */'>
 					<!-- 책 등록 요청 -->
-					<div id='boardListViewDate'>
+					<div id='newBookListComponent'>
 						<div style='position: relative; height: 50px;'>
 							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 12pt;'>
-								<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 등록 요청된 책 목록 (<%=today %>)
+								<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 등록 요청된 책 목록
 							</span>
+							<form class='form' id='newBookListForm' name='newBookListForm' method='post' action='#' style='float: right;'>
+								<input class='form-control' type='text' id='nowPage' name='nowPage' value='1' style='display: none;' />
+								<select class='form-control' id='dateFlag' name='dateFlag' >
+									<option value='0'>전체 기간 조회</option>
+									<option value='1'>오늘</option>
+									<option value='2'>어제부터</option>
+									<option value='3' selected>최근 일주일</option>
+									<option value='4'>최근 한 달</option>
+								</select>
+							</form>
 						</div>
 						<div class='row my-board-row' style='height: 30px; border-top: 2px solid black; padding-top: 4px; background-color: #dedede;'>
-							<div class='col-md-1 my-board-grid'>NO</div>
-							<div class='col-md-5 my-board-grid-title-top'>제목</div>
-							<div class='col-md-1 my-board-grid'>작가</div>
-							<div class='col-md-2 my-board-grid'>책제목</div>
-							<div class='col-md-1 my-board-grid'>조회</div>
-							<div class='col-md-2 my-board-grid'>등록일</div>
+							<div class='col-md-1'>책번호</div>
+							<div class='col-md-3'>분류 / 승인 여부</div>
+							<div class='col-md-2'>작성자</div>
+							<div class='col-md-4'>책제목 / 작가</div>
+							<div class='col-md-2'>등록일</div>
 						</div>
 						<c:choose>
 							<c:when test='${not empty requestScope.newBookList and fn:length(requestScope.newBookList) > 0 }'>

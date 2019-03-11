@@ -131,4 +131,53 @@
 			) s
 		) WHERE rno BETWEEN #{startNo} AND #{endNo}
 	</select>
+	
+	<!-- select board report info -->
+	<select id='selectBoardReportInfo' parameterType='int' resultMap='boardReportType'>
+		SELECT br.serial serial,
+				br.rUserId rUserId,
+				br.fSerial fSerial,
+				br.rContent rContent,
+				br.isDelete isDelete,
+				to_char(br.rDate, 'YYYY.MM.DD HH24:MI:SS') rDate,
+				br.reportType reportType,
+				
+				bd.userId userId,
+				bd.bookNo bookNo,
+				bd.category category,
+				bd.title title,
+				bd.content content,
+				to_char(bd.bDate, 'YYYY.MM.DD HH24:MI:SS') bDate,
+				bd.hit hit,
+				bd.isBlocked isBlocked,
+				
+				bk.title_kor title_kor,
+				bk.title_eng title_eng,
+				bk.author author,
+				bk.country country,
+				bk.coverImg coverImg,
+				to_char(bk.pDate, 'YYYY.MM.DD HH24:MI:SS') pDate
+			FROM DBOARD_REPORTLIST br
+				JOIN DBOARD bd ON br.fSerial = bd.serial
+				JOIN DBOOK bk ON bd.bookNo = bk.bookNo
+			WHERE br.serial = #{serial}
+	</select>
+	
+	<!-- block reported board -->
+	<update id='updateBoardBlock' parameterType='int'>
+		UPDATE DBOARD SET isBlocked = 1
+			WHERE serial = #{_parameter}
+	</update>
+	
+	<!-- free blocked board -->
+	<update id='updateBoardBlockFree' parameterType='int'>
+		UPDATE DBOARD SET isBlocked = 0
+			WHERE serial = #{_parameter}
+	</update>
+	
+	<!-- delete board report (update) -->
+	<update id='deleteBoardReport' parameterType='int'>
+		UPDATE DBOARD_REPORTLIST SET isDelete = 1
+			WHERE serial = #{_parameter}
+	</update>
 </mapper>

@@ -6,18 +6,6 @@
 $(function () {
 	$('#indexTop #adminComponentInTop').css({"display":"block"});
 	
-	/*$('#showshowshow').click(function () {
-		$.ajax({
-			type: 'get',
-			url: '/desktop/admin/getBoardReportList',
-			dataType: 'html',
-			success: function (html) {
-				alert(html);
-				$('#noSelectResult').html(html);
-			}
-		});
-	});*/
-	
 	/*
 	 * board report admin
 	 */
@@ -25,20 +13,17 @@ $(function () {
 	$('#boardReportListBody .my-boardReportlist-row').click(function () {
 		var brSerial = $(this).find('#boardReportSerial').text();
 		
-		$.ajax({
-			type: 'get',
-			url: '/desktop/admin/getBoardReportInfo/' + brSerial,
-			dataType: 'html',
-			success: function (html) {
-				$('#modalWindow #innerModalContent').html(html);
-				$('#btnShowModal').trigger('click');
-				
-				// funcBoardReport();
-			}
-		});
+		funcShowBoardReportInfo(brSerial);
 	});
 	
 	// 일자별 조회
+	$('#boardReportListForm #dateFlag').on('change', function () {
+		var nowPage = 1;
+		var selectedValue = $('#boardReportListForm #dateFlag').find('option:selected').val();
+		alert('selected value : ' + selectedValue);
+		
+		funcBoardReportChangePage(nowPage);
+	});
 	
 	// 페이지 이동
 	$('.btnBoardReportView').click(function () {
@@ -76,6 +61,7 @@ $(function () {
 	});
 })
 
+// 게시글 신고목록 페이지 이동
 function funcBoardReportChangePage (nowPage) {
 	$('#boardReportListComponent #boardReportListForm #nowPage').val(nowPage); // 제출 form 에 선택된 nowPage 값 세팅
 	var formData = $('#boardReportListComponent #boardReportListForm').serialize();
@@ -87,10 +73,123 @@ function funcBoardReportChangePage (nowPage) {
 		success: function (html) {
 			$('#boardReportListComponent #boardReportListBody').html(html);
 			
+			// 게시글 신고목록 페이지 이동
 			$('.btnBoardReportView').click(function () {
 				var nowPage = $(this).find('span').text();
 				
 				funcBoardReportChangePage(nowPage);
+			});
+			
+			// 게시글 신고 정보 조회
+			$('#boardReportListBody .my-boardReportlist-row').click(function () {
+				var brSerial = $(this).find('#boardReportSerial').text();
+				
+				funcShowBoardReportInfo(brSerial);
+			});
+		}
+	});
+}
+
+// 게시글 신고 정보 조회
+function funcShowBoardReportInfo (brSerial) {
+	$.ajax({
+		type: 'get',
+		url: '/desktop/admin/getBoardReportInfo/' + brSerial,
+		dataType: 'html',
+		success: function (html) {
+			$('#modalWindow #innerModalContent').html(html);
+			$('#btnShowModal').trigger('click');
+			
+			// 게시글 신고 완료처리
+			$('#adminReportBody #boardReportComplete').click(function () {
+				var result = confirm('해당 신고요청을 완료 처리 하시겠습니까?');
+				
+				if (result) {
+					var formData = $('#adminReportBody #reportCompleteForm').serialize();
+					$.ajax({
+						type: 'post',
+						url: '/desktop/admin/boardReportComplete',
+						data: formData,
+						dataType: 'text',
+						success: function (text) {
+							if (text == '1') {
+								alert('게시글 신고 처리 완료\npage reload');
+								location.reload();
+							} else if (text == '0') {
+								alert('게시글 신고 처리 실패');
+							} else {
+								alert('에러 발생, 관리자에게 문의하십시오');
+							}
+						}
+					});
+				} else {
+					alert('취소됨');
+				}
+			});
+			
+			// 게시글 블럭처리
+			$('#boardContentInBoardReportPage #boardBlockAction').click(function () {
+				var result = confirm('신고된 게시글을 블럭처리 하시겠습니까?');
+				
+				if (result) {
+					var formData = $('#boardContentInBoardReportPage #boardControlForm').serialize();
+					$.ajax({
+						type: 'post',
+						url: '/desktop/admin/boardBlockAction',
+						data: formData,
+						dataType: 'text',
+						success: function (text) {
+							if (text == '1') {
+								alert('게시글 블럭 처리 완료\npage reload');
+								location.reload();
+							} else if (text == '0') {
+								alert('게시글 블럭 처리 실패');
+							} else {
+								alert('에러 발생, 관리자에게 문의하십시오');
+							}
+						}
+					});
+				} else {
+					alert('취소됨');
+				}
+			});
+			
+			// 게시글 블럭 해제
+			$('#boardContentInBoardReportPage #boardBlockFreeAction').click(function () {
+				var result = confirm('블럭 해제 하시겠습니까?');
+				
+				if (result) {
+					var formData = $('#boardContentInBoardReportPage #boardControlForm').serialize();
+					$.ajax({
+						type: 'post',
+						url: '/desktop/admin/boardBlockFreeAction',
+						data: formData,
+						dataType: 'text',
+						success: function (text) {
+							if (text == '1') {
+								alert('게시글 블럭 해제 완료\npage reload');
+								location.reload();
+							} else if (text == '0') {
+								alert('게시글 블럭 해제 실패');
+							} else {
+								alert('에러 발생, 관리자에게 문의하십시오');
+							}
+						}
+					});
+				} else {
+					alert('취소됨');
+				}
+			});
+			
+			// 게시글 삭제처리
+			
+			// 해당 게시글 뷰 페이지로 이동
+			$('#boardContentInBoardReportPage #toBoardViewPageFromBoardReportPage').click(function () {
+				var boardSerial = $(this).find('#boardSerialInBoardReportPage').text();
+				var boardCategory = $(this).find('#boardCategoryInBoardReportPage').text();
+				var requestUrl = '/desktop/board/boardViewPage/' + boardSerial + '/' + boardCategory;
+				
+				location.href = requestUrl;
 			});
 		}
 	});

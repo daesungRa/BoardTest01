@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.daesungra.domain.BoardReportVo;
@@ -31,7 +32,7 @@ public class AdminController {
 	private PageDto pageDto;
 	
 	// 게시글 리스트 조회 및 페이징 처리를 위한 변수
-	private int listSize = 2;
+	private int listSize = 10;
 	private int blockSize = 5;
 	private int nowPage = 1;
 	
@@ -138,8 +139,63 @@ public class AdminController {
 	public ModelAndView getBoardReportInfo (HttpServletRequest request, @PathVariable(name = "serial", required = false) int serial) {
 		logger.info("[get boardreport info - admin controller] 게시글 신고정보 요청, serial : " + serial);
 		ModelAndView mav = new ModelAndView();
+		BoardReportVo brvo = null;
+		
+		brvo = adminService.getBoardReportInfo(serial);
+		if (brvo != null) {
+			logger.info("[get boardreport info - admin controller] 게시글 신고정보 반환완료, serial : " + serial);
+			mav.addObject("brvo", brvo);
+		}
 		
 		mav.setViewName("/admin/adminReportControlPart");
 		return mav;
+	}
+	
+	// 게시글 블럭 처리
+	@ResponseBody
+	@RequestMapping(value="/boardBlockAction", method=RequestMethod.POST)
+	public String boardBlockAction (HttpServletRequest request) {
+		String result = "0";
+		int fSerial = Integer.parseInt(request.getParameter("fSerial"));
+		logger.info("[board blocking action - admin controller] 게시글 블럭처리, fSerial : " + fSerial);
+		
+		boolean blockingResult = adminService.boardBlockAction(fSerial);
+		if (blockingResult) {
+			result = "1";
+		}
+		
+		return result;
+	}
+	
+	// 게시글 블럭 처리
+	@ResponseBody
+	@RequestMapping(value="/boardBlockFreeAction", method=RequestMethod.POST)
+	public String boardBlockFreeAction (HttpServletRequest request) {
+		String result = "0";
+		int fSerial = Integer.parseInt(request.getParameter("fSerial"));
+		logger.info("[board block free action - admin controller] 게시글 블럭해제 요청, fSerial : " + fSerial);
+		
+		boolean blockingResult = adminService.boardBlockFreeAction(fSerial);
+		if (blockingResult) {
+			result = "1";
+		}
+		
+		return result;
+	}
+	
+	// 게시글 신고요청 완료처리
+	@ResponseBody
+	@RequestMapping(value="/boardReportComplete", method=RequestMethod.POST)
+	public String boardReportComplete (HttpServletRequest request) {
+		String result = "0";
+		int serial = Integer.parseInt(request.getParameter("serial"));
+		logger.info("[boardreport complete - admin controller] 게시글 신고정보 완료처리, serial : " + serial);
+		
+		boolean reportComplete = adminService.boardReportCompleteAction(serial);
+		if (reportComplete) {
+			result = "1";
+		}
+		
+		return result;
 	}
 }

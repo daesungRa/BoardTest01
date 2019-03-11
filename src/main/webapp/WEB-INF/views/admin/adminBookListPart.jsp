@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board report list part</title>
+<title>admin book list part</title>
 </head>
 <body>
 
@@ -16,10 +16,10 @@
 	</c:if>
 
 	<div class='row' style='height: 30px; font-size: 10pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
-		<div class='col-md-1'>NO</div>
-		<div class='col-md-3'>분류 / 블럭유무</div>
-		<div class='col-md-2'>신고자</div>
-		<div class='col-md-4'>[카테고리] 게시글 / 작성자</div>
+		<div class='col-md-1'>책번호</div>
+		<div class='col-md-3'>분류 / 승인 여부</div>
+		<div class='col-md-2'>작성자</div>
+		<div class='col-md-4'>책제목 / 작가</div>
 		<div class='col-md-2'>등록일</div>
 	</div>
 	<c:choose>
@@ -44,15 +44,7 @@
 							<c:when test='${brvo.reportType == 5 }'>
 								저작권 침해
 							</c:when>
-						</c:choose>
-						<c:choose>
-							<c:when test='${brvo.isBlocked == 0 }'>
-								/<span style='color: #7878ff;'> 블럭되지 않음</span>
-							</c:when>
-							<c:when test='${brvo.isBlocked == 1 }'>
-								/<span style='color: #ff7878;'> 블럭됨</span>
-							</c:when>
-						</c:choose>
+						</c:choose> / ${brvo.isBlocked }
 					</div>
 					<div class='col-md-2'>${brvo.rUserId }</div>
 					<div class='col-md-4'>[${brvo.category }] ${brvo.title } / ${brvo.userId }</div>

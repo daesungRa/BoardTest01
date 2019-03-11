@@ -21,4 +21,36 @@ public class AdminServiceImpl implements AdminService {
 		
 		return brvoList;
 	}
+	
+	@Override
+	public BoardReportVo getBoardReportInfo (int serial) {
+		BoardReportVo brvo = null;
+		brvo = adminDao.selectBoardReportInfo(serial);
+		
+		return brvo;
+	}
+	
+	@Override
+	public boolean boardReportCompleteAction (int serial) {
+		boolean result = false;
+		result = adminDao.deleteBoardReport(serial);
+		
+		return result;
+	}
+	
+	@Override
+	public boolean boardBlockAction (int fSerial) {
+		boolean result = false;
+		result = adminDao.updateBoardBlockAction(fSerial);
+		
+		return result;
+	}
+	
+	@Override
+	public boolean boardBlockFreeAction (int fSerial) {
+		boolean result = false;
+		result = adminDao.updateBoardBlockFreeAction(fSerial);
+		
+		return result;
+	}
 }
