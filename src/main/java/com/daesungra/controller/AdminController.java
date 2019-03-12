@@ -124,6 +124,9 @@ public class AdminController {
 		return mav;
 	}
 	
+	/*
+	 * board report
+	 */
 	// 게시글 신고 리스트 관련 정보
 	@RequestMapping(value="/getBoardReportList", method=RequestMethod.POST)
 	public ModelAndView getBoardReportList (HttpServletRequest request) {
@@ -237,5 +240,59 @@ public class AdminController {
 		}
 		
 		return result;
+	}
+	
+	/*
+	 * method book register
+	 */
+	// 게시글 신고 리스트 관련 정보
+	@RequestMapping(value="/getBookRegisterList", method=RequestMethod.POST)
+	public ModelAndView getBookRegisterList (HttpServletRequest request) {
+		logger.info("[book register list - admin controller] 새 책 등록요청 목록");
+		// 응답 객체
+		ModelAndView mav = new ModelAndView();
+		int dateFlag = 3; // 조회 날짜 매개변수 flag (1: 오늘, 2: 하루 전, 3: 일주일 전, 4: 한달 전)
+		
+		// 요청 데이터 세팅
+		try {
+			this.nowPage = Integer.parseInt(request.getParameter("nowPage"));
+			dateFlag = Integer.parseInt(request.getParameter("dateFlag"));
+		} catch (Exception ex) { ex.printStackTrace(); }
+		
+		// 페이징 처리 후 결과값이 세팅된 매개변수 정의
+		pageDto.setAdminPageDto(this.listSize, this.blockSize, this.nowPage, dateFlag); // 페이징 처리를 위한 도메인 객체
+		pageDto.adminBookRegisterPageCompute();
+		
+		Map<String, Object> pagenatedInputData = new HashMap<String, Object>(); // 페이징 결과값을 포함한 db input data
+		pagenatedInputData.put("startNo", pageDto.getStartNo());
+		pagenatedInputData.put("endNo", pageDto.getEndNo());
+		pagenatedInputData.put("dateFlag", dateFlag);
+		
+		// board report list 저장 객체 선언
+		List<BookVo> bkvoList = null;
+		
+		// board report list 저장 객체 조회 및 세팅
+		bkvoList = adminService.getBookRegisterList(pagenatedInputData);
+		if (bkvoList != null) {
+			logger.info("[book register list - admin controller] 새 책 등록요청 조회 완료");
+			// board report list 에 대한 pageDto 생성
+			PageDto bkPageDto = new PageDto();
+			bkPageDto.setNowPage(pageDto.getNowPage());
+			bkPageDto.setTotSize(pageDto.getTotSize());
+			bkPageDto.setTotPage(pageDto.getTotPage());
+			bkPageDto.setTotBlock(pageDto.getTotBlock());
+			bkPageDto.setNowBlock(pageDto.getNowBlock());
+			bkPageDto.setStartNo(pageDto.getStartNo());
+			bkPageDto.setEndNo(pageDto.getEndNo());
+			bkPageDto.setStartPage(pageDto.getStartPage());
+			bkPageDto.setEndPage(pageDto.getEndPage());
+			
+			// 응답 객체에 세팅
+			mav.addObject("bkvoList", bkvoList);
+			mav.addObject("bkPageDto", bkPageDto);
+		}
+
+		mav.setViewName("/admin/adminBookListPart"); // 리턴 경로
+		return mav;
 	}
 }

@@ -10,13 +10,13 @@
 </head>
 <body>
 
-	<c:if test='${not empty requestScope.brvoList and fn:length(requestScope.brvoList) > 0 }'>
-		<c:set var='brvoList' value='${requestScope.brvoList }' scope='page' />
-		<c:set var='brPageDto' value='${requestScope.brPageDto }' scope='page' />
+	<c:if test='${not empty requestScope.bkvoList and fn:length(requestScope.bkvoList) > 0 }'>
+		<c:set var='bkvoList' value='${requestScope.bkvoList }' scope='page' />
+		<c:set var='bkPageDto' value='${requestScope.bkPageDto }' scope='page' />
 	</c:if>
 
 	<div id='bkrBody'>
-		<div id='newBookListComponent'>
+		<div id='bookRegisterListBody'>
 			<div style='position: relative; height: 50px;'>
 				<span id='categoryContent' style='position: absolute; top: 20%; font-size: 12pt;'>
 					<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 등록 요청된 책 목록
