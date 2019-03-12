@@ -241,7 +241,7 @@ function funcBookRegisterChangePage (nowPage) {
 				
 				funcBookRegisterChangePage(nowPage);
 			});
-
+			
 			// 책 등록요청 조회
 			$('#bookRegisterListBody .my-adminList-row').click(function () {
 				var bkSerial = $(this).find('#bookRegisterBookNo').text();
@@ -324,7 +324,7 @@ function funcShowBookRegisterInfo (bkSerial) {
 				}
 			});
 			
-			/*// 게시글 블럭 해제
+			/*// 등록 허가 해제
 			$('#boardContentInBoardReportPage #boardBlockFreeAction').click(function () {
 				var result = confirm('블럭 해제 하시겠습니까?');
 				

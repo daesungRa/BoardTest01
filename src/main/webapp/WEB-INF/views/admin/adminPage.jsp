@@ -191,23 +191,23 @@
 				
 				<div class='col-sm-5' style='min-height: 420px; /* border: 1px solid black; */'>
 					<!-- 책 등록 요청 -->
-					<div id='bkrBody'>
-						<div id='bookRegisterListBody'>
-							<div style='position: relative; height: 50px;'>
-								<span id='categoryContent' style='position: absolute; top: 20%; font-size: 12pt;'>
-									<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 등록 요청된 책 목록
-								</span>
-								<form class='form' id='bookRegisterListForm' name='bookRegisterListForm' method='post' action='#' style='float: right;'>
-									<input class='form-control' type='text' id='nowPage' name='nowPage' value='1' style='display: none;' />
-									<select class='form-control' id='dateFlag' name='dateFlag' >
-										<option value='0'>전체 조회</option>
-										<option value='1'>오늘</option>
-										<option value='2'>어제부터</option>
-										<option value='3' selected>최근 일주일</option>
-										<option value='4'>최근 한 달</option>
-									</select>
-								</form>
-							</div>
+					<div id='bookRegisterListBody'>
+						<div style='position: relative; height: 50px;'>
+							<span id='categoryContent' style='position: absolute; top: 20%; font-size: 12pt;'>
+								<img src='/desktop/resources/imgs/document01.png' alt='icon_pencil for board' style='width: 18px; padding-bottom: 3px; margin-right: 10px;' /> 등록 요청된 책 목록
+							</span>
+							<form class='form' id='bookRegisterListForm' name='bookRegisterListForm' method='post' action='#' style='float: right;'>
+								<input class='form-control' type='text' id='nowPage' name='nowPage' value='1' style='display: none;' />
+								<select class='form-control' id='dateFlag' name='dateFlag' >
+									<option value='0'>전체 조회</option>
+									<option value='1'>오늘</option>
+									<option value='2'>어제부터</option>
+									<option value='3' selected>최근 일주일</option>
+									<option value='4'>최근 한 달</option>
+								</select>
+							</form>
+						</div>
+						<div id='bkrBody'>
 							<div class='row' style='height: 30px; font-size: 10pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
 								<div class='col-md-1'>NO</div>
 								<div class='col-md-3'>분류 / 승인 여부</div>
