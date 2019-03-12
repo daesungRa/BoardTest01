@@ -1,5 +1,6 @@
 package com.daesungra.dao;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -82,8 +83,79 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<BookVo> selectBookRegisterList (Map<String, Object> pagenatedInputData) {
 		List<BookVo> bkvoList = null;
-		bkvoList = sqlSession.selectList("admin.getBookReportList", pagenatedInputData);
+		bkvoList = sqlSession.selectList("admin.getBookRegisterList", pagenatedInputData);
+		if (bkvoList != null) {
+			logger.info("[get book register list - dao] 조회 성공, 리스트 길이 : " + bkvoList.size());
+		} else {
+			logger.info("[get book register list - dao] 조회 실패");
+		}
 		
 		return bkvoList;
+	}
+	@Override
+	public BookVo selectBookRegisterInfo (String bookNo) {
+		BookVo bkvo = null;
+		bkvo = sqlSession.selectOne("admin.selectBookRegisterInfo", bookNo);
+		if (bkvo != null) {
+			logger.info("[get book register info - dao] 조회 성공, bookNo : " + bkvo.getBookNo());
+		}
+		
+		return bkvo;
+	}
+	@Override
+	public boolean deleteBookRegisterInfo (String bookNo) {
+		boolean result = false;
+		logger.info("[book register prohibit - dao] 거부 시작, bookNo : " + bookNo);
+		
+		int updateResult = sqlSession.update("admin.deleteBookRegister", bookNo);
+		if (updateResult > 0) {
+			logger.info("[book register prohibit - dao] 거부 완료, bookNo : " + bookNo);
+			result = true;
+		}
+		
+		return result;
+	}
+	@Override
+	public boolean updateBookRegisterInfo (BookVo bkvo) {
+		boolean result = false;
+		int updateResult = 0;
+		logger.info("[book register permit - dao] 허가 시작, bookNo : " + bkvo.getBookNo());
+		
+		// 새로 수정되는 커버이미지가 있다면, 기존의 이미지 정보를 select 하여 실제 경로에서 삭제 후 저장한다
+		if (!bkvo.getCoverImg().equals("")) {
+			BookVo temp = sqlSession.selectOne("admin.selectBookRegisterInfo", bkvo.getOriBookNo());
+			String delCoverImg = temp.getCoverImg();
+			String delFilePath = "D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/bookAttFiles/" + delCoverImg.substring(delCoverImg.lastIndexOf("/") + 1, delCoverImg.length());
+			
+			// 해당 경로 파일이 존재하는지 확인 후 삭제
+			File delFile = new File(delFilePath);
+			if (delFile.exists()) {
+				delFile.delete();
+				logger.info("[book register permit - dao] 기존 파일 존재함!, 삭제! >> " + delFilePath);
+			}
+			
+			// 이후 정상 저장
+			updateResult = sqlSession.update("admin.permitBookRegister", bkvo);
+		} else {
+			// 새로 수정되는 커버이미지가 없다면 바로 저장하되, 이미지 변수에는 공백 문자열이 들어 있으므로
+			// 기존 이미지 문자열을 select 해서 세팅 후 다시 저장한다
+			BookVo temp = sqlSession.selectOne("admin.selectBookRegisterInfo", bkvo.getOriBookNo());
+			String coverImg = temp.getCoverImg();
+			String coverImgOri = temp.getCoverImgOri();
+			
+			bkvo.setCoverImg(coverImg);
+			bkvo.setCoverImgOri(coverImgOri);
+			updateResult = sqlSession.update("admin.permitBookRegister", bkvo);
+		}
+		
+		// 쿼리 결과에 따른 완료 유무 처리
+		if (updateResult > 0) {
+			logger.info("[book register permit - dao] 허가 완료, bookNo : " + bkvo.getBookNo());
+			result = true;
+		} else {
+			logger.info("[book register permit - dao] 허가 실패, bookNo : " + bkvo.getBookNo());
+		}
+		
+		return result;
 	}
 }

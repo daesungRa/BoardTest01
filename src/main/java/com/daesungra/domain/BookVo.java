@@ -2,6 +2,7 @@ package com.daesungra.domain;
 
 public class BookVo {
 
+	private String oriBookNo; // 임시
 	private String bookNo; // 관리자 입력
 	private String title_kor;
 	private String title_eng;
@@ -14,6 +15,7 @@ public class BookVo {
 	private String coverImgOri;
 	private String pDate; // 자동 입력
 	private int isPermitted; // 승인 전까지 0
+	private int isDelete;
 	private String userId;
 	
 	public String getBookNo() {
@@ -88,13 +90,28 @@ public class BookVo {
 	public void setIsPermitted(int isPermitted) {
 		this.isPermitted = isPermitted;
 	}
+	public int getIsDelete() {
+		return isDelete;
+	}
+	public void setIsDelete(int isDelete) {
+		this.isDelete = isDelete;
+	}
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
 
+	@Override
+	public String toString() {
+		return "BookVo [bookNo=" + bookNo + ", title_kor=" + title_kor + ", title_eng=" + title_eng + ", introduce="
+				+ introduce + ", author=" + author + ", category=" + category + ", publisher=" + publisher
+				+ ", country=" + country + ", coverImg=" + coverImg + ", coverImgOri=" + coverImgOri + ", pDate="
+				+ pDate + ", isPermitted=" + isPermitted + ", isDelete=" + isDelete + ", userId=" + userId + "]";
+	}
+	
 	public String toJson() {
 		/*String jsonResult = String.format("{\"bookNo\":\"%s\", "
 											+ "'title_kor':\"%s\", "
@@ -120,6 +137,14 @@ public class BookVo {
 		+ introduce + "', 'author':'" + author + "', 'category':'" + category + "', 'publisher':'" + publisher
 		+ "', 'country':'" + country + "', 'coverImg':'" + coverImg + "', 'pDate':'" + pDate + "', 'isPermitted':'"
 		+ isPermitted + "'}"*/
+	}
+	
+	// 임시
+	public String getOriBookNo() {
+		return oriBookNo;
+	}
+	public void setOriBookNo(String oriBookNo) {
+		this.oriBookNo = oriBookNo;
 	}
 	
 }

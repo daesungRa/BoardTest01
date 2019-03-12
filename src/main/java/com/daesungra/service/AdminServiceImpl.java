@@ -64,4 +64,25 @@ public class AdminServiceImpl implements AdminService {
 		
 		return bkvoList;
 	}
+	@Override
+	public BookVo getBookRegisterInfo (String bookNo) {
+		BookVo bkvo = null;
+		bkvo = adminDao.selectBookRegisterInfo (bookNo);
+		
+		return bkvo;
+	}
+	@Override
+	public boolean prohibitBookRegister (String bookNo) {
+		boolean result = false;
+		result = adminDao.deleteBookRegisterInfo(bookNo);
+		
+		return result;
+	}
+	@Override
+	public boolean permitBookRegister (BookVo bkvo) {
+		boolean result = false;
+		result = adminDao.updateBookRegisterInfo(bkvo);
+		
+		return result;
+	}
 }

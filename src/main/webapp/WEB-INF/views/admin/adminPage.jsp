@@ -91,7 +91,7 @@
 							<form class='form' id='boardReportListForm' name='boardReportListForm' method='post' action='#' style='float: right;'>
 								<input class='form-control' type='text' id='nowPage' name='nowPage' value='1' style='display: none;' />
 								<select class='form-control' id='dateFlag' name='dateFlag' >
-									<option value='0'>전체 기간 조회</option>
+									<option value='0'>전체 조회</option>
 									<option value='1'>오늘</option>
 									<option value='2'>어제부터</option>
 									<option value='3' selected>최근 일주일</option>
@@ -200,7 +200,7 @@
 								<form class='form' id='bookRegisterListForm' name='bookRegisterListForm' method='post' action='#' style='float: right;'>
 									<input class='form-control' type='text' id='nowPage' name='nowPage' value='1' style='display: none;' />
 									<select class='form-control' id='dateFlag' name='dateFlag' >
-										<option value='0'>전체 기간 조회</option>
+										<option value='0'>전체 조회</option>
 										<option value='1'>오늘</option>
 										<option value='2'>어제부터</option>
 										<option value='3' selected>최근 일주일</option>
@@ -209,7 +209,7 @@
 								</form>
 							</div>
 							<div class='row' style='height: 30px; font-size: 10pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
-								<div class='col-md-1'>책번호</div>
+								<div class='col-md-1'>NO</div>
 								<div class='col-md-3'>분류 / 승인 여부</div>
 								<div class='col-md-2'>작성자</div>
 								<div class='col-md-4'>책제목 / 작가</div>
@@ -219,7 +219,8 @@
 								<c:when test='${not empty requestScope.bkvoList and fn:length(requestScope.bkvoList) > 0 }'>
 									<c:forEach var="bkvo" items="${bkvoList }" >
 										<div class='row my-adminList-row'>
-											<div class='col-md-1' id='bookRegisterBookNo'>undef<%-- ${bkvo.bookNo } --%></div>
+											<div class='col-md-1' id='bookRegisterBookNo' style='display: none;'>${bkvo.bookNo }</div>
+											<div class='col-md-1'>undef</div>
 											<div class='col-md-3'>[${bkvo.category }]
 												<c:choose>
 													<c:when test='${bkvo.category == 1 }'>

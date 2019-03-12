@@ -323,9 +323,22 @@ public class FileUpload {
 					this.bkvo = new BookVo();
 					
 					/* bkvo 세팅 */
-					// bookNo, category, pDate 제외, 추후 관리자 입력
-					bkvo.setBookNo("notPermitted:" + System.currentTimeMillis() / 1000);
-					bkvo.setCategory(9999);
+					// bookNo, category, pDate 값이 없다면 제외, 추후 관리자 입력
+					if (multi.getParameter("bookNo") != null && !multi.getParameter("bookNo").equals("")) {
+						bkvo.setBookNo(multi.getParameter("bookNo"));
+						bkvo.setIsPermitted(1);
+					} else {
+						bkvo.setBookNo("notPermitted:" + System.currentTimeMillis() / 1000);
+						bkvo.setIsPermitted(0);
+					}
+					if (multi.getParameter("category") != null) {
+						try {
+							bkvo.setCategory(Integer.parseInt(multi.getParameter("category")));
+						} catch (Exception ex) { ex.printStackTrace(); }
+					} else {
+						bkvo.setCategory(9999);
+					}
+					
 					// title_kor, title_eng, introduce, author, publisher, country, coverImg, coverImgOri, isPermitted 입력
 					if (multi.getParameter("title_kor") != null) {
 						bkvo.setTitle_kor(multi.getParameter("title_kor"));
@@ -359,16 +372,33 @@ public class FileUpload {
 					}
 					bkvo.setCoverImg("/desktop/resources/imgs/bookAttFiles/" + sysFileName); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
 					bkvo.setCoverImgOri(oriFileName); // 사용자에게 보여질 오리지널 파일명
-					bkvo.setIsPermitted(0);
+
+					// 임시
+					if (multi.getParameter("oriBookNo") != null && !multi.getParameter("oriBookNo").equals("")) {
+						bkvo.setOriBookNo(multi.getParameter("oriBookNo"));
+					}
 				} else {
 					// 저장에 성공한 파일이 존재하지 않거나
 					// 애초에 요청받은 파일 정보가 없는 경우 파일을 제외한 정보만 저장됨
 					this.bkvo = new BookVo();
 					
 					/* bkvo 세팅 */
-					// bookNo, category, pDate 제외, 추후 관리자 입력
-					bkvo.setBookNo("notPermitted:" + System.currentTimeMillis() / 1000);
-					bkvo.setCategory(9999);
+					// bookNo, category, pDate 값이 없다면 제외, 추후 관리자 입력
+					if (multi.getParameter("bookNo") != null && !multi.getParameter("bookNo").equals("")) {
+						bkvo.setBookNo(multi.getParameter("bookNo"));
+						bkvo.setIsPermitted(1);
+					} else {
+						bkvo.setBookNo("notPermitted:" + System.currentTimeMillis() / 1000);
+						bkvo.setIsPermitted(0);
+					}
+					if (multi.getParameter("category") != null) {
+						try {
+							bkvo.setCategory(Integer.parseInt(multi.getParameter("category")));
+						} catch (Exception ex) { ex.printStackTrace(); }
+					} else {
+						bkvo.setCategory(9999);
+					}
+					
 					// title_kor, title_eng, introduce, author, publisher, country, coverImg, coverImgOri, isPermitted 입력
 					if (multi.getParameter("title_kor") != null) {
 						bkvo.setTitle_kor(multi.getParameter("title_kor"));
@@ -402,15 +432,32 @@ public class FileUpload {
 					}
 					bkvo.setCoverImg(""); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
 					bkvo.setCoverImgOri(""); // 사용자에게 보여질 오리지널 파일명
-					bkvo.setIsPermitted(0);
+
+					// 임시
+					if (multi.getParameter("oriBookNo") != null && !multi.getParameter("oriBookNo").equals("")) {
+						bkvo.setOriBookNo(multi.getParameter("oriBookNo"));
+					}
 				}
 			} else if (multi.getParameter("coverImg") == null || multi.getParameter("coverImg").equals("")) {
 				this.bkvo = new BookVo();
 				
 				/* bkvo 세팅 */
-				// bookNo, category, pDate 제외, 추후 관리자 입력
-				bkvo.setBookNo("notPermitted:" + System.currentTimeMillis() / 1000);
-				bkvo.setCategory(9999);
+				// bookNo, category, pDate 값이 없다면 제외, 추후 관리자 입력
+				if (multi.getParameter("bookNo") != null && !multi.getParameter("bookNo").equals("")) {
+					bkvo.setBookNo(multi.getParameter("bookNo"));
+					bkvo.setIsPermitted(1);
+				} else {
+					bkvo.setBookNo("notPermitted:" + System.currentTimeMillis() / 1000);
+					bkvo.setIsPermitted(0);
+				}
+				if (multi.getParameter("category") != null) {
+					try {
+						bkvo.setCategory(Integer.parseInt(multi.getParameter("category")));
+					} catch (Exception ex) { ex.printStackTrace(); }
+				} else {
+					bkvo.setCategory(9999);
+				}
+				
 				// title_kor, title_eng, introduce, author, publisher, country, coverImg, coverImgOri, isPermitted 입력
 				if (multi.getParameter("title_kor") != null) {
 					bkvo.setTitle_kor(multi.getParameter("title_kor"));
@@ -444,7 +491,11 @@ public class FileUpload {
 				}
 				bkvo.setCoverImg(""); // 실제 저장 파일명. 나중에 쉽게 가져오기 위해 (contextPath 기반)전체 경로 입력
 				bkvo.setCoverImgOri(""); // 사용자에게 보여질 오리지널 파일명
-				bkvo.setIsPermitted(0);
+				
+				// 임시
+				if (multi.getParameter("oriBookNo") != null && !multi.getParameter("oriBookNo").equals("")) {
+					bkvo.setOriBookNo(multi.getParameter("oriBookNo"));
+				}
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

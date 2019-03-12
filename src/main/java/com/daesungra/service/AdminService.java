@@ -17,5 +17,8 @@ public interface AdminService {
 	
 	// book register
 	public List<BookVo> getBookRegisterList (Map<String, Object> pagenatedInputData); // 새 책 등록요청 리스트
+	public BookVo getBookRegisterInfo (String bookNo);
+	public boolean prohibitBookRegister (String bookNo);
+	public boolean permitBookRegister (BookVo bkvo);
 	
 }

@@ -46,7 +46,7 @@
 					(int) dateFlag => value
 				-->
 				<when test='value == 0'>
-					
+					WHERE isDelete = 0
 				</when>
 				<when test='value == 1'>
 					WHERE to_char(rDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND isDelete = 0
@@ -68,19 +68,19 @@
 			FROM DBOOK
 			<choose>
 				<when test='value == 0'>
-					
+					WHERE isDelete = 0
 				</when>
 				<when test='value == 1'>
-					WHERE to_char(pDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND isPermitted = 0
+					WHERE to_char(pDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND isPermitted = 0 AND isDelete = 0
 				</when>
 				<when test='value == 2'>
-					WHERE to_char(pDate, 'YYMMDD') > to_char(sysdate - 1, 'YYMMDD') AND isPermitted = 0
+					WHERE to_char(pDate, 'YYMMDD') > to_char(sysdate - 1, 'YYMMDD') AND isPermitted = 0 AND isDelete = 0
 				</when>
 				<when test='value == 3'>
-					WHERE to_char(pDate, 'YYMMDD') > to_char(sysdate - 7, 'YYMMDD') AND isPermitted = 0
+					WHERE to_char(pDate, 'YYMMDD') > to_char(sysdate - 7, 'YYMMDD') AND isPermitted = 0 AND isDelete = 0
 				</when>
 				<when test='value == 4'>
-					WHERE to_char(pDate, 'YYMMDD') > to_char(add_months(sysdate, -1), 'YYMMDD') AND isPermitted = 0
+					WHERE to_char(pDate, 'YYMMDD') > to_char(add_months(sysdate, -1), 'YYMMDD') AND isPermitted = 0 AND isDelete = 0
 				</when>
 			</choose>
 	</select>
@@ -134,7 +134,7 @@
 							(int) dateFlag => value
 						-->
 						<when test='dateFlag == 0'>
-							
+							WHERE br.isDelete = 0
 						</when>
 						<when test='dateFlag == 1'>
 							WHERE to_char(br.rDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND br.isDelete = 0
@@ -206,30 +206,65 @@
 	<!-- 
 		book register
 	 -->
-	<select id='getBookReportList' parameterType='map' resultType='com.daesungra.domain.BookVo'>
+	<select id='getBookRegisterList' parameterType='map' resultType='com.daesungra.domain.BookVo'>
 		SELECT * FROM (
 			SELECT ROWNUM rno, s.* FROM (
 				SELECT *
 					FROM DBOOK
 					<choose>
 						<when test='dateFlag == 0'>
-							
+							WHERE isDelete = 0
 						</when>
 						<when test='dateFlag == 1'>
-							WHERE to_char(pDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND isPermitted = 0
+							WHERE to_char(pDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND isPermitted = 0 AND isDelete = 0
 						</when>
 						<when test='dateFlag == 2'>
-							WHERE to_char(pDate, 'YYMMDD') > to_char(sysdate - 1, 'YYMMDD') AND isPermitted = 0
+							WHERE to_char(pDate, 'YYMMDD') > to_char(sysdate - 1, 'YYMMDD') AND isPermitted = 0 AND isDelete = 0
 						</when>
 						<when test='dateFlag == 3'>
-							WHERE to_char(pDate, 'YYMMDD') > to_char(sysdate - 7, 'YYMMDD') AND isPermitted = 0
+							WHERE to_char(pDate, 'YYMMDD') > to_char(sysdate - 7, 'YYMMDD') AND isPermitted = 0 AND isDelete = 0
 						</when>
 						<when test='dateFlag == 4'>
-							WHERE to_char(pDate, 'YYMMDD') > to_char(add_months(sysdate, -1), 'YYMMDD') AND isPermitted = 0
+							WHERE to_char(pDate, 'YYMMDD') > to_char(add_months(sysdate, -1), 'YYMMDD') AND isPermitted = 0 AND isDelete = 0
 						</when>
 					</choose>
 					ORDER BY pDate desc
 			) s
 		) WHERE rno BETWEEN #{startNo} AND #{endNo}
 	</select>
+	<!-- select board report info -->
+	<select id='selectBookRegisterInfo' parameterType='String' resultType='com.daesungra.domain.BookVo'>
+		SELECT *
+			FROM DBOOK
+			WHERE bookNo = #{_parameter}
+	</select>
+	<!-- delete book register (update) -->
+	<update id='deleteBookRegister' parameterType='String'>
+		UPDATE DBOOK SET isDelete = 1
+			WHERE bookNo = #{_parameter}
+	</update>
+	<!-- permit book register (update) -->
+	<update id='permitBookRegister' parameterType='com.daesungra.domain.BookVo'>
+		UPDATE DBOOK SET
+				bookNo = #{bookNo},
+				title_kor = #{title_kor},
+				title_eng = #{title_eng},
+				introduce = #{introduce},
+				author = #{author},
+				category = #{category},
+				publisher = #{publisher},
+				country = #{country},
+				coverImg = #{coverImg},
+				coverImgOri = #{coverImgOri},
+				pDate = SYSDATE,
+				isPermitted = 1,
+				isDelete = 0
+			WHERE bookNo = #{oriBookNo}
+	</update>
+	<!-- permit free book register (update) -->
+	<update id='permitFreeBookRegister' parameterType='String'>
+		UPDATE DBOOK SET
+				isPermitted = 0
+			WHERE bookNo = #{bookNo}
+	</update>
 </mapper>

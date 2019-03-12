@@ -17,5 +17,8 @@ public interface AdminDao {
 	
 	// book register
 	public List<BookVo> selectBookRegisterList (Map<String, Object> pagenatedInputData); // 새 책 등록요청 리스트
+	public BookVo selectBookRegisterInfo (String bookNo);
+	public boolean deleteBookRegisterInfo (String bookNo);
+	public boolean updateBookRegisterInfo (BookVo bkvo);
 	
 }

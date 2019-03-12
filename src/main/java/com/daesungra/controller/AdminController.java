@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.daesungra.component.FileUpload;
 import com.daesungra.domain.BoardReportVo;
 import com.daesungra.domain.BookVo;
 import com.daesungra.domain.PageDto;
@@ -31,6 +32,8 @@ public class AdminController {
 	private AdminService adminService;
 	@Autowired
 	private PageDto pageDto;
+	@Autowired
+	private FileUpload fileUpload;
 	
 	// 게시글 리스트 조회 및 페이징 처리를 위한 변수
 	private int listSize = 10;
@@ -186,7 +189,7 @@ public class AdminController {
 		
 		brvo = adminService.getBoardReportInfo(serial);
 		if (brvo != null) {
-			logger.info("[get boardreport info - admin controller] 게시글 신고정보 반환완료, serial : " + serial);
+			logger.info("[get boardreport info - admin controller] 게시글 신고정보 반환완료, serial : " + brvo.getSerial());
 			mav.addObject("brvo", brvo);
 		}
 		
@@ -245,7 +248,7 @@ public class AdminController {
 	/*
 	 * method book register
 	 */
-	// 게시글 신고 리스트 관련 정보
+	// 새 책 등록요청 정보 리스트
 	@RequestMapping(value="/getBookRegisterList", method=RequestMethod.POST)
 	public ModelAndView getBookRegisterList (HttpServletRequest request) {
 		logger.info("[book register list - admin controller] 새 책 등록요청 목록");
@@ -291,8 +294,67 @@ public class AdminController {
 			mav.addObject("bkvoList", bkvoList);
 			mav.addObject("bkPageDto", bkPageDto);
 		}
-
+		
 		mav.setViewName("/admin/adminBookListPart"); // 리턴 경로
 		return mav;
+	}
+	
+	// 새 책 등록정보 가져오기
+	@RequestMapping(value="/getBookRegisterInfo/{bookNo}", method=RequestMethod.GET)
+	public ModelAndView getBookRegisterInfo (HttpServletRequest request, @PathVariable(name = "bookNo", required = false) String bookNo) {
+		logger.info("[get book register info - admin controller] 새 책 등록정보 요청, bookNo : " + bookNo);
+		ModelAndView mav = new ModelAndView();
+		BookVo bkvo = null;
+		
+		bkvo = adminService.getBookRegisterInfo(bookNo);
+		if (bkvo != null) {
+			logger.info("[get book register info - admin controller] 새 책 등록정보 반환완료, bookNo : " + bkvo.getBookNo());
+			mav.addObject("bkvo", bkvo);
+		}
+		
+		mav.setViewName("/admin/adminBookControlPart");
+		return mav;
+	}
+	
+	// 책 등록요청 거부 처리
+	@ResponseBody
+	@RequestMapping(value="bookRegisterProhibitAction")
+	public String bookRegisterProhibitAction (HttpServletRequest request) {
+		String result = "0";
+		String bookNo = request.getParameter("bookNo");
+		logger.info("[book register prohibit action - admin controller] 책 등록요청 거부 처리, bookNo : " + bookNo);
+		
+		boolean prohibitResult = adminService.prohibitBookRegister(bookNo);
+		if (prohibitResult) {
+			logger.info("[book register prohibit action - admin controller] 거부 처리 완료, bookNo " + bookNo); 
+			result = "1";
+		}
+		
+		return result;
+	}
+	
+	// 책 등록요청 허가 처리 및 수정된 내용 입력
+	@ResponseBody
+	@RequestMapping(value="/bookRegisterPermitAction")
+	public String bookRegisterPermitAction (HttpServletRequest request) {
+		String result = "0";
+		BookVo bkvo = null;
+		logger.info("[bookregister permit logic - controller] 책 등록 허가 : ");
+		
+		bkvo = fileUpload.getBookVo(request);
+		if (bkvo != null) {
+			logger.info("[bookregister permit logic - controller] vo 객체 생성 완료");
+			bkvo.toString();
+			
+			boolean permitResult = adminService.permitBookRegister(bkvo);
+			if (permitResult) {
+				logger.info("[bookregister permit logic - controller] 허가 완료(modify)");
+				result = "1";
+			}
+		} else {
+			result = "2";
+		}
+		
+		return result;
 	}
 }

@@ -39,7 +39,7 @@
 	cursor: pointer;
 }
 
-/* 게시글 신고 리스트 스타일 */
+/* admin 리스트 스타일 */
 .my-adminList-row {
 	font-size: 8pt;
 	padding: 5px 0 5px 0;
@@ -47,11 +47,6 @@
 }
 .my-adminList-row:hover {
 	background-color: #dedede;
-	cursor: pointer;
-}
-
-/* 게시글 신고 정보 스타일 (모달) */
-#boardContentInBoardReportPage #toBoardViewPageFromBoardReportPage {
 	cursor: pointer;
 }
 
@@ -88,4 +83,12 @@
 	font-family: 'Nanum Gothic', sans-serif;
 }
 
-/* 게시글 신고 목록 */
+/* 게시글 신고 정보 스타일 (모달) */
+#boardContentInBoardReportPage #toBoardViewPageFromBoardReportPage {
+	cursor: pointer;
+}
+
+/* 책 등록요청 정보 스타일 (모달) */
+#bookRegisterInfoInModal #toBoardViewPageFromBoardReportPage {
+	cursor: pointer;
+}
