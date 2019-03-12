@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.daesungra.controller.AdminController;
 import com.daesungra.domain.BoardReportVo;
+import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 
 @Repository
@@ -157,5 +158,20 @@ public class AdminDaoImpl implements AdminDao {
 		}
 		
 		return result;
+	}
+	
+	/*
+	 * new board
+	 */
+	public List<BoardVo> selectNewBoardList (Map<String, Object> pagenatedInputData) {
+		List<BoardVo> bdvoList = null;
+		bdvoList = sqlSession.selectList("admin.getNewBoardList", pagenatedInputData);
+		if (bdvoList != null) {
+			logger.info("[get new board list - dao] 조회 성공, 리스트 길이 : " + bdvoList.size());
+		} else {
+			logger.info("[get new board list - dao] 조회 실패");
+		}
+		
+		return bdvoList;
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.daesungra.dao.AdminDao;
 import com.daesungra.domain.BoardReportVo;
+import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 
 @Service
@@ -84,5 +85,15 @@ public class AdminServiceImpl implements AdminService {
 		result = adminDao.updateBookRegisterInfo(bkvo);
 		
 		return result;
+	}
+	
+	/*
+	 * new board
+	 */
+	public List<BoardVo> getNewBoardList (Map<String, Object> pagenatedInputData) {
+		List<BoardVo> bdvoList = null;
+		bdvoList = adminDao.selectNewBoardList(pagenatedInputData);
+		
+		return bdvoList;
 	}
 }

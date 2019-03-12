@@ -192,6 +192,36 @@ public class PageDto {
 		System.out.println("startPage: " + startPage);
 		System.out.println("========================================");
 	}
+	
+	// admin new board 페이지네이션 실행
+	public void adminNewBoardPageCompute () {
+		// 입력된 dateFlag 기반으로 totSize 구한 뒤 나머지 요소 구하기
+		this.totSize = sqlSession.selectOne("admin.newBoardPagenation", dateFlag);
+		
+		this.totPage = (int) Math.ceil(this.totSize / (double) this.listSize);
+		this.totBlock = (int) Math.ceil(this.totPage / (double) this.blockSize);
+		this.nowBlock = (int) Math.ceil(this.nowPage / (double) this.blockSize);
+		this.endNo = this.nowPage * this.listSize;
+		this.startNo = this.endNo - this.listSize + 1;
+		if (this.endNo > this.totSize) this.endNo = this.totSize;
+		this.endPage = this.nowBlock * this.blockSize;
+		this.startPage = this.endPage - this.blockSize + 1;
+		if (this.endPage > this.totPage) this.endPage = this.totPage;
+		System.out.println("[adminBookRegisterPageCompute 완료]====================");
+		
+		System.out.println("listSize: " + listSize);
+		System.out.println("blockSize: " + blockSize);
+		System.out.println("nowPage: " + nowPage);
+		System.out.println("totSize: " + totSize);
+		System.out.println("totPage: " + totPage);
+		System.out.println("totBlock: " + totBlock);
+		System.out.println("nowBlock: " + nowBlock);
+		System.out.println("endNo: " + endNo);
+		System.out.println("startNo: " + startNo);
+		System.out.println("endPage: " + endPage);
+		System.out.println("startPage: " + startPage);
+		System.out.println("========================================");
+	}
 
 	public int getListSize() {
 		return listSize;

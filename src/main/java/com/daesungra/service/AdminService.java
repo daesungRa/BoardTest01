@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.daesungra.domain.BoardReportVo;
+import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 
 public interface AdminService {
@@ -20,5 +21,8 @@ public interface AdminService {
 	public BookVo getBookRegisterInfo (String bookNo);
 	public boolean prohibitBookRegister (String bookNo);
 	public boolean permitBookRegister (BookVo bkvo);
+	
+	// new board
+	public List<BoardVo> getNewBoardList (Map<String, Object> pagenatedInputData);
 	
 }

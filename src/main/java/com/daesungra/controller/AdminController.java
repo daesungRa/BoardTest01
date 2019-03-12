@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.daesungra.component.FileUpload;
 import com.daesungra.domain.BoardReportVo;
+import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
 import com.daesungra.domain.PageDto;
 import com.daesungra.service.AdminService;
@@ -121,6 +122,40 @@ public class AdminController {
 			// 응답 객체에 세팅
 			mav.addObject("bkvoList", bkvoList);
 			mav.addObject("bkPageDto", bkPageDto);
+		}
+		
+		/*
+		 * 새로운 게시글 리스트
+		 */
+		pageDto.adminNewBoardPageCompute();
+		
+		pagenatedInputData = new HashMap<String, Object>(); // 페이징 결과값을 포함한 db input data
+		pagenatedInputData.put("startNo", pageDto.getStartNo());
+		pagenatedInputData.put("endNo", pageDto.getEndNo());
+		pagenatedInputData.put("dateFlag", dateFlag);
+		
+		// board report list 저장 객체 선언
+		List<BoardVo> bdvoList = null;
+		
+		// board report list 저장 객체 조회 및 세팅
+		bdvoList = adminService.getNewBoardList(pagenatedInputData);
+		if (bdvoList != null) {
+			logger.info("[new board list - admin controller] 새로운 게시글 리스트 조회 완료");
+			// new board list 에 대한 pageDto 생성
+			PageDto bdPageDto = new PageDto();
+			bdPageDto.setNowPage(pageDto.getNowPage());
+			bdPageDto.setTotSize(pageDto.getTotSize());
+			bdPageDto.setTotPage(pageDto.getTotPage());
+			bdPageDto.setTotBlock(pageDto.getTotBlock());
+			bdPageDto.setNowBlock(pageDto.getNowBlock());
+			bdPageDto.setStartNo(pageDto.getStartNo());
+			bdPageDto.setEndNo(pageDto.getEndNo());
+			bdPageDto.setStartPage(pageDto.getStartPage());
+			bdPageDto.setEndPage(pageDto.getEndPage());
+			
+			// 응답 객체에 세팅
+			mav.addObject("bdvoList", bdvoList);
+			mav.addObject("bdPageDto", bdPageDto);
 		}
 		
 		mav.setViewName("/admin/adminPage");
@@ -357,4 +392,12 @@ public class AdminController {
 		
 		return result;
 	}
+	
+	// 등록 허가 해제 해제 처리
+	
+	/*
+	 * new board - 새로운 게시글 처리
+	 */
+	
+	
 }
