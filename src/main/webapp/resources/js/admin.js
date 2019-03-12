@@ -10,7 +10,7 @@ $(function () {
 	 * board report admin
 	 */
 	// 게시글 신고정보 조회
-	$('#boardReportListBody .my-boardReportlist-row').click(function () {
+	$('#boardReportListBody .my-adminList-row').click(function () {
 		var brSerial = $(this).find('#boardReportSerial').text();
 		
 		funcShowBoardReportInfo(brSerial);
@@ -26,11 +26,16 @@ $(function () {
 	});
 	
 	// 페이지 이동
-	$('.btnBoardReportView').click(function () {
+	$('#btnBoardReportChangeGrp .btnAdminBtn').click(function () {
 		var nowPage = $(this).find('span').text();
 		
 		funcBoardReportChangePage(nowPage);
 	});
+	
+	/*
+	 * admin book register part
+	 */
+	
 	
 	/*
 	 * member admin
@@ -71,17 +76,17 @@ function funcBoardReportChangePage (nowPage) {
 		data: formData,
 		dataType: 'html',
 		success: function (html) {
-			$('#boardReportListComponent #boardReportListBody').html(html);
+			$('#boardReportListComponent #brlBody').html(html);
 			
 			// 게시글 신고목록 페이지 이동
-			$('.btnBoardReportView').click(function () {
+			$('#btnBoardReportChangeGrp .btnAdminBtn').click(function () {
 				var nowPage = $(this).find('span').text();
 				
 				funcBoardReportChangePage(nowPage);
 			});
 			
 			// 게시글 신고 정보 조회
-			$('#boardReportListBody .my-boardReportlist-row').click(function () {
+			$('#boardReportListBody .my-adminList-row').click(function () {
 				var brSerial = $(this).find('#boardReportSerial').text();
 				
 				funcShowBoardReportInfo(brSerial);

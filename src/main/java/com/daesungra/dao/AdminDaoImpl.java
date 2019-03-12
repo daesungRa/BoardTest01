@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.daesungra.controller.AdminController;
 import com.daesungra.domain.BoardReportVo;
+import com.daesungra.domain.BookVo;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -19,6 +20,9 @@ public class AdminDaoImpl implements AdminDao {
 	@Autowired
 	private SqlSession sqlSession;
 
+	/*
+	 * board report
+	 */
 	@Override
 	public List<BoardReportVo> selectBoardReportList (Map<String, Object> pagenatedInputData) {
 		List<BoardReportVo> brvoList = null;
@@ -31,7 +35,6 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return brvoList;
 	}
-	
 	@Override
 	public BoardReportVo selectBoardReportInfo (int serial) {
 		BoardReportVo brvo = null;
@@ -39,7 +42,6 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return brvo;
 	}
-	
 	@Override
 	public boolean deleteBoardReport (int serial) {
 		boolean result = false;
@@ -51,7 +53,6 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return result;
 	}
-	
 	@Override
 	public boolean updateBoardBlockAction (int fSerial) {
 		boolean result = false;
@@ -63,7 +64,6 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return result;
 	}
-	
 	@Override
 	public boolean updateBoardBlockFreeAction (int fSerial) {
 		boolean result = false;
@@ -74,5 +74,16 @@ public class AdminDaoImpl implements AdminDao {
 		}
 		
 		return result;
+	}
+	
+	/*
+	 * book register
+	 */
+	@Override
+	public List<BookVo> selectBookRegisterList (Map<String, Object> pagenatedInputData) {
+		List<BookVo> bkvoList = null;
+		bkvoList = sqlSession.selectList("admin.getBookReportList", pagenatedInputData);
+		
+		return bkvoList;
 	}
 }

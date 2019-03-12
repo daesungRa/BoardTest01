@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.daesungra.domain.BoardReportVo;
+import com.daesungra.domain.BookVo;
 import com.daesungra.domain.PageDto;
 import com.daesungra.service.AdminService;
 
@@ -47,9 +48,13 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 		int dateFlag = 3; // 조회 날짜 매개변수 flag (1: 오늘, 2: 하루 전, 3: 일주일 전, 4: 한달 전)
 		
-		// 페이징 처리 후 결과값이 세팅된 매개변수 정의
+		// 페이징 처리를 위한 dto 객체 결과값이 세팅된 매개변수 정의
 		this.nowPage = 1;
 		pageDto.setAdminPageDto(this.listSize, this.blockSize, this.nowPage, dateFlag); // 페이징 처리를 위한 도메인 객체
+		
+		/*
+		 * 게시글 신고 리스트
+		 */
 		pageDto.adminBoardReportPageCompute();
 		
 		Map<String, Object> pagenatedInputData = new HashMap<String, Object>(); // 페이징 결과값을 포함한 db input data
@@ -76,8 +81,43 @@ public class AdminController {
 			brPageDto.setStartPage(pageDto.getStartPage());
 			brPageDto.setEndPage(pageDto.getEndPage());
 			
+			// 응답 객체에 세팅
 			mav.addObject("brvoList", brvoList);
 			mav.addObject("brPageDto", brPageDto);
+		}
+		
+		/*
+		 * 새 책 등록 요청 리스트
+		 */
+		pageDto.adminBookRegisterPageCompute();
+		
+		pagenatedInputData = new HashMap<String, Object>(); // 페이징 결과값을 포함한 db input data
+		pagenatedInputData.put("startNo", pageDto.getStartNo());
+		pagenatedInputData.put("endNo", pageDto.getEndNo());
+		pagenatedInputData.put("dateFlag", dateFlag);
+		
+		// board report list 저장 객체 선언
+		List<BookVo> bkvoList = null;
+		
+		// board report list 저장 객체 조회 및 세팅
+		bkvoList = adminService.getBookRegisterList(pagenatedInputData);
+		if (bkvoList != null) {
+			logger.info("[book register list - admin controller] 새 책 등록요청 조회 완료");
+			// board report list 에 대한 pageDto 생성
+			PageDto bkPageDto = new PageDto();
+			bkPageDto.setNowPage(pageDto.getNowPage());
+			bkPageDto.setTotSize(pageDto.getTotSize());
+			bkPageDto.setTotPage(pageDto.getTotPage());
+			bkPageDto.setTotBlock(pageDto.getTotBlock());
+			bkPageDto.setNowBlock(pageDto.getNowBlock());
+			bkPageDto.setStartNo(pageDto.getStartNo());
+			bkPageDto.setEndNo(pageDto.getEndNo());
+			bkPageDto.setStartPage(pageDto.getStartPage());
+			bkPageDto.setEndPage(pageDto.getEndPage());
+			
+			// 응답 객체에 세팅
+			mav.addObject("bkvoList", bkvoList);
+			mav.addObject("bkPageDto", bkPageDto);
 		}
 		
 		mav.setViewName("/admin/adminPage");

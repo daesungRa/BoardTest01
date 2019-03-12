@@ -40,12 +40,12 @@
 }
 
 /* 게시글 신고 리스트 스타일 */
-#boardReportListBody .my-boardReportlist-row {
+.my-adminList-row {
 	font-size: 8pt;
 	padding: 5px 0 5px 0;
 	border-bottom: 1px solid #787878;
 }
-#boardReportListBody .my-boardReportlist-row:hover {
+.my-adminList-row:hover {
 	background-color: #dedede;
 	cursor: pointer;
 }
@@ -56,16 +56,16 @@
 }
 
 /* 페이지 이동 버튼 스타일 */
-.btnBoardReportView {
+.btnAdminBtn {
 	font-family: 'Nanum Gothic', sans-serif;
 	/* border: 1px solid black; */
 	padding: 3px 6px 3px 6px;
 }
-.btnBoardReportView:hover, .btnBoardReportView:focus {
+.btnAdminBtn:hover, .btnAdminBtn:focus {
 	color: #787878;
 	cursor: pointer;
 }
-.btnBoardReportViewNone {
+.btnAdminBtnNone {
 	font-family: 'Nanum Gothic', sans-serif;
 	/* border: 1px solid black; */
 	padding: 3px 6px 3px 6px;
@@ -74,13 +74,13 @@
 	cursor: default;
 	border-radius: 10px;
 }
-.btnBoardReportViewBar {
+.btnAdminBtnBar {
 	font-family: 'Nanum Gothic', sans-serif;
 	/* border: 1px solid black; */
 	padding: 3px 6px 3px 6px;
 	color: #8a8a8a
 }
-.btnBoardReportViewBar:hover {
+.btnAdminBtnBar:hover {
 	cursor: default;
 }
 

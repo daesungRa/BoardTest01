@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.daesungra.dao.AdminDao;
 import com.daesungra.domain.BoardReportVo;
+import com.daesungra.domain.BookVo;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -15,13 +16,15 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDao adminDao;
 	
+	/*
+	 * board report
+	 */
 	@Override
 	public List<BoardReportVo> getBoardReportList (Map<String, Object> pagenatedInputData) {
 		List<BoardReportVo> brvoList = adminDao.selectBoardReportList(pagenatedInputData);
 		
 		return brvoList;
 	}
-	
 	@Override
 	public BoardReportVo getBoardReportInfo (int serial) {
 		BoardReportVo brvo = null;
@@ -29,7 +32,6 @@ public class AdminServiceImpl implements AdminService {
 		
 		return brvo;
 	}
-	
 	@Override
 	public boolean boardReportCompleteAction (int serial) {
 		boolean result = false;
@@ -37,7 +39,6 @@ public class AdminServiceImpl implements AdminService {
 		
 		return result;
 	}
-	
 	@Override
 	public boolean boardBlockAction (int fSerial) {
 		boolean result = false;
@@ -45,12 +46,22 @@ public class AdminServiceImpl implements AdminService {
 		
 		return result;
 	}
-	
 	@Override
 	public boolean boardBlockFreeAction (int fSerial) {
 		boolean result = false;
 		result = adminDao.updateBoardBlockFreeAction(fSerial);
 		
 		return result;
+	}
+	
+	/*
+	 * book register
+	 */
+	@Override
+	public List<BookVo> getBookRegisterList (Map<String, Object> pagenatedInputData) {
+		List<BookVo> bkvoList = null;
+		bkvoList = adminDao.selectBookRegisterList(pagenatedInputData);
+		
+		return bkvoList;
 	}
 }

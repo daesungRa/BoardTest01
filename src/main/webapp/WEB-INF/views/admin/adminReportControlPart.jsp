@@ -19,7 +19,7 @@
 				<div class='container' style='margin-bottom: 10px;'>
 					<br/>
 					<img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board report control' style='width: 15px; padding-bottom: 5px; margin-right: 5px;' />
-					<span style='font-size: 14pt;'>신고 내용</span>
+					<span style='font-size: 14pt;'>게시글 신고</span>
 					<span class='btn btn-info' id='boardReportComplete' style='font-size: 10pt; margin: 0 0 5px 10px;'>처리 완료하기</span>
 					<form class='form' id='reportCompleteForm' name='reportCompleteForm' style='display: none;'>
 						<input class='form-control' type='text' id='serial' name='serial' value='${brvo.serial }' />
@@ -66,7 +66,8 @@
 					</div>
 					<div class='col-sm-3'>${brvo.rDate }</div>
 				</div><br/>
-				<textarea class='form-control' rows='3' readonly>${brvo.rContent }</textarea>
+				<label for='reportText'>신고 내용</label>
+				<textarea class='form-control' id='reportText' rows='3' readonly>${brvo.rContent }</textarea>
 			</div>
 		</div>
 			
@@ -132,31 +133,13 @@
 					</div>
 					<div class='col-sm-3'>${brvo.bDate }</div>
 				</div><br/>
-				<label for=''>게시글 제목</label>
-				<input class='form-control' type='text' id='' name='' value='${brvo.title }' placeholder='게시글 제목' readonly />
-				<label for=''>본문 내용</label>
-				<textarea class='form-control' id='' name='' rows='3' placeholder='게시글 본문 내용' readonly>${brvo.content }</textarea><br/><br/><br/><br/>
+				<label for='boardTitle'>게시글 제목</label>
+				<input class='form-control' type='text' id='boardTitle' value='${brvo.title }' placeholder='게시글 제목' readonly />
+				<label for='boardContent'>본문 내용</label>
+				<textarea class='form-control' id='boardContent' rows='3' placeholder='게시글 본문 내용' readonly>${brvo.content }</textarea><br/><br/><br/><br/>
 			</div>
 		</div>
 	</div>
-
-	<%-- <div class='container' style='margin: 30px 120px 30px 30px;'>
-		<div class='container' style='margin: 40px 100px 40px 40px;'>
-			
-			<div class='container' style='margin: 40px 100px 40px 40px; border: 1px solid black;'>
-				
-				
-			</div>
-		</div>
-		<div class='container'>
-			<div class='container'>
-				<p>신고된 게시글 내용</p>
-			</div>
-			<div class='container' style='margin: 40px 100px 40px 40px; border: 1px solid black;'>
-			
-			</div>
-		</div>
-	</div> --%>
 
 </body>
 </html>
