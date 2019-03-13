@@ -190,10 +190,26 @@ public class AdminDaoImpl implements AdminDao {
 	/*
 	 * member control
 	 */
+	@Override
 	public MemberVo selectMemberInfo (String userId) {
 		MemberVo mbvo = null;
 		mbvo = sqlSession.selectOne("admin.getMemberInfo", userId);
+		if (mbvo != null) {
+			logger.info("[search member info - dao] 회원 정보 조회 완료, serial : " + mbvo.getUserId());
+			logger.info("[search member info - dao] isBlocked : " + mbvo.getIsBlocked());
+		}
 		
 		return mbvo;
+	}
+	@Override
+	public boolean memberBlockAction (String userId) {
+		boolean result = false;
+		int blockResult = sqlSession.update("admin.memberBlockAction", userId);
+		if (blockResult > 0) {
+			logger.info("[block member - dao] 회원 블럭 처리 완료, userId : " + userId);
+			result = true;
+		}
+		
+		return result;
 	}
 }

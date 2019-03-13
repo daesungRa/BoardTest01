@@ -20,6 +20,7 @@ public class MemberVo {
 	private String photoOri;
 	private String mDate;
 	private int isDelete; // 디폴트 0, 삭제되지 않음
+	private int isBlocked;
 	
 	// 프로필 정보
 	private String nickName;
@@ -111,6 +112,12 @@ public class MemberVo {
 	}
 	public void setIsDelete(int isDelete) {
 		this.isDelete = isDelete;
+	}
+	public int getIsBlocked() {
+		return isBlocked;
+	}
+	public void setIsBlocked(int isBlocked) {
+		this.isBlocked = isBlocked;
 	}
 	
 	// profile

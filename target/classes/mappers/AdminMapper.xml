@@ -422,8 +422,12 @@
 	 -->
 	<!-- search member info -->
 	<select id='getMemberInfo' parameterType='String' resultType='com.daesungra.domain.MemberVo'>
-		SELECT userId, mDate
+		SELECT userId, mDate, isBlocked
 			FROM DMEMBER
-			WHERE userId = #{_parameter}
+			WHERE userId like '%${_parameter}%'
 	</select>
+	<update id='memberBlockAction' parameterType='String'>
+		UPDATE DMEMBER SET isBlocked = 1
+			WHERE userId = #{_parameter}
+	</update>
 </mapper>

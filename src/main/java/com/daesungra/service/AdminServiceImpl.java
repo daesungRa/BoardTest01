@@ -109,10 +109,18 @@ public class AdminServiceImpl implements AdminService {
 	/*
 	 * member control
 	 */
+	@Override
 	public MemberVo searchMemberInfo (String userId) {
 		MemberVo mbvo = null;
 		mbvo = adminDao.selectMemberInfo(userId);
 		
 		return mbvo;
+	}
+	@Override
+	public boolean memberBlockAction (String userId) {
+		boolean result = false;
+		result = adminDao.memberBlockAction(userId);
+		
+		return result;
 	}
 }

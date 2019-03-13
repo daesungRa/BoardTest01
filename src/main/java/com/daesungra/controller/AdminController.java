@@ -491,7 +491,7 @@ public class AdminController {
 		
 		mbvo = adminService.searchMemberInfo(userId);
 		if (mbvo != null) {
-			jsonResult = "{\"userId\":\"" + mbvo.getUserId() + "\", \"mDate\":\"" + mbvo.getmDate() + "\"}";
+			jsonResult = "{\"userId\":\"" + mbvo.getUserId() + "\", \"mDate\":\"" + mbvo.getmDate() + "\", \"isBlocked\":\"" + mbvo.getIsBlocked() + "\"}";
 			logger.info("[search member info - admin controller] 회원정보 요청 완료");
 			logger.info("[search member info - admin controller] json 결과 : " + jsonResult);
 		} else {
@@ -500,6 +500,22 @@ public class AdminController {
 		}
 		
 		return jsonResult;
+	}
+	// 회원 블럭 처리
+	@ResponseBody
+	@RequestMapping(value="/memberBlockAction", method=RequestMethod.POST)
+	public String memberBlockAction (HttpServletRequest request) {
+		String result = "0";
+		String userId = request.getParameter("userId");
+		logger.info("[member block action - admin controller] 회원 블럭 처리, userId : " + userId);
+		
+		boolean blockResult = adminService.memberBlockAction(userId);
+		if (blockResult) {
+			logger.info("[member block action - admin controller] 회원 블럭 처리 완료!, userId : " + userId);
+			result = "1";
+		}
+		
+		return result;
 	}
 	
 }
