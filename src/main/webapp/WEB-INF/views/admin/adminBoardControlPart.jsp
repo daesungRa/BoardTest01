@@ -29,11 +29,11 @@
 						</c:when>
 					</c:choose>
 					<form class='form' id='newBoardBlockForm' name='newBoardBlockForm' style='display: none;'>
-						<input class='form-control' type='text' id='serial' name='serial' value='${bdvo.serial }' />
+						<input class='form-control' type='text' id='fSerial' name='fSerial' value='${bdvo.serial }' />
 					</form>
 				</div>
 				<div class='row' style='height: 30px; font-size: 9pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
-					<div class='col-md-1'>NO</div>
+					<div class='col-md-1'>SERIAL</div>
 					<div class='col-md-2'>카테고리</div>
 					<div class='col-md-1'>작성자</div>
 					<div class='col-md-3'>조회수 / 추천수 / 댓글수</div>
@@ -74,15 +74,42 @@
 						</c:choose>
 						<c:choose>
 							<c:when test='${bdvo.isBlocked == 0 }'>
-								<span style='color: #7878ff;'>삭제되지 않음</span>
+								/ <span style='color: #7878ff;'>삭제되지 않음</span>
 							</c:when>
 							<c:when test='${bdvo.isBlocked == 1 }'>
-								<span style='color: #ff7878;'>삭제됨</span>
+								/ <span style='color: #ff7878;'>삭제됨</span>
 							</c:when>
 						</c:choose>
 					</div>
 					<div class='col-md-2'>${bdvo.bDate }</div>
-				</div><br/><br/>
+				</div><br/>
+				<div class='container' style='margin-bottom: 10px;'>
+					<img src='/desktop/resources/imgs/icon_pencil01.png' alt='icon_pencil for board report control' style='width: 15px; padding-bottom: 5px; margin-right: 5px;' />
+					<span style='font-size: 11pt;'>관련 도서 정보</span>
+				</div>
+				<div class='row' style='height: 30px; font-size: 9pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
+					<div class='col-md-1'>책번호</div>
+					<div class='col-md-3'>제목</div>
+					<div class='col-md-3'>작가</div>
+					<div class='col-md-2'>출판사</div>
+					<div class='col-md-1'>국가</div>
+					<div class='col-md-2'>등록일</div>
+				</div>
+				<div class='row my-adminList-row'>
+					<div class='col-md-1' id='newBoardSerial'>${bdvo.bookNo }</div>
+					<div class='col-md-3'>${bdvo.title_kor } / ${bdvo.title_eng }</div>
+					<div class='col-md-2'>${bdvo.author }</div>
+					<div class='col-md-2'>${bdvo.publisher }</div>
+					<div class='col-md-2'>${bdvo.country }</div>
+					<div class='col-md-2'>${bdvo.pDate }</div>
+				</div><br/>
+				<div style='font-size: 10pt;'>
+					<label for=''>제목</label>
+					<input class='form-control' type='text' id='' name='' value='${bdvo.title }' placeholder='게시글 제목' style='font-size: 10pt;' />
+					<label for=''>내용</label>
+					<textarea class='form-control' rows='5' id='' name='' placeholder='게시글 내용' style='font-size: 10pt;'>${bdvo.content }</textarea>
+				</div>
+				<br/><br/><br/><br/>
 			</div>
 		</div>
 	</div>

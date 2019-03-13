@@ -10,6 +10,7 @@ import com.daesungra.dao.AdminDao;
 import com.daesungra.domain.BoardReportVo;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
+import com.daesungra.domain.MemberVo;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -103,5 +104,15 @@ public class AdminServiceImpl implements AdminService {
 		bdvo = adminDao.selectNewBoardInfo(serial);
 		
 		return bdvo;
+	}
+	
+	/*
+	 * member control
+	 */
+	public MemberVo searchMemberInfo (String userId) {
+		MemberVo mbvo = null;
+		mbvo = adminDao.selectMemberInfo(userId);
+		
+		return mbvo;
 	}
 }

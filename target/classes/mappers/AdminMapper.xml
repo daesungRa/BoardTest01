@@ -136,6 +136,28 @@
 				</when>
 			</choose>
 	</select>
+	<!-- member list pagenation -->
+	<select id='memberPagenation' parameterType='int' resultType='int'>
+		SELECT COUNT(*) cnt
+			FROM DMEMBER
+			<choose>
+				<when test='value == 0'>
+					WHERE isDelete = 0
+				</when>
+				<when test='value == 1'>
+					WHERE to_char(mDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND isDelete = 0
+				</when>
+				<when test='value == 2'>
+					WHERE to_char(mDate, 'YYMMDD') > to_char(sysdate - 1, 'YYMMDD') AND isDelete = 0
+				</when>
+				<when test='value == 3'>
+					WHERE to_char(mDate, 'YYMMDD') > to_char(sysdate - 7, 'YYMMDD') AND isDelete = 0
+				</when>
+				<when test='value == 4'>
+					WHERE to_char(mDate, 'YYMMDD') > to_char(add_months(sysdate, -1), 'YYMMDD') AND isDelete = 0
+				</when>
+			</choose>
+	</select>
 	
 	<!-- 
 		board report
@@ -342,7 +364,10 @@
 						bk.author author,
 						bk.country country,
 						bk.coverImg coverImg,
-						to_char(bk.pDate, 'YYYY.MM.DD HH24:MI:SS') pDate
+						to_char(bk.pDate, 'YYYY.MM.DD HH24:MI:SS') pDate,
+						
+						(SELECT COUNT(*) FROM DBOARD_COMMENT cmt JOIN dboard bd2 ON cmt.fSerial = bd2.serial WHERE bd2.serial = bd.serial) commentCnt,
+						(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd3 ON bdt.pSerial = bd3.serial WHERE bd3.serial = bd.serial) thumbUpCnt
 					FROM DBOARD bd JOIN DBOOK bk
 						ON bd.bookNo = bk.bookNo
 					<choose>
@@ -368,8 +393,37 @@
 	</select>
 	<!-- select new board info -->
 	<select id='selectNewBoardInfo' parameterType='int' resultMap='getBoardVoIncludeClobType'>
-		SELECT *
-			FROM DBOARD
-			WHERE serial = #{_parameter}
+		SELECT bd.serial serial,
+				bd.userId userId,
+				bd.bookNo bookNo,
+				bd.category category,
+				bd.title title,
+				bd.content content,
+				to_char(bd.bDate, 'YYYY.MM.DD HH24:MI:SS') bDate,
+				bd.hit hit,
+				bd.isBlocked isBlocked,
+				
+				bk.title_kor title_kor,
+				bk.title_eng title_eng,
+				bk.author author,
+				bk.country country,
+				bk.coverImg coverImg,
+				to_char(bk.pDate, 'YYYY.MM.DD HH24:MI:SS') pDate,
+				
+				(SELECT COUNT(*) FROM DBOARD_COMMENT cmt JOIN dboard bd2 ON cmt.fSerial = bd2.serial WHERE bd2.serial = bd.serial) commentCnt,
+				(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd3 ON bdt.pSerial = bd3.serial WHERE bd3.serial = bd.serial) thumbUpCnt
+			FROM DBOARD bd JOIN DBOOK bk
+				ON bd.bookNo = bk.bookNo
+			WHERE bd.serial = #{_parameter}
+	</select>
+	
+	<!-- 
+		member list
+	 -->
+	<!-- search member info -->
+	<select id='getMemberInfo' parameterType='String' resultType='com.daesungra.domain.MemberVo'>
+		SELECT userId, mDate
+			FROM DMEMBER
+			WHERE userId = #{_parameter}
 	</select>
 </mapper>

@@ -14,6 +14,7 @@ import com.daesungra.controller.AdminController;
 import com.daesungra.domain.BoardReportVo;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
+import com.daesungra.domain.MemberVo;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -184,5 +185,15 @@ public class AdminDaoImpl implements AdminDao {
 		}
 		
 		return bdvo;
+	}
+	
+	/*
+	 * member control
+	 */
+	public MemberVo selectMemberInfo (String userId) {
+		MemberVo mbvo = null;
+		mbvo = sqlSession.selectOne("admin.getMemberInfo", userId);
+		
+		return mbvo;
 	}
 }

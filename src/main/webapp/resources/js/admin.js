@@ -73,7 +73,7 @@ $(function () {
 	/*
 	 * new board list part
 	 */
-	// 게시글 신고정보 조회
+	// 새로운 게시글 정보 조회
 	$('#newBoardListBody .my-adminList-row').click(function () {
 		var bdSerial = $(this).find('#newBoardSerial').text();
 		
@@ -99,27 +99,46 @@ $(function () {
 	 */
 	// navbar 의 회원관리 버튼 클릭 시 member admin component 보여주기
 	$('#collapsibleNavbar #showMemberAdminComponentNav').click(function () {
-		$('#adminArticle #showMemberAdminComponent').trigger('click');
+		$('#adminPageTitle #showMemberAdminComponent').trigger('click');
 	});
 	
 	// show member admin component
 	$('#adminArticle #showMemberAdminComponent').click(function () {
-		$('#adminArticle #showMemberAdminComponent').css({"display":"none"});
-		$('#adminArticle #hideAlign').css({"display":"block"});
-		$('#adminArticle #memberAdminComponent').css({"display":"block"});
-		$('#adminArticle #hideMemberAdminComponentContainer').css({"display":"block"});
-		
-		funcMovePage('memberAdminComponent');
-	});
-	
-	// hide member admin component
-	$('#adminArticle #hideMemberAdminComponent').click(function () {
-		$('#adminArticle #showMemberAdminComponent').css({"display":"inline-block"});
-		$('#adminArticle #hideAlign').css({"display":"none"});
-		$('#adminArticle #memberAdminComponent').css({"display":"none"});
-		$('#adminArticle #hideMemberAdminComponentContainer').css({"display":"none"});
-		
-		funcMovePage('adminPageTitle');
+		$.ajax({
+			type: 'get',
+			url: '/desktop/admin/getMemberControlPart',
+			dataType: 'html',
+			success: function (html) {
+				$('#modalWindow #innerModalContent').html(html);
+				$('#btnShowModal').trigger('click');
+				
+				// 회원 정보 검색
+				$('#memberInfoForm #btnSearchMemberInfo').click(function () {
+					var params = $('#memberInfoModal #memberInfoForm').serialize();
+					$.ajax({
+						type: 'post',
+						url: '/desktop/admin/searchMemberInfo',
+						data: params,
+						dataType: 'json',
+						success: function (text) {
+							if (text.userId != ''){
+								var userId = text.userId;
+								var mDate = text.mDate;
+								
+								$('#memberInfoModal #existMemberInfo #inputUserId').text(userId);
+								$('#memberInfoModal #existMemberInfo #inputMDate').text(mDate);
+								
+								$('#memberInfoModal #existMemberInfo').removeAttr('hidden');
+								$('#memberInfoModal #noMemberInfo').css({"display":"none"});
+							} else if (text.userId == '') {
+								$('#memberInfoModal #existMemberInfo').attr('hidden', true);
+								$('#memberInfoModal #noMemberInfo').css({"display":"block"});
+							}
+						}
+					});
+				});
+			}
+		});
 	});
 })
 
@@ -447,39 +466,12 @@ function funcShowNewBoardInfo (bdSerial) {
 			$('#modalWindow #innerModalContent').html(html);
 			$('#btnShowModal').trigger('click');
 			
-			/*// 게시글 신고 완료처리
-			$('#adminReportBody #boardReportComplete').click(function () {
-				var result = confirm('해당 신고요청을 완료 처리 하시겠습니까?');
+			// 게시글 블럭처리
+			$('#newBoardInfoInModal #newBoardBlockAction').click(function () {
+				var result = confirm('해당 게시글을 블럭처리 하시겠습니까?');
 				
 				if (result) {
-					var formData = $('#adminReportBody #reportCompleteForm').serialize();
-					$.ajax({
-						type: 'post',
-						url: '/desktop/admin/boardReportComplete',
-						data: formData,
-						dataType: 'text',
-						success: function (text) {
-							if (text == '1') {
-								alert('게시글 신고 처리 완료\npage reload');
-								location.reload();
-							} else if (text == '0') {
-								alert('게시글 신고 처리 실패');
-							} else {
-								alert('에러 발생, 관리자에게 문의하십시오');
-							}
-						}
-					});
-				} else {
-					alert('취소됨');
-				}
-			});*/
-			
-			/*// 게시글 블럭처리
-			$('#boardContentInBoardReportPage #boardBlockAction').click(function () {
-				var result = confirm('신고된 게시글을 블럭처리 하시겠습니까?');
-				
-				if (result) {
-					var formData = $('#boardContentInBoardReportPage #boardControlForm').serialize();
+					var formData = $('#newBoardInfoInModal #newBoardBlockForm').serialize();
 					$.ajax({
 						type: 'post',
 						url: '/desktop/admin/boardBlockAction',
@@ -499,14 +491,14 @@ function funcShowNewBoardInfo (bdSerial) {
 				} else {
 					alert('취소됨');
 				}
-			});*/
+			});
 			
-			/*// 게시글 블럭 해제
-			$('#boardContentInBoardReportPage #boardBlockFreeAction').click(function () {
+			// 게시글 블럭 해제
+			$('#newBoardInfoInModal #newBoardBlockFreeAction').click(function () {
 				var result = confirm('블럭 해제 하시겠습니까?');
 				
 				if (result) {
-					var formData = $('#boardContentInBoardReportPage #boardControlForm').serialize();
+					var formData = $('#newBoardInfoInModal #newBoardBlockForm').serialize();
 					$.ajax({
 						type: 'post',
 						url: '/desktop/admin/boardBlockFreeAction',
@@ -526,7 +518,7 @@ function funcShowNewBoardInfo (bdSerial) {
 				} else {
 					alert('취소됨');
 				}
-			});*/
+			});
 			
 			// 게시글 삭제처리
 			

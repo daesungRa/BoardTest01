@@ -21,6 +21,7 @@ import com.daesungra.component.FileUpload;
 import com.daesungra.domain.BoardReportVo;
 import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.BookVo;
+import com.daesungra.domain.MemberVo;
 import com.daesungra.domain.PageDto;
 import com.daesungra.service.AdminService;
 
@@ -248,7 +249,7 @@ public class AdminController {
 		return result;
 	}
 	
-	// 게시글 블럭 처리
+	// 게시글 블럭 해제
 	@ResponseBody
 	@RequestMapping(value="/boardBlockFreeAction", method=RequestMethod.POST)
 	public String boardBlockFreeAction (HttpServletRequest request) {
@@ -466,5 +467,39 @@ public class AdminController {
 		return mav;
 	}
 	
+	/*
+	 * member control
+	 */
+	// 회원정보 조회 및 컨트롤 페이지 로드
+	@RequestMapping(value="/getMemberControlPart", method=RequestMethod.GET)
+	public ModelAndView getMemberControlPart (HttpServletRequest request) {
+		logger.info("[get member control part - admin controller] 멤버 컨트롤 페이지 요청");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("/admin/adminMemberControlPart");
+		return mav;
+	}
+	
+	// 회원정보 조회
+	@ResponseBody
+	@RequestMapping(value="/searchMemberInfo", method=RequestMethod.POST)
+	public String searchMemberInfo (HttpServletRequest request) {
+		String jsonResult = "";
+		String userId = request.getParameter("userId");
+		logger.info("[search member info - admin controller] 회원정보 요청, userId : " + userId);
+		MemberVo mbvo = null;
+		
+		mbvo = adminService.searchMemberInfo(userId);
+		if (mbvo != null) {
+			jsonResult = "{\"userId\":\"" + mbvo.getUserId() + "\", \"mDate\":\"" + mbvo.getmDate() + "\"}";
+			logger.info("[search member info - admin controller] 회원정보 요청 완료");
+			logger.info("[search member info - admin controller] json 결과 : " + jsonResult);
+		} else {
+			jsonResult = "{\"userId\":\"\"}";
+			logger.info("[search member info - admin controller] 조회된 회원정보가 존재하지 않음");
+		}
+		
+		return jsonResult;
+	}
 	
 }
