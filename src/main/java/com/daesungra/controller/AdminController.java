@@ -393,11 +393,78 @@ public class AdminController {
 		return result;
 	}
 	
-	// 등록 허가 해제 해제 처리
+	// 등록 허가 해제 처리
 	
 	/*
 	 * new board - 새로운 게시글 처리
 	 */
+	// 새로운 게시글 리스트
+	@RequestMapping(value="/getNewBoardList")
+	public ModelAndView getNewBoardList (HttpServletRequest request) {
+		logger.info("[new board list - admin controller] 새로운 게시글 목록");
+		// 응답 객체
+		ModelAndView mav = new ModelAndView();
+		int dateFlag = 3; // 조회 날짜 매개변수 flag (1: 오늘, 2: 하루 전, 3: 일주일 전, 4: 한달 전)
+		
+		// 요청 데이터 세팅
+		try {
+			this.nowPage = Integer.parseInt(request.getParameter("nowPage"));
+			dateFlag = Integer.parseInt(request.getParameter("dateFlag"));
+		} catch (Exception ex) { ex.printStackTrace(); }
+		
+		// 페이징 처리 후 결과값이 세팅된 매개변수 정의
+		pageDto.setAdminPageDto(this.listSize, this.blockSize, this.nowPage, dateFlag); // 페이징 처리를 위한 도메인 객체
+		pageDto.adminNewBoardPageCompute();
+		
+		Map<String, Object> pagenatedInputData = new HashMap<String, Object>(); // 페이징 결과값을 포함한 db input data
+		pagenatedInputData.put("startNo", pageDto.getStartNo());
+		pagenatedInputData.put("endNo", pageDto.getEndNo());
+		pagenatedInputData.put("dateFlag", dateFlag);
+		
+		// board report list 저장 객체 선언
+		List<BoardVo> bdvoList = null;
+		
+		// board report list 저장 객체 조회 및 세팅
+		bdvoList = adminService.getNewBoardList(pagenatedInputData);
+		if (bdvoList != null) {
+			logger.info("[new board list - admin controller] 새로운 게시글 리스트 조회 완료");
+			// board report list 에 대한 pageDto 생성
+			PageDto bdPageDto = new PageDto();
+			bdPageDto.setNowPage(pageDto.getNowPage());
+			bdPageDto.setTotSize(pageDto.getTotSize());
+			bdPageDto.setTotPage(pageDto.getTotPage());
+			bdPageDto.setTotBlock(pageDto.getTotBlock());
+			bdPageDto.setNowBlock(pageDto.getNowBlock());
+			bdPageDto.setStartNo(pageDto.getStartNo());
+			bdPageDto.setEndNo(pageDto.getEndNo());
+			bdPageDto.setStartPage(pageDto.getStartPage());
+			bdPageDto.setEndPage(pageDto.getEndPage());
+			
+			// 응답 객체에 세팅
+			mav.addObject("bdvoList", bdvoList);
+			mav.addObject("bdPageDto", bdPageDto);
+		}
+		
+		mav.setViewName("/admin/adminBoardListPart"); // 리턴 경로
+		return mav;
+	}
+	
+	// 게시글 등록정보 가져오기
+	@RequestMapping(value="/getNewBoardInfo/{serial}", method=RequestMethod.GET)
+	public ModelAndView getNewBoardInfo (HttpServletRequest request, @PathVariable(name = "serial", required = false) int serial) {
+		logger.info("[get now board info - admin controller] 새로운 게시글 정보 요청, serial : " + serial);
+		ModelAndView mav = new ModelAndView();
+		BoardVo bdvo = null;
+		
+		bdvo = adminService.getNewBoardInfo(serial);
+		if (bdvo != null) {
+			logger.info("[get new board info - admin controller] 새로운 게시글 정보 반환완료, serial : " + bdvo.getSerial());
+			mav.addObject("bdvo", bdvo);
+		}
+		
+		mav.setViewName("/admin/adminBoardControlPart");
+		return mav;
+	}
 	
 	
 }

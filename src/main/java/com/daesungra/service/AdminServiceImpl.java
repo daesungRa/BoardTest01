@@ -68,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public BookVo getBookRegisterInfo (String bookNo) {
 		BookVo bkvo = null;
-		bkvo = adminDao.selectBookRegisterInfo (bookNo);
+		bkvo = adminDao.selectBookRegisterInfo(bookNo);
 		
 		return bkvo;
 	}
@@ -90,10 +90,18 @@ public class AdminServiceImpl implements AdminService {
 	/*
 	 * new board
 	 */
+	@Override
 	public List<BoardVo> getNewBoardList (Map<String, Object> pagenatedInputData) {
 		List<BoardVo> bdvoList = null;
 		bdvoList = adminDao.selectNewBoardList(pagenatedInputData);
 		
 		return bdvoList;
+	}
+	@Override
+	public BoardVo getNewBoardInfo (int serial) {
+		BoardVo bdvo = null;
+		bdvo = adminDao.selectNewBoardInfo(serial);
+		
+		return bdvo;
 	}
 }

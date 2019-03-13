@@ -24,5 +24,6 @@ public interface AdminDao {
 	
 	// new board
 	public List<BoardVo> selectNewBoardList (Map<String, Object> pagenatedInputData);
+	public BoardVo selectNewBoardInfo (int serial);
 	
 }

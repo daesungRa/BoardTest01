@@ -16,7 +16,7 @@
 	</c:if>
 
 	<div class='row' style='height: 30px; font-size: 10pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
-		<div class='col-md-1'>책번호</div>
+		<div class='col-md-1'>NO</div>
 		<div class='col-md-3'>분류 / 승인 여부</div>
 		<div class='col-md-2'>작성자</div>
 		<div class='col-md-4'>책제목 / 작가</div>

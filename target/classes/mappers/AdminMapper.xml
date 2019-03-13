@@ -284,7 +284,7 @@
 			) s
 		) WHERE rno BETWEEN #{startNo} AND #{endNo}
 	</select>
-	<!-- select board report info -->
+	<!-- select book register info -->
 	<select id='selectBookRegisterInfo' parameterType='String' resultType='com.daesungra.domain.BookVo'>
 		SELECT *
 			FROM DBOOK
@@ -347,7 +347,7 @@
 						ON bd.bookNo = bk.bookNo
 					<choose>
 						<when test='dateFlag == 0'>
-							WHERE br.isDelete = 0
+							WHERE bd.isDelete = 0
 						</when>
 						<when test='dateFlag == 1'>
 							WHERE to_char(bd.bDate, 'YYMMDD') = to_char(sysdate, 'YYMMDD') AND bd.isDelete = 0
@@ -365,5 +365,11 @@
 					ORDER BY bd.bDate desc
 			) s
 		) WHERE rno BETWEEN #{startNo} AND #{endNo}
+	</select>
+	<!-- select new board info -->
+	<select id='selectNewBoardInfo' parameterType='int' resultMap='getBoardVoIncludeClobType'>
+		SELECT *
+			FROM DBOARD
+			WHERE serial = #{_parameter}
 	</select>
 </mapper>

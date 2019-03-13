@@ -183,7 +183,7 @@
 											<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
-										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
+											<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 											<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 										</div>
 									</div>
@@ -238,7 +238,7 @@
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
-										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 											</div>
 										</div>
@@ -294,7 +294,7 @@
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
-										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 											</div>
 										</div>
@@ -350,7 +350,7 @@
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
-										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 											</div>
 										</div>
@@ -406,7 +406,7 @@
 												<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.userId }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${bvo.title_kor }(${bvo.pDate }) / ${bvo.author }">${bvo.title_kor }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.hit }</div>&nbsp;&nbsp;
-										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
+												<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.thumbUpCnt }</div>&nbsp;&nbsp;
 												<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${bvo.bDate }</div>
 											</div>
 										</div>
@@ -445,6 +445,7 @@
 										<span style='font-size: 10pt; color: #ababab;'>by&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].userId }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>book&nbsp;&nbsp;</span><div class='bookTitlePreview' style='display: inline-block; font-size: 10pt; color: #676767;' data-toggle="tooltip" data-placement="right" title="${boardListHit[0].title_kor }(${boardListHit[0].pDate }) / ${boardListHit[0].author }">${boardListHit[0].title_kor }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>views&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].hit }</div>&nbsp;&nbsp;
+										<span style='font-size: 10pt; color: #ababab;'>up&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].thumbUpCnt }</div>&nbsp;&nbsp;
 										<span style='font-size: 10pt; color: #ababab;'>when&nbsp;&nbsp;</span><div style='display: inline-block; font-size: 10pt; color: #676767;'>${boardListHit[0].bDate }</div>
 									</div>
 								</div>

@@ -163,6 +163,7 @@ public class AdminDaoImpl implements AdminDao {
 	/*
 	 * new board
 	 */
+	@Override
 	public List<BoardVo> selectNewBoardList (Map<String, Object> pagenatedInputData) {
 		List<BoardVo> bdvoList = null;
 		bdvoList = sqlSession.selectList("admin.getNewBoardList", pagenatedInputData);
@@ -173,5 +174,15 @@ public class AdminDaoImpl implements AdminDao {
 		}
 		
 		return bdvoList;
+	}
+	@Override
+	public BoardVo selectNewBoardInfo (int serial) {
+		BoardVo bdvo = null;
+		bdvo = sqlSession.selectOne("admin.selectNewBoardInfo", serial);
+		if (bdvo != null) {
+			logger.info("[get new board info - dao] 새로운 게시글 조회 성공, serial : " + bdvo.getSerial());
+		}
+		
+		return bdvo;
 	}
 }

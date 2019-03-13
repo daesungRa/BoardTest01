@@ -4,7 +4,23 @@
  * 기능: admin 페이지 관련 스크립트 모음
  */
 $(function () {
+	// top 부분의 관리자 페이지 표시
 	$('#indexTop #adminComponentInTop').css({"display":"block"});
+	
+	// 모달 창 컨트롤
+	$(window).click(function (ev) {
+		if (ev.target == modalWindow) {
+			$('#btnShowModal').trigger('click');
+		}
+	});
+	$(window).keydown(function (ev) {
+		if (ev.keyCode == '27') {
+			$('#btnShowModal').trigger('click');
+		}
+	});
+	$('#modalWindow #closeModal').click(function () {
+		$('#btnShowModal').trigger('click');
+	});
 	
 	/*
 	 * board report admin
@@ -65,17 +81,17 @@ $(function () {
 	});
 	
 	// 일자별 조회
-	$('#boardReportListForm #dateFlag').on('change', function () {
+	$('#newBoardListForm #dateFlag').on('change', function () {
 		var nowPage = 1;
 		
-		funcBoardReportChangePage(nowPage);
+		funcNewBoardChangePage(nowPage);
 	});
 	
 	// 페이지 이동
-	$('#btnBoardReportChangeGrp .btnAdminBtn').click(function () {
+	$('#btnNewBoardChangeGrp .btnAdminBtn').click(function () {
 		var nowPage = $(this).find('span').text();
 		
-		funcBoardReportChangePage(nowPage);
+		funcNewBoardChangePage(nowPage);
 	});
 	
 	/*
@@ -392,6 +408,35 @@ function funcShowBookRegisterInfo (bkSerial) {
 /*
  * function new board
  */
+//게시글 신고목록 페이지 이동
+function funcNewBoardChangePage (nowPage) {
+	$('#newBoardListComponent #newBoardListForm #nowPage').val(nowPage); // 제출 form 에 선택된 nowPage 값 세팅
+	var formData = $('#newBoardListComponent #newBoardListForm').serialize();
+	$.ajax({
+		type: 'post',
+		url: '/desktop/admin/getNewBoardList',
+		data: formData,
+		dataType: 'html',
+		success: function (html) {
+			$('#newBoardListComponent #bdlBody').html(html);
+			
+			// 게시글 신고목록 페이지 이동
+			$('#btnNewBoardChangeGrp .btnAdminBtn').click(function () {
+				var nowPage = $(this).find('span').text();
+				
+				funcNewBoardChangePage(nowPage);
+			});
+			
+			// 게시글 신고 정보 조회
+			$('#newBoardListBody .my-adminList-row').click(function () {
+				var bdSerial = $(this).find('#newBoardSerial').text();
+				
+				funcShowNewBoardInfo(bdSerial);
+			});
+		}
+	});
+}
+
 // 새로운 게시글 정보 조회
 function funcShowNewBoardInfo (bdSerial) {
 	$.ajax({

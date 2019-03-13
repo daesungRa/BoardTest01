@@ -106,7 +106,7 @@
 						</div>
 						<div id='brlBody'>
 							<div id='boardReportListBody'>
-								<div class='row' style='height: 30px; font-size: 10pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
+								<div class='row' style='height: 30px; font-size: 9pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
 									<div class='col-md-1'>NO</div>
 									<div class='col-md-3'>분류 / 블럭 여부</div>
 									<div class='col-md-2'>신고자</div>
@@ -213,7 +213,7 @@
 							</form>
 						</div>
 						<div id='bkrBody'>
-							<div class='row' style='height: 30px; font-size: 10pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
+							<div class='row' style='height: 30px; font-size: 9pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
 								<div class='col-md-1'>NO</div>
 								<div class='col-md-3'>분류 / 승인 여부</div>
 								<div class='col-md-2'>작성자</div>
@@ -323,11 +323,12 @@
 				</div>
 				<div id='bdlBody'>
 					<div id='newBoardListBody'>
-						<div class='row' style='height: 30px; font-size: 10pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
+						<div class='row' style='height: 30px; font-size: 8pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
 							<div class='col-md-1'>SERIAL</div>
-							<div class='col-md-4'>제목</div>
-							<div class='col-md-2'>작성자</div>
-							<div class='col-md-3'>[카테고리] 조회수 / 블럭 여부 / 삭제 여부</div>
+							<div class='col-md-2'>제목</div>
+							<div class='col-md-1'>작성자</div>
+							<div class='col-md-3'>[카테고리] 조회수 / 추천수 / 댓글수</div>
+							<div class='col-md-3'>블럭 여부 / 삭제 여부</div>
 							<div class='col-md-2'>등록일</div>
 						</div>
 						<c:choose>
@@ -335,23 +336,24 @@
 								<c:forEach var="bdvo" items="${bdvoList }" >
 									<div class='row my-adminList-row'>
 										<div class='col-md-1' id='newBoardSerial'>${bdvo.serial }</div>
-										<div class='col-md-4'>${bdvo.title }</div>
-										<div class='col-md-2'>${bdvo.userId }</div>
-										<div class='col-md-3'>[${bdvo.category }] ${bdvo.hit }
+										<div class='col-md-2'>${bdvo.title }</div>
+										<div class='col-md-1'>${bdvo.userId }</div>
+										<div class='col-md-3'>[${bdvo.category }] ${bdvo.hit } / ${bdvo.thumbUpCnt } / ${bdvo.commentCnt }</div>
+										<div class='col-md-3'>
 											<c:choose>
 												<c:when test='${bdvo.isBlocked == 0 }'>
-													/<span style='color: #7878ff;'> 블럭되지 않음</span>
+													<span style='color: #7878ff;'>블럭되지 않음</span>
 												</c:when>
 												<c:when test='${bdvo.isBlocked == 1 }'>
-													/<span style='color: #ff7878;'> 블럭됨</span>
+													<span style='color: #ff7878;'>블럭됨</span>
 												</c:when>
 											</c:choose>
 											<c:choose>
 												<c:when test='${bdvo.isBlocked == 0 }'>
-													/<span style='color: #7878ff;'> 삭제되지 않음</span>
+													<span style='color: #7878ff;'>삭제되지 않음</span>
 												</c:when>
 												<c:when test='${bdvo.isBlocked == 1 }'>
-													/<span style='color: #ff7878;'> 삭제됨</span>
+													<span style='color: #ff7878;'>삭제됨</span>
 												</c:when>
 											</c:choose>
 										</div>

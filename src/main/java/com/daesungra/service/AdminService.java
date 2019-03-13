@@ -24,5 +24,6 @@ public interface AdminService {
 	
 	// new board
 	public List<BoardVo> getNewBoardList (Map<String, Object> pagenatedInputData);
+	public BoardVo getNewBoardInfo (int serial);
 	
 }
