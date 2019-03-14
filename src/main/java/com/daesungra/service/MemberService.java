@@ -1,6 +1,7 @@
 package com.daesungra.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,6 +35,10 @@ public interface MemberService {
 	// get writer list
 	public List<MemberVo> getWriterList ();
 	// get writer info
-	public MemberVo searchWriterInfo (String userId);
+	public MemberVo searchWriterInfo (Map<String, String> searchWriterMap);
+	
+	// follow action / unfollow
+	public boolean followAction (Map<String, String> searchWriterMap);
+	public boolean unFollowAction (Map<String, String> searchWriterMap);
 	
 }

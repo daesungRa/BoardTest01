@@ -1,6 +1,8 @@
 package com.daesungra.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -339,7 +341,10 @@ public class MemberController {
 		logger.info("[member controller - search writer info] 작가 검색, userId : " + userId);
 		
 		// 작가 정보 조회
-		mbvo = service.searchWriterInfo(userId);
+		Map<String, String> searchWriterMap = new HashMap<String, String>();
+		searchWriterMap.put("follower", (String) request.getSession().getAttribute("userId")); // 팔로워 (자기자신)
+		searchWriterMap.put("followee", userId); // 팔로우 당하는? 회원아이디
+		mbvo = service.searchWriterInfo(searchWriterMap);
 		request.setAttribute("mbvo", mbvo);
 		
 		// 해당 작가의 게시글 리스트 조회
@@ -351,5 +356,52 @@ public class MemberController {
 		}
 		
 		return "/writer/selectedWriterPart";
+	}
+	
+	/*
+	 * 팔로우 로직
+	 */
+	// 팔로우 하기
+	@ResponseBody
+	@RequestMapping(value="/followAction", method=RequestMethod.POST)
+	public String followAction (HttpServletRequest request) {
+		String result = "0";
+		String userId = request.getParameter("userId");
+		
+		// input 객체 생성
+		Map<String, String> searchWriterMap = new HashMap<String, String>();
+		searchWriterMap.put("follower", (String) request.getSession().getAttribute("userId")); // 팔로워 (자기자신)
+		searchWriterMap.put("followee", userId); // 팔로우 당하는? 회원아이디
+		logger.info("[member controller - follow action] 팔로우 시작");
+		
+		boolean followResult = service.followAction(searchWriterMap);
+		if (followResult) {
+			logger.info("[member controller - follow action] 팔로우 완료");
+			result = "1";
+		}
+		
+		return result;
+	}
+	
+	// 팔로우 해제
+	@ResponseBody
+	@RequestMapping(value="/unFollowAction", method=RequestMethod.POST)
+	public String unFollowAction (HttpServletRequest request) {
+		String result = "0";
+		String userId = request.getParameter("userId");
+		
+		// input 객체 생성
+		Map<String, String> searchWriterMap = new HashMap<String, String>();
+		searchWriterMap.put("follower", (String) request.getSession().getAttribute("userId")); // 팔로워 (자기자신)
+		searchWriterMap.put("followee", userId); // 팔로우 당하는? 회원아이디
+		logger.info("[member controller - unFollow action] 언팔로우 시작");
+		
+		boolean unFollowResult = service.unFollowAction(searchWriterMap);
+		if (unFollowResult) {
+			logger.info("[member controller - unFollow action] 언팔로우 완료");
+			result = "1";
+		}
+		
+		return result;
 	}
 }

@@ -155,14 +155,30 @@
 	<!-- 
 		get writer info
 	 -->
-	<select id='selectWriterInfo' parameterType='String' resultType='com.daesungra.domain.MemberVo'>
+	<select id='selectWriterInfo' parameterType='map' resultType='com.daesungra.domain.MemberVo'>
 		SELECT mb.userId userId, mb.userName userName, mb.photo photo, mb.email email, mb.phone phone,
 				mp.nickName nickName, mp.introduce introduce, mp.interest interest,
 				(select count(*) from DMEMBER_FOLLOWER where followee = mb.userId) fNum,
+				(SELECT COUNT(*) FROM DMEMBER_FOLLOWER WHERE userId = #{follower} AND followee = #{followee}) isFollow,
 				(SELECT COUNT(*) FROM DBOARD bd JOIN DMEMBER mb2 ON bd.userId = mb2.userId WHERE mb2.userId = mb.userId) boardCnt,
 				(SELECT COUNT(*) FROM DBOARD_THUMBUP bdt JOIN DBOARD bd ON bdt.pSerial = bd.serial WHERE bd.userId = mb.userId) thumbUpCnt
 			FROM DMEMBER mb JOIN DMEMBER_PROFILE mp
 				ON mb.userId = mp.userId
-			WHERE mb.userId = #{_parameter}
+			WHERE mb.userId = #{followee}
 	</select>
+	
+	<!-- 
+		follow action
+	 -->
+	<insert id='followAction' parameterType='map'>
+		INSERT INTO DMEMBER_FOLLOWER (userId, followee)
+			VALUES (#{follower}, #{followee})
+	</insert>
+	<!-- 
+		unFollow action
+	 -->
+	<insert id='unFollowAction' parameterType='map'>
+		DELETE DMEMBER_FOLLOWER
+			WHERE userId = #{follower} AND followee = #{followee}
+	</insert>
 </mapper>

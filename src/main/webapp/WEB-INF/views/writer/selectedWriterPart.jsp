@@ -37,7 +37,14 @@
 				<span style='color: #787878; font-size: 9pt;'>추천수 ${mbvo.thumbUpCnt }</span>&nbsp;&nbsp;
 				<span style='color: #787878; font-size: 9pt;'>팔로워 ${mbvo.fNum }</span>&nbsp;&nbsp;
 				<c:if test='${not empty sessionScope.userId and sessionScope.userId != mbvo.userId }'>
-					<span id='followAction'>구독하기</span>
+					<c:choose>
+						<c:when test='${mbvo.isFollow == 0 }'>
+							<span id='followAction'>구독하기<span style='display: none;'>${mbvo.userId }</span></span>
+						</c:when>
+						<c:when test='${mbvo.isFollow > 0 }'>
+							<span id='unFollowAction'>구독해제<span style='display: none;'>${mbvo.userId }</span></span>
+						</c:when>
+					</c:choose>
 				</c:if>
 			</div>
 			<div class='col-sm-4'></div>

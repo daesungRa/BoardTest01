@@ -147,13 +147,33 @@
 	text-align: center;
 	color: #48baff;
 	border: 1px solid #48baff;
-	font-size: 7pt;
+	font-size: 6pt;
 	padding: 3px;
 	margin-top: 3px;
 	border-radius: 10px;
 }
 #selectedWriterBody #followAction:hover {
-	background-color: #efefef;
+	color: #fff;
+	background-color: #48baff;
+	border: 1px solid #dedede;
+	cursor: pointer;
+}
+#selectedWriterBody #unFollowAction {
+	width: 56px;
+	height: 28px;
+	text-align: center;
+	color: #fff;
+	border: 1px solid #dedede;
+	background-color: #48baff;
+	font-size: 6pt;
+	padding: 3px;
+	margin-top: 3px;
+	border-radius: 10px;
+}
+#selectedWriterBody #unFollowAction:hover {
+	color: #48baff;
+	background-color: #fff;
+	border: 1px solid #48baff;
 	cursor: pointer;
 }
 /* 검색된 작가의 게시글 목록 */

@@ -2,6 +2,7 @@ package com.daesungra.dao;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -333,11 +334,36 @@ public class MemberDaoImpl implements MemberDao{
 		return mbvoList;
 	}
 	// get writer info
-	public MemberVo selectWriterInfo (String userId) {
+	public MemberVo selectWriterInfo (Map<String, String> searchWriterMap) {
 		MemberVo mbvo = null;
-		mbvo = sqlSession.selectOne("member.selectWriterInfo", userId);
+		mbvo = sqlSession.selectOne("member.selectWriterInfo", searchWriterMap);
+		if (mbvo != null) {
+			logger.info("[member dao - 작가 조회 완료]");
+		}
 		
 		return mbvo;
+	}
+	
+	// follow / unfollow
+	public boolean followAction (Map<String, String> searchWriterMap) {
+		boolean result = false;
+		int followResult = sqlSession.insert("member.followAction", searchWriterMap);
+		if (followResult > 0) {
+			result = true;
+			logger.info("[member dao - 팔로우 완료]");
+		}
+		
+		return result;
+	}
+	public boolean unFollowAction (Map<String, String> searchWriterMap) {
+		boolean result = false;
+		int unFollowResult = sqlSession.delete("member.unFollowAction", searchWriterMap);
+		if (unFollowResult > 0) {
+			result = true;
+			logger.info("[member dao - 언팔로우 완료]");
+		}
+		
+		return result;
 	}
 	
 }

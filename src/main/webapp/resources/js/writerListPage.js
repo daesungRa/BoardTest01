@@ -78,6 +78,50 @@ function funcSearchWriterForm () {
 					
 					location.href = '/desktop/board/boardViewPage/' + boardSerial + '/' + boardCategory;
 				});
+				
+				// 팔로우 하기
+				$('#selectedWriterBody #followAction').click(function () {
+					var userId = $(this).find('span').text();
+					
+					$.ajax({
+						type: 'post',
+						url: '/desktop/member/followAction',
+						data: {userId:userId},
+						dataType: 'text',
+						success: function (text) {
+							if (text == '1') {
+								alert('팔로우 완료');
+								
+								$('#writerListPageBody #searchWriterForm #search').val(userId);
+								funcSearchWriterForm();
+							} else if (text == '0') {
+								alert('팔로우 실패');
+							}						
+						}
+					});
+				});
+				
+				// 언팔로우
+				$('#selectedWriterBody #unFollowAction').click(function () {
+					var userId = $(this).find('span').text();
+					
+					$.ajax({
+						type: 'post',
+						url: '/desktop/member/unFollowAction',
+						data: {userId:userId},
+						dataType: 'text',
+						success: function (text) {
+							if (text == '1') {
+								alert('언팔로우 완료');
+								
+								$('#writerListPageBody #searchWriterForm #search').val(userId);
+								funcSearchWriterForm();
+							} else if (text == '0') {
+								alert('언팔로우 실패');
+							}						
+						}
+					});
+				});
 			}
 		});
 	} else {

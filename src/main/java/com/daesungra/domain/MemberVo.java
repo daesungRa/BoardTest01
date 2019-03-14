@@ -31,6 +31,7 @@ public class MemberVo {
 	// 팔로우
 	private int fNum;
 	private List<String> followees; // 별도 쿼리로 팔로워 vo 객체를 만들어 리스트로 가져올 것
+	private int isFollow; // 회원 조회 시 해당 회원을 팔로우하고 있는지?
 	
 	// 게시글 정보
 	private int boardCnt;
@@ -163,6 +164,12 @@ public class MemberVo {
 	}
 	public void setFollowees(List<String> followees) {
 		this.followees = followees;
+	}
+	public int getIsFollow() {
+		return isFollow;
+	}
+	public void setIsFollow(int isFollow) {
+		this.isFollow = isFollow;
 	}
 	
 	// my board

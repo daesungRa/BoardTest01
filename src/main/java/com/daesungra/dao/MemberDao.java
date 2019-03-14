@@ -1,6 +1,7 @@
 package com.daesungra.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,6 +36,10 @@ public interface MemberDao {
 	// get writer list
 	public List<MemberVo> getWriterList ();
 	// get writer info
-	public MemberVo selectWriterInfo (String userId);
+	public MemberVo selectWriterInfo (Map<String, String> searchWriterMap);
+	
+	// follow / unfollow
+	public boolean followAction (Map<String, String> searchWriterMap);
+	public boolean unFollowAction (Map<String, String> searchWriterMap);
 	
 }

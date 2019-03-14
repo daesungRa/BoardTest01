@@ -1,6 +1,7 @@
 package com.daesungra.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -158,11 +159,25 @@ public class MemberServiceImpl implements MemberService {
 		return mbvoList;
 	}
 	// get writer info
-	public MemberVo searchWriterInfo (String userId) {
+	public MemberVo searchWriterInfo (Map<String, String> searchWriterMap) {
 		MemberVo mbvo = null;
-		mbvo = dao.selectWriterInfo(userId);
+		mbvo = dao.selectWriterInfo(searchWriterMap);
 		
 		return mbvo;
+	}
+	
+	// follow / unfollow
+	public boolean followAction (Map<String, String> searchWriterMap) {
+		boolean result = false;
+		result = dao.followAction(searchWriterMap);
+		
+		return result;
+	}
+	public boolean unFollowAction (Map<String, String> searchWriterMap) {
+		boolean result = false;
+		result = dao.unFollowAction(searchWriterMap);
+		
+		return result;
 	}
 	
 }
