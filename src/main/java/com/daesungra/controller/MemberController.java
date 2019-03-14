@@ -318,6 +318,7 @@ public class MemberController {
 	/*
 	 * 작가 페이지
 	 */
+	// 인기 작가 리스트, 3명까지
 	@RequestMapping(value="/getWriterListPage", method=RequestMethod.GET)
 	public String getWriterListPage (HttpServletRequest request) {
 		logger.info("[member controller - call writer list page] 콜!");
@@ -329,5 +330,26 @@ public class MemberController {
 		}
 		
 		return "/writer/writerListPage";
+	}
+	// 작가 검색
+	@RequestMapping(value="/searchWriterAction", method=RequestMethod.POST)
+	public String searchWriterAction (HttpServletRequest request) {
+		String userId = request.getParameter("search");
+		MemberVo mbvo = null;
+		logger.info("[member controller - search writer info] 작가 검색, userId : " + userId);
+		
+		// 작가 정보 조회
+		mbvo = service.searchWriterInfo(userId);
+		request.setAttribute("mbvo", mbvo);
+		
+		// 해당 작가의 게시글 리스트 조회
+		List<BoardVo> bdvoList = service.getMyBoardList(userId);
+		
+		if (bdvoList != null) {
+			logger.info("[member controller - search writer info] 게시글 조회 완료");
+			request.setAttribute("bdvoList", bdvoList);
+		}
+		
+		return "/writer/selectedWriterPart";
 	}
 }

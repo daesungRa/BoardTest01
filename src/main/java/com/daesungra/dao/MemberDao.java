@@ -34,5 +34,7 @@ public interface MemberDao {
 
 	// get writer list
 	public List<MemberVo> getWriterList ();
+	// get writer info
+	public MemberVo selectWriterInfo (String userId);
 	
 }

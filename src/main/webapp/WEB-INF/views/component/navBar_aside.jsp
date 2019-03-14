@@ -11,19 +11,19 @@
 <body>
 
 	<div id='navbarAside' style='position: fixed; display: none; width: 17%; height: 100%; border-right: 1px solid #aaa; z-index: 1;'>
-		<div style='width:100%;height:20%;background-color: #fff;border-bottom:1px solid #aaa;'>
-			<div class='' style='height: 20px; margin: 30px auto; text-align: center; border: 1px solid black;'>
+		<div style='width:100%; height:12%; background-color: #fff; border-bottom:1px solid #aaa;'>
+			<div class='' style='height: 20px; margin: 30px auto; text-align: center;'>
 				<a href='/desktop/'>
 					<img src='/desktop/resources/imgs/book_logo01.svg' id='navLogo' alt='brand logo' />
 				</a>
 				<a id='title' href='/desktop/'>DESK TOP</a>
 			</div>
-			<div class='container' style='width: 90%; height: 110px; border: 1px solid black;'>
+			<div class='container' id='navAsideMember'>
 				<c:choose>
 					<c:when test="${not empty sessionScope.userId }">
-						<div class='dropdown'>
+						<div class='dropdown' id='navAsideMemberControl'>
 							<a class='dropdown-toggle' data-toggle='dropdown' role='button'
-								href='#'>${sessionScope.userName }<span
+								href='#' style='color: #ababab;'>${sessionScope.userName }<span
 								class='caret'></span>
 							</a>
 							<ul class='dropdown-menu dropdown-menu-left animate slideIn'>
@@ -33,7 +33,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<div class='dropdown'>
+						<div class='dropdown' id='navAsideMemberControl'>
 							<a class='dropdown-toggle' data-toggle='dropdown' role='button'
 								href='#'>접속 <span class='caret'></span>
 							</a>
@@ -63,7 +63,7 @@
 				</li>
 				<!-- <li class='nav-item'><a class='nav-link my-nav' id='guestbookAnc' href='#guestbook'>방명록</a></li> -->
 				<li class='nav-item'><a class='nav-link my-nav-top' id='writerListAnc' href='/desktop/member/getWriterListPage'>작가별</a></li>
-				<li class='nav-item'><a class='nav-link my-nav .myPageAnc' id='' href='/desktop/member/myPage'>나의 책상</a></li>
+				<li class='nav-item'><a class='nav-link my-nav-top' id='' href='/desktop/member/myPage'>나의 책상</a></li>
 				<c:if test='${not empty sessionScope.authority and sessionScope.authority > 0 }'>
 					<li class='nav-item'><a class='nav-link my-nav-top' id='getAdminPageAnc' href='/desktop/admin/getAdminPage/1'>관리자 페이지</a></li>
 				</c:if>

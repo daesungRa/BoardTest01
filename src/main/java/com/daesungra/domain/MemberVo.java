@@ -32,6 +32,11 @@ public class MemberVo {
 	private int fNum;
 	private List<String> followees; // 별도 쿼리로 팔로워 vo 객체를 만들어 리스트로 가져올 것
 	
+	// 게시글 정보
+	private int boardCnt;
+	private int commentCnt;
+	private int thumbUpCnt;
+	
 	// admin
 	public int getAuthority() {
 		return authority;
@@ -158,6 +163,26 @@ public class MemberVo {
 	}
 	public void setFollowees(List<String> followees) {
 		this.followees = followees;
+	}
+	
+	// my board
+	public int getBoardCnt() {
+		return boardCnt;
+	}
+	public void setBoardCnt(int boardCnt) {
+		this.boardCnt = boardCnt;
+	}
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+	public int getThumbUpCnt() {
+		return thumbUpCnt;
+	}
+	public void setThumbUpCnt(int thumbUpCnt) {
+		this.thumbUpCnt = thumbUpCnt;
 	}
 	
 	// info json > 수정요망

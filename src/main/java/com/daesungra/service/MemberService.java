@@ -33,4 +33,7 @@ public interface MemberService {
 	
 	// get writer list
 	public List<MemberVo> getWriterList ();
+	// get writer info
+	public MemberVo searchWriterInfo (String userId);
+	
 }

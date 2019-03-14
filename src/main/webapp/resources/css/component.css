@@ -156,10 +156,35 @@
 }
 
 /* navbar(aside) */
+#navbarAside #title {
+	color: black;
+	font-size: 15pt;
+	text-decoration: none;
+}
+#navbarAside #title:hover {
+	color: #9a9a9a;
+	text-align: center;
+	cursor:pointer;
+}
+#navbarAside #navAsideMember {
+	width: 90%;
+	height: 30px;
+}
+#navbarAside #navAsideMember #navAsideMemberControl {
+	margin-left: 22px;
+}
 .my-nav-vertical {
 	height: 100%;
 	font-family: 'Nanum Gothic', sans-serif;
 	z-index: 0;
+}
+#navbarAside .my-nav-vertical .dropdown {
+	margin-left: -7px;
+	margin-bottom: 7px;
+}
+#navbarAside .nav-item {
+	/* border: 1px solid black; */
+	margin-left: -24px;
 }
 
 /* header */

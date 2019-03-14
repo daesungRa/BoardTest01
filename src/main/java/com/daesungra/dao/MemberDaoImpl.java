@@ -332,4 +332,12 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return mbvoList;
 	}
+	// get writer info
+	public MemberVo selectWriterInfo (String userId) {
+		MemberVo mbvo = null;
+		mbvo = sqlSession.selectOne("member.selectWriterInfo", userId);
+		
+		return mbvo;
+	}
+	
 }

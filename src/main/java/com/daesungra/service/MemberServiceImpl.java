@@ -157,5 +157,12 @@ public class MemberServiceImpl implements MemberService {
 		
 		return mbvoList;
 	}
+	// get writer info
+	public MemberVo searchWriterInfo (String userId) {
+		MemberVo mbvo = null;
+		mbvo = dao.selectWriterInfo(userId);
+		
+		return mbvo;
+	}
 	
 }

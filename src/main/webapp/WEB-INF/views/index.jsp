@@ -40,6 +40,12 @@
 		window size : 
 	</div> -->
 	
+	<%
+		if (request.getParameter("content") != null) {
+			
+		}
+	%>
+	
 	<!-- top -->
 	<jsp:include page="/WEB-INF/views/component/top.jsp"></jsp:include>
 	
@@ -59,6 +65,10 @@
 			</div>
 		</div>
 	</article>
+	
+	<div id='content'>
+	
+	</div>
 	
 	<!-- button for to-top -->
 	<a class='btn btn-secondary my-btn-toTop' href='#' onclick='funcMovePage("indexTop");'>top</a>
