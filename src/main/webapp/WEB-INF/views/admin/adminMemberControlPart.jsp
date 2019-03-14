@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>admin book controt part</title>
+<title>admin member control part</title>
 </head>
 <body>
 	
@@ -27,25 +27,14 @@
 				</div><br/><br/>
 				<div class='container' id='memberSearchResult' style='width: 80%;'>
 					<div class='row' style='height: 30px; font-size: 9pt; border-top: 2px solid black; border-bottom: 1px solid black; padding-top: 4px; background-color: #dedede;'>
-						<div class='col-md-2'></div>
-						<div class='col-md-3'>아이디 / 블럭유무</div>
-						<div class='col-md-3'>가입일</div>
-						<div class='col-md-3'></div>
-					</div>
-					<div class='row my-adminList-row' id='existMemberInfo' style='height: 45px;' hidden='hidden'>
-						<div class='col-md-2'></div>
-						<div class='col-md-3' id='inputUserId' style='margin-top: 10px;'></div>
-						<div class='col-md-3' id='inputMDate' style='margin-top: 10px;'></div>
 						<div class='col-md-1'></div>
-						<div class='col-md-3'><span class='btn btn-xs btn-secondary' id='btnMemberBlockAction' style='font-size: 9pt; margin-top: 2px;'>블럭하기</span></div>
-						<div class='col-md-3'><span class='btn btn-xs btn-secondary' id='btnMemberBlockFreeAction' style='display: none; font-size: 9pt; margin-top: 2px;'>블럭해제</span></div>
+						<div class='col-md-4'>아이디 / 블럭유무</div>
+						<div class='col-md-4'>가입일</div>
+						<div class='col-md-3'></div>
 					</div>
 					<div class='row my-adminList-row' id='noMemberInfo' style='height: 45px;'>
 						<div class='col-md-12' style='text-align: center; margin-top: 10px;'>검색 결과가 없습니다</div>
 					</div>
-					<form class='form' id='memberBlockActionForm' name='memberBlockActionForm' style='display: none;'>
-						<input type='text' id='userId' name='userId' value='' />
-					</form>
 				</div>
 				<br/><br/><br/><br/>
 			</div>

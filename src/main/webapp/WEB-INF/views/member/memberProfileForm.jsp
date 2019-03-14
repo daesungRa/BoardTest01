@@ -71,13 +71,14 @@
 					<span class="switch">
 						<c:choose>
 							<c:when test='${vo.isPublic == 0  }'>
-								<input type="checkbox" id='isPublic' name='isPublic' value='0' disabled />
+								<input type="radio" id='isPublic-0' name='isPublic' value='0' checked /> 비공개
+								<input type="radio" id='isPublic-1' name='isPublic' value='1' /> 공개
 							</c:when>
-							<c:otherwise>
-								<input type="checkbox" id='isPublic' name='isPublic' value='1' checked disabled />
-							</c:otherwise>
+							<c:when test='${vo.isPublic == 1  }'>
+								<input class='form-control' type="radio" id='isPublic-0' name='isPublic' value='0' /> 비공개
+								<input class='form-control' type="radio" id='isPublic-1' name='isPublic' value='1' checked /> 공개
+							</c:when>
 						</c:choose>
-						<span class="slider round"></span>
 					</span>
 					<span style='position: relative;'>
 						<span id='descIsPublic' data-toggle="tooltip" data-placement="right" title="변경하려면 '프로필 수정하기' 를 클릭하십시오." >&nbsp;?&nbsp;&nbsp;&nbsp;</span>

@@ -212,4 +212,15 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return result;
 	}
+	@Override
+	public boolean memberBlockFreeAction (String userId) {
+		boolean result = false;
+		int blockFreeResult = sqlSession.update("admin.memberBlockFreeAction", userId);
+		if (blockFreeResult > 0) {
+			logger.info("[block member free - dao] 회원 블럭 해제 완료, userId : " + userId);
+			result = true;
+		}
+		
+		return result;
+	}
 }

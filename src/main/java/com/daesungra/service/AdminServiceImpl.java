@@ -123,4 +123,11 @@ public class AdminServiceImpl implements AdminService {
 		
 		return result;
 	}
+	@Override
+	public boolean memberBlockFreeAction (String userId) {
+		boolean result = false;
+		result = adminDao.memberBlockFreeAction(userId);
+		
+		return result;
+	}
 }

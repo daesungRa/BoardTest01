@@ -111,4 +111,20 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 	
+	// thumbup / free
+	@Override
+	public boolean boardThumbUp (BoardVo bvo) {
+		boolean result = false;
+		result = boardDao.boardThumbUp(bvo);
+		
+		return result;
+	}
+	@Override
+	public boolean boardThumbUpFree (BoardVo bvo) {
+		boolean result = false;
+		result = boardDao.boardThumbUpFree(bvo);
+		
+		return result;
+	}
+	
 }

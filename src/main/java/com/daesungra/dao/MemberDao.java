@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.MemberVo;
 
 public interface MemberDao {
@@ -27,5 +28,11 @@ public interface MemberDao {
 	// delete
 	public boolean memberDelete (HttpServletRequest request);
 	// public boolean memberDeleteConfirm (); // 보류
+	
+	// get my board list
+	public List<BoardVo> selectMyBoardList (String userId);
 
+	// get writer list
+	public List<MemberVo> getWriterList ();
+	
 }

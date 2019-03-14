@@ -39,6 +39,48 @@ $(function () {
 		location.href = requestUrl;
 	});
 	
+	/*
+	 * right side component
+	 */
+	// 추천하기 / 해제
+	$('#rightSideComponent #thumbUp').click(function () {
+		var boardSerial = $('#boardTitleContent #inputBoardSerial').text();
+		var status = $('#rightSideComponent #status').text();
+		
+		if (status == '0') { // 추천하기
+			$.post(
+				'/desktop/board/boardThumbUp',
+				{serial:boardSerial},
+				function (data) {
+					if (data == '1') {
+						// alert('추천 완료');
+						$('#rightSideComponent #iconThumbUpDown').attr('src', '/desktop/resources/imgs/sample/heart_filled01.svg');
+						$('#rightSideComponent #iconThumbUpDown').attr('title', '추천해제');
+						$('#rightSideComponent #status').text('1');
+					} else if (data == '0') {
+						alert('로그인 후 이용하십시오');
+					}
+				}
+			);
+		} else if (status == '1') { // 추천해제
+			$.post(
+				'/desktop/board/boardThumbUpFree',
+				{serial:boardSerial},
+				function (data) {
+					if (data == '1') {
+						// alert('추천 해제 완료');
+						$('#rightSideComponent #iconThumbUpDown').attr('src', '/desktop/resources/imgs/sample/heart_empty01.svg');
+						$('#rightSideComponent #iconThumbUpDown').attr('title', '추천하기');
+						$('#rightSideComponent #status').text('0');
+					} else if (data == '0') {
+						alert('로그인 후 이용하십시오');
+					}
+				}
+			);
+		}
+		
+	});
+	
 	// 신고 페이지 로드
 	$('.showReportPage').click(function (){
 		getBoardReportPart();

@@ -25,4 +25,8 @@ public interface BoardDao {
 	
 	public boolean boardReportInsert (BoardReportVo brvo);
 	
+	// thumbup / free
+	public boolean boardThumbUp (BoardVo bvo);
+	public boolean boardThumbUpFree (BoardVo bvo);
+	
 }

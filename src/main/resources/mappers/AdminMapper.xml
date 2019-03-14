@@ -424,10 +424,16 @@
 	<select id='getMemberInfo' parameterType='String' resultType='com.daesungra.domain.MemberVo'>
 		SELECT userId, mDate, isBlocked
 			FROM DMEMBER
-			WHERE userId like '%${_parameter}%'
+			WHERE userId = #{_parameter}
 	</select>
+	<!-- block member -->
 	<update id='memberBlockAction' parameterType='String'>
 		UPDATE DMEMBER SET isBlocked = 1
+			WHERE userId = #{_parameter}
+	</update>
+	<!-- block member free -->
+	<update id='memberBlockFreeAction' parameterType='String'>
+		UPDATE DMEMBER SET isBlocked = 0
 			WHERE userId = #{_parameter}
 	</update>
 </mapper>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daesungra.component.FileUpload;
+import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.MemberVo;
 import com.daesungra.service.MemberService;
 
@@ -25,9 +26,9 @@ public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired
-	MemberService service;
+	private MemberService service;
 	@Autowired
-	FileUpload fileUpload;
+	private FileUpload fileUpload;
 	
 	/*
 	 * login, logout, findId, findPwd
@@ -49,16 +50,21 @@ public class MemberController {
 		
 		// 성공시 세션 세팅 후 인덱스로 이동, 실패시 실패 이유 알려주지 않음 (실패이유는 로그에 저장됨)
 		if (vo != null) {
-			// 아이디. 이름, 권한수준 세팅
-			session.setAttribute("userId", vo.getUserId());
-			session.setAttribute("userName", vo.getUserName());
-			session.setAttribute("authority", vo.getAuthority());
-			logger.info("login 성공");
-			
-			if (vo.getAuthority() == 0) {
-				result = "1"; // 성공, 일반 유저
-			} else if (vo.getAuthority() > 0) {
-				result = "2"; // 성공, 관리자
+			// 블럭 상태가 아닐 시에만 세션 세팅
+			if (vo.getIsBlocked() == 0) {
+				// 아이디. 이름, 권한수준 세팅
+				session.setAttribute("userId", vo.getUserId());
+				session.setAttribute("userName", vo.getUserName());
+				session.setAttribute("authority", vo.getAuthority());
+				logger.info("login 성공");
+				
+				if (vo.getAuthority() == 0) {
+					result = "1"; // 성공, 일반 유저
+				} else if (vo.getAuthority() > 0) {
+					result = "2"; // 성공, 관리자
+				}
+			} else if (vo.getIsBlocked() == 1) {
+				result = "99";
 			}
 		} else {
 			logger.info("login 실패");
@@ -154,6 +160,16 @@ public class MemberController {
 	public String getMyPage (HttpServletRequest request) {
 		// MemberVo vo = null;
 		logger.info("call myPage");
+		
+		// 로그인 정보가 있다면
+		if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) {
+			List<BoardVo> bdvoList = service.getMyBoardList((String) request.getSession().getAttribute("userId"));
+			
+			if (bdvoList != null) {
+				logger.info("[mypage - get my board list] 완료");
+				request.setAttribute("bdvoList", bdvoList);
+			}
+		}
 		
 		/*vo = service.memberView((String) request.getSession().getAttribute("userId"));
 		if (vo != null) {
@@ -297,5 +313,21 @@ public class MemberController {
 		}
 		
 		return result;
+	}
+	
+	/*
+	 * 작가 페이지
+	 */
+	@RequestMapping(value="/getWriterListPage", method=RequestMethod.GET)
+	public String getWriterListPage (HttpServletRequest request) {
+		logger.info("[member controller - call writer list page] 콜!");
+		List<MemberVo> mbvoList = null;
+		mbvoList = service.getWriterList();
+		if (mbvoList != null) {
+			request.setAttribute("mbvoList", mbvoList);
+			logger.info("[member controller - call writer list page] 작가 리스트 세팅완료");
+		}
+		
+		return "/writer/writerListPage";
 	}
 }

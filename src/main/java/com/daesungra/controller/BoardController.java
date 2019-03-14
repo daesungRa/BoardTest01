@@ -315,6 +315,59 @@ public class BoardController {
 		return "/board/boardViewPage";
 	}
 	
+	// thumbup
+	@ResponseBody
+	@RequestMapping(value="/boardThumbUp", method=RequestMethod.POST)
+	public String boardThumbUp (HttpServletRequest request) {
+		String result = "0";
+		int boardSerial = -1;
+		
+		// 로그인 상태라면 실행, 아니라면 종료
+		if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) {
+			// input 객체 세팅
+			try {
+				boardSerial = Integer.parseInt(request.getParameter("serial"));
+			} catch (Exception ex) { ex.printStackTrace(); }
+			BoardVo bvo = new BoardVo();
+			bvo.setSerial(boardSerial);
+			bvo.setUserId((String) request.getSession().getAttribute("userId"));
+			
+			// 추천 실행
+			boolean thumbupResult = boardService.boardThumbUp(bvo);
+			if (thumbupResult) {
+				result = "1";
+			}
+		}
+		
+		return result;
+	}
+	// thumbup free
+	@ResponseBody
+	@RequestMapping(value="/boardThumbUpFree", method=RequestMethod.POST)
+	public String boardThumbUpFree (HttpServletRequest request) {
+		String result = "0";
+		int boardSerial = -1;
+		
+		// 로그인 상태라면 실행, 아니라면 종료
+		if (request.getSession().getAttribute("userId") != null && !request.getSession().getAttribute("userId").equals("")) {
+			// input 객체 세팅
+			try {
+				boardSerial = Integer.parseInt(request.getParameter("serial"));
+			} catch (Exception ex) { ex.printStackTrace(); }
+			BoardVo bvo = new BoardVo();
+			bvo.setSerial(boardSerial);
+			bvo.setUserId((String) request.getSession().getAttribute("userId"));
+			
+			// 추천 해제 실행
+			boolean thumbupFreeResult = boardService.boardThumbUpFree(bvo);
+			if (thumbupFreeResult) {
+				result = "1";
+			}
+		}
+		
+		return result;
+	}
+	
 	/*
 	 * board modify
 	 */

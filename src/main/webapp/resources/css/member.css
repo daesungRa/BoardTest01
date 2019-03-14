@@ -90,6 +90,14 @@
 	font-size: 7pt;
 	margin-top: -13px;
 }
+
+.my-myPage-memberinfo {
+	margin: 20px 0 20px 0;
+	padding: 30px 0 30px 0;
+	border-top: 1px solid #ababab;
+	border-bottom: 1px solid #ababab;
+}
+
 /* 오른쪽 부분 */
 .my-tabs {
 	font-size: 9pt;
@@ -143,6 +151,31 @@
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 8pt;
 	height: 40%;
+}
+
+#descIsPublic {
+	position: absolute;
+	left: 10px;
+	top: 3px;
+}
+#descIsPublic:hover {
+	color: #777;
+	cursor: pointer;
+}
+
+/* admin 리스트 스타일 */
+#myBoardListBody {
+	width: 80%;
+	margin: 50px auto;
+}
+.my-adminList-row {
+	font-size: 8pt;
+	padding: 5px 0 5px 0;
+	border-bottom: 1px solid #787878;
+}
+.my-adminList-row:hover {
+	background-color: #dedede;
+	cursor: pointer;
 }
 
  /*

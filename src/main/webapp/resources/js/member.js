@@ -15,6 +15,8 @@ function funcLoginAction () {
 	var btnLoginSubmit = $('#loginFrm #btnLoginSubmit');
 	
 	userId.focus();
+	userId.select();
+	
 	userId.keyup(function (ev) {
 		if (ev.keyCode == '13') {
 			userPwd.focus();
@@ -53,6 +55,11 @@ function funcLoginAction () {
 					location.href = '/desktop/admin/getAdminPage/1';
 				} else if (result == '0') { // 로그인 실패
 					alert('아이디나 암호를 확인해주세요.');
+					userPwd.val('');
+					userId.focus();
+					userId.select();
+				} else if (result == "99") {
+					alert('블럭된 계정입니다. 관리자에게 문의하십시오');
 					userPwd.val('');
 					userId.focus();
 					userId.select();
@@ -619,7 +626,7 @@ function funcNameCheck () {
 	// 프로필 수정 페이지에서 실행됨
 function funcModifyProfileAction () {
 	var profileForm = document.profileForm;
-	profileForm.photo.onchange = imagePreView; // 사진이 변경되면 이미지 프리뷰
+	profileForm.photo.onchange = imagePreView2; // 사진이 변경되면 이미지 프리뷰
 	
 	profileForm.nickName.focus();
 	profileForm.nickName.select();
@@ -628,7 +635,7 @@ function funcModifyProfileAction () {
 	$('#isPublic').change(function () { // 공개유무 설정. 0 은 비공개, 1 은 공개
 		var isPublic = $('#profileForm #isPublic');
 
-		if ($('#profileForm #isPublic').attr('checked') == 'checked') {
+		if ($('#profileForm #iPsPublic').attr('checked') == 'checked') {
 			$('#profileForm #isPublic').val('0');
 			$('#profileForm #isPublic').attr('checked', false);
 		} else if ($('#profileForm #isPublic').attr('checked') == null) {
@@ -676,3 +683,16 @@ function funcModifyProfileSubmit (frm) {
 				}
 	});
 } // end of modify profile function
+// 이미지 미리보기 함수 2
+function imagePreView2 (e) {
+    var profile = document.getElementById('profileImagePreview');
+    var url = e.srcElement;
+    var file = url.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function (e2) {
+        var img = new Image();
+        img.src = e2.target.result;
+        profile.src = img.src;
+    }
+}

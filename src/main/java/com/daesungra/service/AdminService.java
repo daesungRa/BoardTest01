@@ -31,5 +31,6 @@ public interface AdminService {
 	// member control
 	public MemberVo searchMemberInfo (String userId);
 	public boolean memberBlockAction (String userId);
+	public boolean memberBlockFreeAction (String userId);
 	
 }

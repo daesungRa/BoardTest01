@@ -162,7 +162,20 @@
 							</c:when>
 							<c:when test='${bvo.isBlocked == 0 }'>
 								<img src='/desktop/resources/imgs/sample/balloon02.svg' id='iconComment' alt='toCommentPart' style='width: 20px;' data-toggle="tooltip" data-placement="right" title='댓글보기' /><br/>
-								<img src='/desktop/resources/imgs/sample/heart_empty01.svg' id='iconThumbUpDown' alt='thumbUpDown' style='width: 20px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='추천하기' /><br/>
+								<c:choose>
+									<c:when test='${empty bvo.isThumbUp or bvo.isThumbUp == 0 }'>
+										<div id='thumbUp'>
+											<img src='/desktop/resources/imgs/sample/heart_empty01.svg' id='iconThumbUpDown' alt='thumbUpDown' style='width: 20px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='추천하기' />
+											<span id='status' style='display: none;'>0</span><br/>
+										</div>
+									</c:when>
+									<c:when test='${not empty bvo.isThumbUp and bvo.isThumbUp > 0 }'>
+										<div id='thumbUp'>
+											<img src='/desktop/resources/imgs/sample/heart_filled01.svg' id='iconThumbUpDown' alt='thumbUpDown' style='width: 20px; margin-top: 15px;' data-toggle="tooltip" data-placement="right" title='추천해제' />
+											<span id='status' style='display: none;'>1</span><br/>
+										</div>
+									</c:when>
+								</c:choose>
 								<c:if test='${not empty sessionScope.userId }'>
 									<div class='dropdown'>
 										<span class='' data-toggle='dropdown' role='button' aria-expanded='false'>

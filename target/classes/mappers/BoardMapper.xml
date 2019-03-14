@@ -122,6 +122,9 @@
 				bk.title_kor title_kor, bk.title_eng title_eng, bk.author author, bk.coverImg coverImg, to_char(bk.pDate, 'YYYY') pDate, bd.isBlocked isBlocked,
 				(SELECT COUNT(*) FROM DBOARD_COMMENT cmt JOIN dboard bd2 ON cmt.fSerial = bd2.serial WHERE bd2.serial = bd.serial) commentCnt,
 				(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd3 ON bdt.pSerial = bd3.serial WHERE bd3.serial = bd.serial) thumbUpCnt
+				<if test='userId != null'>
+					, (SELECT COUNT(*) FROM dboard_thumbUp WHERE pSerial = bd.serial AND userId = #{userId}) isThumbUp
+				</if>
 			FROM DBOARD bd JOIN DBOOK bk
 			ON bd.bookNo = bk.bookNo
 			<where>
@@ -167,4 +170,17 @@
 		INSERT INTO DBOARD_REPORTLIST (serial, rUserId, fSerial, rContent, isDelete, gSerial, pSerial, depth, indent, rDate, reportType)
 			VALUES (SEQ_BOARDREPORT.NEXTVAL, #{rUserId}, #{fSerial}, #{rContent}, 0, SEQ_BOARDREPORT.CURRVAL, 0, 0, 0, SYSDATE, #{reportType})
 	</insert>
+	
+	<!-- 게시글 추천 -->
+	<insert id='boardThumbUp' parameterType='com.daesungra.domain.BoardVo'>
+		INSERT INTO DBOARD_THUMBUP (pSerial, userId)
+			VALUES (#{serial}, #{userId})
+	</insert>
+	
+	<!-- 게시글 추천 해제 -->
+	<delete id='boardThumbUpFree' parameterType='com.daesungra.domain.BoardVo'>
+		DELETE DBOARD_THUMBUP
+			WHERE pSerial = #{serial} and userId = #{userId}
+	</delete>
+	
 </mapper>

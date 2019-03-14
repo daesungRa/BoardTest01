@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.daesungra.component.GetHashedData;
 import com.daesungra.controller.MemberController;
 import com.daesungra.dao.MemberDao;
+import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.MemberSaltVo;
 import com.daesungra.domain.MemberVo;
 
@@ -139,6 +140,22 @@ public class MemberServiceImpl implements MemberService {
 		result = dao.memberDelete(request);
 		
 		return result;
+	}
+	
+	// get my board list
+	public List<BoardVo> getMyBoardList (String userId) {
+		List<BoardVo> bvoList = null;
+		bvoList = dao.selectMyBoardList(userId);
+		
+		return bvoList;
+	}
+	
+	// get writer list
+	public List<MemberVo> getWriterList () {
+		List<MemberVo> mbvoList = null;
+		mbvoList = dao.getWriterList();
+		
+		return mbvoList;
 	}
 	
 }

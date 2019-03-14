@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.daesungra.component.GetHashedData;
 import com.daesungra.controller.MemberController;
+import com.daesungra.domain.BoardVo;
 import com.daesungra.domain.MemberVo;
 
 @Repository
@@ -307,5 +308,28 @@ public class MemberDaoImpl implements MemberDao{
 		}
 		
 		return result;
+	}
+	
+	// get my board list
+	public List<BoardVo> selectMyBoardList (String userId) {
+		List<BoardVo> bvoList = null;
+		bvoList = sqlSession.selectList("member.getMyBoardList", userId);
+		if (bvoList != null) {
+			logger.info("[member dao - get my board list] 완료");
+			logger.info("[member dao - get my board list] list size : " + bvoList.size());
+		}
+		
+		return bvoList;
+	}
+	
+	// get writer list
+	public List<MemberVo> getWriterList () {
+		List<MemberVo> mbvoList = null;
+		mbvoList = sqlSession.selectList("member.getWriterList");
+		if (mbvoList != null) {
+			logger.info("[member dao - 작가 리스트 조회완료] list size : " + mbvoList.size());
+		}
+		
+		return mbvoList;
 	}
 }

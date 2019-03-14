@@ -25,4 +25,8 @@ public interface BoardService {
 	
 	public boolean boardReport (BoardReportVo brvo);
 	
+	// thumbup / free
+	public boolean boardThumbUp (BoardVo bvo);
+	public boolean boardThumbUpFree (BoardVo bvo);
+	
 }

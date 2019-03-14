@@ -114,60 +114,7 @@ $(function () {
 				
 				// 회원 정보 검색
 				$('#memberInfoForm #btnSearchMemberInfo').click(function () {
-					var params = $('#memberInfoModal #memberInfoForm').serialize();
-					$.ajax({
-						type: 'post',
-						url: '/desktop/admin/searchMemberInfo',
-						data: params,
-						dataType: 'json',
-						success: function (text) {
-							if (text.userId != ''){
-								var userId = text.userId;
-								var mDate = text.mDate;
-								var isBlocked = text.isBlocked;
-								
-								if (isBlocked == "0") {
-									$('#memberInfoModal #existMemberInfo #inputUserId').text(userId + " / 블럭되지 않음");
-								} else if (isBlocked == "1") {
-									$('#memberInfoModal #existMemberInfo #inputUserId').text(userId + " / 블럭됨");
-								}
-								$('#memberInfoModal #existMemberInfo #inputMDate').text(mDate);
-								$('#memberInfoModal #memberBlockActionForm #userId').text(userId);
-								
-								$('#memberInfoModal #existMemberInfo').removeAttr('hidden');
-								$('#memberInfoModal #noMemberInfo').css({"display":"none"});
-								
-								// 해당 유저 블럭 처리
-								$('#memberInfoModal #existMemberInfo #btnMemberBlockAction').click(function () {
-									var result = confirm('해당 유저를 블럭 처리 하시겠습니까?');
-									
-									if (result){
-										var params = $('#memberInfoModal #memberBlockActionForm').serialize();
-										$.ajax({
-											type: 'post',
-											url: '/desktop/admin/memberBlockAction',
-											data: params,
-											dataType: 'text',
-											success: function (text) {
-												alert(text);
-												if (text == '1') {
-													alert('회원 블럭 처리 완료');
-													location.reload();
-												} else {
-													alert('회원 블럭 처리 실패');
-												}
-											}
-										});
-									} else {
-										alert('취소됨');
-									}
-								});
-							} else if (text.userId == '') {
-								$('#memberInfoModal #existMemberInfo').attr('hidden', true);
-								$('#memberInfoModal #noMemberInfo').css({"display":"block"});
-							}
-						}
-					});
+					funcSearchMemberInfo();
 				});
 			}
 		});
@@ -562,6 +509,77 @@ function funcShowNewBoardInfo (bdSerial) {
 				
 				location.href = requestUrl;
 			});*/
+		}
+	});
+}
+
+/*
+ * function member control
+ */
+function funcSearchMemberInfo () {
+	var params = $('#memberInfoModal #memberInfoForm').serialize();
+	$.ajax({
+		type: 'post',
+		url: '/desktop/admin/searchMemberInfo',
+		data: params,
+		dataType: 'html',
+		success: function (html) {
+			$('#adminMemberControlBody #memberSearchResult').html(html);
+			
+			// 회원 정보 검색
+			$('#memberInfoForm #btnSearchMemberInfo').click(function () {
+				funcSearchMemberInfo();
+			});
+			
+			// 해당 유저 블럭 처리
+			$('#memberInfoModal #existMemberInfo #btnMemberBlockAction').click(function () {
+				var result = confirm('해당 유저를 블럭 처리 하시겠습니까?');
+				
+				if (result){
+					var params = $('#memberInfoModal #memberBlockActionForm').serialize();
+					$.ajax({
+						type: 'post',
+						url: '/desktop/admin/memberBlockAction',
+						data: params,
+						dataType: 'text',
+						success: function (text) {
+							if (text == '1') {
+								alert('회원 블럭 처리 완료');
+								location.reload();
+							} else {
+								alert('회원 블럭 처리 실패');
+							}
+						}
+					});
+				} else {
+					alert('취소됨');
+				}
+			});
+			
+			// 해당 유저 블럭 해제
+			$('#memberInfoModal #existMemberInfo #btnMemberBlockFreeAction').click(function () {
+				var result = confirm('해당 유저를 블럭 처리 하시겠습니까?');
+				
+				if (result){
+					var params = $('#memberInfoModal #memberBlockActionForm').serialize();
+					$.ajax({
+						type: 'post',
+						url: '/desktop/admin/memberBlockFreeAction',
+						data: params,
+						dataType: 'text',
+						success: function (text) {
+							if (text == '1') {
+								alert('회원 블럭 해제 완료');
+								location.reload();
+							} else {
+								alert('회원 블럭 해제 실패');
+							}
+						}
+					});
+				} else {
+					alert('취소됨');
+				}
+			});
 		}
 	});
 }

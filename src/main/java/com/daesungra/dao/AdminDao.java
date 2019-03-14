@@ -31,5 +31,6 @@ public interface AdminDao {
 	// member control
 	public MemberVo selectMemberInfo (String userId);
 	public boolean memberBlockAction (String userId);
+	public boolean memberBlockFreeAction (String userId);
 	
 }

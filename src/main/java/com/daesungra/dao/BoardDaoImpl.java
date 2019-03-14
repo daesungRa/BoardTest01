@@ -155,4 +155,28 @@ public class BoardDaoImpl implements BoardDao {
 		return result;
 	}
 	
+	// thumbup / free
+	@Override
+	public boolean boardThumbUp (BoardVo bvo) {
+		boolean result = false;
+		int thumbupResult = sqlSession.insert("board.boardThumbUp", bvo);
+		if (thumbupResult > 0) {
+			logger.info("[thumb up - dao] 추천 완료!");
+			result = true;
+		}
+		
+		return result;
+	}
+	@Override
+	public boolean boardThumbUpFree (BoardVo bvo) {
+		boolean result = false;
+		int thumbupResult = sqlSession.insert("board.boardThumbUpFree", bvo);
+		if (thumbupResult > 0) {
+			logger.info("[thumb up - dao] 추천 해제 완료!");
+			result = true;
+		}
+		
+		return result;
+	}
+	
 }

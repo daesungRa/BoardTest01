@@ -7,9 +7,10 @@
 	<!--
 		login
 			- 로그인 성공 시 아이디, 이름, 권한수준을 세션에 세팅함
+			- 블럭 상태라면 로그인 거부
 	-->
 	<select id="selectMemberLogin" parameterType="com.daesungra.domain.MemberVo" resultType="com.daesungra.domain.MemberVo">
-		SELECT mem.userId, mem.userName, admin.authority
+		SELECT mem.userId, mem.userName, admin.authority, mem.isBlocked
 			FROM DMEMBER mem JOIN DADMIN admin
 			ON mem.userId = admin.userId
 			WHERE mem.userId = #{userId} and mem.userPwd = #{userPwd} and mem.isDelete = 0
@@ -89,4 +90,32 @@
 	<delete id="memberDeleteConfirm" parameterType="com.daesungra.domain.MemberVo">
 		DELETE FROM DMEMBER WHERE userId = #{userId} and userPwd = #{userPwd}
 	</delete>
+	
+	<!-- 
+		get my board list
+	 -->
+	<select id='getMyBoardList' parameterType='String' resultType='com.daesungra.domain.BoardVo'>
+		SELECT bd.serial serial, bd.userId userId, bd.category category, bd.title title, bd.bDate bDate, bd.hit hit, bd.isBlocked isBlocked,
+				(SELECT COUNT(*) FROM DBOARD_COMMENT cmt JOIN dboard bd2 ON cmt.fSerial = bd2.serial WHERE bd2.serial = bd.serial) commentCnt,
+				(SELECT COUNT(*) FROM dboard_thumbUp bdt JOIN dboard bd3 ON bdt.pSerial = bd3.serial WHERE bd3.serial = bd.serial) thumbUpCnt
+			FROM DBOARD bd
+			WHERE bd.userId = #{_parameter}
+			ORDER BY bd.bDate desc
+	</select>
+	
+	<!-- 
+		get writer list
+	 -->
+	<select id='getWriterList' resultType='com.daesungra.domain.MemberVo'>
+		SELECT * FROM (
+			SELECT ROWNUM rno, s.* FROM (
+				SELECT mb.userId userId, mb.userName userName, mb.email email, mb.photo photo,
+						mp.nickName nickName, mp.interest interest,
+						(select count(*) from DMEMBER_FOLLOWER where followee = mb.userId) fNum
+					FROM DMEMBER mb JOIN DMEMBER_PROFILE mp
+						ON mb.userId = mp.userId
+					ORDER BY (select count(*) from DMEMBER_FOLLOWER where followee = mb.userId) desc, mDate desc
+			) s
+		) WHERE rno BETWEEN 1 AND 3
+	</select>
 </mapper>

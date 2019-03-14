@@ -481,25 +481,29 @@ public class AdminController {
 	}
 	
 	// 회원정보 조회
-	@ResponseBody
 	@RequestMapping(value="/searchMemberInfo", method=RequestMethod.POST)
 	public String searchMemberInfo (HttpServletRequest request) {
-		String jsonResult = "";
 		String userId = request.getParameter("userId");
 		logger.info("[search member info - admin controller] 회원정보 요청, userId : " + userId);
 		MemberVo mbvo = null;
 		
 		mbvo = adminService.searchMemberInfo(userId);
 		if (mbvo != null) {
+			logger.info("[search member info - admin controller] 회원정보 요청 완료");
+			request.setAttribute("mbvo", mbvo);
+		} else {
+			logger.info("[search member info - admin controller] 조회된 회원정보가 존재하지 않음");
+		}
+		/*if (mbvo != null) {
 			jsonResult = "{\"userId\":\"" + mbvo.getUserId() + "\", \"mDate\":\"" + mbvo.getmDate() + "\", \"isBlocked\":\"" + mbvo.getIsBlocked() + "\"}";
 			logger.info("[search member info - admin controller] 회원정보 요청 완료");
 			logger.info("[search member info - admin controller] json 결과 : " + jsonResult);
 		} else {
 			jsonResult = "{\"userId\":\"\"}";
 			logger.info("[search member info - admin controller] 조회된 회원정보가 존재하지 않음");
-		}
+		}*/
 		
-		return jsonResult;
+		return "/admin/adminMemberSearchResultPart";
 	}
 	// 회원 블럭 처리
 	@ResponseBody
@@ -512,6 +516,22 @@ public class AdminController {
 		boolean blockResult = adminService.memberBlockAction(userId);
 		if (blockResult) {
 			logger.info("[member block action - admin controller] 회원 블럭 처리 완료!, userId : " + userId);
+			result = "1";
+		}
+		
+		return result;
+	}
+	// 회원 블럭 해제
+	@ResponseBody
+	@RequestMapping(value="/memberBlockFreeAction", method=RequestMethod.POST)
+	public String memberBlockFreeAction (HttpServletRequest request) {
+		String result = "0";
+		String userId = request.getParameter("userId");
+		logger.info("[member block free action - admin controller] 회원 블럭 해제, userId : " + userId);
+		
+		boolean blockFreeResult = adminService.memberBlockFreeAction(userId);
+		if (blockFreeResult) {
+			logger.info("[member block free action - admin controller] 회원 블럭 해제 완료!, userId : " + userId);
 			result = "1";
 		}
 		
