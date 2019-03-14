@@ -48,21 +48,21 @@
 					<div id='writerListPageSubTitle' style='float: left;'>인기 작가</div>
 					<hr/>
 					<c:forEach var="mbvo" items='${mbvoList }'>
-						<div class='container' style='width: 70%; display: inline-block; text-align: left; margin: 0 auto; border: 1px solid black;'>
-							<img src='${mbvo.photo }' alt='writer profile img' id='' style='width: 70px; height: 80px; border-radius: 30px; margin-bottom: 40px; margin-left: 10px;' />
-							<div style='display: inline-block; border: 1px solid black; margin-left: 20px;'>
+						<div class='container' style='width: 70%; height: 100px; display: inline-block; text-align: left; padding-top: 10px; margin: 10px auto; border: 1px solid #9a9a9a; border-radius: 20px;'>
+							<img src='${mbvo.photo }' alt='writer profile img' id='' style='width: 70px; height: 80px; border-radius: 55px; margin-bottom: 40px; margin-left: 10px;' />
+							<div style='display: inline-block; margin-left: 30px; margin-top: 10px;'>
 								<span style='font-size: 14pt;'>${mbvo.userName }</span><br/>
-								<span style='color: #565656; font-size: 12pt;'>${mbvo.nickName }</span><br/>
-								<span style='color: #787878; font-size: 8pt;'>${mbvo.interest }</span>
+								<span style='color: #565656; font-size: 12pt;'>${mbvo.nickName }</span>
 							</div>
-							<div style='display: inline-block; border: 1px solid black; margin-left: 20px;'>
+							<div style='display: inline-block; margin-left: 30px;'>
+								<span style='color: #787878; font-size: 10pt;'>${mbvo.interest }</span><br/>
 								<span style='color: #565656; font-size: 10pt;'>${mbvo.email }</span><br/>
 								<span style='color: #565656; font-size: 10pt;'>팔로워 : ${mbvo.fNum }</span>
 							</div>
 						</div>
 					</c:forEach>
 					<br/>
-					<form class='form' id='' name='' style='display: inline-block; margin: 20px auto;'>
+					<form class='form' id='' name='' style='display: inline-block; margin: 30px auto;'>
 						<div class='form-inline'>
 							<input class='form-control' type='search' id='' name='' placeholder='작가 검색' />
 							<input class='btn btn-info' type='button' id='' name='' value='검색' style='font-size: 10pt; margin-left: 10px;' />
