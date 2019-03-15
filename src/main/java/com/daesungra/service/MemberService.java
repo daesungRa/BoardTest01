@@ -40,5 +40,6 @@ public interface MemberService {
 	// follow action / unfollow
 	public boolean followAction (Map<String, String> searchWriterMap);
 	public boolean unFollowAction (Map<String, String> searchWriterMap);
+	public List<MemberVo> getFolloweeList (String userId);
 	
 }

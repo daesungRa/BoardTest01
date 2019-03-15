@@ -33,6 +33,32 @@
 	color: #fff;
 	background-color: #787878;
 }
+/* followee list */
+#followeeListBody #followeeListTitle {
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #454545;
+	font-size: 14pt;
+}
+#followeeListBody .my-followee {
+	width: 99%;
+	margin: -15px auto;
+	padding: 20px 0 20px 0;
+	border-bottom: 1px solid #dedede;
+}
+#followeeListBody .my-followee:hover {
+	background-color: #eee;
+	cursor: pointer;
+}
+#followeeListBody .followeePhoto {
+	width: 70px;
+	border-radius: 60px;
+}
+#followeeListBody .my-followeeInfo {
+	padding-top: 20px;
+}
+#followeeListBody .my-followeeInfo span {
+	font-family: 'Nanum Gothic', sans-serif;
+}
 
 /* 타이틀 */
 #myPageTitle {

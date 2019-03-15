@@ -207,15 +207,18 @@
 	text-align: left;
 	background-color: rgba(0, 0, 0, 0.6);
 }
-.my-jumbo h4 {
+#header #header-title {
+	font-family: 'Nanum Gothic', sans-serif;
+	position: relative;
+	width: 105%;
+	height: 100%;
 	color: #fff;
-	margin: -23px 0 20px 45px;
+	margin-top: -6px;
 }
 .my-jumbo p {
 	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 9pt;
+	font-size: 10pt;
 	color: #fff;
-	margin-left: 45px;
 }
 .my-jumbo a {
 	font-family: 'Nanum Gothic', sans-serif;

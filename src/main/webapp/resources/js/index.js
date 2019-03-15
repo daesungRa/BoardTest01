@@ -146,6 +146,21 @@ $(function () {
 		location.href = '/desktop/admin/getAdminPage/1';
 		$('#adminArticle #showMemberAdminComponent').trigger('click');
 	});
+	
+	// 웹사이트 소개 부분
+	// 각 파트로 이동
+	$('#header #header-title #dev-introduce').click(function () {
+		funcMovePage('devPart');
+	});
+	$('#introducePart #introPart-left').click(function () {
+		funcMovePage('bookSharePart');
+	});
+	$('#introducePart #introPart-center').click(function () {
+		funcMovePage('communicationPart');
+	});
+	$('#introducePart #introPart-right').click(function () {
+		funcMovePage('encryptionPart');
+	});
 });
 
 /*

@@ -22,7 +22,7 @@
 	<script src='/desktop/resources/js/index.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 	<script src='/desktop/resources/js/member.js'></script>
-	<script src='/desktop/resources/js/board.js'></script>
+	<script src='/desktop/resources/js/myPage.js'></script>
 </head>
 <body style='position: relative; height: 100%; padding-bottom: 200px; min-height: 100%;'>
 
@@ -51,11 +51,11 @@
 						<p>구독자 수</p>
 						<div id='inputFNum'></div><br/>
 						<P>구독중인 작가</p>
-						<div id='inputFollowee'>보기 &gt;</div><br/>
+						<div id='inputFollowee'>보기 </div><br/>
 						<p>웹페이지</p>
 						<div id='inputWebPage'>새로 등록해주세요</div><br/>
-						<p>활동</p>
-						<div id='inputActivity'>특별한 활동이<br/>없습니다</div><br/>
+						<!-- <p>활동</p>
+						<div id='inputActivity'>특별한 활동이<br/>없습니다</div><br/> -->
 						<p>계정 생성일</p>
 						<div id='inputMDate'></div>
 					</div>
@@ -170,131 +170,7 @@
 	<a class='btn btn-secondary my-btn-toTop' href='#' onclick='funcMovePage("indexTop");'>top</a>
 	
 	<!-- Modal -->
-    <button id="modalBtn" style='display: none;'>Open Modal</button>
-    <div id="mainModal" class="modal">
-    	
-	    <!-- Modal content -->
-	    <div class="modal-content">
-	   		<div id='innerContent'></div>
-	   		<span class="close">닫기</span>
-	    </div>
-	    
-    </div>
-    
-    <script>
-    	$(function () {
-    		/*
-    		 * navbar aside
-    		 */   			
-   			$('#btnShowNavbar').click(function () {
-   				$('#navbarAside').animate({width:'toggle'}, 350);
-   				if ($('#btnShowNavbar').text() == '<<') {
-   					$('#btnShowNavbar').text('>>');
-   					$('#btnShowNavbar').animate({left:'-=17%'}, 350);
-   					$('#boardContent').animate({margin: '0 0 0 0'}, 350);
-   					/*$('#navbarAside').css({"display":"none"});*/
-   				} else if ($('#btnShowNavbar').text() == '>>') {
-   					$('#btnShowNavbar').text('<<');
-   					$('#btnShowNavbar').animate({left: '+=17%'}, 350);
-   					$('#boardContent').animate({margin: '0 0 0 17%'}, 350);
-   					/*$('#navbarAside').css({"display":"block"});*/
-   				}
-   			});
-    		 
-    		/*
-    		 * 프로필, 회원정보
-    		 */
-    		$('#navtab-profile-tag').click(function () {
-				$('#navtab-info-tag-li').css({'border':'none'});
-				$('#navtab-profile-tag-li').css({'border':'1px solid #bbb', 'border-bottom':'none'});
-				
-				$.ajax({
-					type: 'get',
-					url: '/desktop/member/memberProfileForm',
-					dataType: 'html',
-					success: function (html, status) {
-						
-						$('#memberProfileContent').html(html);
-						$('.my-myPage-memberinfo #profileImagePreview').attr('src', $('#profileForm #photoPath').val());
-						$('.my-myPage-memberinfo #inputFNum').text($('#profileForm #fNum').val() + ' 명');
-						$('.my-myPage-memberinfo #inputMDate').text($('#profileForm #mDate').val());
-						
-						// 에러코드 0 이면 세션아이디 없음, 에러코드 1 이면 조회된 결과 없음
-						if ($('#flag').text() == "0") { // 세션아이디 없음
-							alert('접속 정보가 존재하지 않습니다. 로그인 후 이용하세요.');
-							/* $.ajax({
-								type: 'get',
-								url: '/desktop/member/loginForm',
-								dataType: 'html',
-								success: function (html, status) {
-									
-									innerModalContent.innerHTML = html;
-									modalWindow.style.display = 'block';
-									
-									funcLoginAction();
-								}
-							}); */
-							location.href = '/desktop';
-						} else if ($('#flag').text() == "1") { // 조회결과 없음 (vo == null)
-							alert('현재 접속정보로 조회된 회원정보가 존재하지 않습니다. 확인 후 이용해주세요.');
-							location.href = '/desktop';
-						} else if ($('#flag').text() == "2"){
-							funcMemberInfo();
-						} else {
-							alert('예상치 못한 에러 발생. 관리자에게 문의하십시오.');
-							location.href = '/desktop';
-						}
-					}
-				});
-			});
-    		
-			$('#navtab-info-tag').click(function () {
-				$('#navtab-profile-tag-li').css({'border':'none'});
-				$('#navtab-info-tag-li').css({'border':'1px solid #bbb', 'border-bottom':'none'});
-				
-				$.ajax({
-					type: 'get',
-					url: '/desktop/member/memberInfoForm',
-					dataType: 'html',
-					success: function (html, status) {
-						
-						$('#memberInfoContent').html(html);
-						$('#memberImg').css({'display':'none'});
-						$('.my-myPage-memberinfo #profileImagePreview').attr('src', $('#memberImg #image').attr('src'));
-						$('.my-myPage-memberinfo #inputFNum').text($('#joinFrm #fNum').val() + ' 명');
-						$('.my-myPage-memberinfo #inputMDate').text($('#joinFrm #mDate').val());
-						
-						// 에러코드 0 이면 세션아이디 없음, 에러코드 1 이면 조회된 결과 없음
-						if ($('#flag').text() == "0") { // 세션아이디 없음
-							alert('접속 정보가 존재하지 않습니다. 로그인 후 이용하세요.');
-							/* $.ajax({
-								type: 'get',
-								url: '/desktop/member/loginForm',
-								dataType: 'html',
-								success: function (html, status) {
-									
-									innerModalContent.innerHTML = html;
-									modalWindow.style.display = 'block';
-									
-									funcLoginAction();
-								}
-							}); */
-							location.href = '/desktop';
-						} else if ($('#flag').text() == "1") { // 조회결과 없음 (vo == null)
-							alert('현재 접속정보로 조회된 회원정보가 존재하지 않습니다. 확인 후 이용해주세요.');
-							location.href = '/desktop';
-						} else if ($('#flag').text() == "2"){
-							funcMemberInfo();
-						} else {
-							alert('예상치 못한 에러 발생. 관리자에게 문의하십시오.');
-							location.href = '/desktop';
-						}
-					}
-				});
-			});
-			$('#navtab-profile-tag').trigger('click');
-    	});
-    </script>
+    <jsp:include page="/WEB-INF/views/component/modal.jsp"></jsp:include>
 
 </body>
 </html>

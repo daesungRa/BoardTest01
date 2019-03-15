@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<div class='navbar navbar-expand-md bg-light sticky-top' id='my-nav-top'>
+	<div class='navbar navbar-expand-md bg-light sticky-top' id='my-nav-top' style='min-height: 40px;'>
 		<div class='navbar-header text-light' style='margin-left: 60px;'>
 			<a class='navbar-brand' href='/desktop/'>
 				<img src='/desktop/resources/imgs/book_logo01.svg' id='navLogo' alt='brand logo' />

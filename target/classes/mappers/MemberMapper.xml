@@ -82,8 +82,14 @@
 				ON m.userId = p.userId
 			WHERE m.userId = #{userId} and m.isDelete = 0
 	</select>
-	<select id="selectFollowees" parameterType="String" resultType="java.util.ArrayList">
-		SELECT followee FROM DMEMBER_FOLLOWER WHERE userId = #{userId}
+	<select id="selectFollowees" parameterType="String" resultType="com.daesungra.domain.MemberVo">
+		SELECT mf.followee userId, mb.photo photo,
+				pf.nickName nickName, pf.introduce introduce, pf.interest interest
+			FROM DMEMBER_FOLLOWER mf JOIN DMEMBER mb
+				ON mf.followee = mb.userId
+				JOIN DMEMBER_PROFILE pf
+				ON mf.followee = pf.userId
+			WHERE mf.userId = #{userId}
 	</select>
 	<select id="selectExistingMemberList">
 		SELECT userId, userName, email, phone, postal, address, addressAdd, photo, photoOri, to_char(mDate, 'YY-MM-DD HH24:MI:SS') mDate

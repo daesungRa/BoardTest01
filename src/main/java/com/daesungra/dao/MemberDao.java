@@ -15,7 +15,6 @@ public interface MemberDao {
 	
 	// select user info
 	public MemberVo memberSelect (String userId);
-	public MemberVo profileSelect (String userId);
 	public List<MemberVo> memberList ();
 	
 	// join
@@ -41,5 +40,6 @@ public interface MemberDao {
 	// follow / unfollow
 	public boolean followAction (Map<String, String> searchWriterMap);
 	public boolean unFollowAction (Map<String, String> searchWriterMap);
+	public List<MemberVo> selectFolloweeList (String userId);
 	
 }

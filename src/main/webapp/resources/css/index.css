@@ -20,9 +20,61 @@
 .my-index-article {
 	
 }
-.my-index-article-row {
-	
+.my-index-article .my-index-article-row {
+	height: 500px;
+	text-align: center;
+	/* border: 1px solid blue; */
 }
-.my-index-article-col {
-	
+.my-index-article .my-index-article-col {
+	/* border: 1px solid black; */
+}
+.my-index-article .my-index-article-row > div {
+	padding-top: 110px;
+	/* border: 1px solid black; */
+}
+.my-index-article .my-index-article-row > div:hover {
+	background-color: #eee;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	cursor: pointer;
+}
+.my-index-article .my-index-article-row span {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+.my-index-article .introImg {
+	width: 110px;
+	height: 110px;
+	border-radius: 60px;
+}
+.my-index-article #bookImg-left {
+	background: url('/desktop/resources/imgs/sample/book-share02.jpg') no-repeat;
+	background-size: cover;
+}
+.my-index-article #communication-right {
+	background: url('/desktop/resources/imgs/communication03.jpg') no-repeat;
+	background-size: cover;
+}
+.my-index-article #encryption-left {
+	background: url('/desktop/resources/imgs/security01.jpg') no-repeat;
+	background-size: cover;
+}
+/* dev part */
+.my-index-article-dev .my-index-article-row {
+	height: 500px;
+	text-align: center;
+	/* border: 1px solid blue; */
+}
+.my-index-article-dev .my-index-article-col {
+	/* border: 1px solid black; */
+}
+.my-index-article-dev .my-index-article-row > div {
+	padding-top: 60px;
+	/* border: 1px solid black; */
+}
+.my-index-article-dev .my-index-article-row span {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+.my-index-article-dev .introImg {
+	width: 110px;
+	height: 110px;
+	border-radius: 60px;
 }

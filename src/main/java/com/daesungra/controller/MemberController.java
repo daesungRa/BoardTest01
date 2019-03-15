@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.daesungra.component.FileUpload;
 import com.daesungra.domain.BoardVo;
@@ -180,7 +181,7 @@ public class MemberController {
 		
 		return "/member/myPage";
 	}
-	// profile 해야함
+	
 	@RequestMapping(value={"/memberProfileForm", "/memberInfoForm"}, method=RequestMethod.GET)
 	public String getMemberInfo (HttpServletRequest request) {
 		String result = "";
@@ -403,5 +404,21 @@ public class MemberController {
 		}
 		
 		return result;
+	}
+	
+	// 내가 팔로우하는 작가정보 리스트 조회
+	@RequestMapping(value="/getFolloweeList")
+	public ModelAndView getFolloweeList (HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		String userId = (String) request.getSession().getAttribute("userId");
+		logger.info("[member controller] call followee list, caller : " + userId);
+		
+		List<MemberVo> followeeList = service.getFolloweeList(userId);
+		if (followeeList != null) {
+			mav.addObject("followeeList", followeeList);
+		}
+		
+		mav.setViewName("/member/followeeListPart");
+		return mav;
 	}
 }

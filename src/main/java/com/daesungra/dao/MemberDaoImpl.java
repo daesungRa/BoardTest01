@@ -32,6 +32,7 @@ public class MemberDaoImpl implements MemberDao{
 	
 	// - login -
 	// 입력받은 아이디, 해싱된 비밀번호로 로그인
+	@Override
 	public MemberVo login (String userId, String userPwd) {
 		MemberVo vo = null; // 반환할 vo
 		String saltData = "";
@@ -59,49 +60,9 @@ public class MemberDaoImpl implements MemberDao{
 		return vo;
 	}
 	
-	/*
-	 * - profileSelect
-	 * 프로필 조회
-	 */
-	public MemberVo profileSelect (String userId) {
-		MemberVo vo = null;
-		/*this.conn = new DBConn().getConn();
-		
-		try {
-			sql = " select m.userId userId, m.userName userName, m.photo photo, m.photoOri photoOri, p.introduce introduce, p.interest interest, p.isPublic isPublic "
-					+ "	from dmember m join dmember_profile p "
-					+ "	on m.userId = p.userId "
-					+ "	where p.userId = ? ";
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, userId);
-			
-			rs = ps.executeQuery();
-			
-			while (rs.next()) {
-				vo = new MemberVo();
-				vo.setUserId(rs.getString("userId"));
-				vo.setUserName(rs.getString("userName"));
-				if (rs.getString("photo") != null) {
-					vo.setPhoto(rs.getString("photo"));
-					vo.setPhotoOri(rs.getString("photoOri"));
-				}
-				vo.setIntroduce(rs.getString("introduce"));
-				vo.setInterest(rs.getString("interest"));
-				vo.setIsPublic(rs.getString("isPublic"));
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			try {
-				closeSet();
-			} catch (Exception ex) { }
-		}*/
-		
-		return vo;
-	}
-	
 	// - memberList -
 	// 회원 리스트 조회에 사용됨 (memberList)
+	@Override
 	public List<MemberVo> memberList () {
 		List<MemberVo> memberList = null;
 		memberList = sqlSession.selectList("member.selectExistingMemberList");
@@ -117,6 +78,7 @@ public class MemberDaoImpl implements MemberDao{
 	
 	// - idChk -
 	// 회원가입 시 아이디 중복확인
+	@Override
 	public boolean idCheck (String userId) {
 		boolean result = false;
 		String checkResult = "";
@@ -133,6 +95,7 @@ public class MemberDaoImpl implements MemberDao{
 	// - memberInsert -
 	// 회원가입에 사용됨 (register)
 	// 권한은 기본 0, 추후 수퍼관리자가 추가 권한 부여
+	@Override
 	public boolean memberInsert (MemberVo vo) {
 		boolean result = false;
 		logger.info("[JOIN]");
@@ -161,6 +124,7 @@ public class MemberDaoImpl implements MemberDao{
 
 	// - memberUpdate -
 	// 회원정보 수정에 사용됨 (memberModify)
+	@Override
 	public boolean memberUpdate (MemberVo vo) {
 		boolean result = false;
 		String userId = vo.getUserId();
@@ -216,6 +180,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	// 회원 프로필 수정 (최초생성은 join 시 이루어짐)
+	@Override
 	public boolean profileUpdate (MemberVo vo) {
 		boolean result = false;
 		String userId = vo.getUserId();
@@ -269,6 +234,7 @@ public class MemberDaoImpl implements MemberDao{
 
 	// - memberDelete -
 	// 회원탈퇴에 사용됨 (memberLeave)
+	@Override
 	public boolean memberDelete (HttpServletRequest request) {
 		boolean result = false;
 		MemberVo vo = new MemberVo();
@@ -312,6 +278,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	// get my board list
+	@Override
 	public List<BoardVo> selectMyBoardList (String userId) {
 		List<BoardVo> bvoList = null;
 		bvoList = sqlSession.selectList("member.getMyBoardList", userId);
@@ -324,6 +291,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	// get writer list
+	@Override
 	public List<MemberVo> getWriterList () {
 		List<MemberVo> mbvoList = null;
 		mbvoList = sqlSession.selectList("member.getWriterList");
@@ -334,6 +302,7 @@ public class MemberDaoImpl implements MemberDao{
 		return mbvoList;
 	}
 	// get writer info
+	@Override
 	public MemberVo selectWriterInfo (Map<String, String> searchWriterMap) {
 		MemberVo mbvo = null;
 		mbvo = sqlSession.selectOne("member.selectWriterInfo", searchWriterMap);
@@ -345,6 +314,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	// follow / unfollow
+	@Override
 	public boolean followAction (Map<String, String> searchWriterMap) {
 		boolean result = false;
 		int followResult = sqlSession.insert("member.followAction", searchWriterMap);
@@ -355,6 +325,7 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return result;
 	}
+	@Override
 	public boolean unFollowAction (Map<String, String> searchWriterMap) {
 		boolean result = false;
 		int unFollowResult = sqlSession.delete("member.unFollowAction", searchWriterMap);
@@ -364,6 +335,16 @@ public class MemberDaoImpl implements MemberDao{
 		}
 		
 		return result;
+	}
+	@Override
+	public List<MemberVo> selectFolloweeList (String userId) {
+		List<MemberVo> followeeList = null;
+		followeeList = sqlSession.selectList("member.selectFollowees", userId);
+		if (followeeList != null) {
+			logger.info("[member dao] call followee list!");
+		}
+		
+		return followeeList;
 	}
 	
 }

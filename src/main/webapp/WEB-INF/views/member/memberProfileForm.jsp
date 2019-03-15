@@ -66,7 +66,7 @@
 					<input type='file' id='photo' name='photo' style='padding: 3px 0 3px 3px; border: 1px solid #cdcdcd; border-radius: 5px;' />
 					<input type='hidden' id='photoPath' value='${vo.photo }' />
 				</div>
-				<div class='form-group'>
+				<%-- <div class='form-group'>
 					<label for='isDelete' style='width: 95px;'>프로필 공개유무</label><br/>
 					<span class="switch">
 						<c:choose>
@@ -83,7 +83,7 @@
 					<span style='position: relative;'>
 						<span id='descIsPublic' data-toggle="tooltip" data-placement="right" title="변경하려면 '프로필 수정하기' 를 클릭하십시오." >&nbsp;?&nbsp;&nbsp;&nbsp;</span>
 					</span>
-				</div>
+				</div> --%>
 				<div class='form-group'>
 					<input class='btn btn-primary' type='button' id='btnModifyProfileSubmit' name='btnModifyProfileSubmit' value='제 출' style='display: none;' />
 					<input class='btn btn-primary' type='button' id='btnModifyProfileCancel' name='btnModifyProfileCancel' value='취 소' style='display: none;' />

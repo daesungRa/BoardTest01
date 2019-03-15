@@ -30,6 +30,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 로그인 성공하면 vo 그대로 반환, 실패면 null 반환
 	// vo 를 반환하는 이유는, 로그인 성공 시 세션 세팅을 위해서
+	@Override
 	public MemberVo login (String userId, String userPwd) {
 		MemberVo vo = null;
 		logger.info("[MemberService] login 시작");
@@ -38,7 +39,8 @@ public class MemberServiceImpl implements MemberService {
 		
 		return vo;
 	}
-	
+
+	@Override
 	public MemberVo memberView (String userId) {
 		MemberVo vo = null;
 		vo = dao.memberSelect(userId);
@@ -47,6 +49,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// 등록된 프로필 조회
+	@Override
 	public MemberVo profileView (String userId) {
 		MemberVo vo = null;
 		
@@ -54,6 +57,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// 회원목록 조회
+	@Override
 	public List<MemberVo> memberList () {
 		List<MemberVo> memberList = null;
 		memberList = dao.memberList();
@@ -62,6 +66,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// result 1 이면 중복 아이디가 존재하는 것, 0 이면 없는 것
+	@Override
 	public boolean idCheck (String userId) {
 		boolean result = false;
 		
@@ -72,6 +77,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// 파일 업로드 결과정보까지 포함된 vo 객체를 받아서 dao 로 db 에 투입함
+	@Override
 	public boolean memberRegister (MemberVo vo) {
 		boolean result = false;
 		logger.info("[MemberService] register 시작");
@@ -118,6 +124,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// 회원정보 수정
+	@Override
 	public boolean memberModify (MemberVo vo) {
 		boolean result = false;
 		result = dao.memberUpdate(vo);
@@ -127,6 +134,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 프로필 수정 (비공개는 isPublic = '0')
 	// 회원정보 삭제 시 cascade
+	@Override
 	public boolean profileModify (MemberVo vo) {
 		boolean result = false;
 		result = dao.profileUpdate(vo);
@@ -136,6 +144,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 회원정보 삭제
 	// 게시글이 존재하면 실패할 수 있음
+	@Override
 	public boolean memberDelete (HttpServletRequest request) {
 		boolean result = false;
 		result = dao.memberDelete(request);
@@ -144,6 +153,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// get my board list
+	@Override
 	public List<BoardVo> getMyBoardList (String userId) {
 		List<BoardVo> bvoList = null;
 		bvoList = dao.selectMyBoardList(userId);
@@ -152,6 +162,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// get writer list
+	@Override
 	public List<MemberVo> getWriterList () {
 		List<MemberVo> mbvoList = null;
 		mbvoList = dao.getWriterList();
@@ -159,6 +170,7 @@ public class MemberServiceImpl implements MemberService {
 		return mbvoList;
 	}
 	// get writer info
+	@Override
 	public MemberVo searchWriterInfo (Map<String, String> searchWriterMap) {
 		MemberVo mbvo = null;
 		mbvo = dao.selectWriterInfo(searchWriterMap);
@@ -167,17 +179,26 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// follow / unfollow
+	@Override
 	public boolean followAction (Map<String, String> searchWriterMap) {
 		boolean result = false;
 		result = dao.followAction(searchWriterMap);
 		
 		return result;
 	}
+	@Override
 	public boolean unFollowAction (Map<String, String> searchWriterMap) {
 		boolean result = false;
 		result = dao.unFollowAction(searchWriterMap);
 		
 		return result;
+	}
+	@Override
+	public List<MemberVo> getFolloweeList (String userId) {
+		List<MemberVo> followeeList = null;
+		followeeList = dao.selectFolloweeList(userId);
+		
+		return followeeList;
 	}
 	
 }
