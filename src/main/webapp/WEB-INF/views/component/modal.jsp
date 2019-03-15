@@ -14,7 +14,7 @@
 		    <!-- Modal content -->
 		    <div class='modal-content' id='modalContent'>
 				<div id='innerModalContent'></div>
-				<span class='close' id='closeModal'>닫기</span>
+				<span class='btn btn-primary close' id='closeModal'>닫기</span>
 			</div>
 		</div>	    
     </div>

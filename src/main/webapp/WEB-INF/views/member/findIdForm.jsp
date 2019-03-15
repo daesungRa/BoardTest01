@@ -9,8 +9,9 @@
 <body>
 
 	<div class="container">
-	    <div class="row">
-	        <div class="col-sm-6 col-md-4 col-md-offset-4">
+	    <div class="row" style='width: 90%; margin: 100px auto;'>
+	    	<div class='col-sm-4'></div>
+	        <div class="col-md-4" style='padding: 30px 20px 30px 20px; border: 1px solid #bdbdbd; border-radius: 20px;'>
 	            <div class="account-wall">
 	                <label class="profile">아이디 찾기</label>
 	                <p class="profile_p" >회원가입 시 입력한 회원정보를 입력해주세요.</p>
@@ -30,8 +31,8 @@
 	
 	                </form>
 	            </div>
-	
 	        </div>
+	        <div class='col-sm-4'></div>
 	    </div>
 	</div>
 

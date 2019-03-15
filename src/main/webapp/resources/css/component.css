@@ -302,21 +302,72 @@
     font-family: 'Nanum Gothic', sans-serif;
 } */
 .close {
+	font-family: 'Nanum Gothic', sans-serif;
 	position: absolute;
 	bottom: 25px; right: 40px;
-    color: #aaa;
-    font-size: 12pt;
-    background-color: #212529;
-    width: 66px;
-    height: 36px;
-    padding-top: 8px;
-    border-radius: 5px;
-    border: 1px solid #777;
+	color: #fff;
+    font-size: 10pt;
 }
 .close:hover,
 .close:focus {
-    color: #ccc;
-    background-color: #555;
-    text-decoration: none;
-    cursor: pointer;
+	
 }
+
+/*
+ * loginForm style
+ */
+#loginForm {
+	
+}
+#innerLoginForm {
+	font-family: 'Nanum Gothic', sans-serif;
+	width: 50%;
+	margin-top: 60px;
+	text-align: center;
+	padding: 30px 0 30px 0;
+	border: 1px solid #bdbdbd;
+	border-radius: 20px;
+}
+#innerLoginForm * {
+	font-family: 'Nanum Gothic', sans-serif;
+	margin-bottom: 10px;
+}
+#innerLoginForm .form-group {
+	text-align: center;
+	margin-top: 60px;
+}
+
+#innerLoginForm .form-control {
+	width: 65%;
+	display: inline-block;
+	border: 1px solid #999;
+}
+
+/*
+ * joinForm style
+ */
+ #joinForm {
+ 	width: 62%;
+ 	float: left;
+ 	padding: 30px 0 30px 0;
+	border: 1px solid #bdbdbd;
+	border-radius: 20px;
+	margin: 10px 0 50px 0;
+ }
+ #joinForm * {
+ 	font-family: 'Nanum Gothic', sans-serif;
+ }
+ #joinForm .form-control {
+ 	border: 1px solid #999;
+ 	margin-bottom: 5px;
+ }
+ #memberImg {
+ 	float: left;
+ 	width: 38%;
+ 	height: 500px;
+ 	margin-top: 20px;
+ 	padding-top: 82px;
+ 	text-align: center;
+ 	color: #bbb;
+ 	text-size: 8pt;
+ }

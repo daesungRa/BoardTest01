@@ -64,7 +64,6 @@ $(function () {
 			success: function (html, status) {
 				innerModalContent.innerHTML = html;
 				$('#btnShowModal').trigger('click');
-				// modalWindow.style.display = 'block';
 				
 				funcLoginAction();
 			}
@@ -77,10 +76,7 @@ $(function () {
 			type: 'get',
 			url: '/desktop/member/joinForm',
 			dataType: 'html',
-			success: function (html, status) {
-				modalContent.setAttribute('style', 'height: 78%; margin: 7% auto;');
-				innerModalContent.setAttribute('style', 'position: absolute; width: 97%; height: 90%; top: 0;');
-				
+			success: function (html, status) {				
 				innerModalContent.innerHTML = html;
 				$('#btnShowModal').trigger('click');
 				
