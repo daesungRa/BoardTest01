@@ -104,6 +104,19 @@
 			<version>2.6</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+		<!-- mail api 사용 시 다음의 의존성도 필요함! -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+				
 
 
 		<!-- AspectJ -->

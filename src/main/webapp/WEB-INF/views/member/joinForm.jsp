@@ -27,7 +27,7 @@
 				<form class='form' name='joinFrm' action='/desktop/member/join' method='post' enctype='multipart/form-data'>
 					<div class='form-group'>
 						<div class='form-inline'>
-							<input class='form-control' type='text' id='userId' name='userId' maxlength='30' placeholder='아이디 입력 (필수)' style='width: 48%; margin-right: 10px;'/>
+							<input class='form-control' type='text' id='userId' name='userId' maxlength='30' placeholder='아이디 입력 (필수)' autofocus style='width: 48%; margin-right: 10px;'/>
 							<input class='btn btn-primary' type='button' id='btnIdChk' name='btnIdChk' value='중복확인' style='margin-right: 10px;'></input>
 							<input type='hidden' id='userIdChk' value='unChecked' readonly/>
 							<div id='userIdChkResult' style='color: #0000ff; width: 40%;'></div>

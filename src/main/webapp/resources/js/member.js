@@ -75,13 +75,10 @@ function funcLoginAction () {
 			url: '/desktop/member/findIdForm',
 			dataType: 'html',
 			success: function (html, status) {
-				modalContent.setAttribute('style', 'height: 60%; margin: 14% auto;');
-				innerModalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -10px;');
-				
 				innerModalContent.innerHTML = html;
 				modalWindow.style.display = 'block';
 				
-				// funcFinduserId(); // 모달에 뒤로가기 버튼 추가
+				funcFinduserId();
 			}
 		})
 	});
@@ -93,13 +90,10 @@ function funcLoginAction () {
 			url: '/desktop/member/findPwdForm',
 			dataType: 'html',
 			success: function (html, status) {
-				modalContent.setAttribute('style', 'height: 60%; margin: 14% auto;');
-				innerModalContent.setAttribute('style', 'position: absolute; width: 96%; height: 90%; top: -10px;');
-				
 				innerModalContent.innerHTML = html;
 				modalWindow.style.display = 'block';
 				
-				// funcFinduserPwd(); // 모달에 뒤로가기 버튼 추가
+				funcFinduserPwd();
 			}
 		})
 	});
@@ -111,9 +105,6 @@ function funcLoginAction () {
 			url: '/desktop/member/joinForm',
 			dataType: 'html',
 			success: function (html, status) {
-				modalContent.setAttribute('style', 'height: 78%; margin: 7% auto;');
-				innerModalContent.setAttribute('style', 'position: absolute; width: 97%; height: 90%; top: 0;');
-				
 				innerModalContent.innerHTML = html;
 				modalWindow.style.display = 'block';
 				
@@ -121,6 +112,161 @@ function funcLoginAction () {
 			}
 		})
 	});
+}
+
+// 아이디 찾기 함수
+function funcFinduserId () {
+	// 뒤로가기 (로그인 파트로)
+	$('.my-find-part #toLoginPart').click(function () {
+		$.ajax({
+			type: 'get',
+			url: '/desktop/member/loginForm',
+			dataType: 'html',
+			success: function (html, status) {
+				innerModalContent.innerHTML = html;
+				//$('#btnShowModal').trigger('click');
+				
+				funcLoginAction();
+			}
+		});
+	});
+	
+	// 아이디 찾기 액션
+	$('.my-find-part #findIdForm #btnFindId').click(function () {
+		var userName = $('.my-find-part #findIdForm #userName').val();
+		var receiver = $('.my-find-part #findIdForm #receiver').val();
+		
+		if (userName != '') {
+			if (receiver != '') {
+				var params = $('.my-find-part #findIdForm').serialize();
+				$.ajax({
+					type: 'post',
+					url: '/desktop/email/findIdAction',
+					data: params,
+					dataType: 'text',
+					success: function (text) {
+						if (text == '1') { // 성공
+							alert('메일 발송을 완료했습니다. 확인 후 로그인 하십시오');
+
+							$.ajax({
+								type: 'get',
+								url: '/desktop/member/loginForm',
+								dataType: 'html',
+								success: function (html, status) {
+									innerModalContent.innerHTML = html;
+									//$('#btnShowModal').trigger('click');
+									
+									funcLoginAction();
+								}
+							});
+						} else if (text == '0') { // 서버 실패
+							alert('메일 발송에 실패했습니다. 관리자에게 문의하십시오');
+
+							$.ajax({
+								type: 'get',
+								url: '/desktop/member/loginForm',
+								dataType: 'html',
+								success: function (html, status) {
+									innerModalContent.innerHTML = html;
+									//$('#btnShowModal').trigger('click');
+									
+									funcLoginAction();
+								}
+							});
+						} else if (text == '2') { // 일치 정보 없음
+							alert('입력하신 정보에 해당하는 계정이 존재하지 않습니다.\n확인 후 다시 시도하세요');
+
+							$('.my-find-part #findIdForm #userName').focus();
+							$('.my-find-part #findIdForm #userName').select();
+						}
+					}
+				});
+			} else {
+				alert('이메일을 입력하세요');
+				$('.my-find-part #findIdForm #receiver').focus();
+				$('.my-find-part #findIdForm #receiver').select();
+			}
+		} else {
+			alert('이름을 입력하세요');
+			$('.my-find-part #findIdForm #userName').focus();
+			$('.my-find-part #findIdForm #userName').select();
+		}
+	});
+}
+
+// 비밀번호 찾기 함수
+function funcFinduserPwd () {
+	// 뒤로가기 (로그인 파트로)
+	$('.my-find-part #toLoginPart').click(function () {
+		$.ajax({
+			type: 'get',
+			url: '/desktop/member/loginForm',
+			dataType: 'html',
+			success: function (html, status) {
+				innerModalContent.innerHTML = html;
+				//$('#btnShowModal').trigger('click');
+				
+				funcLoginAction();
+			}
+		});
+	});
+	
+	// 비밀번호 찾기 액션
+	/*$('.my-find-part #findIdForm #btnFindId').click(function () {
+		var userName = $('.my-find-part #findIdForm #userName').val();
+		var receiver = $('.my-find-part #findIdForm #receiver').val();
+		
+		if (userName != '') {
+			if (receiver != '') {
+				var params = $('.my-find-part #findPwdAction').serialize();
+				$.ajax({
+					type: 'post',
+					url: '/desktop/email/findId',
+					data: params,
+					dataType: 'text',
+					success: function (text) {
+						if (text == '1') {
+							alert('메일 발송을 완료했습니다. 확인 후 로그인 하십시오');
+
+							$.ajax({
+								type: 'get',
+								url: '/desktop/member/loginForm',
+								dataType: 'html',
+								success: function (html, status) {
+									innerModalContent.innerHTML = html;
+									//$('#btnShowModal').trigger('click');
+									
+									funcLoginAction();
+								}
+							});
+						} else {
+							alert('메일 발송에 실패했습니다. 관리자에게 문의하십시오');
+
+							$.ajax({
+								type: 'get',
+								url: '/desktop/member/loginForm',
+								dataType: 'html',
+								success: function (html, status) {
+									innerModalContent.innerHTML = html;
+									//$('#btnShowModal').trigger('click');
+									
+									funcLoginAction();
+								}
+							});
+						}
+					}
+				});
+			} else {
+				alert('이메일을 입력하세요');
+				$('.my-find-part #findIdForm #receiver').focus();
+				$('.my-find-part #findIdForm #receiver').select();
+			}
+		} else {
+			alert('이름을 입력하세요');
+			$('.my-find-part #findIdForm #userName').focus();
+			$('.my-find-part #findIdForm #userName').select();
+		}
+	});*/
 }
 
 /*

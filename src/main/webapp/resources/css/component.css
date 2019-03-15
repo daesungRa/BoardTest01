@@ -344,6 +344,49 @@
 }
 
 /*
+ * 아이디 찾기, 비번 찾기
+ */
+#findIdBody {
+	padding: 70px 60px 70px 60px;
+	border: 1px solid #bdbdbd;
+	border-radius: 20px;
+}
+#findIdBody * {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+#findPwdBody {
+	padding: 70px 60px 70px 60px;
+	border: 1px solid #bdbdbd;
+	border-radius: 20px;
+}
+#findPwdBody * {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.my-find-part label {
+	font-size: 16pt;
+	margin-bottom: -10px;
+}
+.my-find-part input {
+	margin-bottom: 5px;
+}
+.my-find-part .findDesc {
+	font-size: 10pt;
+}
+.my-find-part #toLoginPart {
+	float: right;
+	font-size: 8pt;
+	text-decoration: none;
+	border-bottom: 1px solid black;
+}
+.my-find-part #toLoginPart:hover {
+	color: #8a8a8a;
+	border-bottom: 1px solid #8a8a8a;
+	cursor: pointer;
+}
+
+/*
  * joinForm style
  */
  #joinForm {
