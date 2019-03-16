@@ -19,6 +19,7 @@
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
 	<script src='/desktop/resources/js/index.js'></script>
+	<script src='/desktop/resources/js/member.js'></script>
 	<script src='/desktop/resources/js/boardListPage.js'></script>
 	<script src='/desktop/resources/js/component.js'></script>
 </head>

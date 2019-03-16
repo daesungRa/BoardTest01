@@ -96,7 +96,8 @@
 						<c:when test='${not empty requestScope.bdvoList and fn:length(requestScope.bdvoList) > 0 }'>
 							<c:forEach var="bdvo" items="${bdvoList }" >
 								<div class='row my-adminList-row' data-toggle='tooltip' data-placement='right' title='해당 게시글 보기'>
-									<div class='col-md-1' id='newBoardSerial'>${bdvo.serial }</div>
+									<div class='col-md-1' id='myBoardSerial'>${bdvo.serial }</div>
+									<div class='col-md-1' id='myBoardCategory' style='display: none;'>${bdvo.category }</div>
 									<div class='col-md-3'>${bdvo.title }</div>
 									<div class='col-md-2'>${bdvo.userId }</div>
 									<div class='col-md-4'>[${bdvo.category }] ${bdvo.hit }

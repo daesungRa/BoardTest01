@@ -153,4 +153,13 @@ $(function () {
 			}
 		});
 	});
+	
+	// 선택한 게시글로 이동
+	$('#newBoardListBody .my-adminList-row').click(function () {
+		var serial = $(this).find('#myBoardSerial').text();
+		var category = $(this).find('#myBoardCategory').text();
+		var requestUrl = '/desktop/board/boardViewPage/' + serial + '/' + category;
+		
+		location.href = requestUrl;
+	});
 });

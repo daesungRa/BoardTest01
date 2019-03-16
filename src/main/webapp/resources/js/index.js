@@ -87,6 +87,9 @@ $(function () {
 		// 로그아웃
 	$('#logoutAnc').click(function(){
 		location.href ='/desktop/member/logout';
+		$.ajax({
+			
+		});
 	});
 	
 	// 회원정보 조회

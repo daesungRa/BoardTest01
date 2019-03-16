@@ -100,6 +100,7 @@
 				</div>
 				<div class='form-group'>
 					<input class='btn btn-primary' type='button' id='showModifyPage' name='showModifyPage' value='정보 수정' />
+					<!-- <input class='btn btn-primary' type='button' id='btnChangePwd' name='btnChangePwd' value='비밀번호 변경' /> -->
 					<input class='btn btn-primary' type='button' id='btnMemberLeave' name='btnMemberLeave' value='회원 탈퇴' />
 				</div>
 				<div class='form-group' id='hiddenVal'>
