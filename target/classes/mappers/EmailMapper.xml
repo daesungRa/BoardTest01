@@ -10,4 +10,24 @@
 			FROM DMEMBER
 			WHERE userName = #{userName} AND email = #{email}
 	</select>
+	<!-- find pwd -->
+	<select id='findPwd' parameterType='com.daesungra.domain.MemberVo' resultType='java.lang.String'>
+		SELECT userPwd
+			FROM DMEMBER
+			WHERE userId = #{userId} AND userName = #{userName} AND email = #{email}
+	</select>
+	
+	<!-- update salt data -->
+	<update id='updateSaltData' parameterType='com.daesungra.domain.MemberSaltVo'>
+		UPDATE DMEMBER_SALT
+			SET saltData = #{saltData}
+			WHERE userId = #{userId}
+	</update>
+	
+	<!-- update pwd -->
+	<update id='updatePwd' parameterType='com.daesungra.domain.MemberVo'>
+		UPDATE DMEMBER
+			SET userPwd = #{userPwd}
+			WHERE userId = #{userId} AND userName = #{userName} AND email = #{email}
+	</update>
 </mapper>

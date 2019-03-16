@@ -212,61 +212,66 @@ function funcFinduserPwd () {
 	});
 	
 	// 비밀번호 찾기 액션
-	/*$('.my-find-part #findIdForm #btnFindId').click(function () {
-		var userName = $('.my-find-part #findIdForm #userName').val();
-		var receiver = $('.my-find-part #findIdForm #receiver').val();
+	$('.my-find-part #findPwdForm #btnFindPwd').click(function () {
+		var userId = $('.my-find-part #findPwdForm #userId').val();
+		var userName = $('.my-find-part #findPwdForm #userName').val();
+		var receiver = $('.my-find-part #findPwdForm #receiver').val();
 		
-		if (userName != '') {
-			if (receiver != '') {
-				var params = $('.my-find-part #findPwdAction').serialize();
-				$.ajax({
-					type: 'post',
-					url: '/desktop/email/findId',
-					data: params,
-					dataType: 'text',
-					success: function (text) {
-						if (text == '1') {
-							alert('메일 발송을 완료했습니다. 확인 후 로그인 하십시오');
+		if (userId != '') {
+			if (userName != '') {
+				if (receiver != '') {
+					var params = $('.my-find-part #findPwdForm').serialize();
+					$.ajax({
+						type: 'post',
+						url: '/desktop/email/findPwdAction',
+						data: params,
+						dataType: 'text',
+						success: function (text) {
+							if (text == '1') {
+								alert('메일 발송을 완료했습니다. 확인 후 로그인 하십시오');
 
-							$.ajax({
-								type: 'get',
-								url: '/desktop/member/loginForm',
-								dataType: 'html',
-								success: function (html, status) {
-									innerModalContent.innerHTML = html;
-									//$('#btnShowModal').trigger('click');
-									
-									funcLoginAction();
-								}
-							});
-						} else {
-							alert('메일 발송에 실패했습니다. 관리자에게 문의하십시오');
+								$.ajax({
+									type: 'get',
+									url: '/desktop/member/loginForm',
+									dataType: 'html',
+									success: function (html, status) {
+										innerModalContent.innerHTML = html;
+										
+										funcLoginAction();
+									}
+								});
+							} else {
+								alert('메일 발송에 실패했습니다. 관리자에게 문의하십시오');
 
-							$.ajax({
-								type: 'get',
-								url: '/desktop/member/loginForm',
-								dataType: 'html',
-								success: function (html, status) {
-									innerModalContent.innerHTML = html;
-									//$('#btnShowModal').trigger('click');
-									
-									funcLoginAction();
-								}
-							});
+								$.ajax({
+									type: 'get',
+									url: '/desktop/member/loginForm',
+									dataType: 'html',
+									success: function (html, status) {
+										innerModalContent.innerHTML = html;
+										
+										funcLoginAction();
+									}
+								});
+							}
 						}
-					}
-				});
+					});
+				} else {
+					alert('이메일을 입력하세요');
+					$('.my-find-part #findPwdForm #receiver').focus();
+					$('.my-find-part #findPwdForm #receiver').select();
+				}
 			} else {
-				alert('이메일을 입력하세요');
-				$('.my-find-part #findIdForm #receiver').focus();
-				$('.my-find-part #findIdForm #receiver').select();
+				alert('이름을 입력하세요');
+				$('.my-find-part #findPwdForm #userName').focus();
+				$('.my-find-part #findPwdForm #userName').select();
 			}
 		} else {
-			alert('이름을 입력하세요');
-			$('.my-find-part #findIdForm #userName').focus();
-			$('.my-find-part #findIdForm #userName').select();
+			alert('아이디를 입력하세요');
+			$('.my-find-part #findPwdForm #userId').focus();
+			$('.my-find-part #findPwdForm #userId').select();
 		}
-	});*/
+	});
 }
 
 /*

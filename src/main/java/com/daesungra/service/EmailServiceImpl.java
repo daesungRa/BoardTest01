@@ -19,5 +19,13 @@ public class EmailServiceImpl implements EmailService {
 		
 		return result;
 	}
+	
+	@Override
+	public String findPwdAction(MemberVo mbvo) {
+		String result = "";
+		result = emailDao.selectUserPwd(mbvo);
+		
+		return result;
+	}
 
 }

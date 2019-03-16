@@ -18,7 +18,7 @@
 <body>
 
 	<!-- middle component -->
-	<div class='container' style='height: 720px;'>
+	<div class='container' id='joinFormBody' style='height: 720px;'>
 		<br/>
 		<div class='container' id='joinForm'>
 			<div class='container' style='width: 90%; margin: 0 auto; text-align: center;'>
@@ -73,8 +73,8 @@
 			</div>
 		</div>
 		<div class='container' id='memberImg'>
-			<img id='image' src='https://via.placeholder.com/150x200?text=Your Imgs here' width='150px' height='200px' /><br/>
-			<p>이미지 미리보기</p>
+			<img id='image' src='/desktop/resources/imgs/blank_profile01.png' width='150px' height='150px' /><br/>
+			<p style='margin-top: 10px;'>이미지 미리보기</p>
 		</div>
 	</div>
 	
