@@ -41,6 +41,9 @@ public class GetHashedData {
 	    	md = MessageDigest.getInstance("SHA-512"); // 알고리즘 적용
 			md.update(str.getBytes("UTF-8")); // 인코딩 설정 후 입력받은 문자열을 바이트 배열로 변환하여 적용
 			bytes = md.digest();
+			for (int i = 0; i < bytes.length; i++) {
+				System.out.println("getHashed64Bytes - " + i + " : " + bytes[i]);
+			}
 	    } catch (NoSuchAlgorithmException nae) { // 알고리즘 없을 시
 	    	nae.printStackTrace();
 		} catch (UnsupportedEncodingException uee) { // 인코딩 에러
@@ -50,7 +53,7 @@ public class GetHashedData {
 	    return bytes;
 	}
 	
-	// SecureRandom 난수 생성기를 이용해 128 자리의 랜덤 바이트 배열 생성 후 반환
+	// SecureRandom 난수 생성기를 이용해 64 자리의 랜덤 바이트 배열 생성 후 반환
 	// 알고리즘은 SHA1PRNG
 	private static byte[] getRandom64Bytes () {
 		byte[] bytes = null;
@@ -58,6 +61,9 @@ public class GetHashedData {
 		try {
 			SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
 			bytes = random.generateSeed(64);
+			for (int i = 0; i < bytes.length; i++) {
+				System.out.println("getRandom64Bytes - " + i + " : " + bytes[i]);
+			}
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -74,7 +80,9 @@ public class GetHashedData {
 	    	try {
 			    for (int i = 0; i < bytes.length; i++) {
 			        hashCodeBuffer.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+					System.out.println("getHashedStringFromBytes - " + i + " : " + hashCodeBuffer.toString());
 			    }
+				System.out.println("최종 getHashedStringFromBytes : " + hashCodeBuffer.toString());
 	    	} catch (Exception ex) {
 	    		ex.printStackTrace();
 	    	}

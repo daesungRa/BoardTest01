@@ -250,10 +250,21 @@
 }
 
 /*
+ * guide button
+ */
+.my-btn-guide {
+	position: fixed;
+	width: 60px;
+	right: 50px;
+	bottom: 136px;
+}
+
+/*
  * report icon
  */
 #reportIcon {
 	position: fixed;
+	width: 60px;
 	right: 50px;
 	bottom: 136px;
 }
@@ -263,6 +274,7 @@
  */
 .my-btn-toTop {
 	position: fixed;
+	width: 60px;
 	right: 50px;
 	bottom: 96px;
 }

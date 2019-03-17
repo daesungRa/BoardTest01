@@ -17,10 +17,19 @@
 /*
  * article style
  */
+#article #introducePart {
+	width: 90%;
+	margin: 0 auto;
+}
 .my-index-article {
 	
 }
 .my-index-article .my-index-article-row {
+	height: 500px;
+	text-align: center;
+	/* border: 1px solid blue; */
+}
+.my-index-article-detail .my-index-article-row {
 	height: 500px;
 	text-align: center;
 	/* border: 1px solid blue; */
@@ -32,7 +41,15 @@
 	padding-top: 110px;
 	/* border: 1px solid black; */
 }
+.my-index-article-detail .my-index-article-row > div {
+	
+}
 .my-index-article .my-index-article-row > div:hover {
+	background-color: #eee;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	cursor: pointer;
+}
+.my-index-article-detail .my-index-article-row > div:hover {
 	background-color: #eee;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	cursor: pointer;
@@ -40,26 +57,39 @@
 .my-index-article .my-index-article-row span {
 	font-family: 'Nanum Gothic', sans-serif;
 }
-.my-index-article .introImg {
-	width: 110px;
-	height: 110px;
-	border-radius: 60px;
+.my-index-article-detail .my-index-article-row span {
+	font-family: 'Nanum Gothic', sans-serif;
 }
-.my-index-article #bookImg-left {
+.my-index-article .introImg {
+	width: 160px;
+	height: 130px;
+	border: 1px solid #ababab;
+	border-radius: 120px;
+}
+.my-index-article-detail {
+	background-color: #fff;
+	border-left: 1px solid #dfdfdf;
+	border-right: 1px solid #dfdfdf;
+}
+.my-index-article-detail #bookImg-left {
 	background: url('/desktop/resources/imgs/sample/book-share02.jpg') no-repeat;
 	background-size: cover;
 }
-.my-index-article #communication-right {
+.my-index-article-detail #communication-right {
 	background: url('/desktop/resources/imgs/communication03.jpg') no-repeat;
 	background-size: cover;
 }
-.my-index-article #encryption-left {
+.my-index-article-detail #encryption-left {
 	background: url('/desktop/resources/imgs/security01.jpg') no-repeat;
+	background-size: cover;
+}
+.my-index-article-detail #authority-right {
+	background: url('/desktop/resources/imgs/admin02.jpg') no-repeat;
 	background-size: cover;
 }
 /* dev part */
 .my-index-article-dev .my-index-article-row {
-	height: 500px;
+	height: 800px;
 	text-align: center;
 	/* border: 1px solid blue; */
 }
@@ -73,8 +103,8 @@
 .my-index-article-dev .my-index-article-row span {
 	font-family: 'Nanum Gothic', sans-serif;
 }
-.my-index-article-dev .introImg {
-	width: 110px;
-	height: 110px;
-	border-radius: 60px;
+.my-index-article-dev .dev-img {
+	width: 270px;
+	height: 500px;
+	border-radius: 100px;
 }

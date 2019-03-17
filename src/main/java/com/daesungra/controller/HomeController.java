@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -23,8 +25,12 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value="/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model, HttpServletRequest request) {
 		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("current context path: " + request.getContextPath());
+		logger.info("current servletContext context path: " + request.getSession().getServletContext().getContextPath());
+		logger.info("current servletContext get real path: " + request.getSession().getServletContext().getRealPath("/"));
+		logger.info("current servletContext get real path (/resources/imgs): " + request.getSession().getServletContext().getRealPath("/resources/imgs"));
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);

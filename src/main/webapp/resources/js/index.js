@@ -160,6 +160,15 @@ $(function () {
 	$('#introducePart #introPart-right').click(function () {
 		funcMovePage('encryptionPart');
 	});
+	$('#introducePart #introPart-end').click(function () {
+		funcMovePage('authorityPart');
+	});
+	
+	// guide button
+	$('body .my-btn-guide').click(function () {
+		// 모달에 가이드 출력
+		alert('guide');
+	});
 });
 
 /*
