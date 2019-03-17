@@ -140,25 +140,100 @@
 			</div>
 		</div>
 		
-		<div class='container my-index-article-dev' id='devPart'>
+		<div class='container-fluid my-index-article-dev' id='devPart'>
 			<div class='row my-index-article-row'>
 				<span class='col-md-2' id='dev-left'></span>
 				<div class='col-md-4' id='dev-centerImg' style='text-align: right; padding: 120px 60px 0 0; /* border: 1px solid black; */'>
 					<img src='/desktop/resources/imgs/my-img01.jpg' class='dev-img' id='dev-img' alt='dev-img' /><br/><br/>
 				</div>
-				<div class='col-md-6' id='dev-centerIntro' style='text-align: left; padding: 200px 0 0 60px; /* border: 1px solid black; */'>
+				<div class='col-md-6' id='dev-centerIntro' style='text-align: left; padding: 160px 0 0 40px; /* border: 1px solid black; */'>
 					<div class='container-fluid'>
 						<span style='font-size: 24pt;'>개발자 소개</span><br/><br/><br/>
-						<span style='font-size: 12pt;'><span style='font-size: 14pt; font-weight: bolder;'>누구?</span>&nbsp;&nbsp;민초와 노래를 사랑하는 개발자</span><br/><br/>
-						<span style='font-size: 12pt;'><span style='font-size: 14pt; font-weight: bolder;'>발자취</span>&nbsp;&nbsp;</span><br/><br/>
-						<span style='font-size: 12pt;'><span style='font-size: 14pt; font-weight: bolder;'>목표!</span>&nbsp;&nbsp;최고는 아니어도 기술적으로 인정받는 사람 되기</span>
+						<div class='row' style='margin-bottom: 20px;'>
+							<div class='col-md-2'>
+								<span style='font-size: 13pt; font-weight: bolder;'>누구?</span>
+							</div>
+							<div class='col-md-10'>
+								<span style='font-size: 12pt;'>민초와 노래를 사랑하는 개발자</span>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='col-md-2'>
+								<span style='font-size: 13pt; font-weight: bolder;'>발자취</span>
+							</div>
+							<div class='col-md-4'>
+								<span style='font-size: 10pt;'>~ 2016.03</span>
+							</div>
+							<div class='col-md-6'>
+								<span style='font-size: 10pt;'>충남대 환경소재공학과 재학</span>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='col-md-2'>
+							</div>
+							<div class='col-md-4'>
+								<span style='font-size: 10pt;'>2016.03 ~ 2018.08</span>
+							</div>
+							<div class='col-md-6'>
+								<span style='font-size: 10pt;'>충북대 사회학과 편입 후 졸업</span>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='col-md-2'>
+							</div>
+							<div class='col-md-4'>
+								<span style='font-size: 10pt;'>2018.07 ~ 2018.11<br/></span><br/>
+							</div>
+							<div class='col-md-6'>
+								<span style='font-size: 10pt;'>c 언어 기초 독학 후</span><br/>
+								<span style='font-size: 10pt;'>본격적으로 자바 공부 돌입</span>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='col-md-2'>
+							</div>
+							<div class='col-md-4'>
+								<span style='font-size: 10pt;'>2018.07 ~ 2018.12</span><br/>
+							</div>
+							<div class='col-md-6'>
+								<span style='font-size: 10pt;'>정보처리기사 취득</span>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='col-md-2'>
+							</div>
+							<div class='col-md-4'>
+								<span style='font-size: 10pt;'>2018.12 ~ </span><br/>
+							</div>
+							<div class='col-md-6'>
+								<span style='font-size: 10pt;'>중앙 HTA 국비교육 수강중<br/>(~ 19.05 수료예정)</span>
+							</div>
+						</div>
+						<div class='row' style='margin-bottom: 20px;'>
+							<div class='col-md-2'>
+							</div>
+							<div class='col-md-4'>
+								<span style='font-size: 10pt;'>2019.02 ~ </span><br/>
+							</div>
+							<div class='col-md-6'>
+								<span style='font-size: 10pt;'>개인 포트폴리오 웹사이트 제작중</span>
+							</div>
+						</div>
+						<div class='row' style='margin-bottom: 20px;'>
+							<div class='col-md-2'>
+								<span style='font-size: 13pt; font-weight: bolder;'>목표!</span>
+							</div>
+							<div class='col-md-10'>
+								<span style='font-size: 12pt;'>최고는 아니어도 기술적으로 인정받는 사람 되기</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</article>
 	
-	<!-- alert -->
+	<!-- guide -->
 	<a class='btn btn-secondary my-btn-guide' href='#' style='z-index: 1;'>Help</a>
 	
 	<!-- button for to-top -->

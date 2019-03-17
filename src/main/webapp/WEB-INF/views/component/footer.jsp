@@ -11,7 +11,7 @@
 
 	<div id="sticky-footer" class="page-footer py-4 bg-dark text-white-50 my-footer" style='position: absolute; bottom: 0; width: 100%;'>
 		<div class="container text-center" id='container-footer'>
-			<small class='intro' style='font-size: 12pt;'>- 신입 개발자 라대성의 포트폴리오 사이트입니다 -</small><br/>
+			<small class='intro' style='font-size: 12pt;'>/ 신입 개발자 라대성의 포트폴리오 사이트입니다 /</small><br/>
 			<small class='intro'>----------------------------------------</small><br/>
 			<small class='intro'>개발자 : 라대성</small><br/>
 			<small class='intro'>개발 기간 : 2019.02.02 (sat) ~ 2019.03. (1차 완료)</small><br/>
