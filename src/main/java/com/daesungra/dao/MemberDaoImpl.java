@@ -125,8 +125,9 @@ public class MemberDaoImpl implements MemberDao{
 	// - memberUpdate -
 	// 회원정보 수정에 사용됨 (memberModify)
 	@Override
-	public boolean memberUpdate (MemberVo vo) {
+	public boolean memberUpdate (HttpServletRequest request, MemberVo vo) {
 		boolean result = false;
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/imgs/memberImg/");
 		String userId = vo.getUserId();
 		String hashedPwd = "";
 		String delFileName = "";
@@ -159,8 +160,7 @@ public class MemberDaoImpl implements MemberDao{
 			result = true;
 			
 			if (delFileName != null && !delFileName.equals("")) { // 삭제할 기존 파일명이 있고
-				File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
-										+ delFileName.substring(delFileName.lastIndexOf("/") + 1, delFileName.length()));
+				File file = new File(realPath + delFileName.substring(delFileName.lastIndexOf("/") + 1, delFileName.length()));
 				if (file.exists()) { // 실제 경로에도 존재한다면 삭제
 					file.delete();
 					logger.info("[member update] 기존 파일 삭제");
@@ -168,8 +168,7 @@ public class MemberDaoImpl implements MemberDao{
 			}
 		} else if (!vo.getPhoto().equals(sqlSession.selectOne("member.getPhoto", userId))) { // 업데이트 실패시 업로드 하려던 파일 삭제
 			logger.info("[member update] 회원정보 업데이트 실패");
-			File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
-										+ vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
+			File file = new File(realPath + vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
 			if (file.exists()) { // 경로에 새롭게 업로드되었던 파일 삭제
 				file.delete();
 				logger.info("[member update] 업로드 하려던 파일 삭제");
@@ -181,8 +180,9 @@ public class MemberDaoImpl implements MemberDao{
 	
 	// 회원 프로필 수정 (최초생성은 join 시 이루어짐)
 	@Override
-	public boolean profileUpdate (MemberVo vo) {
+	public boolean profileUpdate (HttpServletRequest request, MemberVo vo) {
 		boolean result = false;
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/imgs/memberImg/");
 		String userId = vo.getUserId();
 		String delFileName = "";
 		
@@ -209,8 +209,7 @@ public class MemberDaoImpl implements MemberDao{
 					result = true; // 리턴값 세팅
 					
 					if (delFileName != null && !delFileName.equals("")) { // 삭제할 기존 파일명이 있고
-						File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
-												+ delFileName.substring(delFileName.lastIndexOf("/") + 1, delFileName.length()));
+						File file = new File(realPath + delFileName.substring(delFileName.lastIndexOf("/") + 1, delFileName.length()));
 						if (file.exists()) { // 실제 경로에도 존재한다면 삭제
 							file.delete();
 							logger.info("[profile update] 기존 파일 삭제 성공");
@@ -219,8 +218,7 @@ public class MemberDaoImpl implements MemberDao{
 				}
 			} else { // 업데이트 실패시 업로드 하려던 파일 삭제
 				logger.info("[profile update] 프로필 업데이트 실패");
-				File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
-											+ vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
+				File file = new File(realPath + vo.getPhoto().substring(vo.getPhoto().lastIndexOf("/") + 1, vo.getPhoto().length()));
 				if (file.exists()) { // 경로에 새롭게 업로드되었던 파일 삭제
 					file.delete();
 					logger.info("[profile update] 업로드 하려던 파일 삭제");
@@ -237,6 +235,7 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public boolean memberDelete (HttpServletRequest request) {
 		boolean result = false;
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/imgs/memberImg/");
 		MemberVo vo = new MemberVo();
 		String userId = (String) request.getSession().getAttribute("userId");
 		String hashedPwd = "";
@@ -265,13 +264,14 @@ public class MemberDaoImpl implements MemberDao{
 		if (updateResult > 0) { // 해당 유저의 isDelete 컬럼 데이터를 "1" 로 업데이트 성공시
 			result = true;
 			
-			if (delFileName != null && !delFileName.equals("")) { // 삭제할 파일명이 있고
-				File file = new File("D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/"
-										+ delFileName.substring(delFileName.lastIndexOf("/") + 1, delFileName.length()));
+			// update 이므로 파일 삭제하지는 않음!
+			// 추후 진짜 탈퇴 로직에서 삭제할 것
+			/*if (delFileName != null && !delFileName.equals("")) { // 삭제할 파일명이 있고
+				File file = new File(realPath + delFileName.substring(delFileName.lastIndexOf("/") + 1, delFileName.length()));
 				if (file.exists()) { // 실제 경로에도 존재한다면 삭제
 					file.delete();
 				}
-			}
+			}*/
 		}
 		
 		return result;

@@ -26,13 +26,22 @@ public class FileUpload {
 	private String saveDir = "D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/memberImg/";
 	private String saveDirBookInfo = "D://git/DeskTop-portfolio-daesungra/src/main/webapp/resources/imgs/bookAttFiles/";
 	
+	// constructor
+	// 저장 경로를 세팅
+	public FileUpload () {
+		
+	}
+	
 	// 전달받은 요청 객체의 파일을 multipart 인스턴스를 활용해 서버에 저장한 후 (sysFileName)
 	// 오리지널 파일명, 실제 저장 파일명 구분해 vo 객체 생성 후 반환
-	public MemberVo getMemberVo (HttpServletRequest request) {
-		// 지정된 경로의 디렉토리가 없다면 새로 생성
-		File file = new File(saveDir);
+	public MemberVo getMemberVo (HttpServletRequest request) {		
+		// 프로젝트의 실제 절대경로가 존재한다면 그것으로 세팅
+		File file = new File(request.getSession().getServletContext().getRealPath("/resources/imgs"));
 		if (!file.isDirectory()) {
-			file.mkdirs();
+			// 저장 디렉토리 절대경로 설정
+			saveDir = request.getSession().getServletContext().getRealPath("/resources/imgs/memberImg/");
+			saveDirBookInfo = request.getSession().getServletContext().getRealPath("/resources/imgs/bookAttFiles/");
+			System.out.println("[File Upload] 절대경로 지정 완료!");
 		}
 		
 		try {
@@ -171,11 +180,16 @@ public class FileUpload {
 	
 	// 프로파일 수정을 위한 객체생성
 	// 정보는 > nickName, interest, introduce, isPublic (DMEMBER_PROFILE), 그리고 경우에 따라 photo (DMEMBER)
-	public MemberVo getProfileVo (HttpServletRequest request) {
-		// 지정된 경로의 디렉토리가 없다면 새로 생성
-		File file = new File(saveDir);
+	public MemberVo getProfileVo (HttpServletRequest request) {		
+		// 프로젝트의 실제 절대경로가 존재한다면 그것으로 세팅
+		File file = new File(request.getSession().getServletContext().getRealPath("/resources/imgs"));
 		if (!file.isDirectory()) {
-			file.mkdirs();
+			// 저장 디렉토리 절대경로 설정
+			saveDir = request.getSession().getServletContext().getRealPath("/resources/imgs/memberImg/");
+			saveDirBookInfo = request.getSession().getServletContext().getRealPath("/resources/imgs/bookAttFiles/");
+			System.out.println("[File Upload] 절대경로 지정 완료! : " + file.getPath());
+		} else {
+			System.out.println("[File Upload] 절대경로 지정 실패 : " + file.getPath());
 		}
 		
 		try {
@@ -271,11 +285,14 @@ public class FileUpload {
 	
 	// 프로파일 수정을 위한 객체생성
 	// 정보는 > nickName, interest, introduce, isPublic (DMEMBER_PROFILE), 그리고 경우에 따라 photo (DMEMBER)
-	public BookVo getBookVo (HttpServletRequest request) {
-		// 지정된 경로의 디렉토리가 없다면 새로 생성
-		File file = new File(saveDirBookInfo);
+	public BookVo getBookVo (HttpServletRequest request) {		
+		// 프로젝트의 실제 절대경로가 존재한다면 그것으로 세팅
+		File file = new File(request.getSession().getServletContext().getRealPath("/resources/imgs"));
 		if (!file.isDirectory()) {
-			file.mkdirs();
+			// 저장 디렉토리 절대경로 설정
+			saveDir = request.getSession().getServletContext().getRealPath("/resources/imgs/memberImg/");
+			saveDirBookInfo = request.getSession().getServletContext().getRealPath("/resources/imgs/bookAttFiles/");
+			System.out.println("[File Upload] 절대경로 지정 완료!");
 		}
 		
 		try {

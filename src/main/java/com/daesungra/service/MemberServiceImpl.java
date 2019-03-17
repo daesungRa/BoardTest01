@@ -125,9 +125,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 회원정보 수정
 	@Override
-	public boolean memberModify (MemberVo vo) {
+	public boolean memberModify (HttpServletRequest request, MemberVo vo) {
 		boolean result = false;
-		result = dao.memberUpdate(vo);
+		result = dao.memberUpdate(request, vo);
 		
 		return result;
 	}
@@ -135,9 +135,9 @@ public class MemberServiceImpl implements MemberService {
 	// 프로필 수정 (비공개는 isPublic = '0')
 	// 회원정보 삭제 시 cascade
 	@Override
-	public boolean profileModify (MemberVo vo) {
+	public boolean profileModify (HttpServletRequest request, MemberVo vo) {
 		boolean result = false;
-		result = dao.profileUpdate(vo);
+		result = dao.profileUpdate(request, vo);
 		
 		return result;
 	}

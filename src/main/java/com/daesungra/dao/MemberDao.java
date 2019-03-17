@@ -22,8 +22,8 @@ public interface MemberDao {
 	public boolean memberInsert (MemberVo vo);
 	
 	// update
-	public boolean memberUpdate (MemberVo vo);
-	public boolean profileUpdate (MemberVo vo);
+	public boolean memberUpdate (HttpServletRequest request, MemberVo vo);
+	public boolean profileUpdate (HttpServletRequest request, MemberVo vo);
 	
 	// delete
 	public boolean memberDelete (HttpServletRequest request);

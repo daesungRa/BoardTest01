@@ -248,7 +248,7 @@ public class MemberController {
 		MemberVo vo = fileUpload.getMemberVo(request);
 		
 		if (vo != null) {
-			modifyResult = service.memberModify(vo);
+			modifyResult = service.memberModify(request, vo);
 			
 			if (modifyResult) { // 성공했다면 result 를 "1" 로 초기화
 				logger.info("modify 성공");
@@ -281,7 +281,7 @@ public class MemberController {
 		
 		if (vo != null) {
 			vo.setUserId((String) request.getSession().getAttribute("userId"));
-			modifyResult = service.profileModify(vo);
+			modifyResult = service.profileModify(request, vo);
 			
 			if (modifyResult) { // 성공했다면 result 를 "1" 로 초기화
 				logger.info("profile modify 성공");
