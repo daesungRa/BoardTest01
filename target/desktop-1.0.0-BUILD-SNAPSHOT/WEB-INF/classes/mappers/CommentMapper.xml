@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment">
+
+	<!-- select list -->
+	<select id="getCommentList" parameterType="map" resultType="com.daesungra.domain.CommentVo">
+		SELECT * FROM (
+			SELECT ROWNUM rno, s.* FROM (
+				SELECT cmt.serial serial,cmt.userId userId, cmt.content content, cmt.gSerial gSerial, cmt.pSerial pSerial, cmt.depth depth, cmt.indent indent, to_char(cmt.cDate, 'YY.MM.DD HH24:MI:SS') cDate, cmt.isDelete isDelete, cmt.fSerial fSerial,
+						mem.photo photo
+					FROM DBOARD_COMMENT cmt JOIN DMEMBER mem
+					ON cmt.userId = mem.userId
+					WHERE cmt.fSerial = #{fSerial} AND cmt.isDelete = 0
+					ORDER BY cmt.gSerial asc, cmt.depth asc
+			) s
+		) WHERE rno BETWEEN #{startNo} AND #{endNo}
+	</select>
+	<select id="commentListPagenation" parameterType="map" resultType="int">
+		SELECT COUNT(*) cnt
+			FROM DBOARD_COMMENT
+			WHERE fSerial = #{fSerial} AND isDelete = 0
+	</select>
+	
+	<!-- comment insert -->
+	<insert id="commentInsert" parameterType='com.daesungra.domain.CommentVo'>
+		INSERT INTO DBOARD_COMMENT (SERIAL, FSERIAL, DELFSERIAL, USERID, DELUSERID, ISDELETE, CONTENT,
+				GSERIAL, PSERIAL, DEPTH, INDENT, CDATE)
+			VALUES (SEQ_DBOARDCOMMENT.NEXTVAL, #{fSerial}, #{fSerial}, #{userId}, #{userId}, 0, #{content},
+				<choose>
+					<when test='gSerial == null or gSerial == 0'>
+						SEQ_DBOARDCOMMENT.CURRVAL, 0, 0, 0, SYSDATE)
+					</when>
+					<when test='gSerial > 0'>
+						#{gSerial}, #{gSerial}, (SELECT COUNT(*) FROM DBOARD_COMMENT WHERE gSerial = #{gSerial}), 1, SYSDATE)
+					</when>
+				</choose>
+	</insert>
+	
+	<!-- comment delete -->
+	<update id='commentDelete' parameterType='com.daesungra.domain.CommentVo'>
+		UPDATE DBOARD_COMMENT SET isDelete = 1
+			WHERE serial = #{serial} AND userId = #{userId}
+	</update>
+	
+</mapper>
